@@ -31,7 +31,7 @@ console.log(`[info] ${items.length} thẻ${CAT ? " (chủ đề " + CAT + ")" : 
 
 /* ----Style chung ---- */
 const STYLE = "kawaii flat vector sticker illustration, thick rounded outlines, soft pastel sakura pink and cream color palette, minimalist japanese stationery style, centered composition, plain cream background, no text, no watermark";
-const fileOf = (id) => path.join(IMG, `${id}_001.jpg`);
+const fileOf = (id) => (fs.existsSync(path.join(IMG, `${id}_001.webp`)) ? path.join(IMG, `${id}_001.webp`) : path.join(IMG, `${id}_001.jpg`));
 const has = (id) => fs.existsSync(fileOf(id));
 
 /* ---- quota: chỉ đọc trạng thái tài khoản, KHÔNG tốn quota sinh ảnh ---- */
@@ -107,6 +107,6 @@ for (const it of queue) {
 
 /* ---- Bước 3: override.js ---- */
 const map = {};
-for (const id of items.map((i) => i.id)) if (has(id)) map[id] = `img/${id}_001.jpg`;
+for (const id of items.map((i) => i.id)) if (has(id)) map[id] = `img/${path.basename(fileOf(id))}`;
 fs.writeFileSync(path.join(IMG, "override.js"), "window.IMG_OVERRIDE = " + JSON.stringify(map, null, 1) + ";\n");
 console.log(`[done] mới sinh ${made}, thất bại ${fail} · override.js có ${Object.keys(map).length}/${items.length} ảnh · tổng thiếu còn ${queue.length - made}`);
