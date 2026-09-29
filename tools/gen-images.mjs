@@ -109,4 +109,13 @@ for (const it of queue) {
 const map = {};
 for (const id of items.map((i) => i.id)) if (has(id)) map[id] = `img/${path.basename(fileOf(id))}`;
 fs.writeFileSync(path.join(IMG, "override.js"), "window.IMG_OVERRIDE = " + JSON.stringify(map, null, 1) + ";\n");
+// cache-bust: tăng version trong index.html để trình duyệt tải override.js mới
+const htmlPath = path.join(ROOT, "index.html");
+let html = fs.readFileSync(htmlPath, "utf8");
+const vMatch = html.match(/override\.js\?v=(\d+)/);
+if (vMatch) {
+  html = html.replace(/override\.js\?v=\d+/, "override.js?v=" + (parseInt(vMatch[1], 10) + 1));
+  fs.writeFileSync(htmlPath, html);
+  console.log(`[info] index.html override.js bumped to v=${parseInt(vMatch[1], 10) + 1}`);
+}
 console.log(`[done] mới sinh ${made}, thất bại ${fail} · override.js có ${Object.keys(map).length}/${items.length} ảnh · tổng thiếu còn ${queue.length - made}`);
