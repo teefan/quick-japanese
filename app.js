@@ -45,13 +45,8 @@ CURRICULUM.forEach((day, di) => day.forEach((i) => { ITEM_DAY[i.id] = di; }));
 const TOTAL_DAYS = CURRICULUM.length; // 10
 const dayLevel = (di) => CURRICULUM[di][0].level;
 
-/* Ảnh AI tự tạo (mmx image generate) — ưu tiên hơn emoji. Nhánh mở rộng: img/ */
-const IMG_OVERRIDE = {
-  "vanuong-1": "img/mizu_001.jpg",
-  "vanuong-18": "img/onigiri_001.jpg",
-  "diadiem-10": "img/densha_001.jpg",
-  "dogvat-9": "img/kasa_001.jpg",
-};
+/* Ảnh AI tự tạo — img/override.js do tools/gen-images.mjs sinh ra (ưu tiên hơn emoji) */
+const IMG_OVERRIDE = window.IMG_OVERRIDE || {};
 
 /* ---------------- TRẠNG THÁI ---------------- */
 let store = { users: [], activeUserId: null, unlockAll: false };
