@@ -11,7 +11,7 @@ const INTERVALS = [1, 1, 2, 4, 8, 16]; // ngày, theo box 0..5
 const BOX_MAX = 5;
 const DUE_CAP = 20; // tối đa thẻ ôn mỗi buổi
 
-const ALL_ITEMS = [...PHRASES, ...WORDS]; // 374 thẻ
+const ALL_ITEMS = [...PHRASES, ...WORDS];
 const itemById = (id) => ALL_ITEMS.find((x) => x.id === id);
 const catOf = (item) => (item.kind === "p" ? PHRASE_CATS : VOCAB_CATS).find((c) => c.id === item.cat);
 
@@ -357,7 +357,7 @@ function unitMapHTML(jp) {
 }
 
 /* ---------------- TỪ ĐIỂN LIÊN KẾT TRONG CÂU ----------------
-   Không cần tokenizer nặng: từ điển là tập đóng 300 từ → so khớp dài nhất.
+   Không cần tokenizer nặng: từ điển là tập đóng 302 từ → so khớp dài nhất.
    Động từ/tính từ được sinh thêm biến thể (行く → 行き/行っ) để link cả dạng chia.
    Chữ kanji đơn KHÔNG link khi nằm giữa cụm kanji dài hơn (tránh 本 trong 日本語). */
 const DICT_INDEX = [];
@@ -910,7 +910,7 @@ function renderProgress() {
     { icon: "🌱", name: "Bắt đầu học", won: seen > 0 },
     { icon: "🎴", name: "20 thẻ thuộc lòng", won: mastered >= 20 },
     { icon: "🏯", name: "80 thẻ thuộc lòng", won: mastered >= 80 },
-    { icon: "🗻", name: "374 thẻ — cả kế hoạch!", won: seen >= ALL_ITEMS.length },
+    { icon: "🗻", name: `${ALL_ITEMS.length} thẻ — cả kế hoạch!`, won: seen >= ALL_ITEMS.length },
     { icon: "⚡", name: "200 XP", won: (u.xp || 0) >= 200 },
     { icon: "🔥", name: "Chuỗi 3 ngày", won: (u.streakCount || 0) >= 3 },
     { icon: "⛩️", name: "Chuỗi 7 ngày", won: (u.streakCount || 0) >= 7 },

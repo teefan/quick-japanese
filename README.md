@@ -10,8 +10,8 @@ Một web app **một trang (SPA)** thuần HTML/CSS/JS, **không cần backend,
 
 | Tính năng | Chi tiết |
 |---|---|
-| 🗓️ Kế hoạch 10 ngày | 374 thẻ chia 10 buổi (~32-49 thẻ/buổi, ~10 phút): Ngày 1-5 🌱 Cấp 1 · Ngày 6-8 🌸 Cấp 2 · Ngày 9-10 🌺 Cấp 3. Mỗi buổi = thẻ ôn đến hạn + thẻ mới; bỏ lỡ ngày nào sẽ tự được "bù" vào buổi sau |
-| 🎴 Thẻ ghi nhớ | 74 câu mẫu + 300 từ vựng (mỗi từ có câu ví dụ) · lật thẻ 3D · chấm Lại/Được/Dễ theo thuật toán **lặp lại ngắt quãng** (Leitner 1→16 ngày) |
+| 🗓️ Kế hoạch 10 ngày | 374 thẻ (76 câu + 302 từ) chia 10 buổi (~32-49 thẻ/buổi, ~10 phút): Ngày 1-5 🌱 Cấp 1 · Ngày 6-8 🌸 Cấp 2 · Ngày 9-10 🌺 Cấp 3. Mỗi buổi = thẻ ôn đến hạn + thẻ mới; bỏ lỡ ngày nào sẽ tự được "bù" vào buổi sau |
+| 🎴 Thẻ ghi nhớ | 76 câu mẫu + 302 từ vựng (mỗi từ có câu ví dụ) · lật thẻ 3D · chấm Lại/Được/Dễ theo thuật toán **lặp lại ngắt quãng** (Leitner 1→16 ngày) |
 | 🇻🇳 Đọc kiểu Việt | Mọi câu/từ có phiên âm gần đúng theo chính tả tiếng Việt (こんにちは → *côn-ni-chi-oa*) + 🔊 giọng chuẩn |
 | 🔊 TTS đa nền tảng | Dùng **Web Speech API** nếu máy có giọng Nhật (macOS/iOS/Edge/Windows+cài gói/Android+cài data) — không có thì **tự chuyển giọng trực tuyến** (Google translate_tts, dự phòng VoiceVOX) — kèm phần chẩn đoán + hướng dẫn bật giọng máy ở Cẩm nang |
 | 🔬 Từng chữ → phát âm | Trên mỗi thẻ: bấm 🔬 để xem **mũi tên chỉ phát âm từng chữ** — mỗi kana 1 cột (1 nhịp), cụm kanji đọc trọn từ (từ điển 241 cụm), nhỏ っ = nhấn gấp đôi, ー = kéo dài (kỹ thuật furigana/flexbox per-character) |
@@ -57,7 +57,7 @@ Rồi **Settings → Pages → Deploy from a branch → main / (root) → Save**
 quick-japanese/
 ├── index.html   # màn học chính + menu ☰ + 4 view phụ (Cẩm nang, Trắc nghiệm, Nhóm, Tiến trình)
 ├── app.css      # design system kawaii
-├── data.js      # 74 câu + 300 từ (JP/romaji/đọc-Việt/nghĩa/ví dụ/cấp độ)
+├── data.js      # 76 câu + 302 từ (JP/romaji/đọc-Việt/nghĩa/ví dụ/cấp độ)
 ├── app.js       # kế hoạch 10 ngày, SRS, quiz, nhóm, hồ sơ khách
 └── fonts/       # M PLUS Rounded 1c subset (~100KB/weight, woff2)
 ```
