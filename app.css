@@ -386,6 +386,12 @@ body {
   box-shadow: var(--shadow); transform: rotateY(180deg);
 }
 .fc-cat { position: absolute; top: 14px; left: 14px; background: #fff; border-radius: 999px; font-size: 12px; font-weight: 700; padding: 4px 12px; box-shadow: var(--shadow-sm); }
+.fc-illus { font-size: 46px; line-height: 1.15; margin-bottom: 2px; filter: drop-shadow(0 3px 4px rgba(229, 86, 127, 0.18)); }
+.fc-illus-img {
+  width: 130px; height: 130px; object-fit: cover;
+  clip-path: inset(4% 6% 15% 6% round 20px);
+  background: var(--lemon-soft);
+}
 .fc-front-main { font-size: 27px; font-weight: 900; }
 .fc-hint { position: absolute; bottom: 14px; font-size: 12px; color: var(--ink-soft); }
 .fc-jp { font-size: 36px; font-weight: 900; line-height: 1.25; }

@@ -18,6 +18,7 @@ Một web app **một trang (SPA)** thuần HTML/CSS/JS, **không cần backend,
 | 👥 Nhóm & Bảng vàng | Học khách được tự do; muốn thi đấu thì đặt **tên + số điện thoại** (+ mascot) — tiến trình mang theo nguyên vẹn, xếp hạng XP/thẻ/chuỗi |
 | 📝 Trắc nghiệm | 10 câu từ **bài đã học** hoặc **tất cả đã mở**: đọc chữ Nhật → nghĩa, dịch ngược, và câu nghe |
 | 📖 Cẩm nang | Quy tắc vàng SOV · bảng trợ từ · 4 mẫu câu thần thánh · legend đọc kiểu Việt · Hiragana |
+| 🖼️ Minh họa từng thẻ | Mỗi thẻ có **hình minh họa riêng** (câu = cảnh nhỏ vài emoji) theo nguyên lý *dual coding* — muốn nâng cấp, sinh ảnh AI kawaii bằng `mmx image generate` rồi khai báo trong `IMG_OVERRIDE` (app.js) |
 | 📊 Tiến trình | Lộ trình 10 ngày từng buổi, XP, chuỗi ngày, badges; nút cho giáo viên mở khóa cả kế hoạch |
 
 Mọi thứ khác (Cẩm nang, Trắc nghiệm, Nhóm, Tiến trình) gọn trong **một nút ☰** — không làm rối màn học.
@@ -75,7 +76,27 @@ Tham khảo: [JapanNook — Essential Japanese Phrases](https://japannook.com) �
 
 ## 🛠️ Tuỳ biến nhanh
 
-- Thêm từ: dòng `W(...)` trong `data.js` (`jp, ro, vn, vi, ex...`, `level` 1-3).
-- Thêm cụm câu: dòng `P(...)`.
+- Thêm từ: dòng `W(...)` trong `data.js` (`jp, ro, vn, vi, ex...`, `level` 1-3) + 1 emoji trong `ILLUS`.
+- Thêm cụm câu: dòng `P(...)` (emoji có thể là **cảnh nhỏ** vài ký tự, ví dụ `"🍽️🙏"`).
 - Đổi số ngày: sửa mảng `plan` trong `CURRICULUM` (app.js), ví dụ `[ [byLevel[0], 4], ... ]`.
 - Subset lại font sau khi thêm chữ Nhật mới (dùng `pyftsubset` với ký tự lấy từ các file nguồn).
+
+## 🖼️ Nâng cấp minh họa bằng ảnh AI (tùy chọn)
+
+Mặc định mỗi thẻ dùng **emoji** — theo nghiên cứu *dual coding* (Paivio; Sadoski 2005), hình đơn giản + không nhập nhằng mới giúp ghi nhớ; emoji rẻ, nhẹ, rõ. Muốn treo سطح "ảnh vẽ":
+
+```bash
+# 1. Sinh ảnh theo phong cách thống nhất (MiniMax image-01, ~100KB/ảnh JPG)
+mmx image generate --aspect-ratio 1:1 --out-dir img --out-prefix <ten> --quiet \
+  --prompt "a clear glass of cold water with ice cubes, kawaii flat vector sticker \
+illustration, thick rounded outlines, soft pastel sakura pink and cream color \
+palette, minimalist japanese stationery style, centered single object, plain \
+cream background, no text, no watermark"
+
+# 2. Khai báo trong app.js
+const IMG_OVERRIDE = { "vanuong-1": "img/mizu_001.jpg", ... };
+```
+
+- Ảnh sẽ **ưu tiên hơn emoji** trên mặt trước thẻ (CSS tự cắt viền + bo góc, giấu phần chữ AI hay vẽ lỗi ở mép dưới).
+- Nén về WebP (~30KB/ảnh, [squoosh.app](https://squoosh.app)) trước khi commit nếu làm cả bộ — 374 ảnh ≈ 12MB WebP, chấp nhận được cho GitHub Pages (load lười từng ảnh).
+- Giấy phép các nguồn đã cân nhắc: emoji hệ thống/Twemoji (CC-BY 4.0) an toàn nhất; **irasutoya** đẹp mà có tính chừng mực (cấm phân phối lại file ảnh — không khuyên dùng cho app); ảnh AI tự sinh thì của mình 100%.

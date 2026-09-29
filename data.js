@@ -689,6 +689,50 @@ const KANJI_READ = {
   "話":["hanashi","ha-na-xi"],
 };
 
+/* ---------------- MINH HỌA TỪNG THẺ (dual coding) ----------------
+   Mỗi thẻ 1 emoji làm hình; câu = cảnh nhỏ 1-2 emoji. Muốn dùng ảnh AI tự tạo:
+   thêm "id": "img/ten.webp" vào IMG_OVERRIDE (app.js) — sẽ ưu tiên hơn emoji. */
+const ILLUS = {
+  g1:"🙇", g2:"🌅", g3:"🌙", g4:"👋", g5:"✌️", g6:"🙏", g7:"🙋", g8:"😔", g9:"🤝", g10:"😴",
+  e1:"⭕", e2:"❌", e3:"🗣️", e4:"🤷", e5:"🐢", e6:"💴", e7:"🚻", e8:"💳", e9:"🆘", e10:"👌",
+  r1:"👉", r2:"📋", r3:"💧", r4:"🍺", r5:"🍽️🙏", r6:"🧾", r7:"🍽️😋", r8:"⭐", r9:"🥩🙅", r10:"🌶️",
+  s1:"🏷️", s2:"👚", s3:"💸", s4:"📉", s5:"🛒", s6:"👀", s7:"🛍️", s8:"🈹",
+  d1:"🚉", d2:"🧭", d3:"⬅️", d4:"➡️", d5:"⬆️", d6:"🛣️", d7:"🗺️", d8:"🛑", d9:"🚅", d10:"🎫",
+  h1:"📅", h2:"🏨", h3:"⏰", h4:"📶", h5:"🚑", h6:"🛂", h7:"🏥", h8:"🤒",
+  n1:"1️⃣2️⃣3️⃣", n2:"4️⃣5️⃣6️⃣", n3:"7️⃣8️⃣9️⃣", n4:"🔟", n5:"💯", n6:"🏦", n7:"💰", n8:"🎧",
+  t1:"🪪", t2:"🇻🇳", t3:"✈️", t4:"🍣", t5:"😋", t6:"🤩", t7:"✨", t8:"📅👋", t9:"🌞", t10:"😅",
+  "vanuong-1":"💧", "vanuong-2":"🍵", "vanuong-3":"☕", "vanuong-4":"🍚", "vanuong-5":"🍞", "vanuong-6":"🥩", "vanuong-7":"🐟", "vanuong-8":"🥬", "vanuong-9":"🍎", "vanuong-10":"🥚",
+  "vanuong-11":"🍺", "vanuong-12":"🍶", "vanuong-13":"🐄", "vanuong-14":"🐷", "vanuong-15":"🐔", "vanuong-16":"🍲", "vanuong-17":"🍱", "vanuong-18":"🍙", "vanuong-19":"🍮", "vanuong-20":"🍦",
+  "vanuong-21":"🥣", "vanuong-22":"🥗", "vanuong-23":"🧀", "vanuong-24":"🍅", "vanuong-25":"🍊", "vanuong-26":"🍓", "vanuong-27":"♨️", "vanuong-28":"🧊", "vanuong-29":"🥤", "vanuong-30":"➕",
+  "sotien-1":"1️⃣", "sotien-2":"2️⃣", "sotien-3":"3️⃣", "sotien-4":"4️⃣", "sotien-5":"5️⃣", "sotien-6":"6️⃣", "sotien-7":"7️⃣", "sotien-8":"8️⃣", "sotien-9":"9️⃣", "sotien-10":"🔟",
+  "sotien-11":"💯", "sotien-12":"🏦", "sotien-13":"💰", "sotien-14":"🪙", "sotien-15":"🕐", "sotien-16":"💳", "sotien-17":"💴", "sotien-18":"🏷️", "sotien-19":"💵", "sotien-20":"🪙",
+  "sotien-21":"➗", "sotien-22":"📦", "sotien-23":"💱", "sotien-24":"🈹", "sotien-25":"🧮", "sotien-26":"🪙", "sotien-27":"🔁", "sotien-28":"🎯", "sotien-29":"〰️", "sotien-30":"🧾",
+  "thoigian-1":"📅", "thoigian-2":"🌤️", "thoigian-3":"🌘", "thoigian-4":"🌗", "thoigian-5":"⏱️", "thoigian-6":"🌄", "thoigian-7":"🌞", "thoigian-8":"🌙", "thoigian-9":"⌛", "thoigian-10":"⏱️",
+  "thoigian-11":"📆", "thoigian-12":"🗓️", "thoigian-13":"🏖️", "thoigian-14":"🌕", "thoigian-15":"🎍", "thoigian-16":"☀️", "thoigian-17":"🌤️", "thoigian-18":"🔁", "thoigian-19":"🛌", "thoigian-20":"🕛",
+  "thoigian-21":"🌃", "thoigian-22":"🚦", "thoigian-23":"🎌", "thoigian-24":"🏢", "thoigian-25":"🗒️", "thoigian-26":"💨", "thoigian-27":"🔜", "thoigian-28":"⏭️", "thoigian-29":"🎟️", "thoigian-30":"⏮️",
+  "diadiem-1":"🚉", "diadiem-2":"✈️", "diadiem-3":"🚻", "diadiem-4":"🏪", "diadiem-5":"🏨", "diadiem-6":"🏦", "diadiem-7":"🍽️", "diadiem-8":"🚌", "diadiem-9":"🚕", "diadiem-10":"🚃",
+  "diadiem-11":"🗺️", "diadiem-12":"🚅", "diadiem-13":"🎫", "diadiem-14":"🚪", "diadiem-15":"🚉", "diadiem-16":"🏥", "diadiem-17":"💊", "diadiem-18":"👮", "diadiem-19":"⛩️", "diadiem-20":"🏯",
+  "diadiem-21":"🏛️", "diadiem-22":"🚪", "diadiem-23":"🚪", "diadiem-24":"🚏", "diadiem-25":"🪜", "diadiem-26":"🛗", "diadiem-27":"🧳", "diadiem-28":"📍", "diadiem-29":"👉", "diadiem-30":"↪️",
+  "dogvat-1":"👆", "dogvat-2":"👉", "dogvat-3":"🫵", "dogvat-4":"👛", "dogvat-5":"🎒", "dogvat-6":"📱", "dogvat-7":"📷", "dogvat-8":"📚", "dogvat-9":"☂️", "dogvat-10":"👟",
+  "dogvat-11":"👕", "dogvat-12":"👕", "dogvat-13":"📐", "dogvat-14":"🎨", "dogvat-15":"🏬", "dogvat-16":"🏬", "dogvat-17":"💊", "dogvat-18":"🎁", "dogvat-19":"🛍️", "dogvat-20":"🧾",
+  "dogvat-21":"🏷️", "dogvat-22":"📦", "dogvat-23":"🛍️", "dogvat-24":"🉐", "dogvat-25":"⭐", "dogvat-26":"📦", "dogvat-27":"🎀", "dogvat-28":"🔄", "dogvat-29":"↩️", "dogvat-30":"🍡",
+  "dongtu-1":"🍜", "dongtu-2":"🥤", "dongtu-3":"🚶", "dongtu-4":"🏃", "dongtu-5":"🛒", "dongtu-6":"👀", "dongtu-7":"👂", "dongtu-8":"💬", "dongtu-9":"📖", "dongtu-10":"✍️",
+  "dongtu-11":"⚙️", "dongtu-12":"💡", "dongtu-13":"🚏", "dongtu-14":"🚪", "dongtu-15":"🪑", "dongtu-16":"🛌", "dongtu-17":"🔌", "dongtu-18":"🤲", "dongtu-19":"📣", "dongtu-20":"🤝",
+  "dongtu-21":"🔍", "dongtu-22":"📸", "dongtu-23":"🔓", "dongtu-24":"🔒", "dongtu-25":"📌", "dongtu-26":"🧑‍🤝‍🧑", "dongtu-27":"🫥", "dongtu-28":"🔃", "dongtu-29":"📅", "dongtu-30":"🙅",
+  "tinhtu-1":"😋", "tinhtu-2":"📈", "tinhtu-3":"📉", "tinhtu-4":"⬛", "tinhtu-5":"▪️", "tinhtu-6":"🌟", "tinhtu-7":"🏚️", "tinhtu-8":"👍", "tinhtu-9":"🥰", "tinhtu-10":"🎉",
+  "tinhtu-11":"🥵", "tinhtu-12":"🥶", "tinhtu-13":"🌶️", "tinhtu-14":"🍬", "tinhtu-15":"📍", "tinhtu-16":"🛣️", "tinhtu-17":"😫", "tinhtu-18":"💗", "tinhtu-19":"🔴", "tinhtu-20":"🔵",
+  "tinhtu-21":"🤫", "tinhtu-22":"🛠️", "tinhtu-23":"👑", "tinhtu-24":"🎈", "tinhtu-25":"🏋️", "tinhtu-26":"🏞️", "tinhtu-27":"🤏", "tinhtu-28":"💮", "tinhtu-29":"⚠️", "tinhtu-30":"🍃",
+  "cauhoi-1":"❓", "cauhoi-2":"🧭", "cauhoi-3":"👤", "cauhoi-4":"💴", "cauhoi-5":"🤔", "cauhoi-6":"⏰", "cauhoi-7":"❔", "cauhoi-8":"🤲", "cauhoi-9":"✋", "cauhoi-10":"❗",
+  "cauhoi-11":"🔢", "cauhoi-12":"↔️", "cauhoi-13":"🃏", "cauhoi-14":"⁉️", "cauhoi-15":"🤞", "cauhoi-16":"🎖️", "cauhoi-17":"➡️", "cauhoi-18":"🤨", "cauhoi-19":"🔀", "cauhoi-20":"⏭️",
+  "cauhoi-21":"💡", "cauhoi-22":"🙆", "cauhoi-23":"🔹", "cauhoi-24":"🆖", "cauhoi-25":"🏁", "cauhoi-26":"🚧", "cauhoi-27":"🧑‍🤝‍🧑", "cauhoi-28":"♾️", "cauhoi-29":"🪄", "cauhoi-30":"💪",
+  "camxuc-1":"💪", "camxuc-2":"😮‍💨", "camxuc-3":"🥳", "camxuc-4":"😢", "camxuc-5":"🤣", "camxuc-6":"😑", "camxuc-7":"🍽️", "camxuc-8":"🧃", "camxuc-9":"😲", "camxuc-10":"❤️",
+  "camxuc-11":"🏅", "camxuc-12":"😬", "camxuc-13":"😳", "camxuc-14":"😟", "camxuc-15":"😩", "camxuc-16":"💖", "camxuc-17":"🤗", "camxuc-18":"✊", "camxuc-19":"🎊", "camxuc-20":"😞",
+  "camxuc-21":"😌", "camxuc-22":"🥺", "camxuc-23":"😴", "camxuc-24":"😎", "camxuc-25":"🧐", "camxuc-26":"😕", "camxuc-27":"😌", "camxuc-28":"🙏", "camxuc-29":"🙇‍♀️", "camxuc-30":"🍵",
+  "suckhoe-1":"🆘", "suckhoe-2":"🚓", "suckhoe-3":"🧒", "suckhoe-4":"🩹", "suckhoe-5":"🤕", "suckhoe-6":"🌡️", "suckhoe-7":"🤧", "suckhoe-8":"🦠", "suckhoe-9":"🔥", "suckhoe-10":"💥",
+  "suckhoe-11":"☎️", "suckhoe-12":"🧤", "suckhoe-13":"👮‍♀️", "suckhoe-14":"🚑", "suckhoe-15":"🚒", "suckhoe-16":"🛂", "suckhoe-17":"🛡️", "suckhoe-18":"🗂️", "suckhoe-19":"🧾", "suckhoe-20":"🚨",
+  "suckhoe-21":"🥜", "suckhoe-22":"🩸", "suckhoe-23":"🛎️", "suckhoe-24":"🪑", "suckhoe-25":"💚", "suckhoe-26":"🩺", "suckhoe-27":"💉", "suckhoe-28":"🕊️", "suckhoe-29":"❗", "suckhoe-30":"🏃",
+};
+
 /* ---------------- DỮ LIỆU KHÁC ---------------- */
 const HIRAGANA = [
   ["あ","a"],["い","i"],["う","u"],["え","e"],["お","o"],

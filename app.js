@@ -45,6 +45,14 @@ CURRICULUM.forEach((day, di) => day.forEach((i) => { ITEM_DAY[i.id] = di; }));
 const TOTAL_DAYS = CURRICULUM.length; // 10
 const dayLevel = (di) => CURRICULUM[di][0].level;
 
+/* Ảnh AI tự tạo (mmx image generate) — ưu tiên hơn emoji. Nhánh mở rộng: img/ */
+const IMG_OVERRIDE = {
+  "vanuong-1": "img/mizu_001.jpg",
+  "vanuong-18": "img/onigiri_001.jpg",
+  "diadiem-10": "img/densha_001.jpg",
+  "dogvat-9": "img/kasa_001.jpg",
+};
+
 /* ---------------- TRẠNG THÁI ---------------- */
 let store = { users: [], activeUserId: null, unlockAll: false };
 let selectedEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
@@ -444,6 +452,11 @@ function showCard() {
   const cat = catOf(p);
   $("#fc-cat").textContent = `${cat.emoji} ${cat.name} · ${session.label}`;
   $("#fc-front-main").textContent = p.vi;
+  if (IMG_OVERRIDE[p.id]) {
+    $("#fc-illus").innerHTML = `<img class="fc-illus-img" src="${IMG_OVERRIDE[p.id]}" alt="${esc(p.vi)}">`;
+  } else {
+    $("#fc-illus").textContent = ILLUS[p.id] || cat.emoji;
+  }
   $("#fc-front-en").textContent = p.en ? "🇬🇧 " + p.en : "";
   $("#fc-jp").textContent = p.jp;
   $("#fc-ro").textContent = p.ro;
