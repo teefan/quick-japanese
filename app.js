@@ -13,43 +13,36 @@ const DUE_CAP = 20; // tối đa thẻ ôn mỗi buổi
 
 const ALL_ITEMS = [...PHRASES, ...WORDS];
 const itemById = (id) => ALL_ITEMS.find((x) => x.id === id);
-const catOf = (item) => (item.kind === "p" ? PHRASE_CATS : VOCAB_CATS).find((c) => c.id === item.cat);
+const catOf = (item) => CATS.find((c) => c.id === item.cat);
 
 /* ---------------- KẾ HOẠCH 10 NGÀY ----------------
-   Cấp 1 → ngày 1-5 · Cấp 2 → ngày 6-8 · Cấp 3 → ngày 9-10.
-   Trong mỗi cấp, chia đều theo kiểu "xoay vòng chủ đề" để
-   mỗi ngày học đều đủ các chủ đề (câu + từ xen kẽ). */
+   Chia đều các thẻ (đã xếp theo chủ đề) vào 10 buổi học. */
 const CURRICULUM = (() => {
-  const cats = [...PHRASE_CATS, ...VOCAB_CATS];
-  const byLevel = [1, 2, 3].map((lv) => {
-    const items = ALL_ITEMS.filter((i) => i.level === lv);
-    const buckets = cats.map((c) => items.filter((i) => i.cat === c.id)).filter((b) => b.length);
-    const out = [];
-    let adding = true;
-    while (adding) {
-      adding = false;
-      for (const b of buckets) if (b.length) { out.push(b.shift()); adding = true; }
-    }
-    return out;
-  });
-  const plan = [[byLevel[0], 5], [byLevel[1], 3], [byLevel[2], 2]];
-  const days = [];
-  for (const [arr, n] of plan) {
-    const per = Math.ceil(arr.length / n);
-    for (let d = 0; d < n; d++) days.push(arr.slice(d * per, (d + 1) * per));
+  const cats = [...CATS];
+  const buckets = cats
+    .map((c) => ALL_ITEMS.filter((i) => i.cat === c.id))
+    .filter((b) => b.length);
+  const out = [];
+  let adding = true;
+  while (adding) {
+    adding = false;
+    for (const b of buckets) if (b.length) { out.push(b.shift()); adding = true; }
   }
+  // chia 10 ngày đều nhau (mỗi ngày xoay vòng qua các chủ đề)
+  const per = Math.ceil(out.length / 10);
+  const days = [];
+  for (let d = 0; d < 10; d++) days.push(out.slice(d * per, (d + 1) * per));
   return days;
 })();
 const ITEM_DAY = {};
 CURRICULUM.forEach((day, di) => day.forEach((i) => { ITEM_DAY[i.id] = di; }));
 const TOTAL_DAYS = CURRICULUM.length; // 10
-const dayLevel = (di) => CURRICULUM[di][0].level;
 
 /* Ảnh AI tự tạo — img/override.js do tools/gen-images.mjs sinh ra (ưu tiên hơn emoji) */
 const IMG_OVERRIDE = window.IMG_OVERRIDE || {};
 
 /* ---------------- TRẠNG THÁI ---------------- */
-let store = { users: [], activeUserId: null, unlockAll: false };
+let store = { users: [], activeUserId: null };
 let selectedEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
 let session = null;
 let quiz = null;
@@ -208,7 +201,6 @@ function currentLesson(u) {
   }
   return TOTAL_DAYS; // hoàn thành cả kế hoạch
 }
-function lessonUnlocked(u, di) { return store.unlockAll || di <= currentLesson(u); }
 
 /* Thẻ của buổi hôm nay: ôn đến hạn →.cards bù ngày bỏ lỡ → thẻ mới của ngày */
 function todayCards(u, li) {
@@ -415,7 +407,6 @@ function openVocabPopup(id) {
   const illus = IMG_OVERRIDE[d.id]
     ? `<img src="${IMG_OVERRIDE[d.id]}" alt="${esc(d.vi)}">`
     : (ILLUS[d.id] || cat.emoji);
-  const lv = LEVELS[d.level - 1];
   const el = $("#vocab-popup");
   el.innerHTML = `
     <div class="vp-top">
@@ -437,7 +428,7 @@ function openVocabPopup(id) {
       <button class="btn btn-matcha" id="vp-speak-ex">🔊 Câu ví dụ</button>
       <button class="btn btn-pink" id="vp-study">🎴 Học thẻ này</button>
     </div>
-    <p class="vp-meta small muted">${cat.emoji} ${esc(cat.name)} · ${lv.emoji} Cấp ${d.level}</p>`;
+    <p class="vp-meta small muted">${cat.emoji} ${esc(cat.name)}</p>`;
   el.classList.remove("hidden");
   $("#vp-speak").onclick = () => speak(d.jp);
   $("#vp-speak-ex").onclick = () => speak(d.ex.jp);
@@ -460,7 +451,6 @@ function renderHoc() {
   const li = currentLesson(u);
   const finishedPlan = li >= TOTAL_DAYS;
   const dayNo = Math.min(li + 1, TOTAL_DAYS);
-  const lv = LEVELS[dayLevel(Math.min(li, TOTAL_DAYS - 1)) - 1];
   const cards = finishedPlan ? [] : todayCards(u, li);
   const dueN = u ? ALL_ITEMS.filter((i) => (i.id in u.cards) && dueDaysAgo(u.cards[i.id])).length : 0;
   const newN = cards.length - Math.min(dueN, DUE_CAP);
@@ -488,7 +478,7 @@ function renderHoc() {
   $("#hoc-main").innerHTML = `
     <div class="hoc-top">
       <div>
-        <div class="day-line">Ngày ${finishedPlan ? TOTAL_DAYS : dayNo}/10 <span class="lv-badge">${lv.emoji} ${(lv.name.split("·")[1] || lv.name).trim()}</span></div>
+        <div class="day-line">Ngày ${finishedPlan ? TOTAL_DAYS : dayNo}/10</div>
         <p class="hoc-greeting">${greeting}</p>
       </div>
       <div class="mascot" id="mascot-hoc"></div>
@@ -517,14 +507,23 @@ function renderHoc() {
 }
 
 /* ---------------- PHIÊN HỌC ---------------- */
+/* Sắp theo độ khó tăng dần: từ ngắn → câu dài (sort ổn định, ngang điểm giữ thứ tự gốc) */
+function sortByDifficulty(cards) {
+  return [...cards].sort(
+    (a, b) =>
+      (a.kind === "p") - (b.kind === "p") ||
+      [...a.jp].length - [...b.jp].length ||
+      NATURAL_INDEX.get(a.id) - NATURAL_INDEX.get(b.id)
+  );
+}
+
+const NATURAL_INDEX = new Map(ALL_ITEMS.map((it, i) => [it.id, i]));
+
 function startSession(cards, label) {
   const u = currentUser();
   if (!cards.length) { showToast("Chưa có thẻ nào để học ở đây!"); return; }
-  // ưu tiên: ôn đến hạn → chưa từng học → phần còn lại
-  const due = cards.filter((p) => (u.cards[p.id] || {}).box > 0 && dueDaysAgo(u.cards[p.id]));
-  const fresh = cards.filter((p) => !(p.id in (u.cards || {})));
-  const rest = cards.filter((p) => !due.includes(p) && !fresh.includes(p));
-  session = { cards: [...due, ...fresh, ...rest], label, idx: 0, xp: 0, againCount: 0, finished: false, lastLessonIdx: currentLesson(u) };
+  // thứ tự sư phạm: từ đơn giản → phức tạp (thuật toán SRS quyết định thẻ NÀO vào buổi, không quyết định trật tự)
+  session = { cards: sortByDifficulty(cards), label, idx: 0, xp: 0, againCount: 0, finished: false, lastLessonIdx: currentLesson(u) };
   $("#hoc-main").classList.add("hidden");
   $("#topic-picker").classList.add("hidden");
   $("#picker-toggle").classList.add("hidden");
@@ -623,9 +622,9 @@ function endSession() {
 function renderTopicPicker() {
   const u = currentUser();
   const grid = $("#cat-grid");
-  const cats = [...PHRASE_CATS, ...VOCAB_CATS];
+  const cats = [...CATS];
   grid.innerHTML = cats.map((c) => {
-    const list = ALL_ITEMS.filter((i) => i.cat === c.id && lessonUnlocked(u, ITEM_DAY[i.id]));
+    const list = ALL_ITEMS.filter((i) => i.cat === c.id && true);
     if (!list.length) return "";
     const mastered = list.filter((p) => (u.cards[p.id] || {}).box >= 4).length;
     const pct = Math.round((mastered / list.length) * 100);
@@ -641,7 +640,7 @@ function renderTopicPicker() {
   $$("#cat-grid .cat-card").forEach((el) =>
     el.addEventListener("click", () => {
       const catId = el.dataset.cat;
-      const list = ALL_ITEMS.filter((i) => i.cat === catId && lessonUnlocked(u, ITEM_DAY[i.id]));
+      const list = ALL_ITEMS.filter((i) => i.cat === catId && true);
       startSession(list, catOf(list[0]).name);
     })
   );
@@ -655,7 +654,7 @@ function renderQuizHome() {
   $("#quiz-done").classList.add("hidden");
   const u = currentUser();
   const seenN = seenCount(u);
-  const openN = ALL_ITEMS.filter((i) => lessonUnlocked(u, ITEM_DAY[i.id])).length;
+  const openN = ALL_ITEMS.filter((i) => true).length;
   const chips = [
     { id: "seen", label: `📚 Bài đã học (${seenN})`, ok: seenN >= 4 },
     { id: "all", label: `🌏 Tất cả đã mở (${openN})`, ok: openN >= 4 },
@@ -675,7 +674,7 @@ function renderQuizHome() {
 function quizPool() {
   const u = currentUser();
   if (quizScope === "seen") return ALL_ITEMS.filter((i) => u.cards[i.id]);
-  return ALL_ITEMS.filter((i) => lessonUnlocked(u, ITEM_DAY[i.id]));
+  return ALL_ITEMS.filter((i) => true);
 }
 
 function startQuiz() {
@@ -891,7 +890,6 @@ function renderProgress() {
   const seen = seenCount(u);
 
   const lessonRows = CURRICULUM.map((day, di) => {
-    const lv = LEVELS[dayLevel(di) - 1];
     const total = day.length;
     const doneN = day.filter((i) => i.id in (u.cards || {})).length;
     const state = doneN === 0 ? (di === li ? "now" : "todo") : doneN === total ? "done" : "doing";
@@ -900,7 +898,6 @@ function renderProgress() {
     return `<div class="lesson-row ${state}">
       <span class="lr-icon">${icon}</span>
       <span class="lr-day">Ngày ${di + 1}</span>
-      <span class="lr-lv">${lv.emoji}</span>
       <span class="lr-count">${total} thẻ</span>
       <span class="lr-state">${label}</span>
     </div>`;
@@ -934,20 +931,12 @@ function renderProgress() {
         <div class="stat-tile"><div class="num">${u.bestQuiz != null ? u.bestQuiz + "/10" : "—"}</div><div class="lbl">Trắc nghiệm 📝</div></div>
       </div>
       <h3>🗓️ Lộ trình 10 ngày</h3>
-      <p class="muted small">Ngày 1-5: 🌱 Cấp 1 · Ngày 6-8: 🌸 Cấp 2 · Ngày 9-10: 🌺 Cấp 3. Học xong ngày nào mở ngày đó — có thể học sớm hơn kế hoạch!</p>
+      <p class="muted small">Học xong ngày nào mở ngày đó — muốn học nhanh hơn kế hoạch cũng được, thẻ mới sẽ tự dồn vào buổi tới nếu bạn nghỉ.</p>
       <div class="lesson-list">${lessonRows}</div>
       <h3 style="margin-top:18px">Thành tích</h3>
       <div class="badge-row">${badges.map((b) => `<span class="badge ${b.won ? "won" : ""}">${b.icon} ${b.name}</span>`).join("")}</div>
     </div>
-    <p class="center small muted">
-      <a id="teacher-unlock" style="cursor:pointer;color:var(--pink-deep)">👩‍🏫 Dạy nhóm học? Mở khóa toàn bộ 10 ngày</a>
-       · <a id="reset-progress" style="cursor:pointer;color:var(--ink-soft)">Đặt lại tiến trình</a>
-    </p>`;
-  $("#teacher-unlock").addEventListener("click", () => {
-    if (store.unlockAll) { store.unlockAll = false; saveStore(); showToast("Đã khóa lại theo kế hoạch 🔒"); }
-    else { store.unlockAll = true; saveStore(); showToast("Đã mở khóa toàn bộ 10 ngày! 🌸🌺"); }
-    renderProgress();
-  });
+    <p class="center small muted"><a id="reset-progress" style="cursor:pointer;color:var(--ink-soft)">Đặt lại tiến trình</a></p>`;
   const resetBtn = $("#reset-progress");
   let armed = false;
   resetBtn.addEventListener("click", () => {
