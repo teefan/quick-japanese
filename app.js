@@ -11,28 +11,16 @@ const INTERVALS = [1, 1, 2, 4, 8, 16]; // ngày, theo box 0..5
 const BOX_MAX = 5;
 const DUE_CAP = 20; // tối đa thẻ ôn mỗi buổi
 
-const ALL_ITEMS = [...PHRASES, ...WORDS];
-const itemById = (id) => ALL_ITEMS.find((x) => x.id === id);
+const ALL_ITEMS = PHRASES; // chỉ học CÂU — WORDS là từ điển tra cứu qua popup
+const itemById = (id) => PHRASES.find((x) => x.id === id) || WORDS.find((x) => x.id === id); // câu học + từ điển tra cứu
 const catOf = (item) => CATS.find((c) => c.id === item.cat);
 
 /* ---------------- KẾ HOẠCH 10 NGÀY ----------------
    Chia đều các thẻ (đã xếp theo chủ đề) vào 10 buổi học. */
 const CURRICULUM = (() => {
-  const cats = [...CATS];
-  const buckets = cats
-    .map((c) => ALL_ITEMS.filter((i) => i.cat === c.id))
-    .filter((b) => b.length);
-  const out = [];
-  let adding = true;
-  while (adding) {
-    adding = false;
-    for (const b of buckets) if (b.length) { out.push(b.shift()); adding = true; }
-  }
-  // chia 10 ngày đều nhau (mỗi ngày xoay vòng qua các chủ đề)
-  const per = Math.ceil(out.length / 10);
-  const days = [];
-  for (let d = 0; d < 10; d++) days.push(out.slice(d * per, (d + 1) * per));
-  return days;
+  // PHRASES đã xếp sẵn theo rank: đơn giản/phổ biến → phức tạp/hạn dùng
+  const per = Math.ceil(PHRASES.length / 10);
+  return [...Array(10)].map((_, d) => PHRASES.slice(d * per, (d + 1) * per)).filter((d) => d.length);
 })();
 const ITEM_DAY = {};
 CURRICULUM.forEach((day, di) => day.forEach((i) => { ITEM_DAY[i.id] = di; }));
@@ -426,13 +414,11 @@ function openVocabPopup(id) {
     <div class="vp-actions">
       <button class="btn btn-sky" id="vp-speak">🔊 Nghe</button>
       <button class="btn btn-matcha" id="vp-speak-ex">🔊 Câu ví dụ</button>
-      <button class="btn btn-pink" id="vp-study">🎴 Học thẻ này</button>
     </div>
     <p class="vp-meta small muted">${cat.emoji} ${esc(cat.name)}</p>`;
   el.classList.remove("hidden");
   $("#vp-speak").onclick = () => speak(d.jp);
   $("#vp-speak-ex").onclick = () => speak(d.ex.jp);
-  $("#vp-study").onclick = () => { closeVocabPopup(); startSession([d], "Tra cứu"); };
   $("#vp-close").onclick = closeVocabPopup;
 }
 function closeVocabPopup() { const el = $("#vocab-popup"); if (el) el.classList.add("hidden"); }
@@ -507,14 +493,9 @@ function renderHoc() {
 }
 
 /* ---------------- PHIÊN HỌC ---------------- */
-/* Sắp theo độ khó tăng dần: từ ngắn → câu dài (sort ổn định, ngang điểm giữ thứ tự gốc) */
+/* Thứ tự trong phiên = rank (đã xếp đơn giản → phức tạp trong data) */
 function sortByDifficulty(cards) {
-  return [...cards].sort(
-    (a, b) =>
-      (a.kind === "p") - (b.kind === "p") ||
-      [...a.jp].length - [...b.jp].length ||
-      NATURAL_INDEX.get(a.id) - NATURAL_INDEX.get(b.id)
-  );
+  return [...cards].sort((a, b) => NATURAL_INDEX.get(a.id) - NATURAL_INDEX.get(b.id));
 }
 
 const NATURAL_INDEX = new Map(ALL_ITEMS.map((it, i) => [it.id, i]));

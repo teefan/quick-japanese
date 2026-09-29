@@ -10,8 +10,8 @@ Một web app **một trang (SPA)** thuần HTML/CSS/JS, **không cần backend,
 
 | Tính năng | Chi tiết |
 |---|---|
-| 🗓️ Kế hoạch 10 ngày | 374 thẻ (76 câu + 302 từ) chia 10 buổi đều (~38 thẻ/buổi, ~10 phút): học từ ngắn → câu dài, xoay vòng qua 9 chủ đề. Thẻ ôn đến hạn tự dồn vào buổi tới |
-| 🎴 Thẻ ghi nhớ | 76 câu mẫu + 302 từ vựng (mỗi từ có câu ví dụ) · lật thẻ 3D · chấm Lại/Được/Dễ theo thuật toán **lặp lại ngắt quãng** (Leitner 1→16 ngày) |
+| 🗓️ Kế hoạch 10 ngày | 86 câu học (xếp từ phổ thông → chuyên sâu) chia 10 buổi đều (~38 thẻ/buổi, ~10 phút): học từ ngắn → câu dài, xoay vòng qua 9 chủ đề. Thẻ ôn đến hạn tự dồn vào buổi tới |
+| 🎴 Thẻ ghi nhớ | 86 câu giao tiếp — xếp từ đơn giản/phổ biến đến phức tạp; mỗi câu có từ vựng tra cứu bằng một cú bấm · lật thẻ 3D · chấm Lại/Được/Dễ theo thuật toán **lặp lại ngắt quãng** (Leitner 1→16 ngày) |
 | 🇻🇳 Đọc kiểu Việt | Mọi câu/từ có phiên âm gần đúng theo chính tả tiếng Việt (こんにちは → *côn-ni-chi-oa*) + 🔊 giọng chuẩn |
 | 🔊 TTS đa nền tảng | Dùng **Web Speech API** nếu máy có giọng Nhật (macOS/iOS/Edge/Windows+cài gói/Android+cài data) — không có thì **tự chuyển giọng trực tuyến** (Google translate_tts, dự phòng VoiceVOX) — kèm phần chẩn đoán + hướng dẫn bật giọng máy ở Cẩm nang |
 | 🔬 Từng chữ → phát âm | Trên mỗi thẻ: bấm 🔬 để xem **mũi tên chỉ phát âm từng chữ** — mỗi kana 1 cột (1 nhịp), cụm kanji đọc trọn từ (từ điển 241 cụm), nhỏ っ = nhấn gấp đôi, ー = kéo dài (kỹ thuật furigana/flexbox per-character) |
@@ -19,14 +19,14 @@ Một web app **một trang (SPA)** thuần HTML/CSS/JS, **không cần backend,
 | 📝 Trắc nghiệm | 10 câu từ **bài đã học** hoặc **tất cả đã mở**: đọc chữ Nhật → nghĩa, dịch ngược, và câu nghe |
 | 📖 Cẩm nang | Quy tắc vàng SOV · bảng trợ từ · 4 mẫu câu thần thánh · legend đọc kiểu Việt · Hiragana |
 | 🖼️ Minh họa từng thẻ | **374/374 thẻ có ảnh AI kawaii tự sinh** (WebP ~19KB/ảnh) theo nguyên lý *dual coding* — sinh lại bằng `tools/gen-images.mjs`, emoji là dự phòng |
-| 🗂️ 9 chủ đề tình huống | Chào hỏi & Lịch sự · Ăn uống · Số Giờ & Giá · Đi lại & Hỏi đường · Mua sắm & Đồ vật · Khách sạn · Tham quan · Trò chuyện & Cảm xúc · Hỏi & Động từ — trong mỗi buổi học **từ ngắn trước, câu dài sau** |
-| 📊 Tiến trình | Lộ trình 10 ngày từng buổi, XP, chuỗi ngày, badges |
+| 🗂️ 9 chủ đề tình huống | Chào hỏi & Lịch sự · Ăn uống · Số Giờ & Giá · Đi lại & Hỏi đường · Mua sắm & Đồ vật · Khách sạn · Tham quan · Trò chuyện & Cảm xúc · Hỏi & Động từ |
+| 📚 Từ điển tra cứu | ~300 từ vựng không cần "học" — bấm vào từ được gạch chấm trong câu để tra nghĩa, đọc, ví dụ (popup) || 📊 Tiến trình | Lộ trình 10 ngày từng buổi, XP, chuỗi ngày, badges |
 
 Mọi thứ khác (Cẩm nang, Trắc nghiệm, Nhóm, Tiến trình) gọn trong **một nút ☰** — không làm rối màn học.
 
 ## 🗓️ Kế hoạch 10 ngày hoạt động thế nào
 
-- App tự chia 374 thẻ thành 10 buổi theo kiểu *xoay vòng chủ đề* — mỗi ngày học đều đủ câu + từ của nhiều chủ đề.
+- App tự chia 86 câu thành 10 buổi theo kiểu *xoay vòng chủ đề* — mỗi ngày học đều đủ câu + từ của nhiều chủ đề.
 - "Ngày" đi theo **tiến độ học**, không theo lịch: học xong buổi hôm nay là mở buổi sau (có thể học sớm hơn kế hoạch); nghỉ vài ngày thì thẻ mới của ngày đó xếp lại vào buổi tới.
 - Mỗi thẻ chấm **Lại** (nhớ lại ngay, box về 0), **Được** (+1 box), **Dễ** (+2 box) — box càng cao, khoảng ôn càng dài (1→16 ngày). Thuộc lòng = box ≥ 4.
 
@@ -58,7 +58,7 @@ Rồi **Settings → Pages → Deploy from a branch → main / (root) → Save**
 quick-japanese/
 ├── index.html   # màn học chính + menu ☰ + 4 view phụ (Cẩm nang, Trắc nghiệm, Nhóm, Tiến trình)
 ├── app.css      # design system kawaii
-├── data.js      # 76 câu + 302 từ (JP/romaji/đọc-Việt/nghĩa/ví dụ)
+├── data.js      # 86 câu học (JP/romaji/đọc-Việt/nghĩa/ví dụ)
 ├── app.js       # kế hoạch 10 ngày, SRS, quiz, nhóm, hồ sơ khách
 └── fonts/       # M PLUS Rounded 1c subset (~100KB/weight, woff2)
 ```
