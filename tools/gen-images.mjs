@@ -26,6 +26,7 @@ const dataSrc = fs.readFileSync(path.join(ROOT, "data.js"), "utf8")
   .replace(/"use strict";?/, "").replace(/\bconst /g, "var ");
 const { PHRASES, WORDS } = new Function(dataSrc + ";return {PHRASES, WORDS};")();
 const items = [...PHRASES, ...WORDS].filter((i) => !CAT || i.cat === CAT);
+await quotaLine();
 console.log(`[info] ${items.length} thẻ${CAT ? " (chủ đề " + CAT + ")" : ""}, limit ${LIMIT}, sleep ${SLEEP / 1000}s`);
 
 /* ----Style chung ---- */
@@ -33,6 +34,20 @@ const STYLE = "kawaii flat vector sticker illustration, thick rounded outlines, 
 const fileOf = (id) => path.join(IMG, `${id}_001.jpg`);
 const has = (id) => fs.existsSync(fileOf(id));
 
+/* ---- quota: chỉ đọc trạng thái tài khoản, KHÔNG tốn quota sinh ảnh ---- */
+async function quotaLine() {
+  try {
+    const out = execFileSync("mmx", ["quota", "show", "--output", "json", "--quiet", "--non-interactive"], { encoding: "utf8", timeout: 30000 });
+    const j = JSON.parse(out);
+    const rows = j.model_remains || [];
+    const row = rows.find((r) => /image/i.test(r.model_name)) || rows.find((r) => /general/i.test(r.model_name)) || rows[0];
+    if (row) {
+      const tot = row.current_interval_total_count || 0;
+      const used = row.current_interval_usage_count || 0;
+      console.log("[quota] " + row.model_name + ": " + used + (tot ? "/" + tot : "") + " cửa sổ này · còn " + row.current_interval_remaining_percent + "% · tuần: " + row.current_weekly_usage_count);
+    }
+  } catch { /* chỉ để theo dõi, bỏ qua lỗi */ }
+}
 /* ---- Bước 1: prompt map (LLM, cache img/prompts.json) ---- */
 const PROMPTS_FILE = path.join(IMG, "prompts.json");
 let prompts = {};
@@ -85,7 +100,7 @@ for (const it of queue) {
       ok = has(it.id);
     } catch (e) { console.log(`lỗi: ${String(e.message).slice(0, 100)}`); await new Promise(r => setTimeout(r, 5000)); }
   }
-  if (ok) { made++; console.log("ok"); }
+  if (ok) { made++; console.log("ok"); await quotaLine(); }
   else { fail++; console.log("THẤT BẠI (ghi img/failed.log)"); fs.appendFileSync(path.join(IMG, "failed.log"), it.id + "\n"); }
   await new Promise(r => setTimeout(r, SLEEP));
 }
