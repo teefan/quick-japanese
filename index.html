@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hanasou! 🌸 10 ngày nói được tiếng Nhật du lịch</title>
+  <meta name="description" content="Học tiếng Nhật du lịch trong 10 ngày: mở app là học ngay, thẻ ghi nhớ lặp lại ngắt quãng, đọc kiểu Việt, trắc nghiệm và bảng vàng học nhóm." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍙</text></svg>" />
+  <link rel="preload" href="fonts/mplus-rounded-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/mplus-rounded-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/mplus-rounded-900.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div id="sakura-layer" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" data-view="hoc" href="#hoc">
+      <span class="brand-logo">🍙</span>
+      <span class="brand-text">
+        <strong>Hanasou!</strong>
+        <small>10 ngày nói được tiếng Nhật</small>
+      </span>
+    </a>
+    <div class="top-actions">
+      <div id="user-chip" class="user-chip" title="Người đang học"></div>
+      <button id="menu-btn" class="menu-btn" title="Menu">☰</button>
+    </div>
+  </header>
+
+  <div id="menu-overlay" class="menu-overlay hidden">
+    <div class="menu-sheet">
+      <button class="menu-link" data-view="hoc"><span>▶</span> Về bài học</button>
+      <button class="menu-link" data-view="cheat"><span>📖</span> Cẩm nang &amp; quy tắc vàng</button>
+      <button class="menu-link" data-view="quiz"><span>📝</span> Trắc nghiệm</button>
+      <button class="menu-link" data-view="group"><span>👥</span> Nhóm &amp; Bảng vàng</button>
+      <button class="menu-link" data-view="progress"><span>📊</span> Tiến trình</button>
+      <p class="menu-how">Cách học nhanh: <b>1 quy tắc vàng</b> (động từ luôn cuối câu) + thẻ <b>lặp lại ngắt quãng</b> + nói to theo 🔊. Mỗi ngày 1 buổi ~10 phút là đủ!</p>
+    </div>
+  </div>
+
+  <main id="app">
+
+    <!-- ============ MÀN HỌC CHÍNH ============ -->
+    <section class="view active" id="view-hoc">
+      <div id="hoc-main"></div>
+
+      <div id="learn-session" class="hidden">
+        <div class="session-head">
+          <button class="btn btn-ghost" id="session-back">← Tạm dừng</button>
+          <div class="session-progress"><div class="bar"><div class="fill" id="session-fill"></div></div><span id="session-count"></span></div>
+        </div>
+        <div class="flashcard" id="flashcard" title="Bấm để lật thẻ">
+          <div class="fc-inner" id="fc-inner">
+            <div class="fc-face fc-front">
+              <span class="fc-cat" id="fc-cat"></span>
+              <div class="fc-main" id="fc-front-main"></div>
+              <p class="fc-en" id="fc-front-en"></p>
+              <p class="fc-hint">Bấm để xem tiếng Nhật 🔄</p>
+            </div>
+            <div class="fc-face fc-back">
+              <div class="fc-jp" id="fc-jp"></div>
+              <div class="fc-ro" id="fc-ro"></div>
+              <div class="fc-vn" id="fc-vn"></div>
+              <div class="fc-vi" id="fc-vi"></div>
+              <button class="btn btn-sky btn-speak" id="fc-speak">🔊 Nghe</button>
+              <div class="fc-example hidden" id="fc-example">
+                <div class="fc-ex-jp" id="fc-ex-jp"></div>
+                <div class="fc-ex-vn" id="fc-ex-vn"></div>
+                <div class="fc-ex-vi" id="fc-ex-vi"></div>
+                <button class="btn btn-ghost btn-small" id="fc-ex-speak">🔊 Nghe câu ví dụ</button>
+              </div>
+              <p class="fc-tip" id="fc-tip"></p>
+              <button class="btn btn-ghost btn-small" id="units-toggle">🔬 Từng chữ → phát âm ▾</button>
+              <div class="unit-map hidden" id="fc-units"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rate-row" id="rate-row">
+          <button class="btn btn-rate r-again" data-rate="0">😵 Lại</button>
+          <button class="btn btn-rate r-good" data-rate="1">🙂 Được</button>
+          <button class="btn btn-rate r-easy" data-rate="2">😄 Dễ</button>
+        </div>
+        <p class="muted small center" id="rate-hint">Chấm thật lòng để thẻ khó quay lại đúng lúc nhé!</p>
+      </div>
+
+      <div id="learn-done" class="hidden center-card card">
+        <div class="mascot cheer" id="mascot-learn"></div>
+        <h2 id="done-title">Xong rồi! Otsukaresama! 🎉</h2>
+        <p id="learn-done-stats"></p>
+        <div class="hero-actions center">
+          <button class="btn btn-matcha" data-view="quiz">Trắc nghiệm ôn 📝</button>
+          <button class="btn btn-pink" data-view="hoc">Về bài học 🏠</button>
+        </div>
+      </div>
+
+      <div id="topic-picker" class="hidden">
+        <div class="card">
+          <h2>🎯 Tự chọn chủ đề</h2>
+          <p class="muted small">Luyện thẳng chủ đề bạn thích (nội dung tới ngày hiện tại). Hợp để cả nhóm rủ nhau luyện một chủ đề!</p>
+          <div class="cat-grid" id="cat-grid"></div>
+        </div>
+      </div>
+      <p class="center"><a id="picker-toggle" class="picker-toggle">🎯 Tự chọn chủ đề ▾</a></p>
+    </section>
+
+    <!-- ============ CẨM NANG ============ -->
+    <section class="view" id="view-cheat">
+      <p class="back-row"><a data-view="hoc">← Về bài học</a></p>
+      <h1 class="page-title">📖 Cẩm nang bỏ túi</h1>
+
+      <div class="card rule-card">
+        <span class="rule-badge">QUY TẮC VÀNG — quy tắc hình thành câu quan trọng nhất</span>
+        <h2>Động từ luôn đứng CUỐI câu 🎯</h2>
+        <p class="rule-sub">Tiếng Nhật là ngôn ngữ <b>Chủ ngữ → Tân ngữ → Động từ</b> (ngược với tiếng Việt/Anh). Đây là quy tắc duy nhất bạn phải nhớ!</p>
+        <div class="sov-row">
+          <div class="sov-block b-subject"><small>CHỦ NGỮ</small><b>わたしは</b><span>watashi wa<br>(tôi)</span></div>
+          <div class="sov-block b-object"><small>TÂN NGỮ</small><b>コーヒーを</b><span>kōhī o<br>(cà phê)</span></div>
+          <div class="sov-block b-verb"><small>ĐỘNG TỪ</small><b>飲みます</b><span>nomimasu<br>(uống)</span></div>
+        </div>
+        <p class="rule-example">Từ ngữ nghĩa tiếng Việt từng chữ: “Tôi — cà phê — uống” ☕ Đọc lại: <b>Watashi wa kōhī o nomimasu</b>.</p>
+        <div class="sov-compare">
+          <span class="pill pill-no">❌ Tôi uống cà phê</span>
+          <span class="pill pill-yes">✅ Tôi + cà phê + UỐNG</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🔩 Trợ từ — “đinh tán” gắn vai trò từ</h2>
+        <p class="muted">Trợ từ đứng SAU danh từ để báo vai trò. Nhờ có nó, thứ tự giữa câu có thể đổi, miễn động từ ở cuối.</p>
+        <table class="table">
+          <thead><tr><th>Trợ từ</th><th>Đọc</th><th>Vai trò</th><th>Ví dụ</th></tr></thead>
+          <tbody>
+            <tr><td><b class="jp">は</b></td><td>wa</td><td>Chủ đề — “còn về…”</td><td class="jp">わたしは</td></tr>
+            <tr><td><b class="jp">を</b></td><td>o</td><td>Tân ngữ bị tác động</td><td class="jp">すしを</td></tr>
+            <tr><td><b class="jp">に</b></td><td>ni</td><td>Điểm đến / thời gian</td><td class="jp">大阪に</td></tr>
+            <tr><td><b class="jp">で</b></td><td>de</td><td>Nơi xảy ra / phương tiện</td><td class="jp">カードで</td></tr>
+            <tr><td><b class="jp">が</b></td><td>ga</td><td>Chủ ngữ (nhấn mạnh)</td><td class="jp">すしが好き</td></tr>
+          </tbody>
+        </table>
+        <p class="muted small">💡 Mẹo: <b>〜は何ですか？</b> = “~ là gì?”, <b>〜ですか？</b> cuối câu = câu hỏi (thêm “không?”).</p>
+      </div>
+
+      <div class="card">
+        <h2>✨ 4 mẫu câu thần thánh của du khách</h2>
+        <p class="muted">Chỉ thay danh từ vào chỗ trống — bạn có ngay hàng trăm câu dùng được ngay!</p>
+        <div class="pattern-grid">
+          <div class="pattern">
+            <div class="p-formula">〜<b>を ください</b></div>
+            <div class="p-meaning">“Cho tôi ~ với”</div>
+            <button class="example speakable" data-say="お水をください">お水をください 🔊</button>
+            <div class="p-note">Omizu o kudasai — Cho tôi nước</div>
+          </div>
+          <div class="pattern">
+            <div class="p-formula">〜<b>は どこですか</b></div>
+            <div class="p-meaning">“~ ở đâu?”</div>
+            <button class="example speakable" data-say="駅はどこですか">駅はどこですか？ 🔊</button>
+            <div class="p-note">Eki wa doko desu ka — Ga ở đâu?</div>
+          </div>
+          <div class="pattern">
+            <div class="p-formula">〜<b>は ありますか</b></div>
+            <div class="p-meaning">“Có ~ không?”</div>
+            <button class="example speakable" data-say="トイレはありますか">トイレはありますか？ 🔊</button>
+            <div class="p-note">Toire wa arimasu ka — Có nhà vệ sinh không?</div>
+          </div>
+          <div class="pattern">
+            <div class="p-formula">〜<b>を お願いします</b></div>
+            <div class="p-meaning">“Làm ơn cho tôi ~”</div>
+            <button class="example speakable" data-say="お会計をお願いします">お会計をお願いします 🔊</button>
+            <div class="p-note">Okaikei o onegai shimasu — Tính tiền giúp tôi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🇻🇳 Cách đọc kiểu Việt — nhìn là đọc được ngay</h2>
+        <p class="muted">Mọi câu và từ trong app đều có dòng <b>“đọc kiểu Việt”</b> viết theo chính tả tiếng Việt. Quy tắc chuyển đổi:</p>
+        <div class="legend-grid">
+          <div class="legend-item"><b>shi → xi</b><span>すし = <i>su-xi</i> (sushi)</span></div>
+          <div class="legend-item"><b>chi → chi</b><span>ちょっと = <i>chôt-tô</i> (một chút)</span></div>
+          <div class="legend-item"><b>ji → gi</b><span>だいじょうぶ = <i>đai-giô-bu</i></span></div>
+          <div class="legend-item"><b>r → l</b><span>ラーメン = <i>laa-men</i> (ramen)</span></div>
+          <div class="legend-item"><b>fu → phu</b><span>ふく = <i>phu-cu</i> (quần áo)</span></div>
+          <div class="legend-item"><b>tsu → tsu</b><span>つ = <i>tsu</i>, 9 = <i>cyuu</i></span></div>
+          <div class="legend-item"><b>wa → oa</b><span>こんにちは = <i>côn-ni-chi-oa</i></span></div>
+          <div class="legend-item"><b>e → ê, o → ô</b><span>駅 = <i>ê-ki</i>, ん = <i>n</i> cuối câu</span></div>
+          <div class="legend-item"><b>d → đ</b><span>どこ = <i>đô-cô</i> (ở đâu)</span></div>
+          <div class="legend-item"><b>âm dài → viết đôi</b><span>東京 = <i>tôô-kyôô</i>, です đọc <i>des</i></span></div>
+        </div>
+        <p class="muted small">💡 Đây là cách đọc <b>gần đúng để người Nhật hiểu</b> — hãy vẫn bấm 🔊 nghe giọng chuẩn và bắt chước!</p>
+      </div>
+
+      <div class="card">
+        <h2>🗣️ Phát âm siêu tốc cho người Việt</h2>
+        <ul class="tips-list">
+          <li>🗾 <b>5 nguyên âm a – i – u – e – o</b> đọc rõ ràng, không nuốt âm như tiếng Việt miền Bắc.</li>
+          <li>⏱️ <b>Chữ có gạch ngang ō, ū</b> = kéo dài gấp đôi nhịp: Tōkyō = Tô-kyô-ô (3 nhịp).</li>
+          <li>👅 <b>R</b> nằm giữa “r” và “l” — lưỡi chạm nhẹ một cái: “ramen” nghe gần “lamen”.</li>
+          <li>🤫 <b>u/i cuối câu thường câm</b>: <span class="jp">です</span> đọc “des”, <span class="jp">ます</span> đọc “mas”.</li>
+          <li>🪙 Trợ từ <span class="jp">は</span> đọc là <b>“wa”</b> chứ không phải “ha”.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>🔬 Mỗi chữ một nhịp — chữ nào cũng có phát âm riêng</h2>
+        <p class="muted">Tiếng Nhật đọc đều như trống: <b>mỗi chữ kana = 1 nhịp</b>, cụm kanji = đọc cả từ. Trên thẻ ghi nhớ, bấm <b>🔬 Từng chữ</b> để xem mũi tên chỉ phát âm cho từng chữ:</p>
+        <p class="demo-label">こんにちは — <i>côn-ni-chi-oa</i>: 5 chữ = 5 nhịp</p>
+        <div class="unit-map" id="demo-units-1"></div>
+        <p class="demo-label">ちょっと — nhỏ <b>っ</b> = nhấn gấp đôi phụ âm sau</p>
+        <div class="unit-map" id="demo-units-2"></div>
+        <p class="demo-label">東京駅行き — cụm kanji đọc trọn cả từ, đuôi kana đọc riêng</p>
+        <div class="unit-map" id="demo-units-3"></div>
+      </div>
+
+      <div class="card">
+        <button class="accordion-head" id="kana-toggle">🈁 Bảng chữ Hiragana (46 chữ cơ bản) — mở ra xem <span class="chev">▾</span></button>
+        <div class="accordion-body hidden" id="kana-body">
+          <p class="muted small">Mọi thực đơn, biển hiệu ở Nhật đều dùng kana. Nhớ được 46 chữ này là bạn đọc được cả phố! Lưới 5 nguyên âm × hàng phụ âm:</p>
+          <div class="kana-grid" id="kana-grid"></div>
+        </div>
+      </div>
+
+      <div class="card quote-card">
+        <p class="jp-big">すみません は 魔法の言葉。</p>
+        <p><b>Sumimasen</b> là câu đắc lực nhất Nhật Bản: vừa là “xin lỗi”, vừa là “cho tôi hỏi…”, vừa để gọi phục vụ. Kêu to một tiếng <b>“Sumimasen!”</b> là mọi cánh cửa mở ra 😄</p>
+      </div>
+    </section>
+
+    <!-- ============ TRẮC NGHIỆM ============ -->
+    <section class="view" id="view-quiz">
+      <p class="back-row"><a data-view="hoc">← Về bài học</a></p>
+      <div id="quiz-home">
+        <h1 class="page-title">📝 Trắc nghiệm</h1>
+        <p class="muted">10 câu nhanh để khoét sâu trí nhớ — làm đúng để lấy XP lên bảng vàng!</p>
+        <div class="card">
+          <div class="chip-row" id="quiz-scope"></div>
+          <button class="btn btn-pink btn-big" id="quiz-start" style="margin-top:16px">Bắt đầu! 🚀</button>
+        </div>
+        <div class="card" id="quiz-best"></div>
+      </div>
+
+      <div id="quiz-play" class="hidden">
+        <div class="session-head">
+          <button class="btn btn-ghost" id="quiz-quit">← Thoát</button>
+          <div class="session-progress"><div class="bar"><div class="fill" id="quiz-fill"></div></div><span id="quiz-count"></span></div>
+          <span class="score-chip">⭐ <b id="quiz-score">0</b></span>
+        </div>
+        <div class="card quiz-card">
+          <span class="q-type" id="q-type"></span>
+          <div class="q-prompt" id="q-prompt"></div>
+          <button class="btn btn-sky btn-speak hidden" id="q-speak">🔊 Phát lại</button>
+          <div class="q-options" id="q-options"></div>
+          <div class="q-feedback hidden" id="q-feedback"></div>
+          <button class="btn btn-matcha btn-big hidden" id="q-next">Tiếp theo ▶</button>
+        </div>
+      </div>
+
+      <div id="quiz-done" class="hidden center-card card">
+        <div class="mascot cheer" id="mascot-quiz"></div>
+        <h2 id="quiz-result-title"></h2>
+        <p id="quiz-result-detail"></p>
+        <div class="hero-actions center">
+          <button class="btn btn-pink" id="quiz-replay">Chơi lại 🔄</button>
+          <button class="btn btn-matcha" data-view="hoc">Về bài học 🏠</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NHÓM ============ -->
+    <section class="view" id="view-group">
+      <p class="back-row"><a data-view="hoc">← Về bài học</a></p>
+      <h1 class="page-title">👥 Nhóm &amp; Bảng vàng</h1>
+      <p class="muted">Học một mình vẫn được tính điểm — muốn thi đấu cùng bạn bè thì đặt tên + số điện thoại để lên bảng vàng. Tiến trình học một mình sẽ được <b>mang theo</b> khi đặt tên!</p>
+      <div id="guest-banner"></div>
+      <div class="group-grid">
+        <div class="card" id="join-card">
+          <h2>🙋 Lên bảng vàng</h2>
+          <form id="join-form">
+            <label class="field"><span>Tên của bạn *</span>
+              <input type="text" id="join-name" maxlength="20" placeholder="Ví dụ: Minh Anh" required />
+            </label>
+            <label class="field"><span>Số điện thoại *</span>
+              <input type="tel" id="join-phone" maxlength="15" placeholder="09xx xxx xxx" required />
+              <small class="muted">Mã định danh để quay lại đúng hồ sơ. 🔒 Chỉ lưu trên máy này, không gửi đi đâu cả.</small>
+            </label>
+            <div class="field"><span>Chọn mascot của bạn</span>
+              <div class="emoji-grid" id="emoji-grid"></div>
+            </div>
+            <button type="submit" class="btn btn-pink btn-big" style="width:100%">Lưu &amp; thi đấu! 🎉</button>
+          </form>
+        </div>
+        <div class="card" id="board-card">
+          <h2>🏆 Bảng vàng</h2>
+          <div id="leaderboard"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TIẾN TRÌNH ============ -->
+    <section class="view" id="view-progress">
+      <p class="back-row"><a data-view="hoc">← Về bài học</a></p>
+      <h1 class="page-title">📊 Tiến trình</h1>
+      <div id="progress-body"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>🍙 <b>Hanasou!</b> — làm với 🌸 cho người Việt yêu Nhật Bản · Dữ liệu học chỉ lưu trong trình duyệt của bạn</p>
+  </footer>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
