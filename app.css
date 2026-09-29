@@ -546,6 +546,46 @@ body {
 .center-card { text-align: center; max-width: 520px; margin: 30px auto; }
 .center-card .mascot { margin: 0 auto 10px; }
 
+/* ---------- Popup từ điển (bấm chữ trong câu) ---------- */
+.vocab-link {
+  color: var(--sky-deep);
+  border-bottom: 2px dotted var(--sky);
+  cursor: pointer;
+  font-weight: 900;
+}
+.vocab-link:hover { background: var(--sky-soft); border-bottom-style: solid; }
+.vocab-popup {
+  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+  width: min(460px, calc(100vw - 24px)); z-index: 70;
+  background: var(--card); border: 2px solid #fff; border-radius: 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); padding: 16px;
+  animation: toast-in 0.25s ease;
+}
+.vp-top { display: flex; gap: 12px; align-items: center; }
+.vp-illus {
+  font-size: 40px; width: 76px; height: 76px; flex-shrink: 0;
+  display: grid; place-items: center; background: var(--lemon-soft);
+  border-radius: 16px; overflow: hidden;
+}
+.vp-illus img { width: 76px; height: 76px; object-fit: cover; clip-path: inset(4% 6% 15% 6% round 14px); }
+.vp-word { flex: 1; min-width: 0; }
+.vp-jp { font-size: 24px; font-weight: 900; line-height: 1.2; }
+.vp-ro { font-size: 13px; color: var(--sky-deep); font-weight: 700; }
+.vp-vi { font-size: 15px; font-weight: 700; color: var(--matcha-deep); }
+.vp-close {
+  margin-left: auto; flex-shrink: 0; cursor: pointer;
+  background: #fff; border: 2px solid var(--pink-soft); border-radius: 50%;
+  width: 34px; height: 34px; font-size: 14px;
+}
+.vp-close:hover { background: var(--pink-soft); }
+.vp-ex { margin-top: 12px; background: var(--sky-soft); border-radius: 14px; padding: 10px 14px; }
+.vp-ex-jp { font-weight: 900; }
+.vp-ex-vn { font-size: 12px; color: var(--sky-deep); font-weight: 700; margin-top: 2px; }
+.vp-ex-vi { font-size: 14px; font-weight: 700; margin-top: 4px; }
+.vp-actions { display: flex; gap: 8px; margin-top: 12px; }
+.vp-actions .btn { flex: 1; font-size: 13px; padding: 10px 8px; }
+.vp-meta { text-align: center; margin-top: 10px; }
+
 /* ---------- Toast ---------- */
 .toast {
   position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%);

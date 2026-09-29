@@ -222,6 +222,7 @@ function todayCards(u, li) {
 
 /* ---------------- ĐIỀU HƯỚNG & MENU ---------------- */
 function showView(name) {
+  closeVocabPopup();
   $$(".view").forEach((v) => v.classList.remove("active"));
   const target = $("#view-" + name);
   if (target) target.classList.add("active");
@@ -355,6 +356,96 @@ function unitMapHTML(jp) {
   }).join("");
 }
 
+/* ---------------- TỪ ĐIỂN LIÊN KẾT TRONG CÂU ----------------
+   Không cần tokenizer nặng: từ điển là tập đóng 300 từ → so khớp dài nhất.
+   Động từ/tính từ được sinh thêm biến thể (行く → 行き/行っ) để link cả dạng chia.
+   Chữ kanji đơn KHÔNG link khi nằm giữa cụm kanji dài hơn (tránh 本 trong 日本語). */
+const DICT_INDEX = [];
+for (const w of WORDS) {
+  const forms = new Set([w.jp]);
+  const last = [...w.jp].pop();
+  if (w.cat === "dongtu" && /[うくぐすつぬぶむる]$/.test(w.jp) && [...w.jp].length >= 2) {
+    const stem = w.jp.slice(0, -1);
+    forms.add(stem);
+    const U2I = { う: "い", く: "き", ぐ: "ぎ", す: "し", つ: "ち", ぬ: "に", ぶ: "び", む: "み", る: "り" };
+    if (U2I[last]) forms.add(stem + U2I[last]);
+    forms.add(stem + "っ");
+  } else if (w.cat === "tinhtu" && /い$/.test(w.jp) && [...w.jp].length >= 2) {
+    forms.add(w.jp.slice(0, -1));
+  } else if (/[ただ]$/.test(w.jp) && [...w.jp].length >= 3) {
+    forms.add(w.jp.slice(0, -1)); // dạng quá khứ: 疲れた → 疲れ (khớp 疲れました)
+  }
+  for (const f of forms) if ([...f].length >= 2 || isKanjiCh([...f][0])) DICT_INDEX.push({ f, id: w.id });
+}
+DICT_INDEX.sort((a, b) => [...b.f].length - [...a.f].length);
+
+function linkVocabHTML(text, selfId) {
+  const chars = [...text];
+  let out = "", plain = "";
+  const flush = () => { if (plain) { out += esc(plain); plain = ""; } };
+  let i = 0;
+  while (i < chars.length) {
+    let hit = null;
+    for (const d of DICT_INDEX) {
+      if (d.id === selfId || !text.startsWith(d.f, i)) continue;
+      const len = [...d.f].length;
+      // bảo vệ: chữ kanji đơn không link nếu nằm giữa cụm kanji (vd 本 trong 日本語)
+      if (i > 0 && (chars[i - 1] === "っ" || chars[i - 1] === "ッ") && isKanaCh(chars[i])) continue;
+      if (len === 1 && isKanjiCh(chars[i]) && ((i > 0 && isKanjiCh(chars[i - 1])) || (i + 1 < chars.length && isKanjiCh(chars[i + 1])))) continue;
+      hit = { d, len };
+      break;
+    }
+    if (hit) {
+      flush();
+      out += `<span class="vocab-link" data-vid="${hit.d.id}" title="Bấm để tra nghĩa">${esc(hit.d.f)}</span>`;
+      i += hit.len;
+    } else {
+      plain += chars[i];
+      i++;
+    }
+  }
+  flush();
+  return out;
+}
+
+function openVocabPopup(id) {
+  const d = itemById(id);
+  if (!d) return;
+  const cat = catOf(d);
+  const illus = IMG_OVERRIDE[d.id]
+    ? `<img src="${IMG_OVERRIDE[d.id]}" alt="${esc(d.vi)}">`
+    : (ILLUS[d.id] || cat.emoji);
+  const lv = LEVELS[d.level - 1];
+  const el = $("#vocab-popup");
+  el.innerHTML = `
+    <div class="vp-top">
+      <div class="vp-illus">${illus}</div>
+      <div class="vp-word">
+        <div class="vp-jp">${esc(d.jp)}</div>
+        <div class="vp-ro">${esc(d.ro)} · 🇻🇳 ${esc(d.vn)}</div>
+        <div class="vp-vi">${esc(d.vi)}</div>
+      </div>
+      <button class="vp-close" id="vp-close" title="Đóng">✕</button>
+    </div>
+    <div class="vp-ex">
+      <div class="vp-ex-jp">${esc(d.ex.jp)}</div>
+      <div class="vp-ex-vn">🇻🇳 ${esc(d.ex.vn)}</div>
+      <div class="vp-ex-vi">${esc(d.ex.vi)}</div>
+    </div>
+    <div class="vp-actions">
+      <button class="btn btn-sky" id="vp-speak">🔊 Nghe</button>
+      <button class="btn btn-matcha" id="vp-speak-ex">🔊 Câu ví dụ</button>
+      <button class="btn btn-pink" id="vp-study">🎴 Học thẻ này</button>
+    </div>
+    <p class="vp-meta small muted">${cat.emoji} ${esc(cat.name)} · ${lv.emoji} Cấp ${d.level}</p>`;
+  el.classList.remove("hidden");
+  $("#vp-speak").onclick = () => speak(d.jp);
+  $("#vp-speak-ex").onclick = () => speak(d.ex.jp);
+  $("#vp-study").onclick = () => { closeVocabPopup(); startSession([d], "Tra cứu"); };
+  $("#vp-close").onclick = closeVocabPopup;
+}
+function closeVocabPopup() { const el = $("#vocab-popup"); if (el) el.classList.add("hidden"); }
+
 /* ---------------- MÀN HỌC CHÍNH ---------------- */
 function renderHoc() {
   if (session && session.finished) session = null; // quay lại sau khi xong buổi
@@ -453,14 +544,14 @@ function showCard() {
     $("#fc-illus").textContent = ILLUS[p.id] || cat.emoji;
   }
   $("#fc-front-en").textContent = p.en ? "🇬🇧 " + p.en : "";
-  $("#fc-jp").textContent = p.jp;
+  $("#fc-jp").innerHTML = linkVocabHTML(p.jp, p.id);
   $("#fc-ro").textContent = p.ro;
   $("#fc-vn").textContent = "🇻🇳 Đọc kiểu Việt: " + p.vn;
   $("#fc-vi").textContent = p.vi;
   $("#fc-tip").textContent = p.tip ? "💡 " + p.tip : "";
   if (p.ex) {
     $("#fc-example").classList.remove("hidden");
-    $("#fc-ex-jp").textContent = p.ex.jp;
+    $("#fc-ex-jp").innerHTML = linkVocabHTML(p.ex.jp, p.id);
     $("#fc-ex-vn").textContent = "🇻🇳 " + p.ex.vn;
     $("#fc-ex-vi").textContent = p.ex.vi;
   } else {
@@ -930,9 +1021,16 @@ function init() {
     showView(btn.dataset.view);
   });
 
+  // từ điển liên kết trong câu: bấm chữ có gạch chấm → popup tra nghĩa
+  document.addEventListener("click", (ev) => {
+    const link = ev.target.closest(".vocab-link");
+    if (link) { ev.stopPropagation(); openVocabPopup(link.dataset.vid); return; }
+    if (!ev.target.closest("#vocab-popup")) closeVocabPopup();
+  });
+
   // thẻ ghi nhớ
   $("#flashcard").addEventListener("click", (ev) => {
-    if (ev.target.closest("#fc-speak") || ev.target.closest("#fc-ex-speak") || ev.target.closest("#units-toggle") || ev.target.closest("#fc-units")) return;
+    if (ev.target.closest("#fc-speak") || ev.target.closest("#fc-ex-speak") || ev.target.closest("#units-toggle") || ev.target.closest("#fc-units") || ev.target.closest(".vocab-link")) return;
     if (session && !session.finished) flipCard();
   });
   $("#units-toggle").addEventListener("click", () => {
