@@ -12,7 +12,8 @@ Một web app **một trang (SPA)** thuần HTML/CSS/JS, **không cần backend,
 |---|---|
 | 🗓️ Kế hoạch 10 ngày | 374 thẻ chia 10 buổi (~32-49 thẻ/buổi, ~10 phút): Ngày 1-5 🌱 Cấp 1 · Ngày 6-8 🌸 Cấp 2 · Ngày 9-10 🌺 Cấp 3. Mỗi buổi = thẻ ôn đến hạn + thẻ mới; bỏ lỡ ngày nào sẽ tự được "bù" vào buổi sau |
 | 🎴 Thẻ ghi nhớ | 74 câu mẫu + 300 từ vựng (mỗi từ có câu ví dụ) · lật thẻ 3D · chấm Lại/Được/Dễ theo thuật toán **lặp lại ngắt quãng** (Leitner 1→16 ngày) |
-| 🇻🇳 Đọc kiểu Việt | Mọi câu/từ có phiên âm gần đúng theo chính tả tiếng Việt (こんにちは → *côn-ni-chi-oa*) + 🔊 giọng chuẩn (Web Speech API) |
+| 🇻🇳 Đọc kiểu Việt | Mọi câu/từ có phiên âm gần đúng theo chính tả tiếng Việt (こんにちは → *côn-ni-chi-oa*) + 🔊 giọng chuẩn |
+| 🔊 TTS đa nền tảng | Dùng **Web Speech API** nếu máy có giọng Nhật (macOS/iOS/Edge/Windows+cài gói/Android+cài data) — không có thì **tự chuyển giọng trực tuyến** (Google translate_tts, dự phòng VoiceVOX) — kèm phần chẩn đoán + hướng dẫn bật giọng máy ở Cẩm nang |
 | 🔬 Từng chữ → phát âm | Trên mỗi thẻ: bấm 🔬 để xem **mũi tên chỉ phát âm từng chữ** — mỗi kana 1 cột (1 nhịp), cụm kanji đọc trọn từ (từ điển 241 cụm), nhỏ っ = nhấn gấp đôi, ー = kéo dài (kỹ thuật furigana/flexbox per-character) |
 | 👥 Nhóm & Bảng vàng | Học khách được tự do; muốn thi đấu thì đặt **tên + số điện thoại** (+ mascot) — tiến trình mang theo nguyên vẹn, xếp hạng XP/thẻ/chuỗi |
 | 📝 Trắc nghiệm | 10 câu từ **bài đã học** hoặc **tất cả đã mở**: đọc chữ Nhật → nghĩa, dịch ngược, và câu nghe |

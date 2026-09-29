@@ -80,18 +80,92 @@ function showToast(msg) {
   showToast._t = setTimeout(() => t.classList.add("hidden"), 2800);
 }
 
-function speak(text) {
-  try {
-    if (!("speechSynthesis" in window)) { showToast("Trình duyệt không hỗ trợ đọc 😢"); return; }
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "ja-JP";
-    u.rate = 0.82;
-    const v = speechSynthesis.getVoices().find((x) => (x.lang || "").toLowerCase().startsWith("ja"));
-    if (v) u.voice = v;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(u);
-  } catch (e) {}
-}
+/* ---------------- TTS ĐA NỀN TẢNG ----------------
+   1) Web Speech API nếu máy có giọng tiếng Nhật (macOS/iOS/Edge/Windows+cài gói/Android+cài data)
+   2) Không có → giọng trực tuyến Google translate_tts (client=gtx, không cần key)
+   3) Vẫn lỗi → VoiceVOX (tts.quest)  →  cuối cùng: hướng dẫn bật giọng máy */
+const TTS = {
+  voices: [],
+  mode: "checking", // checking | web | gtts | none
+  audio: null,
+  _token: 0,
+  _ready: null,
+  init() {
+    if (!("speechSynthesis" in window)) { this.mode = "gtts"; this._ready = Promise.resolve(); return; }
+    this._ready = new Promise((resolve) => {
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        this.voices = speechSynthesis.getVoices() || [];
+        resolve();
+      };
+      finish(); // một số trình duyệt có sẵn ngay
+      if (!this.voices.some((v) => /^ja/i.test(v.lang || ""))) {
+        speechSynthesis.addEventListener("voiceschanged", finish, { once: true });
+        setTimeout(finish, 1500); // Android/Firefox có khi không bắn voiceschanged
+      }
+    });
+  },
+  jaVoice() {
+    const ja = this.voices.filter((v) => /^ja/i.test(v.lang || ""));
+    return ja.find((v) => /natural|google|nanami|keita|mizuki|takumi|kyoko|o-ren|orei/i.test(v.name)) || ja[0] || null;
+  },
+  async speak(text) {
+    await this._ready;
+    // iOS/Firefox nạp voices muộn — hỏi lại mỗi lần đọc
+    if ("speechSynthesis" in window) {
+      const now = speechSynthesis.getVoices();
+      if (now && now.length) this.voices = now;
+    }
+    if (this.jaVoice()) {
+      this.mode = "web";
+      try {
+        const my = ++this._token;
+        const u = new SpeechSynthesisUtterance(text);
+        const v = this.jaVoice();
+        u.voice = v;
+        u.lang = (v && v.lang) || "ja-JP";
+        u.rate = 0.85;
+        u.onerror = (e) => {
+          if (my === this._token && !/cancel|interrupt/i.test(e.error || "")) this.playOnline(text);
+        };
+        if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
+        speechSynthesis.speak(u);
+        return;
+      } catch (e) { /* rơi xuống giọng trực tuyến */ }
+    } else {
+      this.mode = "gtts";
+    }
+    this.playOnline(text);
+  },
+  playOnline(text) {
+    const a = this.audio || (this.audio = new Audio());
+    a.pause();
+    a.src = "https://translate.googleapis.com/translate_tts?ie=UTF-8&client=gtx&tl=ja&q=" + encodeURIComponent(text);
+    a.play().catch(() => {
+      fetch("https://api.tts.quest/v3/voicevox/synthesis?text=" + encodeURIComponent(text) + "&speaker=3")
+        .then((r) => r.json())
+        .then((j) => {
+          if (j && j.mp3StreamingUrl) { a.src = j.mp3StreamingUrl; return a.play(); }
+          throw new Error("voicevox-fail");
+        })
+        .catch(() => {
+          this.mode = "none";
+          showToast("Không đọc được — mở 📖 Cẩm nang → 🔊 Giọng đọc để bật giọng máy nhé");
+        });
+    });
+  },
+  describe() {
+    if (this.mode === "web") { const v = this.jaVoice(); return `✅ Giọng máy: ${v ? v.name : "ja-JP"} — hoạt động cả offline`; }
+    if (this.mode === "gtts") return "🌐 Máy chưa có giọng Nhật — đang dùng giọng trực tuyến (cần internet)";
+    if (this.mode === "none") return "⚠️ Chưa đọc được — xem hướng dẫn bên dưới";
+    return "…đang kiểm tra";
+  },
+  canListen() { return this.mode !== "none"; },
+};
+
+function speak(text) { TTS.speak(text); }
 
 /* ---------------- HỒ SƠ (tự tạo Khách) ---------------- */
 function ensureUser() {
@@ -167,6 +241,15 @@ function initCheat() {
     $("#kana-toggle .chev").classList.toggle("open");
   });
   $$("#view-cheat .speakable").forEach((b) => b.addEventListener("click", () => speak(b.dataset.say)));
+  const statusEl = $("#tts-status");
+  if (statusEl) {
+    const update = () => { statusEl.textContent = TTS.describe(); };
+    update();
+    setTimeout(update, 1600);
+    setTimeout(update, 3500);
+  }
+  const testBtn = $("#tts-test");
+  if (testBtn) testBtn.addEventListener("click", () => { speak("こんにちは"); setTimeout(update, 500); });
   [["#demo-units-1", "こんにちは"], ["#demo-units-2", "ちょっと"], ["#demo-units-3", "東京駅行き"]]
     .forEach(([sel, jp]) => { const el = $(sel); if (el) el.innerHTML = unitMapHTML(jp); });
 }
@@ -499,7 +582,7 @@ function quizPool() {
 function startQuiz() {
   const pool = quizPool();
   if (pool.length < 4) { showToast("Học thêm vài thẻ đã rồi trắc nghiệm nhé! 😉"); return; }
-  const types = ["jp2vi", "vi2jp", "listen"];
+  const types = TTS.canListen() ? ["jp2vi", "vi2jp", "listen"] : ["jp2vi", "vi2jp"];
   const qs = [...pool].sort(() => Math.random() - 0.5).slice(0, 10).map((p) => {
     const type = types[Math.floor(Math.random() * types.length)];
     const distract = [...pool.filter((x) => x.id !== p.id)].sort(() => Math.random() - 0.5).slice(0, 3);
@@ -879,7 +962,8 @@ function init() {
   $("#join-form").addEventListener("submit", joinGroup);
   $("#user-chip").addEventListener("click", () => showView("group"));
 
-  if ("speechSynthesis" in window) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); }
+  if ("speechSynthesis" in window) { speechSynthesis.getVoices(); }
+  TTS.init();
 
   // ⭐ mở app là thấy ngay màn học
   showView("hoc");
