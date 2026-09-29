@@ -18,7 +18,7 @@ Một web app **một trang (SPA)** thuần HTML/CSS/JS, **không cần backend,
 | 👥 Nhóm & Bảng vàng | Học khách được tự do; muốn thi đấu thì đặt **tên + số điện thoại** (+ mascot) — tiến trình mang theo nguyên vẹn, xếp hạng XP/thẻ/chuỗi |
 | 📝 Trắc nghiệm | 10 câu từ **bài đã học** hoặc **tất cả đã mở**: đọc chữ Nhật → nghĩa, dịch ngược, và câu nghe |
 | 📖 Cẩm nang | Quy tắc vàng SOV · bảng trợ từ · 4 mẫu câu thần thánh · legend đọc kiểu Việt · Hiragana |
-| 🖼️ Minh họa từng thẻ | Mỗi thẻ có **hình minh họa riêng** (câu = cảnh nhỏ vài emoji) theo nguyên lý *dual coding* — muốn nâng cấp, sinh ảnh AI kawaii bằng `mmx image generate` rồi khai báo trong `IMG_OVERRIDE` (app.js) |
+| 🖼️ Minh họa từng thẻ | **374/374 thẻ có ảnh AI kawaii tự sinh** (WebP ~19KB/ảnh, phong cách thống nhất, câu = cảnh nhỏ) theo nguyên lý *dual coding* — sinh lại/thêm bằng `tools/gen-images.mjs`, emoji là phương án dự phòng |
 | 📊 Tiến trình | Lộ trình 10 ngày từng buổi, XP, chuỗi ngày, badges; nút cho giáo viên mở khóa cả kế hoạch |
 
 Mọi thứ khác (Cẩm nang, Trắc nghiệm, Nhóm, Tiến trình) gọn trong **một nút ☰** — không làm rối màn học.
