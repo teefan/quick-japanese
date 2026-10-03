@@ -4,12 +4,13 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v1.6.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> 744 words (183 curated + 561 N5, N5 lazy-loaded) · **460 N5 example sentences (Tatoeba)** ·
-> **726 pitch accents (Kanjium)** · 167 phrases (12 categories) · 22 grammar points · 13 intent trees
-> (4 groups) · 6 counters (1–10) · 🎧 Nghe & chọn quiz · ⭐ notebook export/import JSON.
-> PWA cache `qj-v1.6.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn,
-> N5 561 từ tải nền + phân trang + ví dụ + trọng âm, no JS errors.
+> **Current status (v2.0.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 13 intent trees (4 groups) · 744 words
+> (183 curated + 561 N5, lazy-loaded) · 460 N5 example sentences (Tatoeba) · 726 pitch accents
+> (Kanjium) · 6 counters (1–10).
+> PWA cache `qj-v2.0.0`. Regression: 13 intents × 3 random paths = 39/39, no JS errors.
+> **v2.0.0 narrowed the product**: phrases/cụm từ, notebook/sổ tay, grammar/ngữ pháp, quiz
+> “Nghe & chọn” and global search were removed — all still available in git history (v1.6.1).
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
 
 ---
@@ -22,13 +23,14 @@ replies. Communication is mostly one-way: traveler speaks Japanese → local und
 
 **Core jobs-to-be-done**
 
-1. “I need to say X right now.” → find a phrase fast, hear it, show it.
-2. “I need a sentence that isn’t in the list.” → build it from a small, valid set of pieces.
-3. “I want to understand why the sentence looks like that.” → one-tap grammar, phrased for
-   Vietnamese speakers (SOV vs SVO, particles, です/ます).
+1. “I need to say X right now.” → build a valid sentence fast, hear it, show it.
+2. “What does this word mean / how is it read?” → look it up in the vocabulary list with
+   example sentence and pitch accent.
+3. “I want to understand why the sentence looks like that.” → the builder shows its grammatical
+   composition (particles, roles) right under the sentence.
 
-**Non-goals (v1).** No kana/kanji course, no dictionary search in Japanese, no speech
-recognition, no account, no backend, no ads, no tracking.
+**Non-goals (v2).** No phrasebook tab, no favorites/notebook, no grammar reference tab,
+no quiz, no global search, no account, no backend, no ads, no tracking.
 
 **Success signals.** Time-to-first-sentence < 15s; a traveler can order food, shop, ask
 directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435 KB; danh sách
@@ -83,11 +85,6 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
 ## 4. Information architecture
 
 ```
-Cụm từ 📖     12 categories, 167 phrases
-  Chào hỏi · Cảm ơn & lịch sự · Chỉ trỏ · Trả lời & xử lý · Mua sắm ·
-  Gọi món & ăn uống · Đi lại · Khách sạn · Hiệu thuốc & sức khỏe ·
-  Sự cố & bảo hiểm · Khẩn cấp · Người Nhật có thể nói
-
 Ghép câu 🧩    13 intent trees in 4 groups, ordered basic → advanced (see §6)
   Giao tiếp:          Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
                       Làm ơn giúp tôi… · Cái này được không?
@@ -95,14 +92,12 @@ Ghép câu 🧩    13 intent trees in 4 groups, ordered basic → advanced (see 
   Đi lại & khách sạn: …ở đâu? · Đi đến… · Khách sạn
   Sức khỏe & sự cố:   Sức khỏe & sự cố
 
-Sổ tay ⭐      Favorites (localStorage): saved phrases + built sentences · export/import JSON
-Từ vựng 📚     744 words (183 curated + 561 N5 lazy) + counters 1–10 + money chips, tag filters,
-               paginated list, search
-Ngữ pháp 📝    22 points, “cơ bản” / “nên biết”, examples with pronunciation
-Tìm kiếm 🔍    Global search across phrases, vocab, grammar and builder intents
-Nghe & chọn 🎧  Listen-and-choose quiz, 10 questions/round from phrases or vocab (header 🎧 /
-               vocab-tab banner; high score in localStorage); TTS with a reading fallback
+Từ vựng 📚     744 words (183 curated + 561 N5 lazy) + counters 1–10 + money chips,
+               tag filters, paginated list, search, example sentences, pitch accents
 ```
+
+Removed in v2.0.0 (recoverable from git history): Cụm từ 📖 (phrases), Sổ tay ⭐ (favorites +
+export/import), Ngữ pháp 📝 (grammar reference), Nghe & chọn 🎧 (quiz), Tìm kiếm 🔍 (global search).
 
 ---
 
@@ -111,8 +106,8 @@ Nghe & chọn 🎧  Listen-and-choose quiz, 10 questions/round from phrases or v
 Authoring sources live in `data/source/*.json`; `node tools/build.js` enriches them
 (romaji, Vietnamese pronunciation, verb conjugation, intent expansion, sentence segmentation,
 validation) and emits browser-ready `data/*.js` as `window.QJ.<name>` globals. Generated files
-are compact JSON with empty fields pruned (~350 KB initial; +133 KB for the lazy N5 list) — always
-rebuild from sources, never edit `data/*.js` by hand.
+are compact JSON with empty fields pruned (~50 KB curated vocab; +264 KB for the lazy N5 list
+with examples + accents) — always rebuild from sources, never edit `data/*.js` by hand.
 
 ### 5.1 Vocabulary (`data/source/vocab.json` + `data/source/vocab-n5.json`)
 
@@ -139,7 +134,7 @@ Tatoeba (CC BY 2.0 FR) via OpenJLPT, original furigana markup (`furi`) for exact
 and project-authored Vietnamese translations. The build derives kana + `viPron`/`roma` from
 the furigana and an N5-extended lexicon (so particles は/へ read `oa`/`ê` correctly, and kanji
 readings are never mistaken for particles); examples are attached to `vocab-n5.js` and shown
-on vocab cards + quiz results. Words without a suitable polite/natural example are omitted.
+on vocab cards. Words without a suitable polite/natural example are omitted.
 
 `accents.json` maps vocabulary id → pitch-accent number for 726 of 744 words (curated + N5),
 imported once from [Kanjium](https://github.com/mifunetoshiro/kanjium) `accents.txt` (124k words,
@@ -147,35 +142,19 @@ CC BY-SA 4.0). Value `n` = pitch drops after mora *n*; `0` = heiban (no drop). W
 offers several accents, the first is kept; for kana-only homographs the candidate matching the
 word's reading is preferred (e.g. これ [0], not the interjection [1]). The build attaches
 `accent` to vocab items; the app renders high morae with an overline + `↓` marker and `[n]`
-on every vocab card, with a legend in the Grammar tab.
+on every vocab card.
 
-### 5.2 Phrases (`data/source/phrases.json`)
-
-Categories → items. Each item: `id`, `jp`, `kana`, `vi`, optional `note`, and optional
-overrides `roma` / `viPron` (used for particle は, e.g. こんにちは → `côn-ni-chi-oa`).
-Build also attaches `parts` — the sentence segmented into annotated tokens (`jp`, `kana`,
-`roma`, `viPron`, `vi`, `note`, `role`, optional `grammar`) — and derives word-spaced
-`roma` / `viPron` from those parts. Use a hand-written `parts` array only when the automatic
-segmentation is not good enough (the build audits that parts rejoin the original kana).
-
-### 5.3 Grammar (`data/source/grammar.json`)
-
-`id`, `level` (`basic`/`plus`), `title`, `summary`, `detail`, `examples[{jp,kana,vi}]`.
-IDs are referenced by intents (e.g. `particle-ga`, `tai`), so grammar cards stay in sync
-with the builder.
-
-### 5.4 Numbers (`data/source/numbers.json`)
+### 5.2 Numbers (`data/source/numbers.json`)
 
 `numbers[]`, `counters[]` (combos 1–10 including sound changes: 一本 いっぽん, 六本 ろっぽん,
 一杯 いっぱい, 八杯 はっぱい, 一人 ひとり, 二人 ふたり…), `money[]`.
 
-### 5.5 Intents / builder trees (`data/source/intents.json`)
+### 5.3 Intents / builder trees (`data/source/intents.json`)
 
 See §6. Intents carry a `group` (one of the four builder groups); steps hold `options` where an
 option can be a vocabulary `ref` (+ `form`), a `silent` branch choice, or a fixed sentence
 (with optional `roma`/`viPron` overrides and automatic `parts` segmentation).
-Validation at build time: unique IDs, all `ref` exist, all `next` steps exist,
-grammar references exist.
+Validation at build time: unique IDs, all `ref` exist, all `next` steps exist.
 
 ---
 
@@ -206,7 +185,6 @@ set, mirroring how a phrasebook conversation actually branches.
                 { "slot": "verb" },
                 { "text": "です", "kana": "です", "vi": "" } ],
   "viTemplate": "{subject} muốn {verb} {object}",
-  "grammar": ["tai", "particle-ga", "sov"],
   "tip": "たい = 'muốn làm gì'. Với 行く, đích đến dùng に."
 }
 ```
@@ -215,9 +193,9 @@ set, mirroring how a phrasebook conversation actually branches.
 
 - Picks are made in **Vietnamese meaning order**; the sentence is assembled in **Japanese
   order** through `template` (this is what makes SOV visible and teachable).
-- **Particles are auto-inserted** (`は`, `が`, `を`, `に`, `まで`…), rendered in red and
-  tappable → grammar popover. A proven example: picking 駅 in the “want to go” branch flips
-  the object particle from が to に via option-level override.
+- **Particles are auto-inserted** (`は`, `が`, `を`, `に`, `まで`…), rendered in red. A proven
+  example: picking 駅 in the “want to go” branch flips the object particle from が to に via
+  option-level override.
 - **`templateOverride`** lets one option restructure the whole sentence:
   *Cái này* + *bao nhiêu tiền?* → `これはいくらですか`; *Cái này* + *được không?* →
   `これでいいですか`; taxi branch → `駅までお願いします`.
@@ -225,7 +203,8 @@ set, mirroring how a phrasebook conversation actually branches.
 - **`silent` options** model branch choices (e.g. “Nhờ đưa tôi đến…”) and subject omission
   (teaches that Japanese often drops the subject).
 - Colors/UX: filled segments appear immediately, unfilled slots show `?`; furigana via
-  `<ruby>`; after completion: TTS, copy, show-to-local, random sentence, grammar chips, tip.
+  `<ruby>`; after completion: TTS, copy, show-to-local, random sentence, tip and the
+  structure breakdown.
 
 ### 6.3 Why deterministic, not AI
 
@@ -240,27 +219,17 @@ Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)
 
-Every phrase and every built sentence is also shown **broken into its grammatical pieces**:
+Every built sentence is shown **broken into its grammatical pieces**:
 
-- **Phrases** (`tools/segment.js` + build step): a weighted dynamic-programming tokenizer
-  segments the kana string against a lexicon of particles, vocabulary (all conjugated forms,
-  counters, money) and fixed expressions. Weights: word = 1, particle = 2, unknown = 100/char,
-  which prevents greedy mistakes (`はいくら` → `は + いくら`, not `はい + くら`).
-  Each token carries `jp`, `kana`, `viPron`, Vietnamese meaning, a short note
-  (part of speech, verb form, particle role) and an optional grammar id. The build **fails
-  loudly with warnings** when a chunk cannot be segmented; tricky phrases can override with a
-  hand-written `parts` array in `phrases.json` (e.g. `袋はいりません` → 袋 + は + いりません).
-- **Built sentences**: the structure panel is derived from picks; fixed-sentence options are
-  segmented at build time with the same tokenizer, so they expand into full breakdowns too
-  (e.g. `英語 + で + お願い + します`). Each row shows meaning + part of speech/verb form + reading,
-  and links to a grammar card. Saved notebook sentences keep their structure in the payload.
-- **UI**: a compact composition strip (segments separated by `·`, each segment **colour-coded by
-  grammatical role** — pronoun, noun, verb, adjective, adverb, particle, copula です, number,
-  fixed expression) plus an expandable “🧩 Giải thích ngữ pháp” table. Every segment shows the
-  Vietnamese approximation **and Hepburn romaji**; tapping a chip opens the table and flashes its
-  row; 📝 opens the matching grammar point. A colour legend lives in the Grammar tab.
-- **Notebook**: saved sentences keep the structure payload (roles, pronunciations, notes), so the
-  breakdown survives in “Sổ tay của tôi”.
+- **Built sentences** (`tools/segment.js` + build step): the structure panel is derived from
+  picks; fixed-sentence options are segmented at build time with a weighted dynamic-programming
+  tokenizer (word = 1, particle = 2, unknown = 100/char, which prevents greedy mistakes like
+  `はいくら` → `は + いくら`). Each token carries `jp`, `kana`, `viPron`, Vietnamese meaning and
+  a short note (part of speech, verb form, particle role), e.g. `英語 + で + お願い + します`.
+- **UI**: the sentence shows `<ruby>` furigana; below it the structure panel lists each piece
+  **colour-coded by grammatical role** (pronoun, noun, verb, adjective, adverb, particle,
+  copula です, number, fixed expression) with the Vietnamese approximation, Hepburn romaji,
+  meaning and part of speech. Every row keeps its role colour in the generated data.
 
 ### 6.5 Builder audit (v1.2.4)
 
@@ -272,15 +241,12 @@ A full audit of the builder produced these fixes:
   own destination list (Tokyo, stations, airport, hotels, onsen, markets, shrines) instead of the
   general place list that allowed nonsense like “does this train go to the toilet?”.
 - **Consistency** — fixed-sentence options are now segmented at build time with the same
-  tokenizer/annotator as phrase cards, so the structure panel shows full breakdowns
-  (e.g. `英語 + で + お願い + します`) and saved notebook sentences keep them.
+  tokenizer/annotator as the rest of the builder, so the structure panel shows full breakdowns
+  (e.g. `英語 + で + お願い + します`).
 - **Overrides** — option-level `roma`/`viPron` overrides are now respected
-  (こんにちは → `konnichiwa` / `côn-ni-chi-oa`), matching phrase cards.
-- **Relevance** — grammar chips are derived from the grammar actually present in the current
-  sentence (particles/forms the learner picked), falling back to the intent’s list only before
-  the first pick — no more “です” chip on こんにちは.
-- **Validation** — build warns on unknown chunks and grammar refs; every fixed option now
-  segments into pieces (`ご迷惑をおかけしました` → ご迷惑 + を + お掛け + しました).
+  (こんにちは → `konnichiwa` / `côn-ni-chi-oa`).
+- **Validation** — build warns on unknown chunks; every fixed option now segments into pieces
+  (`ご迷惑をおかけしました` → ご迷惑 + を + お掛け + しました).
 - **Payload** — generated data switched to compact JSON with empty fields pruned:
   611 KB → 349 KB, everything else unchanged.
 
@@ -328,11 +294,9 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 - **Offline (Phase 1, done)**: `sw.js` is network-first for page navigations (new versions show
   up immediately when online) and cache-first with background refresh for assets; Google Fonts
   use stale-while-revalidate. Installable via `manifest.webmanifest`.
-- **Favorites (Phase 1, done)**: `localStorage` (`qj.favs.v1`) stores saved phrases by id and
-  built sentences as full payloads; exported/imported as versioned JSON (`qj-notebook` format).
-- **Performance budget**: initial payload ≈ 435 KB (compact JSON, empty fields pruned) + lazy N5
-  list ≈ 259 KB with 460 example sentences; fonts optional via Google Fonts with system fallbacks;
-  vocab list paginates at 60 cards and renders 167 phrase cards instantly.
+- **Performance budget**: initial payload ≈ 95 KB of data (vocab + numbers + intents, compact JSON)
+  + lazy N5 list ≈ 264 KB with examples and accents; fonts optional via Google Fonts with system
+  fallbacks; vocab list paginates at 60 cards.
 - **GitHub Pages deploy**: push to `main`, Settings → Pages → Deploy from branch `/root`
   (already live at <https://teefan.github.io/quick-japanese/>).
 
@@ -341,14 +305,14 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 ## 9. Content quality rules
 
 1. Polite register only; casual variants go in `note`.
-2. Every phrase: `jp`, `kana`, `vi`; pronunciation auto-generated; `note` explains *when/who*.
-3. Option lists in intents are curated so only natural collocations can be built.
-4. No copied phrase lists: content is hand-authored and cross-checked against the sources in §2;
+2. Builder options are curated so only natural collocations can be built; fixed sentences carry
+   `jp`, `kana`, `vi`, with pronunciation auto-generated.
+3. No copied content: material is hand-authored and cross-checked against the sources in §2;
    third-party datasets keep their licenses and attribution (see §11).
-5. Vocabulary scope: JLPT N5 + travel essentials; ✅ N5 imported from OpenJLPT (561 từ mới, nghĩa
+4. Vocabulary scope: JLPT N5 + travel essentials; ✅ N5 imported from OpenJLPT (561 từ mới, nghĩa
    Việt biên tập tay, chờ kiểm duyệt cùng `REVIEW-CHECKLIST.md`); ✅ 460 từ N5 có câu ví dụ
    Tatoeba (lọc câu lịch sự/tự nhiên, nghĩa Việt biên tập, cũng chờ kiểm duyệt).
-6. Vietnamese wording: natural, traveler-oriented, avoiding machine-translation tone.
+5. Vietnamese wording: natural, traveler-oriented, avoiding machine-translation tone.
 
 ---
 
@@ -357,9 +321,9 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 | Phase | Scope |
 |---|---|
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
-| **1 — MVP polish (v0.2 → v1.2.5)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (`docs/REVIEW-CHECKLIST.md`) |
-| **2 — Scale content (v1.3.0 → v1.6.0)** | ✅ “Nghe & chọn” audio quiz (10 câu/lượt, 2 nguồn, TTS + fallback Đọc & chọn, lưu điểm cao) · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang; nghĩa Việt chờ kiểm duyệt) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON (versioned format, merge/replace) · ✅ Example sentences from Tatoeba (460/561 từ N5, furigana gốc → kana + phiên âm, nghĩa Việt biên tập, hiện trên thẻ từ vựng + kết quả quiz) · ✅ Pitch-accent display (Kanjium accents.txt, 726/744 từ; mora cao + ↓ + [n], legend trong tab Ngữ pháp) |
-| **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
+| **1 — MVP polish (v0.2 → v1.2.5)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta |
+| **2 — Scale content (v1.3.0 → v1.6.1)** | ✅ “Nghe & chọn” audio quiz · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON · ✅ Example sentences from Tatoeba (460/561 từ N5) · ✅ Pitch-accent display (Kanjium, 726/744 từ) |
+| **3 — Delight** | ✅ Scope narrowing (v2.0.0): chỉ còn **Ghép câu + Từ vựng**, bỏ cụm từ/sổ tay/ngữ pháp/quiz/tìm kiếm (v1.6.1 vẫn trong git history) · Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card; menu-photo OCR (optional); English UI toggle |
 
 ---
 
@@ -380,8 +344,8 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
   726 accents in `data/source/accents.json`, imported from `data/source_files/raw/accents.txt`
   (124,137 words). Required attribution: “The pitch accent notation, verb particle data,
   phonetics, homonyms and other additions or modifications to EDICT, KANJIDIC or KRADFILE were
-  provided by Uros O. through his free database.” Shown in the source header, app (Grammar tab
-  + source note) and this section.
+  provided by Uros O. through his free database.” Shown in the source header, app (Từ vựng tab
+  source note) and this section.
 - Planned/optional imports: JMdict/JMdict-simplified **EDRDG license (CC BY-SA 4.0)**,
   Tatoeba **CC BY 2.0 FR**, Kanjium **CC BY-SA 4.0**, frequency lists per their repos.
 - Wikivoyage used as *reference only*; no verbatim copying (CC BY-SA requires attribution if

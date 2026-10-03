@@ -67,7 +67,6 @@
       },
       "template": null,
       "viTemplate": null,
-      "grammar": ["desu"],
       "tip": "Thứ tự chuẩn khi gặp lần đầu: はじめまして → (tên) → よろしくお願いします."
     },
     {
@@ -148,7 +147,6 @@
       },
       "template": null,
       "viTemplate": null,
-      "grammar": ["te-kudasai", "kudasai-onegai"],
       "tip": "Mẫu 〜てくれてありがとう: động từ thể て + くれて + ありがとうございます — cảm ơn vì ai đó đã làm gì cho mình."
     },
     {
@@ -231,7 +229,6 @@
       },
       "template": null,
       "viTemplate": null,
-      "grammar": ["desu", "te-kudasai"],
       "tip": "Khi bí, chỉ cần すみません、わかりません — hoặc bấm 📺 đưa máy cho người đối diện."
     },
     {
@@ -261,7 +258,6 @@
         { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
       ],
       "viTemplate": "Làm ơn {action}",
-      "grammar": ["te-kudasai", "kudasai-onegai"],
       "tip": "Cấu trúc: thể て của động từ + ください = 'làm ơn hãy…'."
     },
     {
@@ -287,7 +283,6 @@
       },
       "template": null,
       "viTemplate": null,
-      "grammar": ["te-mo-ii", "potential"],
       "tip": "〜てもいいですか = xin phép; 〜できますか = có làm được không."
     },
     {
@@ -343,7 +338,6 @@
         { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }
       ],
       "viTemplate": "{demo} là gì?",
-      "grammar": ["kosoado", "question-ka", "particle-wa"],
       "tip": "これ/それ/あれ chọn theo khoảng cách: gần mình – gần người nghe – xa cả hai."
     },
     {
@@ -388,7 +382,6 @@
         { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
       ],
       "viTemplate": "Cho tôi {object}, {quantity}",
-      "grammar": ["kudasai-onegai", "particle-wo", "counters"],
       "tip": "ください là cách 'cho tôi' chuẩn mực nhất. Số lượng đứng ngay trước ください."
     },
     {
@@ -491,7 +484,6 @@
         { "text": "です", "kana": "です", "vi": "là (lịch sự)" }
       ],
       "viTemplate": "{subject} muốn {verb} {object}",
-      "grammar": ["tai", "particle-ga", "sov"],
       "tip": "たい = 'muốn làm gì'. Với 行く (đi), đích đến đánh dấu bằng に chứ không phải が."
     },
     {
@@ -533,7 +525,6 @@
         { "text": "好きです", "kana": "すきです", "vi": "thích" }
       ],
       "viTemplate": "{subject} thích {object}",
-      "grammar": ["suki", "particle-ga", "particle-wa"],
       "tip": "好き là tính từ đuôi な, thứ được thích đánh dấu bằng が (không phải を)."
     },
     {
@@ -566,7 +557,6 @@
         { "text": "どこですか", "kana": "どこですか", "vi": "ở đâu?" }
       ],
       "viTemplate": "{place} ở đâu?",
-      "grammar": ["question-ka", "particle-wa", "kosoado"],
       "tip": "Công thức vạn năng: [địa điểm] + はどこですか."
     },
     {
@@ -659,7 +649,6 @@
         { "text": "行きたいです", "kana": "いきたいです", "vi": "muốn đi" }
       ],
       "viTemplate": "Tôi muốn đi đến {place}",
-      "grammar": ["particle-ni", "tai"],
       "tip": "Đến (điểm đích) dùng に; nhờ taxi đi đến dùng まで + お願いします."
     },
     {
@@ -717,7 +706,6 @@
       },
       "template": null,
       "viTemplate": null,
-      "grammar": ["particle-ga", "masu-form", "te-mo-ii"],
       "tip": "Nhận phòng thường cần hộ chiếu. 荷物を預かってもらえますか dùng được cả trước khi nhận phòng lẫn sau khi trả phòng."
     },
     {
@@ -825,7 +813,6 @@
       },
       "template": null,
       "viTemplate": null,
-      "grammar": ["particle-ga", "particle-wo", "te-kudasai", "potential"],
       "tip": "Khẩn cấp: 119 (cứu thương), 110 (cảnh sát). Nếu nguy hiểm, nói to 助けて！"
     }
   ]

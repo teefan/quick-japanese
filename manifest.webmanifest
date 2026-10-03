@@ -1,7 +1,7 @@
 {
-  "name": "Quick Japanese — Tiếng Nhật du lịch cho người Việt",
+  "name": "Quick Japanese — Ghép câu tiếng Nhật cho người Việt",
   "short_name": "Quick Japanese",
-  "description": "Sổ tay tiếng Nhật sinh tồn: cụm từ, phiên âm tiếng Việt, ghép câu thông minh, dùng offline.",
+  "description": "Ghép câu tiếng Nhật theo từng bước, phiên âm tiếng Việt + trọng âm, kèm 744 từ vựng; dùng offline.",
   "lang": "vi",
   "dir": "ltr",
   "start_url": "./",

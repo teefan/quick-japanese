@@ -2,7 +2,7 @@
    Chiến lược: cache-first cho tài nguyên cùng origin (tự cập nhật ngầm),
    stale-while-revalidate cho Google Fonts. Đổi VERSION khi muốn ép cập nhật. */
 
-const VERSION = "qj-v1.6.1";
+const VERSION = "qj-v2.0.0";
 const CORE = [
   "./",
   "./index.html",
@@ -16,8 +16,6 @@ const CORE = [
   "./data/meta.js",
   "./data/vocab.js",
   "./data/vocab-n5.js",
-  "./data/phrases.js",
-  "./data/grammar.js",
   "./data/numbers.js",
   "./data/intents.js",
 ];

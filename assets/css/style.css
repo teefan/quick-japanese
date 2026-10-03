@@ -1,6 +1,3 @@
-/* Quick Japanese — giao diện tiếng Việt cho du khách
-   Mobile-first, không phụ thuộc framework. */
-
 :root {
   --bg: #f7f5f2;
   --card: #ffffff;
@@ -77,8 +74,6 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 
 button { font-family: inherit; color: inherit; }
 
-/* ---------- Header ---------- */
-
 .top {
   position: sticky;
   top: 0;
@@ -109,10 +104,8 @@ button { font-family: inherit; color: inherit; }
 }
 
 .brand h1 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
-.brand p { margin: 0; font-size: 12px; color: var(--muted); }
-.brand .brand-actions { margin-left: auto; display: flex; gap: 8px; }
 
-/* ---------- Layout ---------- */
+.brand p { margin: 0; font-size: 12px; color: var(--muted); }
 
 main {
   max-width: 680px;
@@ -126,10 +119,10 @@ main {
   gap: 8px;
   margin: 20px 0 10px;
 }
-.section-title h2 { margin: 0; font-size: 17px; }
-.section-title .desc { font-size: 12.5px; color: var(--muted); }
 
-/* ---------- Search & chips ---------- */
+.section-title h2 { margin: 0; font-size: 17px; }
+
+.section-title .desc { font-size: 12.5px; color: var(--muted); }
 
 .search {
   width: 100%;
@@ -141,6 +134,7 @@ main {
   color: var(--text);
   outline: none;
 }
+
 .search:focus { border-color: var(--accent); }
 
 .chip-row {
@@ -151,6 +145,7 @@ main {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
+
 .chip-row::-webkit-scrollbar { display: none; }
 
 .chip {
@@ -165,14 +160,14 @@ main {
   cursor: pointer;
   transition: transform .08s ease, background .15s ease, border-color .15s ease;
 }
+
 .chip:active { transform: scale(.96); }
+
 .chip.active {
   background: var(--indigo);
   border-color: var(--indigo);
   color: #fff;
 }
-
-/* ---------- Phrase cards ---------- */
 
 .card {
   background: var(--card);
@@ -183,19 +178,6 @@ main {
   box-shadow: var(--shadow);
 }
 
-.phrase-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-.phrase-jp {
-  flex: 1;
-  font-family: var(--jp-font);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.35;
-  letter-spacing: .01em;
-}
 .icon-btn {
   flex: 0 0 auto;
   display: grid;
@@ -209,16 +191,11 @@ main {
   cursor: pointer;
   transition: transform .08s ease;
 }
-.icon-btn:active { transform: scale(.92); }
-.icon-btn.fav-on {
-  color: var(--gold);
-  border-color: var(--gold);
-  background: var(--gold-soft);
-}
 
-.kana-line { font-family: var(--jp-font); font-size: 13px; color: var(--muted); margin-top: 2px; }
+.icon-btn:active { transform: scale(.92); }
+
 .pron { color: var(--accent); font-weight: 600; font-size: 15px; margin-top: 6px; }
-.meaning { font-size: 15.5px; margin-top: 2px; }
+
 .note {
   margin-top: 8px;
   font-size: 13px;
@@ -227,81 +204,42 @@ main {
   border-radius: 10px;
   padding: 8px 10px;
 }
+
 .note::before { content: "💡 "; }
 
-/* Romaji (phiên âm chính thức, Hepburn) — hiển thị cạnh phiên âm Việt */
 .roma { color: var(--muted); font-weight: 500; font-style: italic; }
+
 .b-roma { color: var(--muted); font-style: italic; font-size: 13.5px; margin-top: 2px; min-height: 18px; }
 
-/* ---------- Bóc tách câu (composition + giải thích) ---------- */
-
-.compose {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
-  margin-top: 10px;
-}
-.compose .c {
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  padding: 3px 9px;
-  font-family: var(--jp-font);
-  font-size: 14.5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform .08s ease;
-}
-.compose .c:active { transform: scale(.94); }
-.compose .sep { color: var(--line); font-style: normal; }
-
-/* Màu theo vai trò ngữ pháp (dùng chung cho chip, dòng bóc tách và legend) */
 .role-pron { color: var(--rl-pron); background: var(--rl-pron-bg); border-color: color-mix(in srgb, var(--rl-pron) 35%, var(--line)); }
+
 .role-noun { color: var(--rl-noun); background: var(--rl-noun-bg); border-color: color-mix(in srgb, var(--rl-noun) 35%, var(--line)); }
+
 .role-verb { color: var(--rl-verb); background: var(--rl-verb-bg); border-color: color-mix(in srgb, var(--rl-verb) 35%, var(--line)); }
+
 .role-adj { color: var(--rl-adj); background: var(--rl-adj-bg); border-color: color-mix(in srgb, var(--rl-adj) 35%, var(--line)); }
+
 .role-adverb { color: var(--rl-adverb); background: var(--rl-adverb-bg); border-color: color-mix(in srgb, var(--rl-adverb) 35%, var(--line)); }
+
 .role-particle { color: var(--rl-particle); background: var(--rl-particle-bg); border-color: color-mix(in srgb, var(--rl-particle) 35%, var(--line)); }
+
 .role-copula { color: var(--rl-copula); background: var(--rl-copula-bg); border-color: color-mix(in srgb, var(--rl-copula) 35%, var(--line)); }
+
 .role-number { color: var(--rl-number); background: var(--rl-number-bg); border-color: color-mix(in srgb, var(--rl-number) 35%, var(--line)); }
+
 .role-expression { color: var(--rl-expression); background: var(--rl-expression-bg); border-color: color-mix(in srgb, var(--rl-expression) 35%, var(--line)); }
+
 .role-unknown { color: var(--rl-unknown); background: var(--rl-unknown-bg); border-color: var(--line); }
-.compose .c.u { font-style: italic; }
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-  font-size: 12.5px;
-}
-.legend .c {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-weight: 600;
-}
-
-.brk-toggle {
-  margin-top: 9px;
-  border: 1px dashed var(--line);
-  background: transparent;
-  color: var(--muted);
-  border-radius: 10px;
-  padding: 5px 11px;
-  font-size: 12.5px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.brk-toggle.open { color: var(--indigo); border-color: var(--indigo); }
 
 .brk { margin-top: 8px; border-top: 1px dashed var(--line); }
+
 .brk-title {
   font-size: 12.5px;
   font-weight: 700;
   color: var(--muted);
   padding: 9px 2px 3px;
 }
+
 .brk-row {
   display: flex;
   align-items: flex-start;
@@ -310,36 +248,50 @@ main {
   border-bottom: 1px dashed var(--line);
   border-left: 3px solid transparent;
 }
-.brk-row:last-child { border-bottom: 0; }
-.brk-row.role-pron { border-left-color: var(--rl-pron); }
-.brk-row.role-noun { border-left-color: var(--rl-noun); }
-.brk-row.role-verb { border-left-color: var(--rl-verb); }
-.brk-row.role-adj { border-left-color: var(--rl-adj); }
-.brk-row.role-adverb { border-left-color: var(--rl-adverb); }
-.brk-row.role-particle { border-left-color: var(--rl-particle); }
-.brk-row.role-copula { border-left-color: var(--rl-copula); }
-.brk-row.role-number { border-left-color: var(--rl-number); }
-.brk-row.role-expression { border-left-color: var(--rl-expression); }
-.brk-row.role-unknown { border-left-color: var(--rl-unknown); }
-.brk-row .brk-jp { color: inherit; }
-.brk-row.role-pron .brk-jp { color: var(--rl-pron); }
-.brk-row.role-noun .brk-jp { color: var(--rl-noun); }
-.brk-row.role-verb .brk-jp { color: var(--rl-verb); }
-.brk-row.role-adj .brk-jp { color: var(--rl-adj); }
-.brk-row.role-adverb .brk-jp { color: var(--rl-adverb); }
-.brk-row.role-particle .brk-jp { color: var(--rl-particle); }
-.brk-row.role-copula .brk-jp { color: var(--rl-copula); }
-.brk-row.role-number .brk-jp { color: var(--rl-number); }
-.brk-row.role-expression .brk-jp { color: var(--rl-expression); }
-.brk-row.role-unknown .brk-jp { color: var(--rl-unknown); }
 
-.brk-row.hl {
-  animation: hlflash 1.4s ease;
-}
-@keyframes hlflash {
-  0% { background: color-mix(in srgb, var(--indigo) 18%, transparent); border-radius: 8px; }
-  100% { background: transparent; border-radius: 8px; }
-}
+.brk-row:last-child { border-bottom: 0; }
+
+.brk-row.role-pron { border-left-color: var(--rl-pron); }
+
+.brk-row.role-noun { border-left-color: var(--rl-noun); }
+
+.brk-row.role-verb { border-left-color: var(--rl-verb); }
+
+.brk-row.role-adj { border-left-color: var(--rl-adj); }
+
+.brk-row.role-adverb { border-left-color: var(--rl-adverb); }
+
+.brk-row.role-particle { border-left-color: var(--rl-particle); }
+
+.brk-row.role-copula { border-left-color: var(--rl-copula); }
+
+.brk-row.role-number { border-left-color: var(--rl-number); }
+
+.brk-row.role-expression { border-left-color: var(--rl-expression); }
+
+.brk-row.role-unknown { border-left-color: var(--rl-unknown); }
+
+.brk-row .brk-jp { color: inherit; }
+
+.brk-row.role-pron .brk-jp { color: var(--rl-pron); }
+
+.brk-row.role-noun .brk-jp { color: var(--rl-noun); }
+
+.brk-row.role-verb .brk-jp { color: var(--rl-verb); }
+
+.brk-row.role-adj .brk-jp { color: var(--rl-adj); }
+
+.brk-row.role-adverb .brk-jp { color: var(--rl-adverb); }
+
+.brk-row.role-particle .brk-jp { color: var(--rl-particle); }
+
+.brk-row.role-copula .brk-jp { color: var(--rl-copula); }
+
+.brk-row.role-number .brk-jp { color: var(--rl-number); }
+
+.brk-row.role-expression .brk-jp { color: var(--rl-expression); }
+
+.brk-row.role-unknown .brk-jp { color: var(--rl-unknown); }
 
 .brk-jp {
   font-family: var(--jp-font);
@@ -348,19 +300,23 @@ main {
   min-width: 78px;
   line-height: 1.35;
 }
+
 .brk-jp small {
   display: block;
   font-size: 11px;
   color: var(--muted);
   font-weight: 400;
 }
+
 .brk-body { flex: 1; }
+
 .brk-pron {
   display: inline-block;
   color: var(--accent);
   font-size: 12.5px;
   font-weight: 600;
 }
+
 .brk-roma {
   display: inline-block;
   color: var(--muted);
@@ -368,20 +324,12 @@ main {
   font-size: 12.5px;
   margin-left: 6px;
 }
-.brk-vi { display: block; font-size: 13px; }
-.brk-vi em { color: var(--muted); font-style: normal; }
-.brk-g {
-  flex: 0 0 auto;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  border-radius: 8px;
-  padding: 3px 7px;
-  font-size: 12px;
-  cursor: pointer;
-}
-.b-brk { margin-top: 12px; }
 
-/* ---------- Tabs ---------- */
+.brk-vi { display: block; font-size: 13px; }
+
+.brk-vi em { color: var(--muted); font-style: normal; }
+
+.b-brk { margin-top: 12px; }
 
 .tabs {
   position: fixed;
@@ -397,6 +345,7 @@ main {
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--line);
 }
+
 .tabs button {
   flex: 1;
   display: flex;
@@ -412,12 +361,13 @@ main {
   border-radius: 12px;
   cursor: pointer;
 }
+
 .tabs button .ico { font-size: 18px; line-height: 1.2; }
+
 .tabs button.active { color: var(--accent); background: var(--accent-soft); }
 
-/* ---------- Builder ---------- */
-
 .intent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
 @media (min-width: 560px) { .intent-grid { grid-template-columns: 1fr 1fr 1fr; } }
 
 .intent-card {
@@ -430,13 +380,19 @@ main {
   box-shadow: var(--shadow);
   transition: transform .08s ease, border-color .15s ease;
 }
+
 .intent-card:active { transform: scale(.97); }
+
 .intent-card:hover { border-color: var(--indigo); }
+
 .intent-card .emoji { font-size: 24px; }
+
 .intent-card b { display: block; font-size: 15px; margin-top: 6px; }
+
 .intent-card span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
 
 .b-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+
 .b-top .back {
   border: 1px solid var(--line);
   background: var(--card);
@@ -445,9 +401,11 @@ main {
   font-size: 13px;
   cursor: pointer;
 }
+
 .b-title { font-weight: 700; font-size: 15px; }
 
 .b-tools { display: flex; gap: 8px; margin-left: auto; }
+
 .b-tools button {
   border: 1px solid var(--line);
   background: var(--card);
@@ -458,6 +416,7 @@ main {
 }
 
 .b-crumbs { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; min-height: 22px; }
+
 .b-crumbs .crumb {
   background: var(--indigo-soft);
   color: var(--indigo);
@@ -476,6 +435,7 @@ main {
   padding: 14px 16px;
   margin: 10px 0;
 }
+
 .b-jp {
   font-family: var(--jp-font);
   font-size: 24px;
@@ -483,17 +443,23 @@ main {
   line-height: 1.7;
   min-height: 40px;
 }
+
 .b-jp ruby rt { font-size: 11px; color: var(--muted); font-weight: 500; }
+
 .b-jp .particle { color: var(--accent); }
+
 .b-jp .blank {
   color: var(--muted);
   border-bottom: 2px dashed var(--line);
   padding: 0 6px;
 }
+
 .b-pron { color: var(--accent); font-weight: 600; font-size: 14.5px; margin-top: 8px; min-height: 22px; }
+
 .b-vi { font-size: 14.5px; margin-top: 4px; min-height: 22px; }
 
 .b-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
 .b-actions button {
   border: 1px solid var(--line);
   background: var(--card);
@@ -503,23 +469,15 @@ main {
   font-weight: 600;
   cursor: pointer;
 }
+
 .b-actions button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 .b-notes { margin-top: 10px; display: grid; gap: 6px; }
+
 .b-notes .b-note { font-size: 12.5px; color: var(--muted); }
 
-.b-grammar { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.b-grammar button {
-  border: 1px dashed var(--indigo);
-  color: var(--indigo);
-  background: transparent;
-  border-radius: 999px;
-  padding: 5px 11px;
-  font-size: 12.5px;
-  cursor: pointer;
-}
-
 .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 6px; }
+
 @media (min-width: 560px) { .opt-grid { grid-template-columns: 1fr 1fr 1fr; } }
 
 .opt {
@@ -532,9 +490,13 @@ main {
   transition: transform .08s ease, border-color .15s ease, background .15s ease;
   animation: pop .18s ease both;
 }
+
 .opt:active { transform: scale(.96); }
+
 .opt:hover { border-color: var(--accent); }
+
 .opt b { display: block; font-size: 14.5px; }
+
 .opt small {
   display: block;
   font-family: var(--jp-font);
@@ -542,6 +504,7 @@ main {
   font-size: 12px;
   margin-top: 3px;
 }
+
 .opt .vi { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
 
 @keyframes pop {
@@ -562,9 +525,8 @@ main {
   margin-bottom: 6px;
 }
 
-/* ---------- Vocabulary ---------- */
-
 .word-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+
 @media (min-width: 560px) { .word-grid { grid-template-columns: 1fr 1fr; } }
 
 .word {
@@ -573,12 +535,19 @@ main {
   border-radius: 14px;
   padding: 11px 13px;
 }
+
 .word .w-top { display: flex; align-items: baseline; gap: 8px; }
+
 .word b { font-family: var(--jp-font); font-size: 17px; }
+
 .word .w-kana { font-family: var(--jp-font); font-size: 12px; color: var(--muted); }
+
 .word .w-meaning { font-size: 14px; margin-top: 2px; }
+
 .word .w-extra { font-family: var(--jp-font); font-size: 12px; color: var(--muted); margin-top: 4px; }
+
 .word .pron { font-size: 13.5px; margin-top: 2px; }
+
 .word .w-lv {
   font-size: 10px;
   font-weight: 700;
@@ -589,7 +558,6 @@ main {
   letter-spacing: .02em;
 }
 
-/* Câu ví dụ trong thẻ từ vựng (Tatoeba, nghĩa Việt do dự án biên tập) */
 .w-ex {
   display: flex;
   gap: 7px;
@@ -598,25 +566,37 @@ main {
   padding-top: 8px;
   border-top: 1px dashed var(--line);
 }
+
 .w-ex-audio { width: 26px; height: 26px; font-size: 12px; flex: none; }
+
 .w-ex-body { min-width: 0; }
+
 .w-ex-jp { font-family: var(--jp-font); font-size: 13.5px; line-height: 1.5; }
+
 .w-ex-pron { color: var(--accent); font-weight: 600; font-size: 12px; margin-top: 1px; }
+
 .w-ex-pron .roma { font-size: 11.5px; }
+
 .w-ex-vi { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
 
-/* Trọng âm (pitch accent): mora cao có gạch trên, ↓ xuống giọng */
 .pm { display: inline-block; }
+
 .pm.hi { border-top: 2px solid var(--accent); }
+
 .pdrop { color: var(--accent); font-weight: 700; margin: 0 1px; }
+
 .pitch { display: flex; align-items: baseline; gap: 6px; margin-top: 3px; font-family: var(--jp-font); font-size: 13.5px; color: var(--muted); }
+
 .pitch-num { font-family: var(--vi-font); font-size: 11px; color: var(--muted); }
 
-/* Nguồn dữ liệu & giấy phép (cuối tab Ngữ pháp) */
 .src-note { font-size: 12.5px; color: var(--muted); }
+
 .src-note b { font-size: 13.5px; color: var(--text); }
+
 .src-note p { margin: 6px 0 0; }
+
 .src-note a { color: var(--indigo); text-decoration: none; }
+
 .src-note a:hover { text-decoration: underline; }
 
 .counter-card .combo-row {
@@ -625,6 +605,7 @@ main {
   gap: 6px;
   margin-top: 8px;
 }
+
 .combo {
   border: 1px solid var(--line);
   background: var(--bg);
@@ -632,137 +613,12 @@ main {
   padding: 6px 9px;
   font-size: 12.5px;
 }
+
 .combo b { font-family: var(--jp-font); display: block; font-size: 14px; }
+
 .combo span { color: var(--muted); display: block; }
+
 .combo .pron { display: block; color: var(--accent); }
-
-/* ---------- Nghe & chọn (luyện tai) ---------- */
-
-.quiz-banner { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-left: 4px solid var(--indigo); }
-.quiz-banner .qb-text { flex: 1; min-width: 190px; }
-.quiz-banner b { display: block; font-size: 15px; }
-.quiz-banner span { display: block; font-size: 13px; color: var(--muted); }
-
-.quiz-hero p { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
-.quiz-hero .chip-row { padding-top: 0; }
-.quiz-meta { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
-.quiz-meta b { color: var(--text); }
-.q-start {
-  display: block;
-  width: 100%;
-  margin-top: 14px;
-  padding: 13px;
-  border: 0;
-  border-radius: 13px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform .08s ease;
-}
-.q-start:active { transform: scale(.98); }
-
-.q-progress { height: 7px; border-radius: 999px; background: var(--line); overflow: hidden; margin: 4px 0 12px; }
-.q-progress i { display: block; height: 100%; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
-.q-live-score { font-size: 13px; font-weight: 700; color: var(--ok); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; background: var(--card); }
-
-.q-card { text-align: center; padding: 20px 16px; }
-.q-audio {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--indigo);
-  color: #fff;
-  font-size: 17px;
-  font-weight: 700;
-  padding: 15px 30px;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: transform .08s ease;
-}
-.q-audio:active { transform: scale(.95); }
-.q-hint { font-size: 13px; color: var(--muted); margin: 12px 0 2px; }
-.q-jp-fallback { font-family: var(--jp-font); font-size: 21px; font-weight: 700; line-height: 1.5; }
-
-.q-opts { display: grid; gap: 9px; margin-top: 14px; text-align: left; }
-.q-opt {
-  border: 1px solid var(--line);
-  background: var(--card);
-  border-radius: 13px;
-  padding: 12px 14px;
-  font-size: 14.5px;
-  cursor: pointer;
-  transition: transform .08s ease, border-color .15s ease, background .15s ease;
-  animation: pop .18s ease both;
-}
-.q-opt:active { transform: scale(.98); }
-.q-opt:hover { border-color: var(--indigo); }
-.q-opt b { font-weight: 600; }
-.q-opt.correct { background: var(--ok-soft); border-color: var(--ok); }
-.q-opt.correct b { color: var(--ok); font-weight: 700; }
-.q-opt.wrong { background: var(--accent-soft); border-color: var(--accent); }
-.q-opt.wrong b { color: var(--accent); font-weight: 700; }
-.q-opt.dim { opacity: .5; }
-.q-opt:disabled { cursor: default; }
-
-.q-result { border-left: 4px solid var(--ok); }
-.q-result.no { border-left-color: var(--accent); }
-.q-result .w-ex { text-align: left; margin-top: 12px; }
-.q-result-head { font-weight: 700; font-size: 14px; color: var(--ok); }
-.q-result.no .q-result-head { color: var(--accent); }
-.q-result .q-jp { font-family: var(--jp-font); font-size: 21px; font-weight: 700; margin-top: 6px; line-height: 1.45; }
-
-.q-score { text-align: center; }
-.q-score-num { font-size: 42px; font-weight: 800; color: var(--indigo); line-height: 1.15; }
-.q-score-msg { font-size: 15px; margin: 4px 0 8px; }
-.q-score-sub { font-size: 13px; color: var(--muted); }
-
-/* ---------- Sổ tay: nhập / xuất ---------- */
-
-.notebook-io { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 6px; }
-
-/* ---------- Grammar ---------- */
-
-details.g {
-  border: 1px solid var(--line);
-  background: var(--card);
-  border-radius: var(--radius);
-  margin: 10px 0;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-details.g summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 14px 16px;
-}
-details.g summary::-webkit-details-marker { display: none; }
-details.g summary .g-head { display: flex; align-items: center; gap: 8px; }
-details.g summary h3 { margin: 0; font-size: 15.5px; flex: 1; }
-details.g .badge {
-  font-size: 11px;
-  font-weight: 700;
-  border-radius: 999px;
-  padding: 3px 9px;
-  background: var(--ok-soft);
-  color: var(--ok);
-}
-details.g .badge.plus { background: var(--indigo-soft); color: var(--indigo); }
-details.g .g-summary { font-size: 13.5px; color: var(--muted); margin-top: 5px; }
-details.g .g-body { padding: 0 16px 16px; }
-details.g .g-body p { font-size: 14px; margin: 8px 0; }
-.ex {
-  border-top: 1px dashed var(--line);
-  padding: 9px 0;
-}
-.ex .ex-jp { font-family: var(--jp-font); font-size: 16px; font-weight: 600; }
-.ex .ex-pron { color: var(--accent); font-size: 13.5px; font-weight: 600; }
-.ex .ex-vi { font-size: 13.5px; color: var(--muted); }
-
-/* ---------- Modal ---------- */
 
 .modal {
   position: fixed;
@@ -774,6 +630,7 @@ details.g .g-body p { font-size: 14px; margin: 8px 0; }
   background: rgba(15, 17, 22, .55);
   backdrop-filter: blur(4px);
 }
+
 .modal.hidden { display: none; }
 
 .modal-card {
@@ -786,8 +643,11 @@ details.g .g-body p { font-size: 14px; margin: 8px 0; }
   padding: 22px;
   box-shadow: 0 20px 60px -20px rgba(0, 0, 0, .5);
 }
+
 .modal-card h3 { margin: 0 0 8px; font-size: 17px; }
+
 .modal-card p { font-size: 14px; }
+
 .modal-close {
   display: block;
   width: 100%;
@@ -802,7 +662,6 @@ details.g .g-body p { font-size: 14px; margin: 8px 0; }
   cursor: pointer;
 }
 
-/* Chế độ đưa máy cho người Nhật xem */
 .showmode .modal-card {
   max-width: 100%;
   min-height: 70vh;
@@ -811,14 +670,18 @@ details.g .g-body p { font-size: 14px; margin: 8px 0; }
   justify-content: center;
   text-align: center;
 }
+
 .showmode .sm-jp {
   font-family: var(--jp-font);
   font-size: clamp(32px, 9vw, 56px);
   font-weight: 700;
   line-height: 1.5;
 }
+
 .showmode .sm-kana { font-family: var(--jp-font); font-size: 17px; color: var(--muted); margin-top: 10px; }
+
 .showmode .sm-pron { color: var(--accent); font-size: 15px; margin-top: 6px; }
+
 .showmode .sm-vi { font-size: 15px; margin-top: 14px; color: var(--muted); }
 
 .empty { text-align: center; color: var(--muted); padding: 40px 10px; font-size: 14px; }
@@ -838,4 +701,5 @@ details.g .g-body p { font-size: 14px; margin: 8px 0; }
   transition: opacity .2s ease, transform .2s ease;
   z-index: 60;
 }
+
 .toast.on { opacity: .95; transform: translateX(-50%); }

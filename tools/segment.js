@@ -1,6 +1,6 @@
 "use strict";
 /**
- * segment.js — Tách câu tiếng Nhật thành các thành phần ngữ pháp và chú giải tiếng Việt.
+ * segment.js — Tách câu tiếng Nhật thành các thành phần và chú giải tiếng Việt.
  *
  * Cách hoạt động: từ điển gồm (a) trợ từ, (b) từ vựng + mọi thể động từ + lượng từ,
  * (c) cụm cố định (greetings, set phrases). Thuật toán so khớp dài nhất trên chuỗi kana;
@@ -10,24 +10,24 @@
 /* ------------------------------ Trợ từ ------------------------------ */
 
 const PARTICLES = {
-  "は": { vi: "～ thì / còn ～", note: "trợ từ chủ đề, đọc là 'oa'", grammar: "particle-wa" },
-  "が": { vi: "～ (chủ ngữ / thứ được thích, muốn)", note: "trợ từ chủ ngữ", grammar: "particle-ga" },
-  "を": { vi: "～ (đối tượng của hành động)", note: "trợ từ tân ngữ, đọc là 'ô'", grammar: "particle-wo" },
-  "に": { vi: "～ (hướng đến / thời điểm)", note: "trợ từ hướng, đích", grammar: "particle-ni" },
-  "で": { vi: "～ (nơi xảy ra / phương tiện)", note: "trợ từ nơi / cách thức", grammar: "particle-de" },
-  "へ": { vi: "～ hướng về", note: "trợ từ hướng, đọc là 'ê'", grammar: "particle-he" },
-  "の": { vi: "～ của", note: "trợ từ sở hữu / nối danh từ", grammar: "particle-no" },
-  "も": { vi: "～ cũng", note: "trợ từ 'cũng'", grammar: "particle-mo-to" },
-  "と": { vi: "～ và / cùng với", note: "trợ từ 'và, cùng'", grammar: "particle-mo-to" },
-  "か": { vi: "～? (nghi vấn)", note: "trợ từ nghi vấn cuối câu", grammar: "question-ka" },
-  "まで": { vi: "～ cho đến (điểm đến)", note: "trợ từ giới hạn điểm đến", grammar: "particle-ni" },
-  "から": { vi: "～ từ / vì", note: "trợ từ điểm bắt đầu", grammar: "particle-ni" },
-  "ね": { vi: "～ nhỉ / nhé", note: "trợ từ tình cảm, tìm đồng cảm", grammar: null },
-  "よ": { vi: "～ đấy / nhé", note: "trợ từ nhấn mạnh, thông báo", grammar: null },
-  "だけ": { vi: "chỉ ～", note: "trợ từ giới hạn 'chỉ'", grammar: null },
-  "でも": { vi: "～ cũng (được)", note: "も sau で: '… cũng được'", grammar: "particle-de" },
-  "には": { vi: "đối với ～ / ở ～", note: "に + は (nhấn chủ đề đích)", grammar: "particle-ni" },
-  "では": { vi: "thì ở ～ / bằng ～ thì", note: "で + は (nhấn chủ đề nơi/cách)", grammar: "particle-de" },
+  "は": { vi: "～ thì / còn ～", note: "trợ từ chủ đề, đọc là 'oa'"},
+  "が": { vi: "～ (chủ ngữ / thứ được thích, muốn)", note: "trợ từ chủ ngữ"},
+  "を": { vi: "～ (đối tượng của hành động)", note: "trợ từ tân ngữ, đọc là 'ô'"},
+  "に": { vi: "～ (hướng đến / thời điểm)", note: "trợ từ hướng, đích"},
+  "で": { vi: "～ (nơi xảy ra / phương tiện)", note: "trợ từ nơi / cách thức"},
+  "へ": { vi: "～ hướng về", note: "trợ từ hướng, đọc là 'ê'"},
+  "の": { vi: "～ của", note: "trợ từ sở hữu / nối danh từ"},
+  "も": { vi: "～ cũng", note: "trợ từ 'cũng'"},
+  "と": { vi: "～ và / cùng với", note: "trợ từ 'và, cùng'"},
+  "か": { vi: "～? (nghi vấn)", note: "trợ từ nghi vấn cuối câu"},
+  "まで": { vi: "～ cho đến (điểm đến)", note: "trợ từ giới hạn điểm đến"},
+  "から": { vi: "～ từ / vì", note: "trợ từ điểm bắt đầu"},
+  "ね": { vi: "～ nhỉ / nhé", note: "trợ từ tình cảm, tìm đồng cảm"},
+  "よ": { vi: "～ đấy / nhé", note: "trợ từ nhấn mạnh, thông báo"},
+  "だけ": { vi: "chỉ ～", note: "trợ từ giới hạn 'chỉ'"},
+  "でも": { vi: "～ cũng (được)", note: "も sau で: '… cũng được'"},
+  "には": { vi: "đối với ～ / ở ～", note: "に + は (nhấn chủ đề đích)"},
+  "では": { vi: "thì ở ～ / bằng ～ thì", note: "で + は (nhấn chủ đề nơi/cách)"},
 };
 
 /* ------------------------------ Chú giải loại từ ------------------------------ */
@@ -83,16 +83,6 @@ const POS_ROLE = {
   noun: "noun", verb: "verb", "adj-i": "adj", "adj-na": "adj",
 };
 
-const POS_GRAMMAR = {
-  pron: null,
-  demo: "kosoado",
-  q: "question-ka",
-  noun: null,
-  verb: "masu-form",
-  "adj-i": "adj",
-  "adj-na": "adj",
-};
-
 const FORM_VI = {
   dict: "thể từ điển",
   masu: "thể ます (lịch sự)",
@@ -104,20 +94,9 @@ const FORM_VI = {
   potentialNeg: "khả năng (phủ định)",
 };
 
-const FORM_GRAMMAR = {
-  dict: "masu-form",
-  masu: "masu-form",
-  masen: "masu-form",
-  mashita: "masu-form",
-  te: "te-kudasai",
-  tai: "tai",
-  potential: "potential",
-  potentialNeg: "potential",
-};
-
 /* ------------------------------ Cụm cố định ------------------------------ */
 
-// { kana, jp, vi, note?, grammar? }
+// { kana, jp, vi, note? }
 const EXPRESSIONS = [
   { kana: "はい", jp: "はい", vi: "vâng / dạ", note: "đôi khi chỉ nghĩa 'tôi đang nghe'" },
   { kana: "いいえ", jp: "いいえ", vi: "không", note: "người Nhật ít dùng thẳng" },
@@ -125,10 +104,10 @@ const EXPRESSIONS = [
   { kana: "そう", jp: "そう", vi: "như vậy / đúng vậy" },
   { kana: "ベジタリアン", jp: "ベジタリアン", vi: "người ăn chay" },
   { kana: "ちゅうもん", jp: "注文", vi: "gọi món" },
-  { kana: "どの", jp: "どの", vi: "... nào (đứng trước danh từ)", note: "thuộc bộ こ・そ・あ・ど", grammar: "kosoado" },
+  { kana: "どの", jp: "どの", vi: "... nào (đứng trước danh từ)", note: "thuộc bộ こ・そ・あ・ど"},
   { kana: "くらい", jp: "くらい", vi: "khoảng chừng" },
   { kana: "えん", jp: "円", vi: "yên (tiền Nhật)" },
-  { kana: "なんかい", jp: "何回", vi: "mấy lần", grammar: "question-ka" },
+  { kana: "なんかい", jp: "何回", vi: "mấy lần"},
   { kana: "ごりよう", jp: "ご利用", vi: "quý khách sử dụng", note: "kính ngữ của 利用" },
   { kana: "りょこう", jp: "旅行", vi: "du lịch" },
   { kana: "なくしました", jp: "なくしました", vi: "đã làm mất", note: "từ なくす" },
@@ -136,10 +115,10 @@ const EXPRESSIONS = [
   { kana: "なし", jp: "なし", vi: "không có" },
   { kana: "どうやって", jp: "どうやって", vi: "bằng cách nào" },
   { kana: "お", jp: "お", vi: "tiền tố lịch sự", note: "thêm trước danh từ để lịch sự (お水, お名前…)" },
-  { kana: "な", jp: "な", vi: "nối tính từ な với danh từ", note: "静かな部屋 = phòng yên tĩnh", grammar: "adj" },
+  { kana: "な", jp: "な", vi: "nối tính từ な với danh từ", note: "静かな部屋 = phòng yên tĩnh"},
 
   { kana: "まあまあ", jp: "まあまあ", vi: "tạm ổn", role: "adverb" },
-  { kana: "むずかしい", jp: "難しい", vi: "khó", note: "tính từ đuôi い", grammar: "adj", role: "adj" },
+  { kana: "むずかしい", jp: "難しい", vi: "khó", note: "tính từ đuôi い", role: "adj" },
   { kana: "おくれて", jp: "遅れて", vi: "muộn (thể て)", note: "từ 遅れる", role: "verb" },
   { kana: "つきません", jp: "つきません", vi: "không sáng / không bật", note: "từ 点く (đèn)", role: "verb" },
   { kana: "でません", jp: "出ません", vi: "không ra / không chảy", note: "từ 出る (nước nóng…)", role: "verb" },
@@ -169,13 +148,13 @@ const EXPRESSIONS = [
   { kana: "どういたしまして", jp: "どういたしまして", vi: "không có gì" },
   { kana: "いただきます", jp: "いただきます", vi: "con xin phép dùng bữa", note: "nói trước khi ăn" },
   { kana: "ごちそうさま", jp: "ごちそうさま", vi: "cảm ơn vì bữa ăn", note: "nói sau khi ăn xong" },
-  { kana: "でした", jp: "でした", vi: "đã là (quá khứ của です)", grammar: "desu", role: "copula" },
+  { kana: "でした", jp: "でした", vi: "đã là (quá khứ của です)", role: "copula" },
   { kana: "おじゃま", jp: "お邪魔", vi: "làm phiền", note: "trong お邪魔します = xin phép vào nhà" },
   { kana: "しつれい", jp: "失礼", vi: "thất lễ", note: "trong 失礼します = xin phép" },
   { kana: "おさきに", jp: "お先に", vi: "trước mọi người", note: "trong お先に失礼します = tôi về trước" },
   { kana: "おねがい", jp: "お願い", vi: "nhờ vả / mong", note: "đi với します thành 'xin nhờ'" },
-  { kana: "ください", jp: "ください", vi: "xin hãy cho", note: "đuôi yêu cầu lịch sự", grammar: "kudasai-onegai" },
-  { kana: "くださいませ", jp: "くださいませ", vi: "xin mời (trang trọng hơn)", grammar: "kudasai-onegai" },
+  { kana: "ください", jp: "ください", vi: "xin hãy cho", note: "đuôi yêu cầu lịch sự"},
+  { kana: "くださいませ", jp: "くださいませ", vi: "xin mời (trang trọng hơn)"},
   { kana: "いらっしゃいませ", jp: "いらっしゃいませ", vi: "chào mừng quý khách", note: "câu cửa miệng của nhân viên" },
   { kana: "かしこまりました", jp: "かしこまりました", vi: "vâng, tôi đã hiểu ạ", note: "nhân viên xác nhận yêu cầu" },
   { kana: "もうしわけございません", jp: "申し訳ございません", vi: "thành thật xin lỗi ạ", note: "xin lỗi trang trọng nhất" },
@@ -188,21 +167,21 @@ const EXPRESSIONS = [
   { kana: "じゃあ", jp: "じゃあ", vi: "vậy thì / thôi nhé", note: "dùng khi chia tay thân mật" },
 
   // Đuôi câu / ngữ pháp rời
-  { kana: "です", jp: "です", vi: "là (lịch sự)", note: "đuôi câu danh từ/tính từ", grammar: "desu", role: "copula" },
-  { kana: "ないでください", jp: "ないでください", vi: "xin đừng…", note: "phủ định + ください", grammar: "te-kudasai" },
-  { kana: "もらえます", jp: "もらえます", vi: "có thể nhận được", note: "〜てもらえますか = nhờ ai làm giúp", grammar: "te-kudasai" },
-  { kana: "もらえますか", jp: "もらえますか", vi: "…giúp tôi được không?", note: "nhờ vả lịch sự", grammar: "te-kudasai" },
-  { kana: "なります", jp: "なります", vi: "trở nên", grammar: "masu-form" },
-  { kana: "なりません", jp: "なりません", vi: "không trở nên", grammar: "masu-form" },
-  { kana: "かかります", jp: "かかります", vi: "mất (thời gian/tiền)", grammar: "masu-form" },
-  { kana: "います", jp: "います", vi: "có (người/vật sống)", grammar: "masu-form" },
-  { kana: "あります", jp: "あります", vi: "có (đồ vật)", grammar: "masu-form" },
-  { kana: "ありません", jp: "ありません", vi: "không có", grammar: "masu-form" },
+  { kana: "です", jp: "です", vi: "là (lịch sự)", note: "đuôi câu danh từ/tính từ", role: "copula" },
+  { kana: "ないでください", jp: "ないでください", vi: "xin đừng…", note: "phủ định + ください"},
+  { kana: "もらえます", jp: "もらえます", vi: "có thể nhận được", note: "〜てもらえますか = nhờ ai làm giúp"},
+  { kana: "もらえますか", jp: "もらえますか", vi: "…giúp tôi được không?", note: "nhờ vả lịch sự"},
+  { kana: "なります", jp: "なります", vi: "trở nên"},
+  { kana: "なりません", jp: "なりません", vi: "không trở nên"},
+  { kana: "かかります", jp: "かかります", vi: "mất (thời gian/tiền)"},
+  { kana: "います", jp: "います", vi: "có (người/vật sống)"},
+  { kana: "あります", jp: "あります", vi: "có (đồ vật)"},
+  { kana: "ありません", jp: "ありません", vi: "không có"},
   { kana: "いりません", jp: "いりません", vi: "không cần", note: "từ 要る (cần)" },
-  { kana: "いれないで", jp: "入れないで", vi: "xin đừng cho vào", note: "phủ định thể て của 入れる", grammar: "te-kudasai" },
+  { kana: "いれないで", jp: "入れないで", vi: "xin đừng cho vào", note: "phủ định thể て của 入れる"},
   { kana: "しないで", jp: "しないで", vi: "đừng làm", note: "phủ định thể て của する" },
   { kana: "よく", jp: "よく", vi: "tốt / thường xuyên", note: "dạng trạng từ của いい" },
-  { kana: "なん", jp: "何", vi: "cái gì", note: "đọc 'なん' trước です/です", grammar: "question-ka" },
+  { kana: "なん", jp: "何", vi: "cái gì", note: "đọc 'なん' trước です/です"},
 
   // Ăn uống / mua sắm
   { kana: "おすすめ", jp: "おすすめ", vi: "gợi ý / món nên thử", note: "nhà hàng hay dùng" },
@@ -228,20 +207,20 @@ const EXPRESSIONS = [
   { kana: "しょほうせん", jp: "処方箋", vi: "đơn thuốc" },
   { kana: "めまい", jp: "めまい", vi: "chóng mặt" },
   { kana: "さとう", jp: "砂糖", vi: "đường" },
-  { kana: "からく", jp: "辛く", vi: "cay (dạng trạng từ)", note: "từ 辛い", grammar: "adj" },
+  { kana: "からく", jp: "辛く", vi: "cay (dạng trạng từ)", note: "từ 辛い"},
   { kana: "めんぜい", jp: "免税", vi: "miễn thuế" },
   { kana: "サイズ", jp: "サイズ", vi: "cỡ / kích thước" },
   { kana: "べつ", jp: "別", vi: "khác" },
   { kana: "いろ", jp: "色", vi: "màu" },
   { kana: "ほか", jp: "他", vi: "khác (còn gì nữa)" },
   { kana: "いりません", jp: "要りません", vi: "không cần", note: "từ 要る (cần)" },
-  { kana: "いたい", jp: "痛い", vi: "đau", note: "tính từ đuôi い", grammar: "adj" },
+  { kana: "いたい", jp: "痛い", vi: "đau", note: "tính từ đuôi い"},
   { kana: "おなか", jp: "お腹", vi: "bụng" },
   { kana: "のど", jp: "のど", vi: "cổ họng" },
   { kana: "ねつ", jp: "熱", vi: "sốt" },
   { kana: "さがりません", jp: "下がりません", vi: "không hạ xuống", note: "từ 下がる" },
   { kana: "きぶん", jp: "気分", vi: "tâm trạng / sức khỏe" },
-  { kana: "わるい", jp: "悪い", vi: "tệ, không khỏe", grammar: "adj" },
+  { kana: "わるい", jp: "悪い", vi: "tệ, không khỏe"},
 
   // Khách sạn
   { kana: "チェックイン", jp: "チェックイン", vi: "nhận phòng" },
@@ -255,7 +234,7 @@ const EXPRESSIONS = [
   { kana: "もう", jp: "もう", vi: "thêm nữa / đã rồi" },
   { kana: "エアコン", jp: "エアコン", vi: "điều hòa" },
   { kana: "うごきません", jp: "動きません", vi: "không chạy / không hoạt động", note: "từ 動く" },
-  { kana: "しずか", jp: "静か", vi: "yên tĩnh", note: "tính từ đuôi な", grammar: "adj" },
+  { kana: "しずか", jp: "静か", vi: "yên tĩnh", note: "tính từ đuôi な"},
   { kana: "かえて", jp: "変えて", vi: "đổi (thể て)", note: "từ 変える" },
   { kana: "おいて", jp: "置いて", vi: "để, đặt (thể て)", note: "từ 置く" },
   { kana: "ちょうしょく", jp: "朝食", vi: "bữa sáng" },
@@ -270,12 +249,12 @@ const EXPRESSIONS = [
   { kana: "あるいて", jp: "歩いて", vi: "đi bộ (thể て)", note: "từ 歩く" },
   { kana: "まっすぐ", jp: "まっすぐ", vi: "thẳng" },
   { kana: "とめて", jp: "止めて", vi: "dừng lại (thể て)", note: "từ 止める" },
-  { kana: "とめたい", jp: "止めたい", vi: "muốn dừng / khóa", grammar: "tai" },
+  { kana: "とめたい", jp: "止めたい", vi: "muốn dừng / khóa"},
   { kana: "じゅうしょ", jp: "住所", vi: "địa chỉ" },
   { kana: "ゆっくり", jp: "ゆっくり", vi: "chậm rãi" },
   { kana: "ちょっと", jp: "ちょっと", vi: "một chút" },
   { kana: "すこし", jp: "少し", vi: "một chút" },
-  { kana: "やすく", jp: "安く", vi: "rẻ (dạng trạng từ)", note: "từ 安い", grammar: "adj" },
+  { kana: "やすく", jp: "安く", vi: "rẻ (dạng trạng từ)", note: "từ 安い"},
   { kana: "さして", jp: "指して", vi: "chỉ (thể て)", note: "từ 指す" },
 
   // Sự cố & bảo hiểm
@@ -288,7 +267,7 @@ const EXPRESSIONS = [
   { kana: "ぬすまれました", jp: "盗まれました", vi: "đã bị lấy cắp", note: "từ 盗む" },
   { kana: "とうなん", jp: "盗難", vi: "trộm cắp" },
   { kana: "しょうめい", jp: "証明", vi: "chứng nhận / xác nhận" },
-  { kana: "とどけたい", jp: "届けたい", vi: "muốn trình báo", note: "từ 届ける", grammar: "tai" },
+  { kana: "とどけたい", jp: "届けたい", vi: "muốn trình báo", note: "từ 届ける"},
   { kana: "りょうしゅうしょ", jp: "領収書", vi: "hóa đơn nhận tiền" },
   { kana: "ベトナム", jp: "ベトナム", vi: "Việt Nam" },
   { kana: "たいしかん", jp: "大使館", vi: "đại sứ quán" },
@@ -313,7 +292,7 @@ function buildLexicon(vocab, numbers) {
 
   // Trợ từ
   for (const [kana, p] of Object.entries(PARTICLES)) {
-    addEntry(lex, { kana, jp: kana, vi: p.vi, note: p.note, grammar: p.grammar, isParticle: true, role: "particle" });
+    addEntry(lex, { kana, jp: kana, vi: p.vi, note: p.note, isParticle: true, role: "particle" });
   }
 
   // Lượng từ & mệnh giá (một 一つ, một chai 一本, 100円…)
@@ -322,12 +301,12 @@ function buildLexicon(vocab, numbers) {
       for (const combo of c.combos || []) {
         addEntry(lex, {
           kana: combo.kana, jp: combo.jp, vi: combo.vi,
-          note: `lượng từ "${c.jp}" (${c.vi})`, grammar: "counters", role: "number",
+          note: `lượng từ "${c.jp}" (${c.vi})`, role: "number",
         });
       }
     }
     for (const m of numbers.money || []) {
-      addEntry(lex, { kana: m.kana, jp: m.jp, vi: m.vi, note: "tiền Nhật", grammar: "counters", role: "number" });
+      addEntry(lex, { kana: m.kana, jp: m.jp, vi: m.vi, note: "tiền Nhật", role: "number" });
     }
   }
 
@@ -344,7 +323,6 @@ function buildLexicon(vocab, numbers) {
         addEntry(lex, {
           kana: f.kana, jp: f.jp, vi: v.vi,
           note: FORM_VI[form] || "động từ",
-          grammar: FORM_GRAMMAR[form] || null,
           isVerb: true, role: "verb",
         });
       }
@@ -356,7 +334,6 @@ function buildLexicon(vocab, numbers) {
           jp: pot.jp.slice(0, -2) + "ません",
           vi: v.vi,
           note: "khả năng (phủ định)",
-          grammar: "potential",
           isVerb: true, role: "verb",
         });
       }
@@ -369,14 +346,13 @@ function buildLexicon(vocab, numbers) {
           kana: v.kana.slice(0, -1) + "く",
           jp: v.jp.slice(0, -1) + "く",
           vi: v.vi,
-          note: "dạng trạng từ (〜く)",
-          grammar: "adj", role: "adj",
+          note: "dạng trạng từ (〜く)", role: "adj",
         });
       }
-      addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos], grammar: POS_GRAMMAR[v.pos], role });
+      addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos], role });
       continue;
     }
-    addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos] || "", grammar: POS_GRAMMAR[v.pos] || null, role });
+    addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos] || "", role });
   }
 
   return lex;
@@ -466,6 +442,6 @@ function tokenize(kana, lex) {
 }
 
 module.exports = {
-  PARTICLES, POS_VI, POS_ROLE, POS_GRAMMAR, FORM_VI, FORM_GRAMMAR,
+  PARTICLES, POS_VI, POS_ROLE, FORM_VI,
   EXPRESSIONS, buildLexicon, tokenize,
 };

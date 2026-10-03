@@ -9,7 +9,7 @@
 const fs = require("fs");
 const path = require("path");
 const K = require("./kana.js");
-const { PARTICLES, POS_VI, POS_ROLE, POS_GRAMMAR, FORM_VI, FORM_GRAMMAR, buildLexicon, tokenize } = require("./segment.js");
+const { PARTICLES, POS_VI, POS_ROLE, FORM_VI, buildLexicon, tokenize } = require("./segment.js");
 
 const SRC = path.join(__dirname, "..", "data", "source");
 const OUT = path.join(__dirname, "..", "data");
@@ -27,7 +27,6 @@ function enrichParticle(p) {
     viPron: p === "は" ? "oa" : p === "へ" ? "ê" : K.viet(p),
     vi: PARTICLES[p].vi,
     note: PARTICLES[p].note,
-    grammar: PARTICLES[p].grammar,
     role: "particle",
     isParticle: true,
   };
@@ -109,7 +108,7 @@ function buildVocab() {
 /* Trợ từ đọc đặc biệt — dùng chung cho cụm từ (enrichParts) và câu ví dụ (examplePron) */
 const PARTICLE_PRON = { "は": { roma: "wa", viPron: "oa" }, "へ": { roma: "e", viPron: "ê" }, "を": { roma: "o", viPron: "ô" } };
 
-/* Từ vựng N5 bổ sung: chỉ dùng cho tab Từ vựng / tìm kiếm / quiz, không vào bộ ghép câu.
+/* Từ vựng N5 bổ sung: chỉ dùng cho tab Từ vựng, không vào bộ ghép câu.
    Kèm câu ví dụ (data/source/vocab-n5-examples.json) — không đưa N5 vào lexicon chung,
    chỉ mở rộng lexicon cục bộ để đọc đúng trợ từ は/へ trong câu ví dụ. */
 const EXAMPLE_EXTRA_KANA = ["はっきり", "はかり"]; // từ kana dễ bị tách nhầm thành trợ từ は
@@ -173,87 +172,24 @@ function examplePron(kana, literalPos, lex) {
 const mapObj = (obj, fn) =>
   Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, fn(v)]));
 
-/* ------------------------------ Cụm từ ------------------------------ */
+/* ------------------------------ Builder ------------------------------ */
 
-/* Làm giàu một danh sách mảnh đã tách (dùng chung cho cụm từ và option builder) */
-function enrichParts(rawParts, grammarIds, tag) {
+/* Làm giàu một danh sách mảnh đã tách (dùng cho option cố định của builder) */
+function enrichParts(rawParts) {
   return rawParts.map((part) => {
     const pp = part.isParticle ? PARTICLE_PRON[part.kana] : null;
-    const e = {
+    return {
       jp: part.jp,
       kana: part.kana,
       roma: pp ? pp.roma : part.roma !== undefined ? part.roma : K.romanize(part.kana),
       viPron: pp ? pp.viPron : part.viPron !== undefined ? part.viPron : K.viet(part.kana),
       vi: part.vi || "",
       note: part.note || "",
-      grammar: part.grammar || null,
       role: part.role || (part.isParticle ? "particle" : part.unknown ? "unknown" : "expression"),
       isParticle: !!part.isParticle,
       unknown: !!part.unknown,
     };
-    if (e.grammar && !grammarIds.has(e.grammar)) {
-      warn(`[${tag}] "${e.jp}": grammar "${e.grammar}" không tồn tại`);
-      e.grammar = null;
-    }
-    return e;
   });
-}
-
-function buildPhrases(vocab, numbers, grammarIds) {
-  const lex = buildLexicon(vocab, numbers);
-  const src = read("phrases.json");
-  const categories = src.categories.map((cat) => ({
-    id: cat.id,
-    label: cat.label,
-    icon: cat.icon,
-    desc: cat.desc,
-    items: cat.items.map((p) => {
-      const out = enrichText(p);
-      let rawParts;
-      let unknowns = [];
-      if (p.parts) {
-        rawParts = p.parts; // viết tay trong source khi tách tự động chưa đạt
-      } else {
-        const t = tokenize(p.kana, lex);
-        rawParts = t.parts;
-        unknowns = t.unknowns;
-      }
-      for (const u of unknowns) warn(`Chưa tách được [${p.id}]: "${u}"`);
-      out.parts = enrichParts(rawParts, grammarIds, p.id);
-      // Câu chỉ có một mảnh (vd: こんにちは): dùng phiên âm ghi đè của cả câu
-      if (out.parts.length === 1 && p.viPron) {
-        out.parts[0].viPron = p.viPron;
-        if (p.roma) out.parts[0].roma = p.roma;
-      }
-      // Romaji "chính thức" (Hepburn) ghép theo từng mảnh, có khoảng cách cho dễ đọc
-      if (out.parts.length && p.roma === undefined) {
-        out.roma = out.parts.map((x) => x.roma).join(" ");
-      }
-      if (out.parts.length && p.viPron === undefined) {
-        out.viPron = out.parts.map((x) => x.viPron).join(" ");
-      }
-      // Audit: các mảnh phải ghép lại đúng bằng câu gốc (bỏ dấu câu)
-      const joinParts = out.parts.map((x) => x.kana).join("");
-      const clean = (s) => (s || "").replace(/[、。！？!?\s〜「」（）()・…]/g, "");
-      if (clean(joinParts) !== clean(p.kana)) {
-        warn(`[${p.id}] mảnh ghép không khớp câu gốc: "${joinParts}" ≠ "${p.kana}"`);
-      }
-      return out;
-    }),
-  }));
-  return { categories };
-}
-
-/* ------------------------------ Ngữ pháp ------------------------------ */
-
-function buildGrammar() {
-  const src = read("grammar.json");
-  return {
-    points: src.points.map((g) => ({
-      ...g,
-      examples: (g.examples || []).map((e) => enrichText(e)),
-    })),
-  };
 }
 
 /* ------------------------------ Số đếm ------------------------------ */
@@ -272,7 +208,7 @@ function buildNumbers() {
 
 /* ------------------------------ Cây ghép câu ------------------------------ */
 
-function buildIntents(vocabById, numbers, grammarIds) {
+function buildIntents(vocabById, numbers) {
   const lex = buildLexicon(Object.values(vocabById), numbers);
   const src = read("intents.json");
   const intents = src.intents.map((intent) => {
@@ -280,7 +216,7 @@ function buildIntents(vocabById, numbers, grammarIds) {
     for (const [sid, step] of Object.entries(intent.steps)) {
       steps[sid] = {
         ...step,
-        options: step.options.map((opt) => enrichOption(opt, vocabById, lex, grammarIds)),
+        options: step.options.map((opt) => enrichOption(opt, vocabById, lex)),
       };
     }
     const template = (intent.template || null)?.map(enrichTemplateSeg);
@@ -290,15 +226,12 @@ function buildIntents(vocabById, numbers, grammarIds) {
         if (opt.next && !steps[opt.next]) throw new Error(`Intent ${intent.id}: bước ${sid} trỏ tới ${opt.next} không tồn tại`);
       }
     }
-    for (const g of intent.grammar || []) {
-      if (!grammarIds.has(g)) warn(`Intent ${intent.id}: ngữ pháp "${g}" không tồn tại`);
-    }
     return { ...intent, template, steps };
   });
   return { intents };
 }
 
-function enrichOption(opt, vocabById, lex, grammarIds) {
+function enrichOption(opt, vocabById, lex) {
   const base = { ...opt };
   if (opt.silent) {
     // Lựa chọn không tạo ra chữ nào trong câu (chỉ chọn nhánh/định dạng câu)
@@ -321,7 +254,6 @@ function enrichOption(opt, vocabById, lex, grammarIds) {
     if (base.viLabel === undefined) base.viLabel = base.vi;
     base.posVi = POS_VI[v.pos] || "";
     if (opt.form) base.formNote = FORM_VI[opt.form] || "";
-    base.grammarHint = (opt.form && FORM_GRAMMAR[opt.form]) || POS_GRAMMAR[v.pos] || null;
     base.role = v.pos === "verb" ? "verb" : POS_ROLE[v.pos] || "expression";
   } else {
     if (!opt.kana) throw new Error(`Option thiếu kana: ${JSON.stringify(opt)}`);
@@ -329,13 +261,13 @@ function enrichOption(opt, vocabById, lex, grammarIds) {
     base.roma = opt.roma !== undefined ? opt.roma : opt.pron && opt.pron.roma !== undefined ? opt.pron.roma : K.romanize(opt.kana);
     base.viPron = opt.viPron !== undefined ? opt.viPron : opt.pron && opt.pron.vi !== undefined ? opt.pron.vi : K.viet(opt.kana);
     if (base.viLabel === undefined) base.viLabel = base.vi;
-    // Tách câu cố định thành các mảnh (như thẻ cụm từ) để bảng cấu trúc chi tiết hơn
+    // Tách câu cố định thành các mảnh để bảng cấu trúc chi tiết hơn
     if (opt.parts) {
-      base.parts = enrichParts(opt.parts, grammarIds, "option");
+      base.parts = enrichParts(opt.parts);
     } else {
       const t = tokenize(opt.kana, lex);
       if (t.parts.length && !t.unknowns.length) {
-        base.parts = enrichParts(t.parts, grammarIds, "option");
+        base.parts = enrichParts(t.parts);
         if (opt.roma === undefined) base.roma = base.parts.map((p) => p.roma).join(" ");
         if (opt.viPron === undefined) base.viPron = base.parts.map((p) => p.viPron).join(" ");
       } else if (t.unknowns.length) {
@@ -395,12 +327,9 @@ function writeData(name, value, fileBase = name) {
 function main() {
   console.log("Building quick-japanese data...");
   const vocab = buildVocab();
-  const grammar = buildGrammar();
-  const grammarIds = new Set(grammar.points.map((g) => g.id));
   const numbers = buildNumbers();
   const vocabN5 = buildVocabN5(vocab.items, numbers);
-  const phrases = buildPhrases(vocab.items, numbers, grammarIds);
-  const intents = buildIntents(vocab.byId, numbers, grammarIds);
+  const intents = buildIntents(vocab.byId, numbers);
 
   /* Trọng âm (pitch accent) Kanjium — gắn theo id vào cả từ biên tập lẫn N5 */
   const accentMap = read("accents.json").items;
@@ -417,8 +346,6 @@ function main() {
 
   writeData("vocab", vocab.items);
   writeData("vocabN5", vocabN5, "vocab-n5");
-  writeData("phrases", phrases);
-  writeData("grammar", grammar);
   writeData("numbers", numbers);
   writeData("intents", intents);
 
@@ -429,9 +356,6 @@ function main() {
       vocabN5: vocabN5.length,
       vocabN5Examples: vocabN5.reduce((n, v) => n + (v.examples ? v.examples.length : 0), 0),
       vocabAccents: accents,
-      phrases: phrases.categories.reduce((n, c) => n + c.items.length, 0),
-      phraseCategories: phrases.categories.length,
-      grammar: grammar.points.length,
       intents: intents.intents.length,
       counters: numbers.counters.length,
     },

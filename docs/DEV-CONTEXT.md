@@ -1,7 +1,8 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `d1eda92` · SW cache `qj-v1.6.1` · Pages built xanh
-> Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese` (nhánh `archive/hanasou` giữ bản cũ trước khi ghi đè)
+> Cập nhật: 2026-10-03 · SW cache `qj-v2.0.0` · Pages built xanh
+> Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
+> (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
 Đọc file này trước khi bắt đầu code. Chi tiết đầy đủ nằm ở [`PLAN.md`](PLAN.md);
 quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist kiểm duyệt bản ngữ ở
@@ -11,28 +12,16 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **5 tab**: Cụm từ 📖 · Ghép câu 🧩 · Sổ tay ⭐ · Từ vựng 📚 · Ngữ pháp 📝, + tìm kiếm toàn cục 🔍
-  + Nghe & chọn 🎧 (mở từ nút trên header, không chiếm tab).
-- **Builder** = cây ý định thu hẹp dần: **13 cây / 4 nhóm** theo độ cơ bản
-  (Giao tiếp → Ăn uống & mua sắm → Đi lại & khách sạn → Sức khỏe & sự cố).
-- **Mọi câu** (cụm từ + câu ghép + câu cố định trong builder) đều được **bóc tách thành mảnh**,
-  tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji Hepburn.
+- **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (13 cây / 4 nhóm) và **Từ vựng 📚**
+  (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
+  Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục.
+- **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji.
+- **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
+  460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
-- **Nghe & chọn 🎧**: quiz 10 câu/lượt từ cụm từ hoặc từ vựng — TTS đọc câu hỏi, chọn nghĩa,
-  biết đáp án ngay; fallback **Đọc & chọn** khi máy không có TTS; lưu điểm cao `qj.quiz.v1`,
-  phím 1–4 trên desktop. Không phải tab: mở từ nút 🎧 trên header hoặc banner trong tab Từ vựng.
-- **Từ vựng N5 📚**: 561 từ JLPT N5 (OpenJLPT, CC BY-SA 4.0) nằm ở `data/vocab-n5.js` — tải nền
-  khi trang rảnh, không vào builder/segmenter, phân trang 60 từ/lần. **460 từ có câu ví dụ
-  Tatoeba** (CC BY 2.0 FR) kèm furigana gốc → kana + phiên âm Việt + nghĩa Việt; hiện trên thẻ
-  từ vựng và màn kết quả quiz. Payload đầu giữ ~435 KB, file N5 tải nền ≈ 259 KB.
-- **Trọng âm 🎵**: 726/744 từ có pitch accent (Kanjium accents.txt, CC BY-SA 4.0) — thẻ từ vựng
-  hiện kana với mora cao có gạch trên + ↓ + `[n]`; legend trong tab Ngữ pháp; 18 từ chưa có dữ liệu.
-- **Sổ tay ⭐**: lưu cụm từ + câu ghép (localStorage `qj.favs.v1`); **xuất/nhập JSON** có version
-  (`quick-japanese/notebook`), chọn gộp hoặc thay thế, bỏ mục lỗi/trùng.
-- Số liệu hiện tại: **744 từ vựng (183 biên tập + 561 N5; 460 có câu ví dụ; 726 có trọng âm)
-  · 167 cụm từ (12 nhóm) · 22 điểm ngữ pháp · 13 cây · 6 lượng từ (1–10)**.
-- Kiểm thử chuẩn: 13 cây × 3 đường ngẫu nhiên = **39/39**, 1 lượt Nghe & chọn mỗi nguồn,
-  xuất/nhập lại sổ tay, **thẻ N5 hiện câu ví dụ + 🔊, trọng âm `[n]`**, không lỗi JS.
+- Kiểm thử chuẩn: 13 cây × 3 đường ngẫu nhiên = **39/39**, thẻ N5 hiện ví dụ + trọng âm,
+  không lỗi JS.
 
 ## 1. Lệnh thường dùng
 
@@ -53,12 +42,12 @@ index.html                 entry; load data/*.js rồi assets/js/app.js, builder
 manifest.webmanifest       PWA manifest
 sw.js                      service worker (đổi VERSION mỗi lần release app/data)
 assets/css/style.css       design system + màu vai trò (--rl-*)
-assets/js/app.js           5 tab, cụm từ, từ vựng, ngữ pháp, sổ tay, tìm kiếm, Nghe & chọn, TTS, modal, PWA register
+assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + modal + PWA register
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
-data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, phrases, grammar, intents, numbers
+data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, numbers
 data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
-tools/segment.js           từ điển + tokenizer DP bóc tách câu (EXPRESSIONS, EXPR_ROLE, PARTICLES)
+tools/segment.js           từ điển + tokenizer DP bóc tách câu
 tools/build.js             validate + enrich + xuất data/*.js
 docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-CHECKLIST, screenshot
 ```
@@ -76,26 +65,22 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 
 ### Từ vựng N5 — `data/source/vocab-n5.json`
 - 561 từ nhập một lần từ OpenJLPT v0.3.0 (CC BY-SA 4.0); `id` giữ mã gốc dạng `n5-<10 hex>`,
-  `tags: ["n5"]`, động từ dùng `dict`/`kana`/`group` như từ vựng thường. Từ kana-only bỏ `jp`
-  (build tự lấy `kana`).
-- Nghĩa tiếng Việt do dự án biên tập; khi sửa phải giữ đúng `kana` gốc (khoá ghép với OpenJLPT).
-- File này **không** đi vào `buildLexicon`/builder — chỉ sinh `data/vocab-n5.js` để tab Từ vựng,
-  tìm kiếm và quiz dùng. Muốn một từ N5 xuất hiện trong builder thì thêm bản biên tập vào
-  `vocab.json` (và tham chiếu `ref` như bình thường).
+  `tags: ["n5"]`, động từ dùng `dict`/`kana`/`group`. Từ kana-only bỏ `jp` (build tự lấy `kana`).
+- Nghĩa tiếng Việt do dự án biên tập; khi sửa phải giữ đúng `kana` gốc.
+- File này **không** đi vào `buildLexicon`/builder — chỉ sinh `data/vocab-n5.js` cho tab Từ vựng.
+  Muốn một từ N5 xuất hiện trong builder thì thêm bản biên tập vào `vocab.json` (và `ref` như bình thường).
 
 ### Câu ví dụ N5 — `data/source/vocab-n5-examples.json`
 ```jsonc
 "n5-ada066edfd": {
-  "jp": "じゃあパーティーで会いましょう。",   // câu gốc Tatoeba
+  "jp": "じゃあパーティーで会いましょう。",
   "furi": "じゃあパーティーで{会|あ}いましょう。", // furigana gốc — nguồn chuẩn cho kana + literal
-  "kana": "じゃあパーティーであいましょう。",  // build kiểm tra phải khớp furi
-  "vi": "Vậy hẹn gặp nhau ở bữa tiệc nhé.", // nghĩa Việt do dự án biên tập
+  "kana": "じゃあパーティーであいましょう。",
+  "vi": "Vậy hẹn gặp nhau ở bữa tiệc nhé.",
   "tatoeba": 215904
 }
 ```
-- Khoá là `id` trong `vocab-n5.json`; build gắn `examples` (jp/kana/roma/viPron/vi) vào từ tương ứng
-  và **bỏ qua** nếu thiếu dữ liệu (có cảnh báo). Không cần ví dụ cho mọi từ: chỉ nhập câu thật sự
-  lịch sự/tự nhiên; 101 từ hiện chưa có câu phù hợp.
+- Build gắn `examples` (jp/kana/roma/viPron/vi) vào từ tương ứng; **bỏ qua** nếu thiếu dữ liệu.
 - `furi` bắt buộc: build dùng nó để biết ký tự nào là kana viết thẳng (chỗ có thể là trợ từ) và
   sinh phiên âm đúng (`は`→oa, `へ`→ê) mà không nhầm cách đọc kanji (母は `ははは` → `ha-ha-oa`).
 - Từ kana dễ bị tách nhầm thành trợ từ (はっきり, はかり…) thêm vào `EXAMPLE_EXTRA_KANA` trong
@@ -105,110 +90,86 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 ```jsonc
 "items": { "n-mizu": 0, "d-kore": 0, "n5-7ce7f7d305": 1 }
 ```
-- Khoá là id từ vựng (cả `vocab.json` lẫn `vocab-n5.json`); giá trị `n` = xuống giọng sau mora
-  thứ n, `0` = heiban. Build gắn `accent` vào từ tương ứng và cảnh báo nếu id lạ.
+- Khoá là id từ vựng; giá trị `n` = xuống giọng sau mora thứ n, `0` = heiban. Build gắn `accent`
+  và cảnh báo nếu id lạ.
 - Nguồn: Kanjium `data/source_files/raw/accents.txt` (124.137 từ, CC BY-SA 4.0). Script nhập một lần
-  nằm ở `/tmp/opencode/import-accents.py` (không commit): khớp chính xác `(jp, kana)` → cùng reading →
-  từ katakana (reading trống); từ kana-only ưu tiên ứng viên cùng reading để tránh bắt nhầm từ đồng âm
-  khác loại (これ [0] chứ không phải thán từ [1]). 21 từ nhập nhằng chọn tay trong chính ứng viên Kanjium.
-- Thêm từ mới: thêm id vào file (chạy lại script nhập nếu có), hoặc bỏ trống — app chỉ hiện trọng âm khi có.
-- Trợ từ (より…) không có trọng âm từ nên bị loại; 18 từ (スマホ, ごめんなさい…) chưa có dữ liệu.
-
-### Thêm cụm từ — `data/source/phrases.json`
-- `id`, `jp`, `kana`, `vi`, optional `note` (mẹo dùng/văn hóa).
-- Thêm `roma`/`viPron` viết tay khi có trợ từ đọc đặc biệt (は → `oa`).
-- `parts` viết tay chỉ khi tách tự động chưa đạt; build sẽ audit “mảnh ghép phải khớp câu gốc”.
+  ở `/tmp/opencode/import-accents.py` (không commit): khớp chính xác `(jp, kana)` → cùng reading →
+  từ katakana; từ kana-only ưu tiên ứng viên cùng reading (これ [0], không phải thán từ [1]);
+  21 từ nhập nhằng chọn tay trong chính ứng viên Kanjium; trợ từ より bị loại.
+- 18 từ (スマホ, ごめんなさい…) chưa có dữ liệu → app không hiện trọng âm.
 
 ### Thêm/sửa cây ghép câu — `data/source/intents.json`
 - Mỗi cây: `id`, `emoji`, `label`, `desc`, `group` (1 trong 4 nhóm), `start`, `steps`,
-  `template`/`viTemplate` (null nếu chỉ ghép câu cố định), `grammar`, `tip`.
-- Option có thể là: `ref` (+ `form`: `dict|masu|masen|mashita|te|tai|potential`), `silent` (chỉ chọn
-  nhánh), hoặc câu cố định (`jp`/`kana`/`vi` + override `roma`/`viPron`).
-- Nâng cao: `particle` (override trợ từ), `templateOverride` (đổi cả khuôn câu),
-  `viTemplateOverride` (đổi câu tiếng Việt xem trước), `note`, `hint`.
+  `template`/`viTemplate` (null nếu chỉ ghép câu cố định), `tip`.
+- Option có thể là: `ref` (+ `form`: `dict|masu|masen|mashita|te|tai|potential`), `silent`
+  (chỉ chọn nhánh), hoặc câu cố định (`jp`/`kana`/`vi` + override `roma`/`viPron`).
+- Nâng cao: `particle` (override trợ từ), `templateOverride`, `viTemplateOverride`, `note`, `hint`.
 - Câu cố định được **tách mảnh tự động** khi build nếu từ điển đủ; nếu không, build ghi chú ở mục
   “Option cố định chưa tách được” (không phải lỗi — câu đó hiện 1 dòng).
-- **Thứ tự cây trong nhóm = thứ tự mảng** trong file. Muốn sắp lại hàng loạt, viết script di
-  chuyển nguyên khối object (đừng sửa tay từng dòng).
-
-### Thêm điểm ngữ pháp — `data/source/grammar.json`
-- `id`, `level` (`basic`/`plus`), `title`, `summary`, `detail`, `examples[{jp,kana,vi}]`.
-- `id` được intents/segmenter tham chiếu; build cảnh báo nếu không tồn tại.
+- **Thứ tự cây trong nhóm = thứ tự mảng** trong file.
+- Không còn trường `grammar` (đã bỏ cùng tab Ngữ pháp v2.0.0).
 
 ### Thêm từ cho bộ tách câu — `tools/segment.js`
-- Thêm vào `EXPRESSIONS` (kana/jp/vi/note/grammar/role) và `EXPR_ROLE` nếu là danh từ/động từ/
-  tính từ/trạng từ. Sau đó build lại để câu cố định được tách mảnh.
+- Thêm vào `EXPRESSIONS` (kana/jp/vi/note/role) và `EXPR_ROLE` nếu là danh từ/động từ/tính từ/trạng từ.
+  Sau đó build lại để câu cố định được tách mảnh.
 
 ## 4. Quy ước phải giữ
 
 - **Phiên âm Việt**: sinh tự động bởi `tools/kana.js`, xem `docs/PRONUNCIATION.md`. Không gõ tay.
 - **Romaji**: Hepburn, trường âm kiểu Wāpuro (`toukyou`, `koohii`); trợ từ đọc thật (`wa`, `e`, `o`).
 - **Màu vai trò** (`role`): `pron`, `noun`, `verb`, `adj`, `adverb`, `particle`, `copula`,
-  `number`, `expression`, `unknown`. Thêm role mới ⇒ sửa cả `ROLE_LEGEND` (app.js), CSS `--rl-*`
-  (style.css, light + dark) và `EXPR_ROLE`/lexicon (segment.js).
+  `number`, `expression`, `unknown`. Thêm role mới ⇒ sửa cả CSS `--rl-*` (light + dark) và
+  `EXPR_ROLE`/lexicon (segment.js).
 - **Thứ tự nhóm builder**: `GROUP_ORDER` trong `builder.js` (cố định, cơ bản nhất trước).
 - **Lịch sự**: chỉ です/ます trong câu chuẩn; thể thân mật chỉ để trong `note`.
 - **Dữ liệu sinh ra**: compact JSON + bỏ field rỗng (prune). Đừng sửa `data/*.js`.
 - **N5 tách rời**: `vocab-n5` không được đưa vào segmenter/builder — tránh đổi cách tách câu của
-  nội dung hiện có; muốn dùng ở builder thì thêm vào `vocab.json` trước. Riêng câu ví dụ dùng
-  **lexicon cục bộ** (curated + N5 + `EXAMPLE_EXTRA_KANA`) chỉ để sinh phiên âm, không ảnh hưởng
-  kết quả tách câu của cụm từ/cây ghép.
+  nội dung hiện có. Riêng câu ví dụ dùng **lexicon cục bộ** (curated + N5 + `EXAMPLE_EXTRA_KANA`)
+  chỉ để sinh phiên âm, không ảnh hưởng kết quả tách câu của cây ghép.
 - **Furigana câu ví dụ**: build đọc `{漢|かん}` để lấy kana; chỉ ghi đè は/へ khi ký tự đó là kana
-  viết thẳng và token đúng là trợ từ — không ghi đè vào cách đọc kanji.
+  viết thẳng và token đúng là trợ từ.
 - **Trọng âm**: chỉ hiển thị khi `accent` tồn tại; mora cao = `i ≥ 2` và (`accent = 0` hoặc `i ≤ accent`),
-  riêng `accent = 1` thì mora 1 cao; ↓ đặt sau mora `min(accent, số mora)`. Không suy diễn thêm — số liệu
-  lấy nguyên từ Kanjium (xem `data/source/accents.json`).
-- **Sổ tay JSON**: format `quick-japanese/notebook` version 1 (`entries` = mảng fav); nhập chấp
-  nhận cả mảng trần, tối đa 2.000 mục, gộp thì chống trùng theo id (cụm từ) / `payload.jp` (câu).
+  riêng `accent = 1` thì mora 1 cao; ↓ sau mora `min(accent, số mora)`.
 - **Mỗi lần release**: bump `VERSION` trong `sw.js` (`qj-vX.Y.Z`), chạy build, commit, push main.
 
 ## 5. Kiểm thử & deploy
 
-1. `npm run build` — phải **0 cảnh báo** (chỉ còn ghi chú thống kê câu ví dụ N5).
+1. `npm run build` — phải **0 cảnh báo** (chỉ còn ghi chú thống kê ví dụ + trọng âm).
 2. `node --check` các file JS đã sửa.
-3. Mở app (nhớ xoá SW khi test): kiểm 5 tab, tìm kiếm, builder chạy ngẫu nhiên vài cây, lưu Sổ tay,
-   **Nghe & chọn** (chạy hết 1 lượt ở cả 2 nguồn, thử 🔊 nghe lại + phím 1–4), **N5** (chip 🌱,
-   phân trang Xem thêm, badge N5, tìm một từ N5, **câu ví dụ + 🔊 trên thẻ từ vựng và ở kết quả
-   quiz**, **trọng âm `[n]` + gạch trên + ↓**), và **xuất/nhập sổ tay** (gộp + thay thế).
+3. Mở app (nhớ xoá SW khi test): kiểm 2 tab, **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
+   hiện bảng cấu trúc), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ + 🔊, trọng âm
+   `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊 / 📺 / 📋, không lỗi JS.
 4. Release regression (khuyến nghị): vòng lặp tất cả cây × 3 đường 🎲, kiểm tra `.b-jp`, `.b-brk`,
-   kết thúc 1 lượt quiz ở cả 2 nguồn, không lỗi JS (`window.__errs`).
+   `.done-badge`, không lỗi JS (`window.__errs`).
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
    `gh api repos/teefan/quick-japanese/pages/builds/latest --jq '.status + " " + .commit'`
    và curl `https://teefan.github.io/quick-japanese/sw.js` để xác nhận VERSION mới.
 
 ## 6. Trạng thái & việc còn lại
 
-- **Phase 1** gần xong; việc duy nhất còn lại là **kiểm duyệt bởi người bản ngữ** — dùng
-  `docs/REVIEW-CHECKLIST.md` (đã bổ sung mục N5 + lượng từ 6–10 + câu ví dụ + trọng âm), sửa
-  `data/source/*.json` + build.
-- **Phase 2** (xem `PLAN.md` §10): ✅ Nghe & chọn (v1.3.0) · ✅ đủ N5 từ OpenJLPT — 561 từ mới,
-  nghĩa Việt biên tập, tải nền + phân trang · ✅ lượng từ 1–10 · ✅ xuất/nhập Sổ tay JSON ·
-  ✅ câu ví dụ Tatoeba (v1.5.0) — 460/561 từ N5 · ✅ **trọng âm Kanjium (v1.6.0)** — 726/744 từ.
-  **Phase 2 đã xong**; việc tiếp theo thuộc **Phase 3**: URL chia sẻ câu ghép (`#s=…`),
-  lưu thẻ thành ảnh, gói audio offline, OCR menu, giao diện tiếng Anh (xem `PLAN.md` §10).
-- **Tồn đã biết**: nghĩa 561 từ N5 + **460 câu ví dụ** + **726 trọng âm** chờ kiểm duyệt;
-  101 từ N5 chưa có câu ví dụ phù hợp; 18 từ chưa có trọng âm (スマホ, ごめんなさい…);
-  file N5 tải nền ≈ 259 KB (vẫn lazy, không vào payload đầu).
+- **v2.0.0** đã thu hẹp sản phẩm còn **Ghép câu + Từ vựng**; code/dữ liệu của các tính năng cũ
+  nằm trong git history (commit `10532f5` trở về trước).
+- Việc còn lại:
+  1. **Kiểm duyệt bởi người bản ngữ** — dùng `docs/REVIEW-CHECKLIST.md` (cây ghép câu, lượng từ,
+     phiên âm, nghĩa N5, câu ví dụ, trọng âm), sửa `data/source/*.json` + build.
+  2. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
+     gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
+- **Tồn đã biết**: nghĩa 561 từ N5 + 460 câu ví dụ + 726 trọng âm chờ kiểm duyệt; 101 từ N5 chưa
+  có câu ví dụ; 18 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB (vẫn lazy, không vào payload đầu).
 
 ## 7. Lịch sử quyết định ngắn
 
 - Builder là **deterministic**, không dùng AI — lý do ở `PLAN.md` §6.3.
 - Bóc tách câu bằng **quy hoạch động có trọng số** (tránh lỗi tham lam `はいくら` → `はい+くら`) — §6.4.
-- Audit builder v1.2.4 (độ chính xác, nhất quán, override, chip ngữ pháp, payload) — §6.5.
 - Thứ tự nhóm/cây theo **độ cơ bản** (Giao tiếp lên đầu) — commit `8de933d`.
-- “Nghe & chọn” là **quiz deterministic** từ dữ liệu sẵn có (không thêm dữ liệu, không AI); TTS chỉ là
-  enhancement — máy thiếu giọng Nhật thì tự chuyển sang Đọc & chọn; không thêm tab để giữ IA 5 tab.
-- N5 để ở file riêng tải nền (idle) thay vì nhét chung `vocab.js`: giữ payload đầu < 500 KB và
-  **không đụng vào kết quả tách câu** đã kiểm duyệt (N5 không vào lexicon/builder).
-- Câu ví dụ N5 (v1.5.0) giữ **furigana gốc** trong source thay vì chỉ kana: build suy ra kana và
-  chỉ đọc は/へ thành trợ từ khi ký tự đó là kana viết thẳng — tránh cả lỗi “đọc kanji thành trợ từ”
-  lẫn lỗi “đọc trợ từ thành cách đọc kanji”; từ kana dễ tách nhầm nằm trong `EXAMPLE_EXTRA_KANA`.
-  Thà thiếu ví dụ (101 từ) còn hơn nhập câu thân mật/phản cảm. Nghĩa Việt + độ lịch sự vẫn chờ
-  người bản ngữ duyệt như mục N5.
-- Trọng âm (v1.6.0) dùng **Kanjium accents.txt** (CC BY-SA 4.0, 124k từ) thay vì OJAD: dữ liệu mở,
-  tải được, có sẵn số accent theo mora. Từ kana-only ưu tiên ứng viên cùng reading (tránh bắt nhầm
-  từ đồng âm khác loại như これ [0] vs thán từ [1]); 21 ca nhập nhằng chọn tay trong chính ứng viên
-  Kanjium; 18 từ thiếu dữ liệu thì **không hiện** trọng âm (không đoán). Hiển thị: gạch trên = mora
-  cao, ↓ = xuống giọng, `[n]` = số mora; kèm legend + ghi công trong app.
-- Sổ tay JSON có `format`/`version`; nhập chỉ nhận mục hợp lệ (cụm từ phải còn id, câu cần `payload.jp`),
-  gộp thì chống trùng theo id/`payload.jp`.
+- N5 để ở file riêng tải nền (idle) thay vì nhét chung `vocab.js`: giữ payload đầu nhẹ và
+  **không đụng vào kết quả tách câu** đã kiểm duyệt.
+- Câu ví dụ N5 giữ **furigana gốc** trong source thay vì chỉ kana: build suy ra kana và chỉ đọc
+  は/へ thành trợ từ khi ký tự đó là kana viết thẳng; thà thiếu ví dụ (101 từ) còn hơn nhập câu
+  thân mật/phản cảm.
+- Trọng âm dùng **Kanjium accents.txt** (CC BY-SA 4.0, 124k từ): dữ liệu mở, có sẵn số accent
+  theo mora; từ kana-only ưu tiên ứng viên cùng reading; 18 từ thiếu dữ liệu thì **không hiện**
+  trọng âm (không đoán).
+- **v2.0.0 thu hẹp sản phẩm** theo yêu cầu: bỏ cụm từ, sổ tay, ngữ pháp, quiz, tìm kiếm toàn cục;
+  xoá luôn dữ liệu/grammar refs để không còn code chết (grammar metadata trong `segment.js`,
+  `grammar` array trong intents, CSS/JS của các tính năng cũ).
