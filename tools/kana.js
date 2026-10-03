@@ -95,8 +95,6 @@ function sokuonCons(mora) {
   return { roma: c, vi: viMap[c] || c };
 }
 
-const VOWEL_OF = { a: "a", i: "i", u: "ư", e: "ê", o: "ô" };
-
 /**
  * Chuyển một chuỗi kana thành { roma, viPron }.
  * @param {string} input  chuỗi hiragana/katakana (cho phép lẫn kanji — kanji bị bỏ qua)
@@ -142,7 +140,6 @@ function translit(input, override, posOverride) {
       pending = null;
     }
 
-    const pos = posOverride && posOverride[i];
     if (m.isN) {
       const nxt = peek(kana, i + 1);
       let vi = "n";
@@ -150,14 +147,14 @@ function translit(input, override, posOverride) {
         if (/^[pbm]/.test(nxt.roma)) vi = "m";
         else if (/^[kg]/.test(nxt.roma)) vi = "ng";
       }
-      if (pos) { vi = pos.vi; }
       if (groups.length) {
-        groups[groups.length - 1].roma += pos ? pos.roma : "n";
+        groups[groups.length - 1].roma += "n";
         groups[groups.length - 1].vi += vi;
       } else {
-        groups.push({ roma: pos ? pos.roma : "n", vi });
+        groups.push({ roma: "n", vi });
       }
     } else {
+      const pos = posOverride && posOverride[i];
       let vi = pos ? pos.vi : m.vi;
       // う sau một nguyên âm: viết "u" cho dễ đọc và nhất quán (とう -> "tô-u", アウト -> "a-u-tô")
       if (!pos && m.roma === "u" && groups.length) vi = "u";

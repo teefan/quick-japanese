@@ -106,6 +106,9 @@ function buildVocab() {
   return { items, byId: Object.fromEntries(items.map((i) => [i.id, i])) };
 }
 
+/* Trợ từ đọc đặc biệt — dùng chung cho cụm từ (enrichParts) và câu ví dụ (examplePron) */
+const PARTICLE_PRON = { "は": { roma: "wa", viPron: "oa" }, "へ": { roma: "e", viPron: "ê" }, "を": { roma: "o", viPron: "ô" } };
+
 /* Từ vựng N5 bổ sung: chỉ dùng cho tab Từ vựng / tìm kiếm / quiz, không vào bộ ghép câu.
    Kèm câu ví dụ (data/source/vocab-n5-examples.json) — không đưa N5 vào lexicon chung,
    chỉ mở rộng lexicon cục bộ để đọc đúng trợ từ は/へ trong câu ví dụ. */
@@ -117,13 +120,13 @@ function buildVocabN5(vocabItems, numbers) {
   const lex = buildLexicon(vocabItems.concat(items).concat(extra), numbers);
   const byId = new Map(items.map((i) => [i.id, i]));
   let count = 0;
-  for (const [id, ex] of Object.entries(src.items || {})) {
+  for (const [id, ex] of Object.entries(src.items)) {
     const item = byId.get(id);
     if (!item) { warn(`[ví dụ] id không tồn tại trong vocab-n5: ${id}`); continue; }
     if (!ex.jp || !ex.kana || !ex.vi || !ex.furi) { warn(`[ví dụ] thiếu jp/furi/kana/vi: ${id}`); continue; }
     const furi = parseFuri(ex.furi);
     if (furi.kana !== ex.kana) { warn(`[ví dụ] furi không khớp kana: ${id} "${furi.kana}" ≠ "${ex.kana}"`); continue; }
-    const pron = examplePron(furi.kana, furi.literal, lex);
+    const pron = examplePron(furi.kana, furi.literalPos, lex);
     item.examples = [{ jp: ex.jp, kana: ex.kana, roma: pron.roma, viPron: pron.viPron, vi: ex.vi }];
     count += 1;
   }
@@ -134,31 +137,32 @@ function buildVocabN5(vocabItems, numbers) {
 /* Đọc furigana Tatoeba: {漢|かん} → cách đọc kanji; ký tự ngoài {} là kana viết thẳng.
    Trả về chuỗi kana và tập vị trí ký tự viết thẳng (chỉ chỗ đó mới có thể là trợ từ). */
 function parseFuri(furi) {
-  const literal = new Set();
+  const literalPos = new Set();
   let kana = "";
   let i = 0;
   while (i < furi.length) {
     if (furi[i] === "{") {
       const j = furi.indexOf("}", i);
+      if (j < 0) return { kana, literalPos }; // furi hỏng — bước kiểm tra kana bên dưới sẽ báo lệch
       kana += furi.slice(i + 1, j).split("|").slice(1).join("");
       i = j + 1;
     } else {
-      literal.add(kana.length);
+      literalPos.add(kana.length);
       kana += furi[i];
       i += 1;
     }
   }
-  return { kana, literal };
+  return { kana, literalPos };
 }
 
 /* Phiên âm câu ví dụ: chỉ đọc は→oa / へ→ê khi đó là kana viết thẳng (không phải cách đọc
    kanji) và token đúng là trợ từ, có mảnh phía trước (tránh はるばる, はじめまして…). */
-function examplePron(kana, literal, lex) {
+function examplePron(kana, literalPos, lex) {
   const t = tokenize(kana, lex);
   const posOverride = {};
   t.parts.forEach((p, i) => {
     const over = p.isParticle ? PARTICLE_PRON[p.kana] : null;
-    if (over && i > 0 && literal.has(p.start)) {
+    if (over && i > 0 && literalPos.has(p.start)) {
       posOverride[p.start] = { roma: over.roma, vi: over.viPron };
     }
   });
@@ -170,8 +174,6 @@ const mapObj = (obj, fn) =>
   Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, fn(v)]));
 
 /* ------------------------------ Cụm từ ------------------------------ */
-
-const PARTICLE_PRON = { "は": { roma: "wa", viPron: "oa" }, "へ": { roma: "e", viPron: "ê" }, "を": { roma: "o", viPron: "ô" } };
 
 /* Làm giàu một danh sách mảnh đã tách (dùng chung cho cụm từ và option builder) */
 function enrichParts(rawParts, grammarIds, tag) {

@@ -384,20 +384,6 @@ function buildLexicon(vocab, numbers) {
 
 const SKIP = /[、。！？!?\s〜「」（）()・…]/;
 
-function matchAt(str, i, lex) {
-  const max = Math.min(12, str.length - i); // độ dài entry dài nhất ~12 kana
-  for (let len = max; len >= 1; len--) {
-    const sub = str.slice(i, i + len);
-    const hit = lex.get(sub);
-    if (hit) return { len, entry: hit };
-  }
-  return null;
-}
-
-function anyMatchAt(str, i, lex) {
-  return !!matchAt(str, i, lex);
-}
-
 /**
  * Tách câu bằng quy hoạch động có trọng số:
  *  - từ vựng / cụm cố định: 1 điểm
@@ -406,7 +392,7 @@ function anyMatchAt(str, i, lex) {
  * Nhờ vậy tránh lỗi tham lam kiểu はいくら → はい + くら.
  * @param {string} kana
  * @param {Map} lex
- * @returns {{parts:Array, unknowns:string[]}}
+ * @returns {{parts:Array, unknowns:string[]}} parts có `start` = vị trí ký tự trong câu
  */
 function tokenize(kana, lex) {
   const n = kana.length;
