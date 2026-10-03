@@ -30,9 +30,11 @@ const warnings = [];
 const err = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
 
-const QJ = loadQJ(["data/intents.js"]);
+const QJ = loadQJ(["data/intents.js", "data/exchanges.js"]);
 const intents = QJ.intents.intents;
 let paths = 0;
+let scenarioPairs = 0;
+let replyLines = 0;
 
 for (const intent of intents) {
   const stepSlot = new Map();
@@ -152,13 +154,43 @@ for (const intent of intents) {
     }
   };
   walk(intent.start, [], 0);
+
+  // Gợi ý câu người Nhật có thể đáp (replies)
+  for (const [i, r] of (intent.replies || []).entries()) {
+    const at = `${intent.id} reply#${i}`;
+    if (!r.jp || !r.kana || !r.vi) err(`${at}: thiếu jp/kana/vi`);
+    if (!r.roma || !r.viPron) err(`${at}: thiếu roma/viPron (enrich lỗi)`);
+    replyLines += 1;
+  }
 }
 
-console.log(`Audit builder: ${intents.length} cây, ${paths} đường câu — ${errors.length} lỗi, ${warnings.length} cảnh báo`);
+/* Tình huống “nghe & đáp”: nhân viên nói trước + câu đáp */
+const scenarios = (QJ.exchanges && QJ.exchanges.scenarios) || [];
+if (!scenarios.length) err("data/exchanges.js: chưa có tình huống nào");
+const scenarioIds = new Set();
+for (const s of scenarios) {
+  const at = s.id || "(thiếu id)";
+  if (!s.id || !s.label) err(`[nghe–đáp] ${at}: thiếu id/label`);
+  if (scenarioIds.has(s.id)) err(`[nghe–đáp] ${at}: trùng id tình huống`);
+  scenarioIds.add(s.id);
+  if (!(s.exchanges || []).length) err(`[nghe–đáp] ${at}: không có cặp hỏi–đáp`);
+  for (const [i, ex] of (s.exchanges || []).entries()) {
+    const where = `${at} #${i}`;
+    const lines = [["heard", ex.heard], ...(ex.answers || []).map((a, j) => [`answer#${j}`, a])];
+    for (const [role, line] of lines) {
+      if (!line.jp || !line.kana || !line.vi) err(`[nghe–đáp] ${where} ${role}: thiếu jp/kana/vi`);
+      if (!line.roma || !line.viPron) err(`[nghe–đáp] ${where} ${role}: thiếu roma/viPron`);
+    }
+    if (!(ex.answers || []).length && !ex.note) warn(`[nghe–đáp] ${where}: không có câu đáp lẫn ghi chú`);
+    scenarioPairs += 1;
+  }
+}
+
+console.log(`Audit builder: ${intents.length} cây, ${paths} đường câu, ${replyLines} gợi ý đáp, ${scenarioPairs} cặp nghe–đáp — ${errors.length} lỗi, ${warnings.length} cảnh báo`);
 for (const w of warnings) console.log("  ! " + w);
 for (const e of errors) console.log("  ✗ " + e);
 if (errors.length) {
   process.exitCode = 1;
 } else {
-  console.log("  ✓ không slot trống, không lặp từ, slot/template nhất quán");
+  console.log("  ✓ không slot trống, không lặp từ, slot/template nhất quán, câu nghe–đáp đủ dữ liệu");
 }

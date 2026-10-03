@@ -485,6 +485,13 @@
         { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
       ],
       "viTemplate": "Cho tôi {object}, {quantity}",
+      "replies": [
+        { "jp": "はい、少々お待ちください", "kana": "はい、しょうしょうおまちください", "vi": "Vâng, xin chờ một lát ạ" },
+        { "jp": "かしこまりました", "kana": "かしこまりました", "vi": "Vâng, tôi đã rõ ạ" },
+        { "jp": "お待たせしました", "kana": "おまたせしました", "vi": "Xin lỗi đã để quý khách chờ" },
+        { "jp": "お会計はご一緒ですか、別々ですか", "kana": "おかいけいはごいっしょですか、べつべつですか", "vi": "Quý khách thanh toán chung hay riêng ạ?" },
+        { "jp": "ありがとうございました", "kana": "ありがとうございました", "vi": "Cảm ơn quý khách" }
+      ],
       "tip": "ください là cách 'cho tôi' chuẩn mực nhất. Số lượng đứng ngay trước ください."
     },
     {
@@ -951,6 +958,13 @@
         { "text": "どこですか", "kana": "どこですか", "vi": "ở đâu?" }
       ],
       "viTemplate": "{place} ở đâu?",
+      "replies": [
+        { "jp": "あちらです", "kana": "あちらです", "vi": "Ở đằng kia ạ" },
+        { "jp": "二階です", "kana": "にかいです", "vi": "Ở tầng hai ạ" },
+        { "jp": "まっすぐ行って、右です", "kana": "まっすぐいって、みぎです", "vi": "Đi thẳng rồi rẽ phải ạ" },
+        { "jp": "案内します", "kana": "あんないします", "vi": "Tôi dẫn quý khách đi ạ" },
+        { "jp": "すみません、ちょっと分かりません", "kana": "すみません、ちょっとわかりません", "vi": "Xin lỗi, tôi cũng không rõ" }
+      ],
       "tip": "Công thức vạn năng: [địa điểm] + はどこですか."
     },
     {
@@ -1126,6 +1140,14 @@
       },
       "template": null,
       "viTemplate": null,
+      "replies": [
+        { "jp": "パスポートをお願いします", "kana": "パスポートをおねがいします", "vi": "Cho tôi xem hộ chiếu ạ" },
+        { "jp": "ご予約のお名前をお願いします", "kana": "ごよやくのおなまえをおねがいします", "vi": "Cho tôi xin tên đặt phòng ạ" },
+        { "jp": "お部屋は3階の305号室です", "kana": "おへやはさんがいのさんまるごごうしつです", "vi": "Phòng ở tầng 3, phòng 305 ạ" },
+        { "jp": "チェックアウトは10時です", "kana": "チェックアウトはじゅうじです", "vi": "Trả phòng lúc 10 giờ ạ" },
+        { "jp": "朝食は7時からです", "kana": "ちょうしょくはしちじからです", "vi": "Bữa sáng từ 7 giờ ạ" },
+        { "jp": "Wi-Fiのパスワードはこちらです", "kana": "ワイファイのパスワードはこちらです", "vi": "Mật khẩu Wi-Fi ở đây ạ" }
+      ],
       "tip": "Nhận phòng thường cần hộ chiếu. 荷物を預かってもらえますか dùng được cả trước khi nhận phòng lẫn sau khi trả phòng."
     },
     {

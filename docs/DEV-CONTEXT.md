@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `da1b445` · SW cache `qj-v2.5.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `da1b445` · SW cache `qj-v2.6.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -21,6 +21,8 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
   ghép** từ 15 cây; **128 từ biên tập + 37 từ N5** được dùng làm option.
 - **Liên kết hai tab**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
   (`data/builder-index.js`, sinh tự động).
+- **Nghe & đáp 🗣️**: 3 tình huống **nhân viên nói trước** (nhà hàng, cửa hàng, khách sạn) kèm câu
+  đáp; câu ghép xong có thêm gợi ý “Người Nhật có thể nói” cho i-please / i-where / i-hotel.
 - **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
   460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
@@ -52,9 +54,10 @@ assets/css/style.css       design system + màu vai trò (--rl-*)
 assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + chủ đề sáng/tối + PWA register
 assets/js/assemble.js      logic ráp câu thuần (không DOM) — builder + audit dùng chung
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
-data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, numbers
+data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, exchanges, numbers
 data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html;
-                           builder-index.js: từ vựng → mục ghép câu dùng từ đó (chip ở tab Từ vựng)
+                           builder-index.js: từ vựng → mục ghép câu dùng từ đó (chip ở tab Từ vựng);
+                           exchanges.js: tình huống “nhân viên nói trước” (module Nghe & đáp)
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           từ điển + tokenizer DP bóc tách câu
 tools/build.js             validate + enrich + xuất data/*.js
@@ -124,8 +127,30 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   trước chưa kết câu (`assets/js/assemble.js`); audit kiểm lại từng đường.
 - **Thứ tự cây trong nhóm = thứ tự mảng** trong file.
 - Không còn trường `grammar` (đã bỏ cùng tab Ngữ pháp v2.0.0).
+- `replies` (tuỳ chọn): các câu **người Nhật có thể đáp** sau khi mình nói câu này; app hiện ở cuối
+  trang khi câu đã xong (khối “🗣️ Người Nhật có thể nói”).
 - Sau khi sửa luôn chạy `npm run build`: audit sẽ báo slot không tồn tại, nhãn trùng, vi lặp từ,
   field chết, mảnh tách thiếu ký tự… (xem §5).
+
+### Nghe & đáp (nhân viên nói trước) — `data/source/exchanges.json`
+```jsonc
+{
+  "id": "x-restaurant", "emoji": "🍜", "label": "Ở nhà hàng",
+  "desc": "Được chào, hỏi số người, gọi món, thanh toán", "group": "Ăn uống & mua sắm",
+  "exchanges": [
+    {
+      "heard": { "jp": "何名様ですか", "kana": "なんめいさまですか", "vi": "Quý khách đi mấy người ạ?" },
+      "note": "tuỳ chọn — mẹo, hoặc lý do không cần đáp",
+      "answers": [ { "jp": "一人です", "kana": "ひとりです", "vi": "Một người" } ]
+    }
+  ]
+}
+```
+- Dành cho tình huống **nhân viên nói trước** (nhà hàng, cửa hàng, khách sạn…): hiện câu họ có thể
+  nói (to, có furigana + phiên âm + 🔊) và các câu mình có thể đáp. `jp/kana/vi` bắt buộc.
+- `roma`/`viPron` do build sinh, đúng trợ từ は→oa, へ→ê nhờ lexicon nói riêng; thêm cụm mới vào
+  `SPOKEN_EXTRA` trong `tools/build.js` (không đụng lexicon builder) hoặc ghi đè tay khi cần.
+- Audit kiểm mỗi tình huống có id/label, mỗi câu đủ dữ liệu + đã enrich.
 
 ### Thêm từ cho bộ tách câu — `tools/segment.js`
 - Thêm vào `EXPRESSIONS` (kana/jp/vi/note/role) và `EXPR_ROLE` nếu là danh từ/động từ/tính từ/trạng từ.
@@ -155,6 +180,9 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   `:root[data-theme="dark"]` + nút `#theme-toggle` (nhớ trong `localStorage.qj-theme`).
 - **Hành động ở câu đã xong**: chỉ giữ 🔊 Nghe (Đưa máy/Copy đã bỏ ở v2.4.0 — đừng thêm lại
   nếu chưa bàn; “lưu thành ảnh” là hướng thay thế trong Phase 3).
+- **Câu nói nghe/đáp** (`replies`, `exchanges`): không gõ phiên âm tay — dùng `enrichSpoken`
+  trong build (tách mảnh bằng lexicon nói riêng) để は→oa, へ→ê; chỉ ghi đè `roma`/`viPron` khi
+  từ/cụm chưa có trong `SPOKEN_EXTRA`.
 - **Mỗi lần release**: bump `VERSION` trong `sw.js` (`qj-vX.Y.Z`), chạy build, commit, push main.
 
 ## 5. Kiểm thử & deploy
@@ -163,9 +191,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
    builder, trọng âm); `tools/audit.js` phải **0 lỗi** (soát toàn bộ đường ghép câu) và nên 0 cảnh báo.
 2. `node --check` các file JS đã sửa.
 3. Mở app (nhớ xoá SW khi test): kiểm 2 tab, **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
-   hiện bảng cấu trúc), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ + 🔊, trọng âm
-   `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊, nút 🌙 đổi nền tối (nhớ lựa chọn, mặc định sáng),
-   không lỗi JS.
+   hiện bảng cấu trúc, câu xong hiện **replies** nếu có), **Nghe & đáp** ở trang chủ (mở 1 tình
+   huống, kiểm furigana/phiên âm/nút 🔊), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ +
+   🔊, trọng âm `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊, nút 🌙 đổi nền tối
+   (nhớ lựa chọn, mặc định sáng), không lỗi JS.
 4. Release regression: `npm run audit` đã phủ **toàn bộ 1.120 đường** (thay 15 × 3 đường 🎲);
    vẫn nên 🎲 vài cây để kiểm UI, TTS và bảng cấu trúc.
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
@@ -187,12 +216,20 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - **v2.5.0** giao diện washi–sakura–indigo: nền sáng mặc định (không theo hệ điều hành),
   nút 🌙/☀️ đổi nền tối có nhớ lựa chọn; họa tiết sóng seigaiha ở header, logo có nụ hoa,
   gạch chân tiêu đề, nút hành động gradient; màu vai trò và accent chỉnh để đạt AA.
+- **v2.6.0** vòng lặp hỏi–đáp: thêm `data/source/exchanges.json` + module **Nghe & đáp** ở trang chủ
+  (3 tình huống, 20 cặp), thêm `replies` cho i-please/i-where/i-hotel; build sinh phiên âm đúng trợ
+  từ bằng lexicon nói riêng (`SPOKEN_EXTRA`), audit kiểm luôn câu nói.
 - Việc còn lại:
   1. **Kiểm duyệt bởi người bản ngữ** — dùng `docs/REVIEW-CHECKLIST.md` (cây ghép câu, lượng từ,
-     phiên âm, nghĩa N5, câu ví dụ, trọng âm, các cặp tính từ × danh từ mới), sửa
-     `data/source/*.json` + build.
+     phiên âm, nghĩa N5, câu ví dụ, trọng âm, các cặp tính từ × danh từ mới, **câu nghe–đáp/replies**),
+     sửa `data/source/*.json` + build.
   2. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
+  3. **Mở rộng Nghe & đáp** (theo nghiên cứu v2.6.0): tình huống ga/tàu & taxi (IC card, sân ga,
+     điểm đến), hiệu thuốc/khẩn cấp, quầy miễn thuế (パスポート); thêm câu nhân viên hay nói
+     (席へどうぞ, ラストオーダーです, お下げしてもいいですか, 試着室はこちらです, お荷物をお預かりしますか);
+     bổ sung câu **mình chủ động** còn thiếu: `お会計をお願いします`, `別々でお願いします`, `袋いりません`,
+     `道に迷いました`, `〜はありますか` tổng quát.
 - **Tồn đã biết**: nghĩa 561 từ N5 + 460 câu ví dụ + 726 trọng âm chờ kiểm duyệt; 101 từ N5 chưa
   có câu ví dụ; 18 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB (vẫn lazy, không vào payload đầu).
 
@@ -227,3 +264,6 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   nhớ, không theo hệ điều hành. Bảng màu washi–sakura–indigo; accent + màu vai trò chỉnh để đạt AA.
 - **Giữ UI tối giản (v2.4.0)**: bỏ chế độ “Đưa máy”, “Copy”, dòng nhắc thừa và nút 🎲 trùng — câu đã
   xong chỉ còn 🔊 Nghe; mọi thêm mới phải thật cần thiết.
+- **Vòng lặp hỏi–đáp (v2.6.0)**: câu ghép chỉ là một nửa cuộc nói chuyện; thêm lớp nhận biết
+  (họ có thể nói gì) + tình huống họ nói trước. Không mở rộng engine — `replies`/`exchanges` là
+  dữ liệu + UI, cây ý định giữ nguyên.

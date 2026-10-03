@@ -4,12 +4,14 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and say it to a local. Static site,
 no server, deployable on GitHub Pages.
 
-> **Current status (v2.5.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 15 intent trees (4 groups) · **1,120 combinable sentences**
-> (128 curated + 37 N5 words as options) · 744 words (183 curated + 561 N5, lazy-loaded)
-> · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium) · 6 counters (1–10)
-> · vocabulary cards link back into the builder (`data/builder-index.js`).
-> PWA cache `qj-v2.5.0`. Regression: `npm run audit` walks all **1,120 paths** (0 errors), no JS errors.
+> **Current status (v2.6.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng, plus 🗣️ Nghe & đáp.** 15 intent trees (4 groups) ·
+> **1,120 combinable sentences** (128 curated + 37 N5 words as options) · 744 words (183 curated
+> + 561 N5, lazy-loaded) · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium)
+> · 6 counters (1–10) · vocabulary cards link back into the builder (`data/builder-index.js`)
+> · 3 staff-first scenarios (20 exchanges) + likely replies on 3 intents.
+> PWA cache `qj-v2.6.0`. Regression: `npm run audit` walks all **1,120 paths** + all spoken
+> lines (0 errors), no JS errors.
 > **Light theme by default** (washi–sakura–indigo); a 🌙/☀️ toggle remembers dark mode.
 > **v2.0.0 narrowed the product**: phrases, notebook, grammar, quiz and global search were removed;
 > **v2.4.0** also removed show-to-local and copy (finished sentences keep only 🔊 Nghe) — all
@@ -59,7 +61,8 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
 - Prioritize **set phrases that work standalone** (すみません, これをください, お願いします)
   over grammatically “teaching” sentences.
 - Include a **“Người Nhật có thể nói”** category so travelers can *recognize* common staff
-  lines (いらっしゃいませ, 何名様ですか, 〜円です…).
+  lines (いらっしゃいませ, 何名様ですか, 〜円です…). **Implemented in v2.6.0** as the
+  “Nghe & đáp” scenarios + per-intent `replies` (see §6.7).
 - Teach only **polite forms** (です/ます). Casual forms mentioned in notes, never as defaults.
 - Keep **culture notes** next to the phrase (no tipping, slurping ok, no bargaining in stores).
 - Curate builder options to avoid unnatural collocations (don’t let “eat” combine with “coffee”).
@@ -94,6 +97,10 @@ Ghép câu 🧩    15 intent trees in 4 groups, ordered basic → advanced (see 
   Ăn uống & mua sắm:  Cái này thì sao? · Cho tôi… · Tôi muốn… · Tôi thích…
   Đi lại & khách sạn: …ở đâu? · Đi đến… · Khách sạn
   Sức khỏe & sự cố:   Sức khỏe & sự cố
+
+Nghe & đáp 🗣️  3 scenarios where staff speak first (restaurant, shop, hotel): each heard
+               line has furigana + Vietnamese pronunciation + 🔊 and suggested answers;
+               built sentences in i-please / i-where / i-hotel also show likely “replies”
 
 Từ vựng 📚     744 words (183 curated + 561 N5 lazy) + counters 1–10 + money chips,
                tag filters, paginated list, search, example sentences, pitch accents;
@@ -268,6 +275,22 @@ same assembly module as the app (`assets/js/assemble.js`) and fails the build on
 slots, unresolved `vi` placeholders, repeated Vietnamese words (e.g. “hơn hơn”), missing `。`
 between two fixed phrases, unknown slot references, duplicate chip labels, unreachable steps,
 dead fields and incomplete token coverage. Run via `npm run build` (or `npm run audit`).
+
+### 6.7 Nghe & đáp — closing the conversation loop (v2.6.0)
+
+The builder covers the traveler→local direction only. v2.6.0 adds the other half:
+
+- **Staff-first scenarios** (`data/source/exchanges.json` → `data/exchanges.js`): restaurant,
+  shop and hotel. Each exchange is a likely staff line (`heard`) plus suggested answers, shown
+  with furigana, Vietnamese approximation, Hepburn romaji and 🔊.
+- **Replies**: `i-please`, `i-where` and `i-hotel` carry a `replies` array rendered after the
+  sentence is complete (“🗣️ Người Nhật có thể nói”).
+- Both go through the pronunciation pipeline; staff lines use a dedicated lexicon
+  (`SPOKEN_EXTRA` in `tools/build.js`) so は→oa / へ→ê **without touching builder tokenization**.
+- `tools/audit.js` validates every spoken line (jp/kana/vi + enriched roma/viPron).
+- Content backlog (researched, not yet written): station/IC-card, taxi, pharmacy/emergency,
+  tax-free counter; traveler-initiated `お会計をお願いします`, `別々でお願いします`,
+  `袋いりません`, `道に迷いました`, generic `〜はありますか`.
 
 ---
 

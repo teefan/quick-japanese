@@ -1,8 +1,8 @@
 # Quick Japanese 🗾
 
 **Ghép câu tiếng Nhật cho người Việt đi du lịch.** Chọn nghĩa theo từng bước, app ráp câu tiếng
-Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc tách câu; tra thêm 744 từ vựng
-(561 từ JLPT N5, có câu ví dụ và pitch accent).
+Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc tách câu; **nghe & đáp câu nhân viên
+nói trước**; tra thêm 744 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent).
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
@@ -22,6 +22,8 @@ Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc t
   và số `[n]`; kèm lượng từ đếm 1–10 và mệnh giá tiền.
 - 🔗 **Hai tab liên kết với nhau**: mỗi thẻ từ vựng có chip “🧩 Ghép câu” mở thẳng mục ghép câu
   dùng từ đó (bưu điện → …ở đâu?, 水 → Cho tôi… / Tôi muốn…).
+- 🗣️ **Nghe & đáp**: tình huống **nhân viên nói trước** (nhà hàng, cửa hàng, khách sạn) — câu họ nói
+  kèm furigana, phiên âm, 🔊 và gợi ý câu đáp; câu ghép xong cũng hiện “Người Nhật có thể nói”.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên từ, câu ví dụ và câu ghép.
 - 🌗 **Nền sáng mặc định** (giấy washi + sakura, không theo hệ điều hành); bấm 🌙 trên header
   để đổi nền tối — lựa chọn được ghi nhớ.
@@ -51,9 +53,9 @@ assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + PWA
 assets/js/assemble.js      logic ráp câu thuần (builder + audit dùng chung)
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
-data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, số đếm)
+data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, nghe–đáp, số đếm)
 data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay); vocab-n5.js tải theo nhu cầu,
-                           builder-index.js nối từ vựng với mục ghép câu
+                           builder-index.js nối từ vựng với mục ghép câu, exchanges.js cho mục Nghe & đáp
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           bóc tách câu: từ điển + tokenizer DP
 tools/build.js             kiểm tra + làm giàu dữ liệu, xuất data/*.js

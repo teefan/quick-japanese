@@ -1,0 +1,174 @@
+{
+  "note": "Tình huống nhân viên nói trước: mỗi câu 'heard' kèm gợi ý câu đáp 'answers' và mẹo 'note'. jp/kana/vi là bắt buộc; roma/viPron để trống thì build tự sinh (tách mảnh để đọc đúng は→oa, へ→ê).",
+  "scenarios": [
+    {
+      "id": "x-restaurant",
+      "emoji": "🍜",
+      "label": "Ở nhà hàng",
+      "desc": "Được chào, hỏi số người, gọi món, thanh toán",
+      "group": "Ăn uống & mua sắm",
+      "exchanges": [
+        {
+          "heard": { "jp": "いらっしゃいませ", "kana": "いらっしゃいませ", "vi": "Chào mừng quý khách" },
+          "note": "Câu chào của nhân viên — chỉ cần gật đầu nhẹ cũng được, không nhất thiết phải đáp.",
+          "answers": [
+            { "jp": "こんにちは", "kana": "こんにちは", "vi": "Xin chào (ban ngày)", "roma": "konnichiwa", "viPron": "côn-ni-chi-oa" }
+          ]
+        },
+        {
+          "heard": { "jp": "何名様ですか", "kana": "なんめいさまですか", "vi": "Quý khách đi mấy người ạ?" },
+          "answers": [
+            { "jp": "一人です", "kana": "ひとりです", "vi": "Một người" },
+            { "jp": "二人です", "kana": "ふたりです", "vi": "Hai người" },
+            { "jp": "三人です", "kana": "さんにんです", "vi": "Ba người" },
+            { "jp": "四人です", "kana": "よにんです", "vi": "Bốn người" },
+            { "jp": "予約しています", "kana": "よやくしています", "vi": "Tôi có đặt trước" }
+          ]
+        },
+        {
+          "heard": { "jp": "お飲み物は何になさいますか", "kana": "おのみものはなんになさいますか", "vi": "Quý khách dùng đồ uống gì ạ?" },
+          "answers": [
+            { "jp": "お水をお願いします", "kana": "おみずをおねがいします", "vi": "Cho tôi nước" },
+            { "jp": "ビールをお願いします", "kana": "ビールをおねがいします", "vi": "Cho tôi bia" },
+            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không cần đâu ạ" }
+          ]
+        },
+        {
+          "heard": { "jp": "ご注文はお決まりですか", "kana": "ごちゅうもんはおきまりですか", "vi": "Quý khách đã chọn món chưa ạ?" },
+          "answers": [
+            { "jp": "おすすめは何ですか", "kana": "おすすめはなんですか", "vi": "Món nào ngon ạ?" },
+            { "jp": "これを一つお願いします", "kana": "これをひとつおねがいします", "vi": "Cho tôi một cái này" },
+            { "jp": "もう少し待ってください", "kana": "もうすこしまってください", "vi": "Cho tôi thêm chút thời gian" }
+          ]
+        },
+        {
+          "heard": { "jp": "少々お待ちください", "kana": "しょうしょうおまちください", "vi": "Xin chờ một lát ạ" },
+          "note": "Nhân viên sẽ quay lại, chỉ cần đáp ngắn.",
+          "answers": [
+            { "jp": "はい", "kana": "はい", "vi": "Vâng" }
+          ]
+        },
+        {
+          "heard": { "jp": "お会計ですか", "kana": "おかいけいですか", "vi": "Quý khách muốn thanh toán ạ?" },
+          "answers": [
+            { "jp": "お願いします", "kana": "おねがいします", "vi": "Vâng, nhờ anh/chị" },
+            { "jp": "別々でお願いします", "kana": "べつべつでおねがいします", "vi": "Cho thanh toán riêng ạ" }
+          ]
+        },
+        {
+          "heard": { "jp": "お支払いはカードですか、それとも現金ですか", "kana": "おしはらいはカードですか、それともげんきんですか", "vi": "Quý khách trả bằng thẻ hay tiền mặt ạ?" },
+          "answers": [
+            { "jp": "カードでお願いします", "kana": "カードでおねがいします", "vi": "Trả bằng thẻ ạ" },
+            { "jp": "現金でお願いします", "kana": "げんきんでおねがいします", "vi": "Trả tiền mặt ạ" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "x-shop",
+      "emoji": "🛍️",
+      "label": "Ở cửa hàng",
+      "desc": "Hỏi cần gì, thanh toán, túi và hoá đơn",
+      "group": "Ăn uống & mua sắm",
+      "exchanges": [
+        {
+          "heard": { "jp": "いらっしゃいませ", "kana": "いらっしゃいませ", "vi": "Chào mừng quý khách" },
+          "note": "Chỉ cần gật đầu nhẹ cũng được.",
+          "answers": [
+            { "jp": "こんにちは", "kana": "こんにちは", "vi": "Xin chào (ban ngày)", "roma": "konnichiwa", "viPron": "côn-ni-chi-oa" }
+          ]
+        },
+        {
+          "heard": { "jp": "何をお探しですか", "kana": "なにをおさがしですか", "vi": "Quý khách đang tìm gì ạ?" },
+          "answers": [
+            { "jp": "見ているだけです", "kana": "みているだけです", "vi": "Tôi chỉ xem thôi ạ" },
+            { "jp": "これはいくらですか", "kana": "これはいくらですか", "vi": "Cái này bao nhiêu tiền?" },
+            { "jp": "お土産を探しています", "kana": "おみやげをさがしています", "vi": "Tôi đang tìm quà lưu niệm" }
+          ]
+        },
+        {
+          "heard": { "jp": "これでよろしいですか", "kana": "これでよろしいですか", "vi": "Cái này được chưa ạ?" },
+          "answers": [
+            { "jp": "はい、お願いします", "kana": "はい、おねがいします", "vi": "Vâng, nhờ anh/chị" },
+            { "jp": "もう少し見ます", "kana": "もうすこしみます", "vi": "Tôi xem thêm chút nữa" }
+          ]
+        },
+        {
+          "heard": { "jp": "袋はご入用ですか", "kana": "ふくろはごにゅうようですか", "vi": "Quý khách có cần túi không ạ?" },
+          "answers": [
+            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không cần đâu ạ" },
+            { "jp": "お願いします", "kana": "おねがいします", "vi": "Vâng, nhờ anh/chị" }
+          ]
+        },
+        {
+          "heard": { "jp": "お支払いはカードですか、それとも現金ですか", "kana": "おしはらいはカードですか、それともげんきんですか", "vi": "Quý khách trả bằng thẻ hay tiền mặt ạ?" },
+          "answers": [
+            { "jp": "カードでお願いします", "kana": "カードでおねがいします", "vi": "Trả bằng thẻ ạ" },
+            { "jp": "現金でお願いします", "kana": "げんきんでおねがいします", "vi": "Trả tiền mặt ạ" }
+          ]
+        },
+        {
+          "heard": { "jp": "ポイントカードはお持ちですか", "kana": "ポイントカードはおもちですか", "vi": "Quý khách có thẻ tích điểm không ạ?" },
+          "answers": [
+            { "jp": "ありません", "kana": "ありません", "vi": "Tôi không có" },
+            { "jp": "はい、どうぞ", "kana": "はい、どうぞ", "vi": "Có đây ạ" }
+          ]
+        },
+        {
+          "heard": { "jp": "ありがとうございました", "kana": "ありがとうございました", "vi": "Cảm ơn quý khách" },
+          "note": "Câu kết thúc giao dịch — gật đầu hoặc đáp lịch sự.",
+          "answers": [
+            { "jp": "どうも", "kana": "どうも", "vi": "Cảm ơn (nhanh)" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "x-hotel",
+      "emoji": "🏨",
+      "label": "Ở khách sạn",
+      "desc": "Nhận phòng: tên, hộ chiếu, giờ giấc, Wi-Fi",
+      "group": "Đi lại & khách sạn",
+      "exchanges": [
+        {
+          "heard": { "jp": "いらっしゃいませ", "kana": "いらっしゃいませ", "vi": "Chào mừng quý khách" },
+          "note": "Chỉ cần gật đầu nhẹ cũng được.",
+          "answers": []
+        },
+        {
+          "heard": { "jp": "ご予約はありますか", "kana": "ごよやくはありますか", "vi": "Quý khách có đặt phòng trước không ạ?" },
+          "answers": [
+            { "jp": "予約しています", "kana": "よやくしています", "vi": "Tôi có đặt trước" },
+            { "jp": "予約していません", "kana": "よやくしていません", "vi": "Tôi chưa đặt" }
+          ]
+        },
+        {
+          "heard": { "jp": "パスポートをお願いします", "kana": "パスポートをおねがいします", "vi": "Cho tôi xem hộ chiếu ạ" },
+          "answers": [
+            { "jp": "はい、どうぞ", "kana": "はい、どうぞ", "vi": "Vâng, đây ạ" }
+          ]
+        },
+        {
+          "heard": { "jp": "禁煙と喫煙、どちらになさいますか", "kana": "きんえんときつえん、どちらになさいますか", "vi": "Quý khách muốn phòng không hút thuốc hay hút thuốc ạ?" },
+          "answers": [
+            { "jp": "禁煙でお願いします", "kana": "きんえんでおねがいします", "vi": "Cho tôi phòng không hút thuốc" }
+          ]
+        },
+        {
+          "heard": { "jp": "チェックアウトは10時です", "kana": "チェックアウトはじゅうじです", "vi": "Trả phòng lúc 10 giờ ạ" },
+          "note": "Không cần đáp, chỉ cần nhớ giờ.",
+          "answers": [
+            { "jp": "わかりました", "kana": "わかりました", "vi": "Tôi hiểu rồi" }
+          ]
+        },
+        {
+          "heard": { "jp": "朝食は7時からです", "kana": "ちょうしょくはしちじからです", "vi": "Bữa sáng từ 7 giờ ạ" },
+          "answers": [
+            { "jp": "どこですか", "kana": "どこですか", "vi": "Ở đâu ạ?" },
+            { "jp": "わかりました", "kana": "わかりました", "vi": "Tôi hiểu rồi" }
+          ]
+        }
+      ]
+    }
+  ]
+}

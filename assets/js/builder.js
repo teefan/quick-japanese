@@ -11,6 +11,7 @@
 
   const state = {
     intent: null,
+    scenario: null,   // tình huống “nghe & đáp” (nhân viên nói trước)
     picks: [],   // { stepId, option }
     stepId: null,
   };
@@ -30,6 +31,7 @@
     state.intent = null;
     state.picks = [];
     state.stepId = null;
+    state.scenario = null;
     const intents = QJ.intents.intents;
     const groups = [];
     for (const i of intents) {
@@ -54,12 +56,28 @@
           </button>`).join("")}
       </div>`).join("");
 
+    const scenarios = (QJ.exchanges && QJ.exchanges.scenarios) || [];
+    const scenarioSection = scenarios.length ? `
+      <div class="section-title">
+        <h2>🗣️ Người Nhật nói trước</h2>
+        <span class="desc">${scenarios.length} tình huống — nghe/đọc câu họ nói và câu mình đáp</span>
+      </div>
+      <div class="intent-grid">
+        ${scenarios.map(s => `
+          <button class="intent-card" data-scenario="${s.id}">
+            <span class="emoji">${s.emoji}</span>
+            <b>${U.esc(s.label)}</b>
+            <span>${U.esc(s.desc)}</span>
+          </button>`).join("")}
+      </div>` : "";
+
     view.innerHTML = `
       <div class="section-title">
         <h2>🧩 Ghép câu</h2>
         <span class="desc">${intents.length} mục — chọn từng bước, app chỉ hiện những gì nối tiếp được</span>
       </div>
       ${sections}
+      ${scenarioSection}
       <p style="font-size:13px;color:var(--muted);margin-top:14px">
         Mẹo: chọn “Tôi” → “muốn” → món ăn… App sẽ tự đặt trợ từ đúng
         (は, が, を, に…), hiện phiên âm và bóc tách câu theo vai trò ngữ pháp.
@@ -69,6 +87,9 @@
         startIntent(QJ.intents.intents.find(i => i.id === btn.dataset.intent))
       )
     );
+    view.querySelectorAll("[data-scenario]").forEach(btn =>
+      btn.addEventListener("click", () => startScenario(btn.dataset.scenario))
+    );
     const status = document.getElementById("status");
     if (status) status.textContent = "";
     if (focusFirst) view.querySelector(".intent-card")?.focus({ preventScroll: true });
@@ -77,10 +98,21 @@
 
   function startIntent(intent) {
     state.intent = intent;
+    state.scenario = null;
     state.picks = [];
     state.stepId = intent.start;
     renderBuilder();
     focusPrompt();
+  }
+
+  function startScenario(id) {
+    const scenario = ((QJ.exchanges && QJ.exchanges.scenarios) || []).find(s => s.id === id);
+    if (!scenario) return;
+    state.intent = null;
+    state.picks = [];
+    state.stepId = null;
+    state.scenario = scenario;
+    renderScenario();
   }
 
   const currentStep = () => state.intent.steps[state.stepId];
@@ -218,6 +250,64 @@
     return `<div class="brk b-brk"><div class="brk-title">🧩 Cấu trúc câu</div>${rows}</div>`;
   }
 
+  /* ------------------------------ Nghe & đáp ------------------------------ */
+
+  function rubyHtml(jp, kana) {
+    if (jp && kana && jp !== kana) return `<ruby>${U.esc(jp)}<rt>${U.esc(kana)}</rt></ruby>`;
+    return U.esc(jp);
+  }
+
+  function speakBtn(jp) {
+    return `<button class="icon-btn" data-speak="${U.esc(jp)}" title="Nghe" aria-label="Nghe">🔊</button>`;
+  }
+
+  function answerHtml(line) {
+    return `<div class="exc-answer">
+      <div class="exc-answer-body">
+        <div class="line-jp">${rubyHtml(line.jp, line.kana)}</div>
+        <div class="line-pron">${U.esc(line.viPron || "")}<span class="roma"> · ${U.esc(line.roma || "")}</span></div>
+        <div class="line-vi">${U.esc(line.vi)}</div>
+      </div>
+      ${speakBtn(line.jp)}
+    </div>`;
+  }
+
+  function renderScenario() {
+    const s = state.scenario;
+    view.innerHTML = `
+      <div class="b-top">
+        <button class="back" data-b="home">← Đổi mục tiêu</button>
+        <div class="b-title">${s.emoji} ${U.esc(s.label)}</div>
+      </div>
+      <div class="b-prompt" tabindex="-1">${U.esc(s.desc)} — nghe/đọc câu nhân viên rồi chọn câu mình đáp.</div>
+      ${s.exchanges.map(ex => `
+        <div class="exc">
+          <div class="exc-row">
+            <div class="exc-body">
+              <div class="exc-who">🗣️ Nhân viên</div>
+              <div class="line-jp big">${rubyHtml(ex.heard.jp, ex.heard.kana)}</div>
+              <div class="line-pron">${U.esc(ex.heard.viPron || "")}<span class="roma"> · ${U.esc(ex.heard.roma || "")}</span></div>
+              <div class="line-vi">${U.esc(ex.heard.vi)}</div>
+            </div>
+            ${speakBtn(ex.heard.jp)}
+          </div>
+          ${ex.note ? `<div class="note">${U.esc(ex.note)}</div>` : ""}
+          ${ex.answers.length ? `
+            <div class="exc-answers-title">🗨️ Bạn có thể đáp</div>
+            ${ex.answers.map(answerHtml).join("")}` : ""}
+        </div>`).join("")}
+    `;
+    view.querySelectorAll("[data-b]").forEach(btn =>
+      btn.addEventListener("click", () => { if (btn.dataset.b === "home") renderHome(true); })
+    );
+    view.querySelectorAll("[data-speak]").forEach(btn =>
+      btn.addEventListener("click", () => U.speak(btn.dataset.speak))
+    );
+    const status = document.getElementById("status");
+    if (status) status.textContent = `${s.label}: ${s.desc}`;
+    focusPrompt();
+  }
+
   /* ------------------------------ Giao diện ------------------------------ */
 
   function renderBuilder() {
@@ -266,6 +356,22 @@
       ? `<span class="b-empty">👇 Chọn bên dưới để ghép câu</span>`
       : sentenceHtml(parts);
 
+    // Câu xong: gợi ý những gì người Nhật có thể đáp lại
+    const replies = intent.replies || [];
+    const repliesHtml = done && replies.length ? `
+      <div class="reply-card">
+        <div class="reply-title">🗣️ Người Nhật có thể nói</div>
+        ${replies.map(r => `
+          <div class="reply-row">
+            <div class="reply-body">
+              <div class="line-jp">${rubyHtml(r.jp, r.kana)}</div>
+              <div class="line-pron">${U.esc(r.viPron || "")}<span class="roma"> · ${U.esc(r.roma || "")}</span></div>
+              <div class="line-vi">${U.esc(r.vi)}</div>
+            </div>
+            ${speakBtn(r.jp)}
+          </div>`).join("")}
+      </div>` : "";
+
     view.innerHTML = `
       <div class="b-top">
         <button class="back" data-b="home">← Đổi mục tiêu</button>
@@ -290,6 +396,8 @@
         ${structureHtml(parts)}
       </div>
 
+      ${repliesHtml}
+
       <div class="b-prompt" tabindex="-1">${step ? U.esc(step.prompt) : ""}</div>
       ${filterHtml}
       <div class="opt-grid">${chips}</div>
@@ -299,6 +407,10 @@
 
     view.querySelectorAll("[data-opt]").forEach(btn =>
       btn.addEventListener("click", () => pick(currentStep().options[Number(btn.dataset.opt)]))
+    );
+
+    view.querySelectorAll("[data-speak]").forEach(btn =>
+      btn.addEventListener("click", () => U.speak(btn.dataset.speak))
     );
 
     const filter = view.querySelector("#opt-filter");
@@ -341,7 +453,7 @@
   }
 
   window.Builder = {
-    open: () => (state.intent ? renderBuilder() : renderHome()),
+    open: () => (state.intent ? renderBuilder() : state.scenario ? renderScenario() : renderHome()),
     startWith: (id) => {
       const intent = QJ.intents.intents.find(i => i.id === id);
       if (intent) startIntent(intent);

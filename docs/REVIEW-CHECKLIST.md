@@ -30,6 +30,15 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 - [ ] Từ v2.1.0 option có thể là từ N5 (`n5-…`) — kiểm nghĩa tiếng Việt của chúng khi hiện trên chip
       (nghĩa N5 đang chờ duyệt ở mục 4).
 
+## 1b. Nghe & đáp + replies (v2.6.0)
+
+- [ ] `data/source/exchanges.json` (nhà hàng / cửa hàng / khách sạn): câu nhân viên tự nhiên, đúng
+      mức lịch sự với khách; câu đáp đúng ngữ cảnh, không quá thân mật.
+- [ ] Cách đáp số người: 一人 `ひとりです` / 二人 `ふたりです` / 三人 `さんにんです` / 四人 `よにんです`.
+- [ ] `replies` trong `intents.json` (i-please / i-where / i-hotel) đúng kiểu câu nhân viên hay đáp.
+- [ ] Phiên âm は→oa trong câu nghe–đáp (vd お支払いはカードですか → `oa`, 袋はご入用ですか → `oa`).
+- [ ] Ghi chú “không cần đáp” (いらっしゃいませ) hợp lý và không khuyến khích câu phản cảm.
+
 ## 2. Số đếm & tiền
 
 - [ ] Âm biến đổi 1–10: 一本 `いっぽん`, 三本 `さんぼん`, 六本 `ろっぽん`, 八本 `はっぽん`,

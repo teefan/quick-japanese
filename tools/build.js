@@ -192,8 +192,65 @@ function enrichParts(rawParts) {
   });
 }
 
-/* ------------------------------ Số đếm ------------------------------ */
+/* Từ/cụm chỉ dùng để tách câu cho mục “Nghe & đáp” và replies — không đụng lexicon
+   của builder (nên không đổi cách tách các option đã kiểm duyệt). */
+const SPOKEN_EXTRA = [
+  { pos: "expression", kana: "のみもの", jp: "飲み物", vi: "đồ uống" },
+  { pos: "expression", kana: "おしはらい", jp: "お支払い", vi: "thanh toán" },
+  { pos: "expression", kana: "ごにゅうよう", jp: "ご入用", vi: "cần dùng" },
+  { pos: "expression", kana: "ふくろ", jp: "袋", vi: "túi" },
+  { pos: "expression", kana: "さがし", jp: "探し", vi: "tìm" },
+  { pos: "expression", kana: "さがして", jp: "探して", vi: "tìm (thể て)" },
+  { pos: "expression", kana: "きんえん", jp: "禁煙", vi: "không hút thuốc" },
+  { pos: "expression", kana: "きつえん", jp: "喫煙", vi: "hút thuốc" },
+  { pos: "expression", kana: "ポイントカード", jp: "ポイントカード", vi: "thẻ tích điểm" },
+  { pos: "expression", kana: "おなまえ", jp: "お名前", vi: "tên (lịch sự)" },
+  { pos: "expression", kana: "さんがい", jp: "3階", vi: "tầng 3" },
+  { pos: "expression", kana: "ごうしつ", jp: "号室", vi: "phòng số" },
+  { pos: "expression", kana: "さんまるご", jp: "305", vi: "305" },
+  { pos: "expression", kana: "しちじ", jp: "7時", vi: "7 giờ" },
+  { pos: "expression", kana: "じゅうじ", jp: "10時", vi: "10 giờ" },
+  { pos: "expression", kana: "それとも", jp: "それとも", vi: "hay là" },
+  { pos: "expression", kana: "よろしい", jp: "よろしい", vi: "được (lịch sự)" },
+  { pos: "expression", kana: "おまたせ", jp: "お待たせ", vi: "để chờ" },
+  { pos: "expression", kana: "こちら", jp: "こちら", vi: "phía này" },
+  { pos: "expression", kana: "あちら", jp: "あちら", vi: "phía kia" },
+  { pos: "expression", kana: "みぎ", jp: "右", vi: "bên phải" },
+  { pos: "expression", kana: "にかい", jp: "二階", vi: "tầng hai" },
+  { pos: "expression", kana: "あんない", jp: "案内", vi: "hướng dẫn" },
+  { pos: "expression", kana: "おもち", jp: "お持ち", vi: "có mang theo (lịch sự)" },
+  { pos: "expression", kana: "ごよやく", jp: "ご予約", vi: "đặt trước (lịch sự)" },
+  { pos: "expression", kana: "なさいます", jp: "なさいます", vi: "làm (kính ngữ)" },
+  { pos: "expression", kana: "ごいっしょ", jp: "ご一緒", vi: "cùng nhau (lịch sự)" },
+];
 
+/* Làm giàu một câu nói (replies / nghe–đáp): tách mảnh để đọc đúng は→oa, へ→ê.
+   Chỉ ghi đè roma/viPron khi tác giả đã đặt tay. */
+function enrichSpoken(line, lex) {
+  if (!line.jp || !line.kana || !line.vi) {
+    warn(`[câu nói] thiếu jp/kana/vi: ${JSON.stringify(line)}`);
+  }
+  const out = enrichText({
+    jp: line.jp || line.kana,
+    kana: line.kana,
+    vi: line.vi || "",
+    roma: line.roma,
+    viPron: line.viPron,
+  });
+  if (line.roma === undefined || line.viPron === undefined) {
+    const t = tokenize(out.kana, lex);
+    if (t.parts.length && !t.unknowns.length) {
+      const parts = enrichParts(t.parts);
+      if (line.roma === undefined) out.roma = parts.map((p) => p.roma).join(" ");
+      if (line.viPron === undefined) out.viPron = parts.map((p) => p.viPron).join(" ");
+    } else if (t.unknowns.length) {
+      debug(`[câu nói] chưa tách được: "${out.jp}" (${t.unknowns.join(", ")})`);
+    }
+  }
+  return out;
+}
+
+/* ------------------------------ Số đếm ------------------------------ */
 function buildNumbers() {
   const src = read("numbers.json");
   return {
@@ -210,7 +267,7 @@ function buildNumbers() {
 
 /* Builder dùng từ biên tập + **chỉ những từ N5 được ref trong intents.json**.
    Nhờ vậy N5 vẫn không ảnh hưởng cách tách câu của nội dung cũ; build audit lại giúp. */
-function buildIntents(vocabById, vocabN5, numbers) {
+function buildIntents(vocabById, vocabN5, numbers, spokenLex) {
   const n5ById = new Map(vocabN5.map((v) => [v.id, v]));
   const src = read("intents.json");
   const n5Refs = new Set();
@@ -235,13 +292,14 @@ function buildIntents(vocabById, vocabN5, numbers) {
       };
     }
     const template = (intent.template || null)?.map(enrichTemplateSeg);
+    const replies = (intent.replies || []).map((r) => enrichSpoken(r, spokenLex || lex));
     if (!steps[intent.start]) throw new Error(`Intent ${intent.id}: không thấy bước bắt đầu ${intent.start}`);
     for (const [sid, step] of Object.entries(steps)) {
       for (const opt of step.options) {
         if (opt.next && !steps[opt.next]) throw new Error(`Intent ${intent.id}: bước ${sid} trỏ tới ${opt.next} không tồn tại`);
       }
     }
-    return { ...intent, template, steps };
+    return { ...intent, template, steps, replies: replies.length ? replies : undefined };
   });
   return { intents };
 }
@@ -357,6 +415,29 @@ function enrichTemplateSeg(seg) {
   throw new Error(`Template segment không hợp lệ: ${JSON.stringify(seg)}`);
 }
 
+/* ------------------------------ Nghe & đáp ------------------------------ */
+
+/* Câu nhân viên hay nói trước + gợi ý câu đáp (data/source/exchanges.json). */
+function buildExchanges(lex) {
+  const src = read("exchanges.json");
+  const seen = new Set();
+  const scenarios = (src.scenarios || []).map((s) => {
+    if (seen.has(s.id)) throw new Error(`Trùng id tình huống: ${s.id}`);
+    seen.add(s.id);
+    const exchanges = (s.exchanges || []).map((ex, i) => {
+      const heard = enrichSpoken(ex.heard || {}, lex);
+      const answers = (ex.answers || []).map((a) => enrichSpoken(a, lex));
+      if (!answers.length && !ex.note) warn(`[nghe–đáp] ${s.id} #${i}: không có câu đáp lẫn ghi chú`);
+      return { note: ex.note || "", heard, answers };
+    });
+    if (!exchanges.length) warn(`[nghe–đáp] ${s.id}: không có cặp hỏi–đáp nào`);
+    return { ...s, exchanges };
+  });
+  const pairs = scenarios.reduce((n, s) => n + s.exchanges.length, 0);
+  note(`Nghe & đáp: ${scenarios.length} tình huống, ${pairs} cặp hỏi–đáp`);
+  return { scenarios };
+}
+
 /* ------------------------------ Xuất file ------------------------------ */
 
 /* Bỏ field rỗng (app dùng kiểm tra truthy) để giảm dung lượng */
@@ -385,7 +466,12 @@ function main() {
   const vocab = buildVocab();
   const numbers = buildNumbers();
   const vocabN5 = buildVocabN5(vocab.items, numbers);
-  const intents = buildIntents(vocab.byId, vocabN5, numbers);
+  /* Lexicon riêng cho câu nói (replies + nghe–đáp): curated vocab + cụm bổ sung,
+     để phiên âm đúng trợ từ mà không đổi cách tách câu của builder. */
+  const spokenLex = buildLexicon(Object.values(vocab.byId).concat(SPOKEN_EXTRA), numbers);
+  const built = buildIntents(vocab.byId, vocabN5, numbers, spokenLex);
+  const intents = { intents: built.intents };
+  const exchanges = buildExchanges(spokenLex);
 
   /* Trọng âm (pitch accent) Kanjium — gắn theo id vào cả từ biên tập lẫn N5 */
   const accentMap = read("accents.json").items;
@@ -404,6 +490,7 @@ function main() {
   writeData("vocabN5", vocabN5, "vocab-n5");
   writeData("numbers", numbers);
   writeData("intents", intents);
+  writeData("exchanges", exchanges);
   const builderIndex = buildBuilderIndex(intents.intents);
   writeData("builderIndex", builderIndex, "builder-index");
 
@@ -417,6 +504,8 @@ function main() {
       intents: intents.intents.length,
       builderWords: Object.keys(builderIndex).length,
       counters: numbers.counters.length,
+      scenarios: exchanges.scenarios.length,
+      exchanges: exchanges.scenarios.reduce((n, s) => n + s.exchanges.length, 0),
     },
     generator: "tools/build.js",
   };
