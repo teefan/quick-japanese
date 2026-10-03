@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Quick Japanese — Tiếng Nhật du lịch cho người Việt</title>
+  <meta name="description" content="Sổ tay tiếng Nhật sinh tồn cho du khách Việt: cụm từ thông dụng, phiên âm tiếng Việt, ghép câu thông minh và ngữ pháp tối giản.">
+  <meta name="theme-color" content="#f7f5f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14161d" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%87%AF%F0%9F%87%B5%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo">🗾</span>
+      <div>
+        <h1>Quick Japanese</h1>
+        <p>Tiếng Nhật du lịch cho người Việt</p>
+      </div>
+    </div>
+  </header>
+
+  <main id="view" aria-live="polite"></main>
+
+  <nav class="tabs" id="tabs">
+    <button data-tab="phrases" class="active"><span class="ico">📖</span>Cụm từ</button>
+    <button data-tab="builder"><span class="ico">🧩</span>Ghép câu</button>
+    <button data-tab="vocab"><span class="ico">📚</span>Từ vựng</button>
+    <button data-tab="grammar"><span class="ico">📝</span>Ngữ pháp</button>
+  </nav>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card" id="modal-card"></div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="data/meta.js"></script>
+  <script src="data/vocab.js"></script>
+  <script src="data/phrases.js"></script>
+  <script src="data/grammar.js"></script>
+  <script src="data/numbers.js"></script>
+  <script src="data/intents.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/builder.js"></script>
+</body>
+</html>

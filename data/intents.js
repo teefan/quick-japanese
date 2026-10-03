@@ -1,0 +1,1827 @@
+window.QJ = window.QJ || {};
+window.QJ.intents = {
+  "intents": [
+    {
+      "id": "i-want",
+      "emoji": "🙋",
+      "label": "Tôi muốn…",
+      "desc": "Nói điều mình muốn ăn, uống, mua, xem, đi",
+      "start": "s-subject",
+      "steps": {
+        "s-subject": {
+          "prompt": "Ai muốn?",
+          "slot": "subject",
+          "options": [
+            {
+              "ref": "p-watashi",
+              "next": "s-action",
+              "jp": "私",
+              "kana": "わたし",
+              "roma": "watashi",
+              "viPron": "oa-ta-xi",
+              "vi": "tôi",
+              "viLabel": "tôi"
+            },
+            {
+              "ref": "p-watashitachi",
+              "next": "s-action",
+              "jp": "私たち",
+              "kana": "わたしたち",
+              "roma": "watashitachi",
+              "viPron": "oa-ta-xi-ta-chi",
+              "vi": "chúng tôi",
+              "viLabel": "chúng tôi"
+            },
+            {
+              "silent": true,
+              "label": "Không cần chủ ngữ",
+              "hint": "Người Nhật thường lược bỏ chủ ngữ khi đã rõ",
+              "vi": "(tôi)",
+              "next": "s-action",
+              "jp": "",
+              "kana": "",
+              "roma": "",
+              "viPron": "",
+              "viLabel": "Không cần chủ ngữ"
+            }
+          ]
+        },
+        "s-action": {
+          "prompt": "Muốn làm gì?",
+          "slot": "verb",
+          "options": [
+            {
+              "ref": "v-taberu",
+              "form": "tai",
+              "next": "s-obj-food",
+              "jp": "食べたい",
+              "kana": "たべたい",
+              "roma": "tabetai",
+              "viPron": "ta-bê-ta-i",
+              "vi": "ăn",
+              "viLabel": "ăn"
+            },
+            {
+              "ref": "v-nomu",
+              "form": "tai",
+              "next": "s-obj-drink",
+              "jp": "飲みたい",
+              "kana": "のみたい",
+              "roma": "nomitai",
+              "viPron": "nô-mi-ta-i",
+              "vi": "uống",
+              "viLabel": "uống"
+            },
+            {
+              "ref": "v-kau",
+              "form": "tai",
+              "next": "s-obj-buy",
+              "jp": "買いたい",
+              "kana": "かいたい",
+              "roma": "kaitai",
+              "viPron": "ka-i-ta-i",
+              "vi": "mua",
+              "viLabel": "mua"
+            },
+            {
+              "ref": "v-miru",
+              "form": "tai",
+              "next": "s-obj-see",
+              "jp": "見たい",
+              "kana": "みたい",
+              "roma": "mitai",
+              "viPron": "mi-ta-i",
+              "vi": "xem",
+              "viLabel": "xem"
+            },
+            {
+              "ref": "v-iku",
+              "form": "tai",
+              "next": "s-obj-place",
+              "jp": "行きたい",
+              "kana": "いきたい",
+              "roma": "ikitai",
+              "viPron": "i-ki-ta-i",
+              "vi": "đi",
+              "viLabel": "đi"
+            }
+          ]
+        },
+        "s-obj-food": {
+          "prompt": "Muốn ăn gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            {
+              "ref": "n-sushi",
+              "next": null,
+              "jp": "すし",
+              "kana": "すし",
+              "roma": "sushi",
+              "viPron": "xư-xi",
+              "vi": "sushi",
+              "viLabel": "sushi"
+            },
+            {
+              "ref": "n-raamen",
+              "next": null,
+              "jp": "ラーメン",
+              "kana": "ラーメン",
+              "roma": "raamen",
+              "viPron": "raa-mên",
+              "vi": "mì ramen",
+              "viLabel": "mì ramen"
+            },
+            {
+              "ref": "n-tempura",
+              "next": null,
+              "jp": "天ぷら",
+              "kana": "てんぷら",
+              "roma": "tenpura",
+              "viPron": "têm-pư-ra",
+              "vi": "tempura",
+              "viLabel": "tempura"
+            },
+            {
+              "ref": "n-karee",
+              "next": null,
+              "jp": "カレー",
+              "kana": "カレー",
+              "roma": "karee",
+              "viPron": "ka-rêê",
+              "vi": "cà ri",
+              "viLabel": "cà ri"
+            },
+            {
+              "ref": "n-gyuudon",
+              "next": null,
+              "jp": "牛丼",
+              "kana": "ぎゅうどん",
+              "roma": "gyuudon",
+              "viPron": "giu-u-đôn",
+              "vi": "cơm thịt bò",
+              "viLabel": "cơm thịt bò"
+            },
+            {
+              "ref": "d-kore",
+              "next": null,
+              "jp": "これ",
+              "kana": "これ",
+              "roma": "kore",
+              "viPron": "kô-rê",
+              "vi": "cái này",
+              "viLabel": "cái này"
+            },
+            {
+              "ref": "d-sore",
+              "next": null,
+              "jp": "それ",
+              "kana": "それ",
+              "roma": "sore",
+              "viPron": "xô-rê",
+              "vi": "cái đó",
+              "viLabel": "cái đó"
+            }
+          ]
+        },
+        "s-obj-drink": {
+          "prompt": "Muốn uống gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            {
+              "ref": "n-mizu",
+              "next": null,
+              "jp": "水",
+              "kana": "みず",
+              "roma": "mizu",
+              "viPron": "mi-zư",
+              "vi": "nước",
+              "viLabel": "nước"
+            },
+            {
+              "ref": "n-ocha",
+              "next": null,
+              "jp": "お茶",
+              "kana": "おちゃ",
+              "roma": "ocha",
+              "viPron": "ô-cha",
+              "vi": "trà",
+              "viLabel": "trà"
+            },
+            {
+              "ref": "n-koohii",
+              "next": null,
+              "jp": "コーヒー",
+              "kana": "コーヒー",
+              "roma": "koohii",
+              "viPron": "kôô-hii",
+              "vi": "cà phê",
+              "viLabel": "cà phê"
+            },
+            {
+              "ref": "n-biiru",
+              "next": null,
+              "jp": "ビール",
+              "kana": "ビール",
+              "roma": "biiru",
+              "viPron": "bii-rư",
+              "vi": "bia",
+              "viLabel": "bia"
+            },
+            {
+              "ref": "n-juusu",
+              "next": null,
+              "jp": "ジュース",
+              "kana": "ジュース",
+              "roma": "juusu",
+              "viPron": "juu-xư",
+              "vi": "nước ép",
+              "viLabel": "nước ép"
+            },
+            {
+              "ref": "d-kore",
+              "next": null,
+              "jp": "これ",
+              "kana": "これ",
+              "roma": "kore",
+              "viPron": "kô-rê",
+              "vi": "cái này",
+              "viLabel": "cái này"
+            }
+          ]
+        },
+        "s-obj-buy": {
+          "prompt": "Muốn mua gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            {
+              "ref": "n-omiyage",
+              "next": null,
+              "jp": "お土産",
+              "kana": "おみやげ",
+              "roma": "omiyage",
+              "viPron": "ô-mi-ya-gê",
+              "vi": "quà lưu niệm",
+              "viLabel": "quà lưu niệm"
+            },
+            {
+              "ref": "n-kasa",
+              "next": null,
+              "jp": "傘",
+              "kana": "かさ",
+              "roma": "kasa",
+              "viPron": "ka-xa",
+              "vi": "ô, dù",
+              "viLabel": "ô, dù"
+            },
+            {
+              "ref": "n-kippu",
+              "next": null,
+              "jp": "切符",
+              "kana": "きっぷ",
+              "roma": "kippu",
+              "viPron": "kip-pư",
+              "vi": "vé tàu/xe",
+              "viLabel": "vé tàu/xe"
+            },
+            {
+              "ref": "d-kore",
+              "next": null,
+              "jp": "これ",
+              "kana": "これ",
+              "roma": "kore",
+              "viPron": "kô-rê",
+              "vi": "cái này",
+              "viLabel": "cái này"
+            },
+            {
+              "ref": "d-sore",
+              "next": null,
+              "jp": "それ",
+              "kana": "それ",
+              "roma": "sore",
+              "viPron": "xô-rê",
+              "vi": "cái đó",
+              "viLabel": "cái đó"
+            }
+          ]
+        },
+        "s-obj-see": {
+          "prompt": "Muốn xem gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            {
+              "ref": "n-menu",
+              "next": null,
+              "jp": "メニュー",
+              "kana": "メニュー",
+              "roma": "menyuu",
+              "viPron": "mê-niuu",
+              "vi": "thực đơn",
+              "viLabel": "thực đơn"
+            },
+            {
+              "ref": "n-chizu",
+              "next": null,
+              "jp": "地図",
+              "kana": "ちず",
+              "roma": "chizu",
+              "viPron": "chi-zư",
+              "vi": "bản đồ",
+              "viLabel": "bản đồ"
+            },
+            {
+              "ref": "n-shashin",
+              "next": null,
+              "jp": "写真",
+              "kana": "しゃしん",
+              "roma": "shashin",
+              "viPron": "xa-xin",
+              "vi": "ảnh",
+              "viLabel": "ảnh"
+            },
+            {
+              "ref": "d-kore",
+              "next": null,
+              "jp": "これ",
+              "kana": "これ",
+              "roma": "kore",
+              "viPron": "kô-rê",
+              "vi": "cái này",
+              "viLabel": "cái này"
+            }
+          ]
+        },
+        "s-obj-place": {
+          "prompt": "Muốn đi đâu?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            {
+              "ref": "n-eki",
+              "particle": "に",
+              "vi": "đến ga",
+              "next": null,
+              "jp": "駅",
+              "kana": "えき",
+              "roma": "eki",
+              "viPron": "ê-ki",
+              "viLabel": "đến ga",
+              "particleObj": {
+                "jp": "に",
+                "kana": "に",
+                "roma": "ni",
+                "viPron": "ni",
+                "vi": "～ (hướng đến / thời điểm)",
+                "grammar": "particle-ni",
+                "isParticle": true
+              }
+            },
+            {
+              "ref": "n-kukou",
+              "particle": "に",
+              "vi": "đến sân bay",
+              "next": null,
+              "jp": "空港",
+              "kana": "くうこう",
+              "roma": "kuukou",
+              "viPron": "cư-u-kô-u",
+              "viLabel": "đến sân bay",
+              "particleObj": {
+                "jp": "に",
+                "kana": "に",
+                "roma": "ni",
+                "viPron": "ni",
+                "vi": "～ (hướng đến / thời điểm)",
+                "grammar": "particle-ni",
+                "isParticle": true
+              }
+            },
+            {
+              "ref": "n-hoteru",
+              "particle": "に",
+              "vi": "đến khách sạn",
+              "next": null,
+              "jp": "ホテル",
+              "kana": "ホテル",
+              "roma": "hoteru",
+              "viPron": "hô-tê-rư",
+              "viLabel": "đến khách sạn",
+              "particleObj": {
+                "jp": "に",
+                "kana": "に",
+                "roma": "ni",
+                "viPron": "ni",
+                "vi": "～ (hướng đến / thời điểm)",
+                "grammar": "particle-ni",
+                "isParticle": true
+              }
+            },
+            {
+              "ref": "n-onsen",
+              "particle": "に",
+              "vi": "đến suối nước nóng",
+              "next": null,
+              "jp": "温泉",
+              "kana": "おんせん",
+              "roma": "onsen",
+              "viPron": "ôn-xên",
+              "viLabel": "đến suối nước nóng",
+              "particleObj": {
+                "jp": "に",
+                "kana": "に",
+                "roma": "ni",
+                "viPron": "ni",
+                "vi": "～ (hướng đến / thời điểm)",
+                "grammar": "particle-ni",
+                "isParticle": true
+              }
+            },
+            {
+              "ref": "n-ichiba",
+              "particle": "に",
+              "vi": "đến chợ",
+              "next": null,
+              "jp": "市場",
+              "kana": "いちば",
+              "roma": "ichiba",
+              "viPron": "i-chi-ba",
+              "viLabel": "đến chợ",
+              "particleObj": {
+                "jp": "に",
+                "kana": "に",
+                "roma": "ni",
+                "viPron": "ni",
+                "vi": "～ (hướng đến / thời điểm)",
+                "grammar": "particle-ni",
+                "isParticle": true
+              }
+            },
+            {
+              "ref": "n-konbini",
+              "particle": "に",
+              "vi": "đến cửa hàng tiện lợi",
+              "next": null,
+              "jp": "コンビニ",
+              "kana": "コンビニ",
+              "roma": "konbini",
+              "viPron": "kôm-bi-ni",
+              "viLabel": "đến cửa hàng tiện lợi",
+              "particleObj": {
+                "jp": "に",
+                "kana": "に",
+                "roma": "ni",
+                "viPron": "ni",
+                "vi": "～ (hướng đến / thời điểm)",
+                "grammar": "particle-ni",
+                "isParticle": true
+              }
+            },
+            {
+              "ref": "n-byouin",
+              "particle": "に",
+              "vi": "đến bệnh viện",
+              "next": null,
+              "jp": "病院",
+              "kana": "びょういん",
+              "roma": "byouin",
+              "viPron": "biô-u-in",
+              "viLabel": "đến bệnh viện",
+              "particleObj": {
+                "jp": "に",
+                "kana": "に",
+                "roma": "ni",
+                "viPron": "ni",
+                "vi": "～ (hướng đến / thời điểm)",
+                "grammar": "particle-ni",
+                "isParticle": true
+              }
+            }
+          ]
+        }
+      },
+      "template": [
+        {
+          "slot": "subject",
+          "particle": {
+            "jp": "は",
+            "kana": "は",
+            "roma": "wa",
+            "viPron": "oa",
+            "vi": "～ thì / còn ～",
+            "grammar": "particle-wa",
+            "isParticle": true
+          }
+        },
+        {
+          "slot": "object",
+          "particle": {
+            "jp": "が",
+            "kana": "が",
+            "roma": "ga",
+            "viPron": "ga",
+            "vi": "～ (chủ ngữ / thứ được thích, muốn)",
+            "grammar": "particle-ga",
+            "isParticle": true
+          }
+        },
+        {
+          "slot": "verb",
+          "particle": null
+        },
+        {
+          "text": "です",
+          "kana": "です",
+          "roma": "desu",
+          "viPron": "đê-xư",
+          "vi": ""
+        }
+      ],
+      "viTemplate": "{subject} muốn {verb} {object}",
+      "grammar": [
+        "tai",
+        "particle-ga",
+        "sov"
+      ],
+      "tip": "たい = 'muốn làm gì'. Với 行く (đi), đích đến đánh dấu bằng に chứ không phải が."
+    },
+    {
+      "id": "i-please",
+      "emoji": "🙏",
+      "label": "Cho tôi…",
+      "desc": "Câu gọi món / mua hàng lịch sự với ください",
+      "start": "s-object",
+      "steps": {
+        "s-object": {
+          "prompt": "Cho bạn cái gì?",
+          "slot": "object",
+          "particle": "を",
+          "options": [
+            {
+              "ref": "d-kore",
+              "next": "s-quantity",
+              "jp": "これ",
+              "kana": "これ",
+              "roma": "kore",
+              "viPron": "kô-rê",
+              "vi": "cái này",
+              "viLabel": "cái này"
+            },
+            {
+              "ref": "d-sore",
+              "next": "s-quantity",
+              "jp": "それ",
+              "kana": "それ",
+              "roma": "sore",
+              "viPron": "xô-rê",
+              "vi": "cái đó",
+              "viLabel": "cái đó"
+            },
+            {
+              "ref": "d-are",
+              "next": "s-quantity",
+              "jp": "あれ",
+              "kana": "あれ",
+              "roma": "are",
+              "viPron": "a-rê",
+              "vi": "cái kia",
+              "viLabel": "cái kia"
+            },
+            {
+              "ref": "n-mizu",
+              "next": "s-quantity",
+              "jp": "水",
+              "kana": "みず",
+              "roma": "mizu",
+              "viPron": "mi-zư",
+              "vi": "nước",
+              "viLabel": "nước"
+            },
+            {
+              "ref": "n-ocha",
+              "next": "s-quantity",
+              "jp": "お茶",
+              "kana": "おちゃ",
+              "roma": "ocha",
+              "viPron": "ô-cha",
+              "vi": "trà",
+              "viLabel": "trà"
+            },
+            {
+              "ref": "n-koohii",
+              "next": "s-quantity",
+              "jp": "コーヒー",
+              "kana": "コーヒー",
+              "roma": "koohii",
+              "viPron": "kôô-hii",
+              "vi": "cà phê",
+              "viLabel": "cà phê"
+            },
+            {
+              "ref": "n-biiru",
+              "next": "s-quantity",
+              "jp": "ビール",
+              "kana": "ビール",
+              "roma": "biiru",
+              "viPron": "bii-rư",
+              "vi": "bia",
+              "viLabel": "bia"
+            },
+            {
+              "ref": "n-menu",
+              "next": "s-quantity",
+              "jp": "メニュー",
+              "kana": "メニュー",
+              "roma": "menyuu",
+              "viPron": "mê-niuu",
+              "vi": "thực đơn",
+              "viLabel": "thực đơn"
+            },
+            {
+              "ref": "n-sushi",
+              "next": "s-quantity",
+              "jp": "すし",
+              "kana": "すし",
+              "roma": "sushi",
+              "viPron": "xư-xi",
+              "vi": "sushi",
+              "viLabel": "sushi"
+            },
+            {
+              "ref": "n-raamen",
+              "next": "s-quantity",
+              "jp": "ラーメン",
+              "kana": "ラーメン",
+              "roma": "raamen",
+              "viPron": "raa-mên",
+              "vi": "mì ramen",
+              "viLabel": "mì ramen"
+            }
+          ]
+        },
+        "s-quantity": {
+          "prompt": "Số lượng?",
+          "slot": "quantity",
+          "options": [
+            {
+              "silent": true,
+              "label": "Không cần số lượng",
+              "vi": "",
+              "next": null,
+              "jp": "",
+              "kana": "",
+              "roma": "",
+              "viPron": "",
+              "viLabel": "Không cần số lượng"
+            },
+            {
+              "jp": "一つ",
+              "kana": "ひとつ",
+              "vi": "một cái",
+              "next": null,
+              "roma": "hitotsu",
+              "viPron": "hi-tô-tsư",
+              "viLabel": "một cái"
+            },
+            {
+              "jp": "二つ",
+              "kana": "ふたつ",
+              "vi": "hai cái",
+              "next": null,
+              "roma": "futatsu",
+              "viPron": "phư-ta-tsư",
+              "viLabel": "hai cái"
+            },
+            {
+              "jp": "三つ",
+              "kana": "みっつ",
+              "vi": "ba cái",
+              "next": null,
+              "roma": "mittsu",
+              "viPron": "mit-tsư",
+              "viLabel": "ba cái"
+            }
+          ]
+        }
+      },
+      "template": [
+        {
+          "slot": "object",
+          "particle": {
+            "jp": "を",
+            "kana": "を",
+            "roma": "o",
+            "viPron": "ô",
+            "vi": "～ (đối tượng của hành động)",
+            "grammar": "particle-wo",
+            "isParticle": true
+          }
+        },
+        {
+          "slot": "quantity",
+          "particle": null
+        },
+        {
+          "text": "ください",
+          "kana": "ください",
+          "roma": "kudasai",
+          "viPron": "cư-đa-xa-i",
+          "vi": ""
+        }
+      ],
+      "viTemplate": "Cho tôi {object}, {quantity}",
+      "grammar": [
+        "kudasai-onegai",
+        "particle-wo",
+        "counters"
+      ],
+      "tip": "ください là cách 'cho tôi' chuẩn mực nhất. Số lượng đứng ngay trước ください."
+    },
+    {
+      "id": "i-like",
+      "emoji": "❤️",
+      "label": "Tôi thích…",
+      "desc": "Nói món ăn, đồ uống, địa điểm mình thích",
+      "start": "s-subject",
+      "steps": {
+        "s-subject": {
+          "prompt": "Ai thích?",
+          "slot": "subject",
+          "options": [
+            {
+              "ref": "p-watashi",
+              "next": "s-object",
+              "jp": "私",
+              "kana": "わたし",
+              "roma": "watashi",
+              "viPron": "oa-ta-xi",
+              "vi": "tôi",
+              "viLabel": "tôi"
+            },
+            {
+              "ref": "p-watashitachi",
+              "next": "s-object",
+              "jp": "私たち",
+              "kana": "わたしたち",
+              "roma": "watashitachi",
+              "viPron": "oa-ta-xi-ta-chi",
+              "vi": "chúng tôi",
+              "viLabel": "chúng tôi"
+            },
+            {
+              "silent": true,
+              "label": "Không cần chủ ngữ",
+              "vi": "(tôi)",
+              "next": "s-object",
+              "jp": "",
+              "kana": "",
+              "roma": "",
+              "viPron": "",
+              "viLabel": "Không cần chủ ngữ"
+            }
+          ]
+        },
+        "s-object": {
+          "prompt": "Thích gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            {
+              "ref": "n-sushi",
+              "next": null,
+              "jp": "すし",
+              "kana": "すし",
+              "roma": "sushi",
+              "viPron": "xư-xi",
+              "vi": "sushi",
+              "viLabel": "sushi"
+            },
+            {
+              "ref": "n-raamen",
+              "next": null,
+              "jp": "ラーメン",
+              "kana": "ラーメン",
+              "roma": "raamen",
+              "viPron": "raa-mên",
+              "vi": "mì ramen",
+              "viLabel": "mì ramen"
+            },
+            {
+              "ref": "n-tempura",
+              "next": null,
+              "jp": "天ぷら",
+              "kana": "てんぷら",
+              "roma": "tenpura",
+              "viPron": "têm-pư-ra",
+              "vi": "tempura",
+              "viLabel": "tempura"
+            },
+            {
+              "ref": "n-karee",
+              "next": null,
+              "jp": "カレー",
+              "kana": "カレー",
+              "roma": "karee",
+              "viPron": "ka-rêê",
+              "vi": "cà ri",
+              "viLabel": "cà ri"
+            },
+            {
+              "ref": "n-koohii",
+              "next": null,
+              "jp": "コーヒー",
+              "kana": "コーヒー",
+              "roma": "koohii",
+              "viPron": "kôô-hii",
+              "vi": "cà phê",
+              "viLabel": "cà phê"
+            },
+            {
+              "ref": "n-ocha",
+              "next": null,
+              "jp": "お茶",
+              "kana": "おちゃ",
+              "roma": "ocha",
+              "viPron": "ô-cha",
+              "vi": "trà",
+              "viLabel": "trà"
+            },
+            {
+              "ref": "n-nihon",
+              "next": null,
+              "jp": "日本",
+              "kana": "にほん",
+              "roma": "nihon",
+              "viPron": "ni-hôn",
+              "vi": "Nhật Bản",
+              "viLabel": "Nhật Bản"
+            },
+            {
+              "ref": "n-onsen",
+              "next": null,
+              "jp": "温泉",
+              "kana": "おんせん",
+              "roma": "onsen",
+              "viPron": "ôn-xên",
+              "vi": "suối nước nóng",
+              "viLabel": "suối nước nóng"
+            }
+          ]
+        }
+      },
+      "template": [
+        {
+          "slot": "subject",
+          "particle": {
+            "jp": "は",
+            "kana": "は",
+            "roma": "wa",
+            "viPron": "oa",
+            "vi": "～ thì / còn ～",
+            "grammar": "particle-wa",
+            "isParticle": true
+          }
+        },
+        {
+          "slot": "object",
+          "particle": {
+            "jp": "が",
+            "kana": "が",
+            "roma": "ga",
+            "viPron": "ga",
+            "vi": "～ (chủ ngữ / thứ được thích, muốn)",
+            "grammar": "particle-ga",
+            "isParticle": true
+          }
+        },
+        {
+          "text": "好きです",
+          "kana": "すきです",
+          "roma": "sukidesu",
+          "viPron": "xư-ki-đê-xư",
+          "vi": ""
+        }
+      ],
+      "viTemplate": "{subject} thích {object}",
+      "grammar": [
+        "suki",
+        "particle-ga",
+        "particle-wa"
+      ],
+      "tip": "好き là tính từ đuôi な, thứ được thích đánh dấu bằng が (không phải を)."
+    },
+    {
+      "id": "i-this",
+      "emoji": "👉",
+      "label": "Cái này thì sao?",
+      "desc": "Chỉ vào đồ vật rồi hỏi / mua",
+      "start": "s-demo",
+      "steps": {
+        "s-demo": {
+          "prompt": "Chỉ vào…",
+          "slot": "demo",
+          "options": [
+            {
+              "ref": "d-kore",
+              "next": "s-ask",
+              "jp": "これ",
+              "kana": "これ",
+              "roma": "kore",
+              "viPron": "kô-rê",
+              "vi": "cái này",
+              "viLabel": "cái này"
+            },
+            {
+              "ref": "d-sore",
+              "next": "s-ask",
+              "jp": "それ",
+              "kana": "それ",
+              "roma": "sore",
+              "viPron": "xô-rê",
+              "vi": "cái đó",
+              "viLabel": "cái đó"
+            },
+            {
+              "ref": "d-are",
+              "next": "s-ask",
+              "jp": "あれ",
+              "kana": "あれ",
+              "roma": "are",
+              "viPron": "a-rê",
+              "vi": "cái kia",
+              "viLabel": "cái kia"
+            }
+          ]
+        },
+        "s-ask": {
+          "prompt": "Bạn muốn hỏi gì?",
+          "slot": "suffix",
+          "options": [
+            {
+              "jp": "何ですか",
+              "kana": "なんですか",
+              "vi": "là gì?",
+              "templateOverride": [
+                {
+                  "slot": "demo",
+                  "particle": {
+                    "jp": "は",
+                    "kana": "は",
+                    "roma": "wa",
+                    "viPron": "oa",
+                    "vi": "～ thì / còn ～",
+                    "grammar": "particle-wa",
+                    "isParticle": true
+                  }
+                },
+                {
+                  "text": "何ですか",
+                  "kana": "なんですか",
+                  "roma": "nandesuka",
+                  "viPron": "nan-đê-xư-ka",
+                  "vi": ""
+                }
+              ],
+              "viTemplateOverride": "{demo} là gì?",
+              "next": null,
+              "roma": "nandesuka",
+              "viPron": "nan-đê-xư-ka",
+              "viLabel": "là gì?"
+            },
+            {
+              "jp": "いくらですか",
+              "kana": "いくらですか",
+              "vi": "bao nhiêu tiền?",
+              "templateOverride": [
+                {
+                  "slot": "demo",
+                  "particle": {
+                    "jp": "は",
+                    "kana": "は",
+                    "roma": "wa",
+                    "viPron": "oa",
+                    "vi": "～ thì / còn ～",
+                    "grammar": "particle-wa",
+                    "isParticle": true
+                  }
+                },
+                {
+                  "text": "いくらですか",
+                  "kana": "いくらですか",
+                  "roma": "ikuradesuka",
+                  "viPron": "i-cư-ra-đê-xư-ka",
+                  "vi": ""
+                }
+              ],
+              "viTemplateOverride": "{demo} bao nhiêu tiền?",
+              "next": null,
+              "roma": "ikuradesuka",
+              "viPron": "i-cư-ra-đê-xư-ka",
+              "viLabel": "bao nhiêu tiền?"
+            },
+            {
+              "jp": "いいですか",
+              "kana": "いいですか",
+              "vi": "có được không?",
+              "templateOverride": [
+                {
+                  "slot": "demo",
+                  "particle": {
+                    "jp": "で",
+                    "kana": "で",
+                    "roma": "de",
+                    "viPron": "đê",
+                    "vi": "～ (nơi xảy ra / phương tiện)",
+                    "grammar": "particle-de",
+                    "isParticle": true
+                  }
+                },
+                {
+                  "text": "いいですか",
+                  "kana": "いいですか",
+                  "roma": "iidesuka",
+                  "viPron": "i-i-đê-xư-ka",
+                  "vi": ""
+                }
+              ],
+              "viTemplateOverride": "{demo} có được không ạ?",
+              "next": null,
+              "roma": "iidesuka",
+              "viPron": "i-i-đê-xư-ka",
+              "viLabel": "có được không?"
+            },
+            {
+              "jp": "ください",
+              "kana": "ください",
+              "vi": "cho tôi",
+              "templateOverride": [
+                {
+                  "slot": "demo",
+                  "particle": {
+                    "jp": "を",
+                    "kana": "を",
+                    "roma": "o",
+                    "viPron": "ô",
+                    "vi": "～ (đối tượng của hành động)",
+                    "grammar": "particle-wo",
+                    "isParticle": true
+                  }
+                },
+                {
+                  "text": "ください",
+                  "kana": "ください",
+                  "roma": "kudasai",
+                  "viPron": "cư-đa-xa-i",
+                  "vi": ""
+                }
+              ],
+              "viTemplateOverride": "Cho tôi {demo}",
+              "next": null,
+              "roma": "kudasai",
+              "viPron": "cư-đa-xa-i",
+              "viLabel": "cho tôi"
+            }
+          ]
+        }
+      },
+      "template": [
+        {
+          "slot": "demo",
+          "particle": {
+            "jp": "は",
+            "kana": "は",
+            "roma": "wa",
+            "viPron": "oa",
+            "vi": "～ thì / còn ～",
+            "grammar": "particle-wa",
+            "isParticle": true
+          }
+        },
+        {
+          "text": "何ですか",
+          "kana": "なんですか",
+          "roma": "nandesuka",
+          "viPron": "nan-đê-xư-ka",
+          "vi": ""
+        }
+      ],
+      "viTemplate": "{demo} là gì?",
+      "grammar": [
+        "kosoado",
+        "question-ka",
+        "particle-wa"
+      ],
+      "tip": "これ/それ/あれ chọn theo khoảng cách: gần mình – gần người nghe – xa cả hai."
+    },
+    {
+      "id": "i-go",
+      "emoji": "🚕",
+      "label": "Đi đến…",
+      "desc": "Nói muốn đi đâu hoặc nhờ tài xế đưa đến nơi",
+      "start": "s-way",
+      "steps": {
+        "s-way": {
+          "prompt": "Bạn muốn nói kiểu nào?",
+          "options": [
+            {
+              "silent": true,
+              "label": "Tôi muốn đi đến…",
+              "vi": "(tôi muốn đi đến)",
+              "templateOverride": [
+                {
+                  "slot": "place",
+                  "particle": {
+                    "jp": "に",
+                    "kana": "に",
+                    "roma": "ni",
+                    "viPron": "ni",
+                    "vi": "～ (hướng đến / thời điểm)",
+                    "grammar": "particle-ni",
+                    "isParticle": true
+                  }
+                },
+                {
+                  "text": "行きたいです",
+                  "kana": "いきたいです",
+                  "roma": "ikitaidesu",
+                  "viPron": "i-ki-ta-i-đê-xư",
+                  "vi": ""
+                }
+              ],
+              "viTemplateOverride": "Tôi muốn đi đến {place}",
+              "next": "s-place",
+              "jp": "",
+              "kana": "",
+              "roma": "",
+              "viPron": "",
+              "viLabel": "Tôi muốn đi đến…"
+            },
+            {
+              "silent": true,
+              "label": "Nhờ đưa tôi đến… (taxi)",
+              "vi": "(làm ơn đưa tôi đến)",
+              "templateOverride": [
+                {
+                  "slot": "place",
+                  "particle": {
+                    "jp": "まで",
+                    "kana": "まで",
+                    "roma": "made",
+                    "viPron": "ma-đê",
+                    "vi": "～ cho đến (điểm đến)",
+                    "grammar": "particle-ni",
+                    "isParticle": true
+                  }
+                },
+                {
+                  "text": "お願いします",
+                  "kana": "おねがいします",
+                  "roma": "onegaishimasu",
+                  "viPron": "ô-nê-ga-i-xi-ma-xư",
+                  "vi": ""
+                }
+              ],
+              "viTemplateOverride": "Làm ơn đưa tôi đến {place}",
+              "next": "s-place",
+              "jp": "",
+              "kana": "",
+              "roma": "",
+              "viPron": "",
+              "viLabel": "Nhờ đưa tôi đến… (taxi)"
+            }
+          ]
+        },
+        "s-place": {
+          "prompt": "Điểm đến là đâu?",
+          "slot": "place",
+          "options": [
+            {
+              "ref": "n-eki",
+              "next": null,
+              "jp": "駅",
+              "kana": "えき",
+              "roma": "eki",
+              "viPron": "ê-ki",
+              "vi": "ga tàu",
+              "viLabel": "ga tàu"
+            },
+            {
+              "ref": "n-kukou",
+              "next": null,
+              "jp": "空港",
+              "kana": "くうこう",
+              "roma": "kuukou",
+              "viPron": "cư-u-kô-u",
+              "vi": "sân bay",
+              "viLabel": "sân bay"
+            },
+            {
+              "ref": "n-hoteru",
+              "next": null,
+              "jp": "ホテル",
+              "kana": "ホテル",
+              "roma": "hoteru",
+              "viPron": "hô-tê-rư",
+              "vi": "khách sạn",
+              "viLabel": "khách sạn"
+            },
+            {
+              "ref": "n-toire",
+              "next": null,
+              "jp": "トイレ",
+              "kana": "トイレ",
+              "roma": "toire",
+              "viPron": "tô-i-rê",
+              "vi": "nhà vệ sinh",
+              "viLabel": "nhà vệ sinh"
+            },
+            {
+              "ref": "n-onsen",
+              "next": null,
+              "jp": "温泉",
+              "kana": "おんせん",
+              "roma": "onsen",
+              "viPron": "ôn-xên",
+              "vi": "suối nước nóng",
+              "viLabel": "suối nước nóng"
+            },
+            {
+              "ref": "n-ichiba",
+              "next": null,
+              "jp": "市場",
+              "kana": "いちば",
+              "roma": "ichiba",
+              "viPron": "i-chi-ba",
+              "vi": "chợ",
+              "viLabel": "chợ"
+            },
+            {
+              "ref": "n-ginkou",
+              "next": null,
+              "jp": "銀行",
+              "kana": "ぎんこう",
+              "roma": "ginkou",
+              "viPron": "ging-kô-u",
+              "vi": "ngân hàng",
+              "viLabel": "ngân hàng"
+            },
+            {
+              "ref": "n-byouin",
+              "next": null,
+              "jp": "病院",
+              "kana": "びょういん",
+              "roma": "byouin",
+              "viPron": "biô-u-in",
+              "vi": "bệnh viện",
+              "viLabel": "bệnh viện"
+            },
+            {
+              "ref": "n-basutei",
+              "next": null,
+              "jp": "バス停",
+              "kana": "バスてい",
+              "roma": "basutei",
+              "viPron": "ba-xư-tê-i",
+              "vi": "trạm xe buýt",
+              "viLabel": "trạm xe buýt"
+            }
+          ]
+        }
+      },
+      "template": [
+        {
+          "slot": "place",
+          "particle": {
+            "jp": "に",
+            "kana": "に",
+            "roma": "ni",
+            "viPron": "ni",
+            "vi": "～ (hướng đến / thời điểm)",
+            "grammar": "particle-ni",
+            "isParticle": true
+          }
+        },
+        {
+          "text": "行きたいです",
+          "kana": "いきたいです",
+          "roma": "ikitaidesu",
+          "viPron": "i-ki-ta-i-đê-xư",
+          "vi": ""
+        }
+      ],
+      "viTemplate": "Tôi muốn đi đến {place}",
+      "grammar": [
+        "particle-ni",
+        "tai"
+      ],
+      "tip": "Đến (điểm đích) dùng に; nhờ taxi đi đến dùng まで + お願いします."
+    },
+    {
+      "id": "i-do-please",
+      "emoji": "🆘",
+      "label": "Làm ơn giúp tôi…",
+      "desc": "Nhờ nói chậm, viết ra, chỉ đường, chụp ảnh…",
+      "start": "s-action",
+      "steps": {
+        "s-action": {
+          "prompt": "Nhờ giúp điều gì?",
+          "slot": "action",
+          "options": [
+            {
+              "jp": "ゆっくり話して",
+              "kana": "ゆっくりはなして",
+              "vi": "nói chậm lại",
+              "next": null,
+              "roma": "yukkurihanashite",
+              "viPron": "yuk-cư-ri-ha-na-xi-tê",
+              "viLabel": "nói chậm lại"
+            },
+            {
+              "jp": "もう一度言って",
+              "kana": "もういちどいって",
+              "vi": "nói lại lần nữa",
+              "next": null,
+              "roma": "mouichidoitte",
+              "viPron": "mô-u-i-chi-đô-it-tê",
+              "viLabel": "nói lại lần nữa"
+            },
+            {
+              "jp": "ここに書いて",
+              "kana": "ここにかいて",
+              "vi": "viết ra đây",
+              "next": null,
+              "roma": "kokonikaite",
+              "viPron": "kô-kô-ni-ka-i-tê",
+              "viLabel": "viết ra đây"
+            },
+            {
+              "jp": "地図で指して",
+              "kana": "ちずでさして",
+              "vi": "chỉ trên bản đồ",
+              "next": null,
+              "roma": "chizudesashite",
+              "viPron": "chi-zư-đê-xa-xi-tê",
+              "viLabel": "chỉ trên bản đồ"
+            },
+            {
+              "jp": "写真を撮って",
+              "kana": "しゃしんをとって",
+              "vi": "chụp ảnh giúp",
+              "next": null,
+              "roma": "shashinototte",
+              "viPron": "xa-xin-ô-tôt-tê",
+              "viLabel": "chụp ảnh giúp"
+            },
+            {
+              "jp": "医者を呼んで",
+              "kana": "いしゃをよんで",
+              "vi": "gọi bác sĩ",
+              "next": null,
+              "roma": "ishaoyonde",
+              "viPron": "i-xa-ô-yôn-đê",
+              "viLabel": "gọi bác sĩ"
+            },
+            {
+              "jp": "助けて",
+              "kana": "たすけて",
+              "vi": "giúp tôi",
+              "next": null,
+              "roma": "tasukete",
+              "viPron": "ta-xư-kê-tê",
+              "viLabel": "giúp tôi"
+            }
+          ]
+        }
+      },
+      "template": [
+        {
+          "slot": "action",
+          "particle": null
+        },
+        {
+          "text": "ください",
+          "kana": "ください",
+          "roma": "kudasai",
+          "viPron": "cư-đa-xa-i",
+          "vi": ""
+        }
+      ],
+      "viTemplate": "Làm ơn {action}",
+      "grammar": [
+        "te-kudasai",
+        "kudasai-onegai"
+      ],
+      "tip": "Cấu trúc: thể て của động từ + ください = 'làm ơn hãy…'."
+    },
+    {
+      "id": "i-decline",
+      "emoji": "🙅",
+      "label": "Không, cảm ơn…",
+      "desc": "Từ chối lịch sự, xin lỗi, nói mình không hiểu",
+      "start": "s-situation",
+      "steps": {
+        "s-situation": {
+          "prompt": "Tình huống nào?",
+          "options": [
+            {
+              "jp": "大丈夫です",
+              "kana": "だいじょうぶです",
+              "vi": "Không, cảm ơn / Tôi ổn",
+              "next": null,
+              "roma": "daijoubudesu",
+              "viPron": "đa-i-jô-u-bư-đê-xư",
+              "viLabel": "Không, cảm ơn / Tôi ổn"
+            },
+            {
+              "jp": "いいです",
+              "kana": "いいです",
+              "vi": "Thôi, khỏi cần ạ",
+              "note": "Khi được mời thêm, いいです nghĩa là từ chối.",
+              "next": null,
+              "roma": "iidesu",
+              "viPron": "i-i-đê-xư",
+              "viLabel": "Thôi, khỏi cần ạ"
+            },
+            {
+              "jp": "結構です",
+              "kana": "けっこうです",
+              "vi": "Không cần đâu ạ",
+              "next": null,
+              "roma": "kekkoudesu",
+              "viPron": "kêk-kô-u-đê-xư",
+              "viLabel": "Không cần đâu ạ"
+            },
+            {
+              "jp": "ちょっと難しいです",
+              "kana": "ちょっとむずかしいです",
+              "vi": "Hơi khó ạ…",
+              "next": null,
+              "roma": "chottomuzukashiidesu",
+              "viPron": "chôt-tô-mư-zư-ka-xi-i-đê-xư",
+              "viLabel": "Hơi khó ạ…"
+            },
+            {
+              "jp": "わかりません",
+              "kana": "わかりません",
+              "vi": "Tôi không hiểu",
+              "next": null,
+              "roma": "wakarimasen",
+              "viPron": "oa-ka-ri-ma-xên",
+              "viLabel": "Tôi không hiểu"
+            },
+            {
+              "jp": "日本語がわかりません",
+              "kana": "にほんごがわかりません",
+              "vi": "Tôi không hiểu tiếng Nhật",
+              "next": null,
+              "roma": "nihongogawakarimasen",
+              "viPron": "ni-hông-gô-ga-oa-ka-ri-ma-xên",
+              "viLabel": "Tôi không hiểu tiếng Nhật"
+            },
+            {
+              "jp": "ベトナム人です",
+              "kana": "ベトナムじんです",
+              "vi": "Tôi là người Việt Nam",
+              "next": null,
+              "roma": "betonamujindesu",
+              "viPron": "bê-tô-na-mư-jin-đê-xư",
+              "viLabel": "Tôi là người Việt Nam"
+            },
+            {
+              "jp": "アレルギーがあります",
+              "kana": "アレルギーがあります",
+              "vi": "Tôi bị dị ứng",
+              "next": null,
+              "roma": "arerugiigaarimasu",
+              "viPron": "a-rê-rư-gii-ga-a-ri-ma-xư",
+              "viLabel": "Tôi bị dị ứng"
+            },
+            {
+              "silent": true,
+              "label": "Tôi không ăn được…",
+              "vi": "(tôi không ăn được)",
+              "templateOverride": [
+                {
+                  "slot": "food",
+                  "particle": {
+                    "jp": "は",
+                    "kana": "は",
+                    "roma": "wa",
+                    "viPron": "oa",
+                    "vi": "～ thì / còn ～",
+                    "grammar": "particle-wa",
+                    "isParticle": true
+                  }
+                },
+                {
+                  "text": "食べられません",
+                  "kana": "たべられません",
+                  "roma": "taberaremasen",
+                  "viPron": "ta-bê-ra-rê-ma-xên",
+                  "vi": ""
+                }
+              ],
+              "viTemplateOverride": "Tôi không ăn được {food}",
+              "next": "s-food",
+              "jp": "",
+              "kana": "",
+              "roma": "",
+              "viPron": "",
+              "viLabel": "Tôi không ăn được…"
+            },
+            {
+              "jp": "辛いものは苦手です",
+              "kana": "からいものはにがてです",
+              "vi": "Tôi không ăn cay được",
+              "next": null,
+              "roma": "karaimonohanigatedesu",
+              "viPron": "ka-ra-i-mô-nô-ha-ni-ga-tê-đê-xư",
+              "viLabel": "Tôi không ăn cay được"
+            }
+          ]
+        },
+        "s-food": {
+          "prompt": "Không ăn được gì?",
+          "slot": "food",
+          "options": [
+            {
+              "ref": "n-butaniku",
+              "next": null,
+              "jp": "豚肉",
+              "kana": "ぶたにく",
+              "roma": "butaniku",
+              "viPron": "bư-ta-ni-cư",
+              "vi": "thịt lợn",
+              "viLabel": "thịt lợn"
+            },
+            {
+              "ref": "n-gyuuniku",
+              "next": null,
+              "jp": "牛肉",
+              "kana": "ぎゅうにく",
+              "roma": "gyuuniku",
+              "viPron": "giu-u-ni-cư",
+              "vi": "thịt bò",
+              "viLabel": "thịt bò"
+            },
+            {
+              "ref": "n-toriniku",
+              "next": null,
+              "jp": "鶏肉",
+              "kana": "とりにく",
+              "roma": "toriniku",
+              "viPron": "tô-ri-ni-cư",
+              "vi": "thịt gà",
+              "viLabel": "thịt gà"
+            },
+            {
+              "ref": "n-kaisen",
+              "next": null,
+              "jp": "海鮮",
+              "kana": "かいせん",
+              "roma": "kaisen",
+              "viPron": "ka-i-xên",
+              "vi": "hải sản",
+              "viLabel": "hải sản"
+            }
+          ]
+        }
+      },
+      "viTemplate": null,
+      "grammar": [
+        "desu",
+        "suki"
+      ],
+      "tip": "Người Nhật rất ít nói いいえ thẳng; 大丈夫です và ちょっと… là hai cách từ chối mềm phổ biến nhất."
+    },
+    {
+      "id": "i-can",
+      "emoji": "👌",
+      "label": "Cái này được không?",
+      "desc": "Xin phép hoặc hỏi dịch vụ có được không",
+      "start": "s-can",
+      "steps": {
+        "s-can": {
+          "prompt": "Bạn muốn hỏi điều gì?",
+          "options": [
+            {
+              "jp": "カードは使えますか",
+              "kana": "カードはつかえますか",
+              "vi": "Dùng thẻ được không?",
+              "roma": "kaadohatsukaemasuka",
+              "viPron": "kaa-đô-ha-tsư-ka-ê-ma-xư-ka",
+              "next": null,
+              "viLabel": "Dùng thẻ được không?"
+            },
+            {
+              "jp": "免税できますか",
+              "kana": "めんぜいできますか",
+              "vi": "Được miễn thuế không?",
+              "next": null,
+              "roma": "menzeidekimasuka",
+              "viPron": "mên-zê-i-đê-ki-ma-xư-ka",
+              "viLabel": "Được miễn thuế không?"
+            },
+            {
+              "jp": "持ち帰りできますか",
+              "kana": "もちかえりできますか",
+              "vi": "Mang về được không?",
+              "next": null,
+              "roma": "mochikaeridekimasuka",
+              "viPron": "mô-chi-ka-ê-ri-đê-ki-ma-xư-ka",
+              "viLabel": "Mang về được không?"
+            },
+            {
+              "jp": "写真を撮ってもいいですか",
+              "kana": "しゃしんをとってもいいですか",
+              "vi": "Tôi chụp ảnh được không?",
+              "next": null,
+              "roma": "shashinotottemoiidesuka",
+              "viPron": "xa-xin-ô-tôt-tê-mô-i-i-đê-xư-ka",
+              "viLabel": "Tôi chụp ảnh được không?"
+            },
+            {
+              "jp": "試着してもいいですか",
+              "kana": "しちゃくしてもいいですか",
+              "vi": "Tôi mặc thử được không?",
+              "next": null,
+              "roma": "shichakushitemoiidesuka",
+              "viPron": "xi-cha-cư-xi-tê-mô-i-i-đê-xư-ka",
+              "viLabel": "Tôi mặc thử được không?"
+            },
+            {
+              "jp": "入ってもいいですか",
+              "kana": "はいってもいいですか",
+              "vi": "Tôi vào được không?",
+              "next": null,
+              "roma": "haittemoiidesuka",
+              "viPron": "ha-it-tê-mô-i-i-đê-xư-ka",
+              "viLabel": "Tôi vào được không?"
+            },
+            {
+              "jp": "座ってもいいですか",
+              "kana": "すわってもいいですか",
+              "vi": "Tôi ngồi được không?",
+              "next": null,
+              "roma": "suwattemoiidesuka",
+              "viPron": "xư-oat-tê-mô-i-i-đê-xư-ka",
+              "viLabel": "Tôi ngồi được không?"
+            }
+          ]
+        }
+      },
+      "viTemplate": null,
+      "grammar": [
+        "te-mo-ii",
+        "potential"
+      ],
+      "tip": "〜てもいいですか = xin phép; 〜できますか = có làm được không."
+    },
+    {
+      "id": "i-where",
+      "emoji": "🗺️",
+      "label": "…ở đâu?",
+      "desc": "Hỏi vị trí nhà vệ sinh, ga, khách sạn…",
+      "start": "s-place",
+      "steps": {
+        "s-place": {
+          "prompt": "Tìm gì?",
+          "slot": "place",
+          "options": [
+            {
+              "ref": "n-toire",
+              "next": null,
+              "jp": "トイレ",
+              "kana": "トイレ",
+              "roma": "toire",
+              "viPron": "tô-i-rê",
+              "vi": "nhà vệ sinh",
+              "viLabel": "nhà vệ sinh"
+            },
+            {
+              "ref": "n-eki",
+              "next": null,
+              "jp": "駅",
+              "kana": "えき",
+              "roma": "eki",
+              "viPron": "ê-ki",
+              "vi": "ga tàu",
+              "viLabel": "ga tàu"
+            },
+            {
+              "ref": "n-kukou",
+              "next": null,
+              "jp": "空港",
+              "kana": "くうこう",
+              "roma": "kuukou",
+              "viPron": "cư-u-kô-u",
+              "vi": "sân bay",
+              "viLabel": "sân bay"
+            },
+            {
+              "ref": "n-hoteru",
+              "next": null,
+              "jp": "ホテル",
+              "kana": "ホテル",
+              "roma": "hoteru",
+              "viPron": "hô-tê-rư",
+              "vi": "khách sạn",
+              "viLabel": "khách sạn"
+            },
+            {
+              "ref": "n-yakkyoku",
+              "next": null,
+              "jp": "薬局",
+              "kana": "やっきょく",
+              "roma": "yakkyoku",
+              "viPron": "yak-kiô-cư",
+              "vi": "hiệu thuốc",
+              "viLabel": "hiệu thuốc"
+            },
+            {
+              "ref": "n-kouban",
+              "next": null,
+              "jp": "交番",
+              "kana": "こうばん",
+              "roma": "kouban",
+              "viPron": "kô-u-ban",
+              "vi": "chốt cảnh sát",
+              "viLabel": "chốt cảnh sát"
+            },
+            {
+              "ref": "n-ginkou",
+              "next": null,
+              "jp": "銀行",
+              "kana": "ぎんこう",
+              "roma": "ginkou",
+              "viPron": "ging-kô-u",
+              "vi": "ngân hàng",
+              "viLabel": "ngân hàng"
+            },
+            {
+              "ref": "n-konbini",
+              "next": null,
+              "jp": "コンビニ",
+              "kana": "コンビニ",
+              "roma": "konbini",
+              "viPron": "kôm-bi-ni",
+              "vi": "cửa hàng tiện lợi",
+              "viLabel": "cửa hàng tiện lợi"
+            },
+            {
+              "ref": "n-basutei",
+              "next": null,
+              "jp": "バス停",
+              "kana": "バスてい",
+              "roma": "basutei",
+              "viPron": "ba-xư-tê-i",
+              "vi": "trạm xe buýt",
+              "viLabel": "trạm xe buýt"
+            },
+            {
+              "ref": "n-byouin",
+              "next": null,
+              "jp": "病院",
+              "kana": "びょういん",
+              "roma": "byouin",
+              "viPron": "biô-u-in",
+              "vi": "bệnh viện",
+              "viLabel": "bệnh viện"
+            }
+          ]
+        }
+      },
+      "template": [
+        {
+          "slot": "place",
+          "particle": {
+            "jp": "は",
+            "kana": "は",
+            "roma": "wa",
+            "viPron": "oa",
+            "vi": "～ thì / còn ～",
+            "grammar": "particle-wa",
+            "isParticle": true
+          }
+        },
+        {
+          "text": "どこですか",
+          "kana": "どこですか",
+          "roma": "dokodesuka",
+          "viPron": "đô-kô-đê-xư-ka",
+          "vi": ""
+        }
+      ],
+      "viTemplate": "{place} ở đâu?",
+      "grammar": [
+        "question-ka",
+        "particle-wa",
+        "kosoado"
+      ],
+      "tip": "Công thức vạn năng: [địa điểm] + はどこですか."
+    }
+  ]
+};

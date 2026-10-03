@@ -1,0 +1,10 @@
+{
+  "name": "quick-japanese",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sổ tay tiếng Nhật sinh tồn cho người Việt đi du lịch — static SPA",
+  "scripts": {
+    "build": "node tools/build.js",
+    "serve": "python3 -m http.server 8080"
+  }
+}
