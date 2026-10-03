@@ -236,21 +236,101 @@
     return o.posVi || o.formNote || o.note || "";
   }
 
+  function tokenRowHtml(t) {
+    return `<div class="brk-row role-${U.esc(t.role || "expression")}${t.isParticle ? " particle-row" : ""}">
+      <div class="brk-jp">${U.esc(t.jp)}${t.kana && t.kana !== t.jp ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
+      <div class="brk-body">
+        <span class="brk-pron">${U.esc(t.viPron || "")}</span>
+        <span class="brk-roma">${U.esc(t.roma || "")}</span>
+        <span class="brk-vi">${U.esc(t.vi || "—")}${t.note ? ` · <em>${U.esc(t.note)}</em>` : ""}</span>
+      </div>
+      ${t.grammar ? `<button class="brk-g" data-grammar="${t.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+    </div>`;
+  }
+
+  function particleRowHtml(p) {
+    return `<div class="brk-row role-particle particle-row">
+      <div class="brk-jp">${U.esc(p.jp)}</div>
+      <div class="brk-body">
+        <span class="brk-pron">${U.esc(p.viPron || "")}</span>
+        <span class="brk-roma">${U.esc(p.roma || "")}</span>
+        <span class="brk-vi">${U.esc(p.vi)}${p.note ? ` · <em>${U.esc(p.note)}</em>` : ""}</span>
+      </div>
+      ${p.grammar ? `<button class="brk-g" data-grammar="${p.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+    </div>`;
+  }
+
+  function optionRowHtml(o) {
+    const note = o._note || "";
+    return `<div class="brk-row role-${U.esc(o.role || "expression")}">
+      <div class="brk-jp">${U.esc(o.jp)}${o.kana && o.kana !== o.jp ? `<small>${U.esc(o.kana)}</small>` : ""}</div>
+      <div class="brk-body">
+        <span class="brk-pron">${U.esc(o.viPron || "")}</span>
+        <span class="brk-roma">${U.esc(o.roma || "")}</span>
+        <span class="brk-vi">${U.esc(o.viLabel || o.vi || "")}${note ? ` · <em>${U.esc(note)}</em>` : ""}</span>
+      </div>
+      ${o.grammarHint ? `<button class="brk-g" data-grammar="${o.grammarHint}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+    </div>`;
+  }
+
+  function textRowHtml(t) {
+    return `<div class="brk-row role-${U.esc(t.role || "expression")}">
+      <div class="brk-jp">${U.esc(t.text)}${t.kana && t.kana !== t.text ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
+      <div class="brk-body">
+        <span class="brk-pron">${U.esc(t.viPron || "")}</span>
+        <span class="brk-roma">${U.esc(t.roma || "")}</span>
+        <span class="brk-vi">${U.esc(t.vi || "—")}</span>
+      </div></div>`;
+  }
+
+  function structureHtml(parts) {
+    const rows = parts.map(part => {
+      if (part.kind === "blank") {
+        return `<div class="brk-row"><div class="brk-jp">?</div>
+          <div class="brk-body"><span class="brk-vi" style="color:var(--muted)">Chưa chọn</span></div></div>`;
+      }
+      if (part.kind === "text") return textRowHtml(part.text);
+      const o = part.opt;
+      // Option cố định đã được tách mảnh ở build: hiện từng mảnh (như thẻ cụm từ)
+      let html = Array.isArray(o.parts) && o.parts.length
+        ? o.parts.map(tokenRowHtml).join("")
+        : optionRowHtml({ ...o, _note: optionNote(part) });
+      if (part.particle) html += particleRowHtml(part.particle);
+      return html;
+    }).join("");
+    const hasContent = parts.some(p => p.kind !== "blank");
+    if (!hasContent) return "";
+    return `<div class="brk b-brk"><div class="brk-title">🧩 Cấu trúc câu</div>${rows}</div>`;
+  }
+
   /* Dữ liệu bóc tách để lưu kèm câu vào sổ tay */
+  function tokenData(t) {
+    return {
+      jp: t.jp, kana: t.kana, roma: t.roma, viPron: t.viPron,
+      vi: t.vi, note: t.note || "", grammar: t.grammar || null,
+      role: t.role || "expression", isParticle: !!t.isParticle,
+    };
+  }
+
   function structureData(parts) {
     const rows = [];
     for (const part of parts) {
       if (part.kind === "blank") continue;
       if (part.kind === "text") {
-        rows.push({ jp: part.text.text, kana: part.text.kana, roma: part.text.roma, viPron: part.text.viPron, vi: part.text.vi, note: "", grammar: null, role: part.text.role || "expression" });
+        const t = part.text;
+        rows.push({ jp: t.text, kana: t.kana, roma: t.roma, viPron: t.viPron, vi: t.vi, note: "", grammar: null, role: t.role || "expression" });
         continue;
       }
       const o = part.opt;
-      rows.push({
-        jp: o.jp, kana: o.kana, roma: o.roma, viPron: o.viPron,
-        vi: o.viLabel || o.vi, note: optionNote(part),
-        grammar: o.grammarHint || null, role: o.role || "expression",
-      });
+      if (Array.isArray(o.parts) && o.parts.length) {
+        for (const t of o.parts) rows.push(tokenData(t));
+      } else {
+        rows.push({
+          jp: o.jp, kana: o.kana, roma: o.roma, viPron: o.viPron,
+          vi: o.viLabel || o.vi, note: optionNote(part),
+          grammar: o.grammarHint || null, role: o.role || "expression",
+        });
+      }
       if (part.particle) {
         rows.push({
           jp: part.particle.jp, kana: part.particle.kana, roma: part.particle.roma, viPron: part.particle.viPron,
@@ -260,51 +340,6 @@
       }
     }
     return rows;
-  }
-
-  function structureHtml(parts) {
-    const rows = parts.map(part => {
-      if (part.kind === "blank") {
-        return `<div class="brk-row"><div class="brk-jp">?</div>
-          <div class="brk-body"><span class="brk-vi" style="color:var(--muted)">Chưa chọn</span></div></div>`;
-      }
-      if (part.kind === "text") {
-        const t = part.text;
-        return `<div class="brk-row role-${U.esc(t.role || "expression")}">
-          <div class="brk-jp">${U.esc(t.text)}${t.kana && t.kana !== t.text ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
-          <div class="brk-body">
-            <span class="brk-pron">${U.esc(t.viPron || "")}</span>
-            <span class="brk-roma">${U.esc(t.roma || "")}</span>
-            <span class="brk-vi">${U.esc(t.vi || "—")}</span>
-          </div></div>`;
-      }
-      const o = part.opt;
-      const note = optionNote(part);
-      let html = `<div class="brk-row role-${U.esc(o.role || "expression")}">
-        <div class="brk-jp">${U.esc(o.jp)}${o.kana && o.kana !== o.jp ? `<small>${U.esc(o.kana)}</small>` : ""}</div>
-        <div class="brk-body">
-          <span class="brk-pron">${U.esc(o.viPron || "")}</span>
-          <span class="brk-roma">${U.esc(o.roma || "")}</span>
-          <span class="brk-vi">${U.esc(o.viLabel || o.vi || "")}${note ? ` · <em>${U.esc(note)}</em>` : ""}</span>
-        </div>
-        ${o.grammarHint ? `<button class="brk-g" data-grammar="${o.grammarHint}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
-      </div>`;
-      if (part.particle) {
-        html += `<div class="brk-row role-particle particle-row">
-          <div class="brk-jp">${U.esc(part.particle.jp)}</div>
-          <div class="brk-body">
-            <span class="brk-pron">${U.esc(part.particle.viPron || "")}</span>
-            <span class="brk-roma">${U.esc(part.particle.roma || "")}</span>
-            <span class="brk-vi">${U.esc(part.particle.vi)}${part.particle.note ? ` · <em>${U.esc(part.particle.note)}</em>` : ""}</span>
-          </div>
-          ${part.particle.grammar ? `<button class="brk-g" data-grammar="${part.particle.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
-        </div>`;
-      }
-      return html;
-    }).join("");
-    const hasContent = parts.some(p => p.kind !== "blank");
-    if (!hasContent) return "";
-    return `<div class="brk b-brk"><div class="brk-title">🧩 Cấu trúc câu</div>${rows}</div>`;
   }
 
   /* ------------------------------ Giao diện ------------------------------ */
@@ -338,7 +373,22 @@
     const savedNow = done && window.Fav &&
       Fav.list().some(f => f.type === "sentence" && f.payload && f.payload.jp === jpNow);
 
-    const grammarBtns = (intent.grammar || [])
+    // Chip ngữ pháp chỉ hiện những điểm thực sự xuất hiện trong câu đang ghép
+    const usedGrammar = [];
+    for (const part of parts) {
+      if (part.kind === "blank" || part.kind === "text") continue;
+      const o = part.opt;
+      if (Array.isArray(o.parts)) {
+        for (const t of o.parts) if (t.grammar) usedGrammar.push(t.grammar);
+      } else if (o.grammarHint) {
+        usedGrammar.push(o.grammarHint);
+      }
+      if (part.particle && part.particle.grammar) usedGrammar.push(part.particle.grammar);
+    }
+    const grammarIds = state.picks.length
+      ? [...new Set(usedGrammar)]
+      : (intent.grammar || []);
+    const grammarBtns = grammarIds
       .map(id => {
         const g = QJ.grammar.points.find(x => x.id === id);
         return g ? `<button data-grammar="${id}">${U.esc(g.title.split("—")[0].split("(")[0].trim())}</button>` : "";

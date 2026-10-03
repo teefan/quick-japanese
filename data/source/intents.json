@@ -284,7 +284,7 @@
                 { "text": "行きますか", "kana": "いきますか", "vi": "có đi không?" }
               ],
               "viTemplateOverride": "Tàu này có đi {place} không?",
-              "next": "s-place"
+              "next": "s-place-train"
             }
           ]
         },
@@ -301,6 +301,20 @@
             { "ref": "n-ginkou", "next": null },
             { "ref": "n-byouin", "next": null },
             { "ref": "n-basutei", "next": null }
+          ]
+        },
+        "s-place-train": {
+          "prompt": "Tàu đi đâu?",
+          "slot": "place",
+          "options": [
+            { "ref": "n-toukyou", "next": null },
+            { "ref": "n-eki", "next": null },
+            { "ref": "n-kukou", "next": null },
+            { "ref": "n-hoteru", "next": null },
+            { "ref": "n-onsen", "next": null },
+            { "ref": "n-ichiba", "next": null },
+            { "ref": "n-jinja", "next": null },
+            { "ref": "n-otera", "next": null }
           ]
         }
       },
@@ -372,7 +386,7 @@
           "prompt": "Từ chối thế nào?",
           "options": [
             { "jp": "いいえ", "kana": "いいえ", "vi": "Không", "note": "Người Nhật ít dùng thẳng.", "next": null },
-            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không, cảm ơn / Tôi ổn", "next": null },
+            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không, cảm ơn / Tôi ổn", "note": "Cách từ chối mềm phổ biến nhất.", "next": null },
             { "jp": "いいです", "kana": "いいです", "vi": "Thôi, khỏi cần ạ", "note": "Khi được mời thêm, いいです nghĩa là từ chối.", "next": null },
             { "jp": "結構です", "kana": "けっこうです", "vi": "Không cần đâu ạ", "next": null },
             { "jp": "ちょっと難しいです", "kana": "ちょっとむずかしいです", "vi": "Hơi khó ạ…", "next": null },
@@ -648,15 +662,7 @@
             { "silent": true, "label": "Nhận phòng / trả phòng", "vi": "(thủ tục)", "next": "s-check" },
             { "silent": true, "label": "Hỏi tiện nghi", "vi": "(tiện nghi)", "next": "s-room" },
             { "silent": true, "label": "Nhờ giúp", "vi": "(nhờ giúp)", "next": "s-help" },
-            {
-              "silent": true, "label": "Sự cố trong phòng", "vi": "(sự cố)",
-              "templateOverride": [
-                { "slot": "equip", "particle": "が" },
-                { "text": "動きません", "kana": "うごきません", "vi": "không hoạt động" }
-              ],
-              "viTemplateOverride": "Trong phòng: {equip} không hoạt động",
-              "next": "s-equip"
-            }
+            { "silent": true, "label": "Sự cố trong phòng", "vi": "(sự cố)", "next": "s-problem" }
           ]
         },
         "s-check": {
@@ -685,13 +691,13 @@
             { "jp": "荷物をここに置いてもいいですか", "kana": "にもつをここにおいてもいいですか", "vi": "Tôi để hành lý ở đây được không?", "next": null }
           ]
         },
-        "s-equip": {
-          "prompt": "Thứ gì không hoạt động?",
-          "slot": "equip",
+        "s-problem": {
+          "prompt": "Trong phòng có vấn đề gì?",
           "options": [
-            { "ref": "n-eakon", "next": null },
-            { "ref": "n-denki", "next": null },
-            { "ref": "n-oyu", "next": null }
+            { "jp": "エアコンが動きません", "kana": "エアコンがうごきません", "vi": "Điều hòa không chạy", "next": null },
+            { "jp": "電気がつきません", "kana": "でんきがつきません", "vi": "Đèn không sáng", "next": null },
+            { "jp": "お湯が出ません", "kana": "おゆがでません", "vi": "Nước nóng không ra", "next": null },
+            { "jp": "Wi-Fiがつながりません", "kana": "ワイファイがつながりません", "vi": "Wi-Fi không kết nối được", "roma": "waifai ga tsunagarimasen", "viPron": "oa-i-pha-i ga tsư-na-ga-ri-ma-xên", "next": null }
           ]
         }
       },

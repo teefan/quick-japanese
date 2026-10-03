@@ -51,6 +51,7 @@
     { "id": "n-takushii", "pos": "noun", "jp": "タクシー", "kana": "タクシー", "vi": "taxi", "tags": ["place", "travel"] },
     { "id": "n-mise", "pos": "noun", "jp": "店", "kana": "みせ", "vi": "cửa hàng", "tags": ["place", "shopping"] },
     { "id": "n-nihon", "pos": "noun", "jp": "日本", "kana": "にほん", "vi": "Nhật Bản", "tags": ["place"] },
+    { "id": "n-toukyou", "pos": "noun", "jp": "東京", "kana": "とうきょう", "vi": "Tokyo", "tags": ["place", "travel"] },
     { "id": "n-nihongo", "pos": "noun", "jp": "日本語", "kana": "にほんご", "vi": "tiếng Nhật", "tags": ["language"] },
     { "id": "n-eigo", "pos": "noun", "jp": "英語", "kana": "えいご", "vi": "tiếng Anh", "tags": ["language"] },
     { "id": "n-betonamugo", "pos": "noun", "jp": "ベトナム語", "kana": "ベトナムご", "vi": "tiếng Việt", "tags": ["language"] },

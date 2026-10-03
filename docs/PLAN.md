@@ -220,6 +220,31 @@ Every phrase and every built sentence is also shown **broken into its grammatica
 - **Notebook**: saved sentences keep the structure payload (roles, pronunciations, notes), so the
   breakdown survives in “Sổ tay của tôi”.
 
+### 6.5 Builder audit (v1.2.4)
+
+A full audit of the builder produced these fixes:
+
+- **Accuracy** — the hotel “something is broken” branch no longer blindly applies
+  `動きません`: it now offers correct fixed sentences (`エアコンが動きません`, `電気がつきません`,
+  `お湯が出ません`, `Wi-Fiがつながりません`). The train branch (`この電車は…に行きますか`) now has its
+  own destination list (Tokyo, stations, airport, hotels, onsen, markets, shrines) instead of the
+  general place list that allowed nonsense like “does this train go to the toilet?”.
+- **Consistency** — fixed-sentence options are now segmented at build time with the same
+  tokenizer/annotator as phrase cards, so the structure panel shows full breakdowns
+  (e.g. `英語 + で + お願い + します`) and saved notebook sentences keep them.
+- **Overrides** — option-level `roma`/`viPron` overrides are now respected
+  (こんにちは → `konnichiwa` / `côn-ni-chi-oa`), matching phrase cards.
+- **Relevance** — grammar chips are derived from the grammar actually present in the current
+  sentence (particles/forms the learner picked), falling back to the intent’s list only before
+  the first pick — no more “です” chip on こんにちは.
+- **Validation** — build warns on unknown chunks and grammar refs; only one fixed option
+  (`ご迷惑をおかけしました`) intentionally falls back to a single-row breakdown.
+- **Payload** — generated data switched to compact JSON with empty fields pruned:
+  611 KB → 349 KB, everything else unchanged.
+
+Regression check: 13 intents × 3 random paths = 39/39 complete sentences with breakdown, no JS
+errors.
+
 ---
 
 ## 7. Vietnamese pronunciation convention

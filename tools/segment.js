@@ -138,6 +138,13 @@ const EXPRESSIONS = [
   { kana: "お", jp: "お", vi: "tiền tố lịch sự", note: "thêm trước danh từ để lịch sự (お水, お名前…)" },
   { kana: "な", jp: "な", vi: "nối tính từ な với danh từ", note: "静かな部屋 = phòng yên tĩnh", grammar: "adj" },
 
+  { kana: "まあまあ", jp: "まあまあ", vi: "tạm ổn", role: "adverb" },
+  { kana: "むずかしい", jp: "難しい", vi: "khó", note: "tính từ đuôi い", grammar: "adj", role: "adj" },
+  { kana: "おくれて", jp: "遅れて", vi: "muộn (thể て)", note: "từ 遅れる", role: "verb" },
+  { kana: "つきません", jp: "つきません", vi: "không sáng / không bật", note: "từ 点く (đèn)", role: "verb" },
+  { kana: "でません", jp: "出ません", vi: "không ra / không chảy", note: "từ 出る (nước nóng…)", role: "verb" },
+  { kana: "つながりません", jp: "つながりません", vi: "không kết nối được", note: "từ つながる (Wi-Fi…)", role: "verb" },
+
   // Chào hỏi & lịch sự
   { kana: "こんにちは", jp: "こんにちは", vi: "xin chào (ban ngày)", note: "は viết 'ha' nhưng đọc 'oa' — dấu vết trợ từ chủ đề" },
   { kana: "こんばんは", jp: "こんばんは", vi: "chào buổi tối", note: "は đọc 'oa'" },

@@ -47,6 +47,8 @@ function enrichText(item) {
 
 const warnings = [];
 const warn = (msg) => warnings.push(msg);
+const debugs = [];
+const debug = (msg) => debugs.push(msg);
 
 /* ------------------------------ Từ vựng ------------------------------ */
 
@@ -102,6 +104,32 @@ const mapObj = (obj, fn) =>
 
 /* ------------------------------ Cụm từ ------------------------------ */
 
+const PARTICLE_PRON = { "は": { roma: "wa", viPron: "oa" }, "へ": { roma: "e", viPron: "ê" }, "を": { roma: "o", viPron: "ô" } };
+
+/* Làm giàu một danh sách mảnh đã tách (dùng chung cho cụm từ và option builder) */
+function enrichParts(rawParts, grammarIds, tag) {
+  return rawParts.map((part) => {
+    const pp = part.isParticle ? PARTICLE_PRON[part.kana] : null;
+    const e = {
+      jp: part.jp,
+      kana: part.kana,
+      roma: pp ? pp.roma : part.roma !== undefined ? part.roma : K.romanize(part.kana),
+      viPron: pp ? pp.viPron : part.viPron !== undefined ? part.viPron : K.viet(part.kana),
+      vi: part.vi || "",
+      note: part.note || "",
+      grammar: part.grammar || null,
+      role: part.role || (part.isParticle ? "particle" : part.unknown ? "unknown" : "expression"),
+      isParticle: !!part.isParticle,
+      unknown: !!part.unknown,
+    };
+    if (e.grammar && !grammarIds.has(e.grammar)) {
+      warn(`[${tag}] "${e.jp}": grammar "${e.grammar}" không tồn tại`);
+      e.grammar = null;
+    }
+    return e;
+  });
+}
+
 function buildPhrases(vocab, numbers, grammarIds) {
   const lex = buildLexicon(vocab, numbers);
   const src = read("phrases.json");
@@ -122,27 +150,7 @@ function buildPhrases(vocab, numbers, grammarIds) {
         unknowns = t.unknowns;
       }
       for (const u of unknowns) warn(`Chưa tách được [${p.id}]: "${u}"`);
-      const PARTICLE_PRON = { "は": { roma: "wa", viPron: "oa" }, "へ": { roma: "e", viPron: "ê" }, "を": { roma: "o", viPron: "ô" } };
-      out.parts = rawParts.map((part) => {
-        const pp = part.isParticle ? PARTICLE_PRON[part.kana] : null;
-        const e = {
-          jp: part.jp,
-          kana: part.kana,
-          roma: pp ? pp.roma : part.roma !== undefined ? part.roma : K.romanize(part.kana),
-          viPron: pp ? pp.viPron : part.viPron !== undefined ? part.viPron : K.viet(part.kana),
-          vi: part.vi || "",
-          note: part.note || "",
-          grammar: part.grammar || null,
-          role: part.role || (part.isParticle ? "particle" : part.unknown ? "unknown" : "expression"),
-          isParticle: !!part.isParticle,
-          unknown: !!part.unknown,
-        };
-        if (e.grammar && !grammarIds.has(e.grammar)) {
-          warn(`[${p.id}] "${e.jp}": grammar "${e.grammar}" không tồn tại`);
-          e.grammar = null;
-        }
-        return e;
-      });
+      out.parts = enrichParts(rawParts, grammarIds, p.id);
       // Câu chỉ có một mảnh (vd: こんにちは): dùng phiên âm ghi đè của cả câu
       if (out.parts.length === 1 && p.viPron) {
         out.parts[0].viPron = p.viPron;
@@ -195,14 +203,15 @@ function buildNumbers() {
 
 /* ------------------------------ Cây ghép câu ------------------------------ */
 
-function buildIntents(vocabById, grammarIds) {
+function buildIntents(vocabById, numbers, grammarIds) {
+  const lex = buildLexicon(Object.values(vocabById), numbers);
   const src = read("intents.json");
   const intents = src.intents.map((intent) => {
     const steps = {};
     for (const [sid, step] of Object.entries(intent.steps)) {
       steps[sid] = {
         ...step,
-        options: step.options.map((opt) => enrichOption(opt, vocabById)),
+        options: step.options.map((opt) => enrichOption(opt, vocabById, lex, grammarIds)),
       };
     }
     const template = (intent.template || null)?.map(enrichTemplateSeg);
@@ -220,7 +229,7 @@ function buildIntents(vocabById, grammarIds) {
   return { intents };
 }
 
-function enrichOption(opt, vocabById) {
+function enrichOption(opt, vocabById, lex, grammarIds) {
   const base = { ...opt };
   if (opt.silent) {
     // Lựa chọn không tạo ra chữ nào trong câu (chỉ chọn nhánh/định dạng câu)
@@ -237,8 +246,8 @@ function enrichOption(opt, vocabById) {
     const src = form || { jp: v.jp, kana: v.kana };
     base.jp = src.jp;
     base.kana = src.kana;
-    base.roma = opt.pron && opt.pron.roma !== undefined ? opt.pron.roma : K.romanize(src.kana);
-    base.viPron = opt.pron && opt.pron.vi !== undefined ? opt.pron.vi : K.viet(src.kana);
+    base.roma = opt.roma !== undefined ? opt.roma : opt.pron && opt.pron.roma !== undefined ? opt.pron.roma : K.romanize(src.kana);
+    base.viPron = opt.viPron !== undefined ? opt.viPron : opt.pron && opt.pron.vi !== undefined ? opt.pron.vi : K.viet(src.kana);
     if (base.vi === undefined) base.vi = v.vi;
     if (base.viLabel === undefined) base.viLabel = base.vi;
     base.posVi = POS_VI[v.pos] || "";
@@ -248,9 +257,27 @@ function enrichOption(opt, vocabById) {
   } else {
     if (!opt.kana) throw new Error(`Option thiếu kana: ${JSON.stringify(opt)}`);
     base.jp = opt.jp !== undefined ? opt.jp : opt.kana;
-    base.roma = opt.pron && opt.pron.roma !== undefined ? opt.pron.roma : K.romanize(opt.kana);
-    base.viPron = opt.pron && opt.pron.vi !== undefined ? opt.pron.vi : K.viet(opt.kana);
+    base.roma = opt.roma !== undefined ? opt.roma : opt.pron && opt.pron.roma !== undefined ? opt.pron.roma : K.romanize(opt.kana);
+    base.viPron = opt.viPron !== undefined ? opt.viPron : opt.pron && opt.pron.vi !== undefined ? opt.pron.vi : K.viet(opt.kana);
     if (base.viLabel === undefined) base.viLabel = base.vi;
+    // Tách câu cố định thành các mảnh (như thẻ cụm từ) để bảng cấu trúc chi tiết hơn
+    if (opt.parts) {
+      base.parts = enrichParts(opt.parts, grammarIds, "option");
+    } else {
+      const t = tokenize(opt.kana, lex);
+      if (t.parts.length && !t.unknowns.length) {
+        base.parts = enrichParts(t.parts, grammarIds, "option");
+        if (opt.roma === undefined) base.roma = base.parts.map((p) => p.roma).join(" ");
+        if (opt.viPron === undefined) base.viPron = base.parts.map((p) => p.viPron).join(" ");
+      } else if (t.unknowns.length) {
+        debug(`Option chưa tách được: "${opt.jp}" (${t.unknowns.join(", ")})`);
+      }
+    }
+    // Câu một mảnh có override phiên âm (vd: こんにちは): đồng bộ mảnh với override
+    if (base.parts && base.parts.length === 1) {
+      if (opt.viPron !== undefined) base.parts[0].viPron = opt.viPron;
+      if (opt.roma !== undefined) base.parts[0].roma = opt.roma;
+    }
   }
   if (opt.particle) base.particleObj = enrichParticle(opt.particle);
   if (opt.templateOverride) base.templateOverride = opt.templateOverride.map(enrichTemplateSeg);
@@ -275,8 +302,22 @@ function enrichTemplateSeg(seg) {
 
 /* ------------------------------ Xuất file ------------------------------ */
 
+/* Bỏ field rỗng (app dùng kiểm tra truthy) để giảm dung lượng */
+function prune(v) {
+  if (Array.isArray(v)) return v.map(prune);
+  if (v && typeof v === "object") {
+    const out = {};
+    for (const [k, val] of Object.entries(v)) {
+      if (val === null || val === undefined || val === "") continue;
+      out[k] = prune(val);
+    }
+    return out;
+  }
+  return v;
+}
+
 function writeData(name, value) {
-  const js = "window.QJ = window.QJ || {};\nwindow.QJ." + name + " = " + JSON.stringify(value, null, 2) + ";\n";
+  const js = "window.QJ = window.QJ || {};\nwindow.QJ." + name + " = " + JSON.stringify(prune(value)) + ";\n";
   fs.writeFileSync(path.join(OUT, name + ".js"), js);
   const kb = (Buffer.byteLength(js) / 1024).toFixed(1);
   console.log(`  ✓ data/${name}.js  (${kb} KB)`);
@@ -289,7 +330,7 @@ function main() {
   const grammarIds = new Set(grammar.points.map((g) => g.id));
   const numbers = buildNumbers();
   const phrases = buildPhrases(vocab.items, numbers, grammarIds);
-  const intents = buildIntents(vocab.byId, grammarIds);
+  const intents = buildIntents(vocab.byId, numbers, grammarIds);
 
   writeData("vocab", vocab.items);
   writeData("phrases", phrases);
@@ -314,6 +355,11 @@ function main() {
   if (warnings.length) {
     console.log("\nCảnh báo:");
     for (const w of warnings) console.log("  ! " + w);
+  }
+  if (debugs.length) {
+    console.log(`\nOption cố định chưa tách được thành mảnh (giữ nguyên 1 dòng): ${debugs.length}`);
+    for (const d of debugs.slice(0, 12)) console.log("  · " + d);
+    if (debugs.length > 12) console.log(`  … và ${debugs.length - 12} mục khác`);
   }
   console.log("Done.", meta.counts);
 }
