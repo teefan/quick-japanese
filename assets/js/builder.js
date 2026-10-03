@@ -22,6 +22,8 @@
     "Đi lại & khách sạn": "🚕",
     "Sức khỏe & sự cố": "🚑",
   };
+  // Thứ tự nhóm cố định: cơ bản nhất trước
+  const GROUP_ORDER = ["Giao tiếp", "Ăn uống & mua sắm", "Đi lại & khách sạn", "Sức khỏe & sự cố"];
 
   function renderHome() {
     state.intent = null;
@@ -33,6 +35,11 @@
       const g = i.group || "Khác";
       if (!groups.includes(g)) groups.push(g);
     }
+    groups.sort((a, b) => {
+      const ia = GROUP_ORDER.indexOf(a);
+      const ib = GROUP_ORDER.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
     const sections = groups.map(g => `
       <div class="section-title">
         <h2>${GROUP_ICONS[g] || "🧩"} ${U.esc(g)}</h2>

@@ -2,503 +2,6 @@
   "note": "Cây ghép câu: mỗi bước (step) có danh sách lựa chọn; sau mỗi lựa chọn, chỉ những bước hợp lệ tiếp theo (next) mới hiện ra. template quyết định thứ tự tiếng Nhật; viTemplate quyết định câu tiếng Việt xem trước. Lựa chọn có templateOverride sẽ đổi cả khuôn câu (ví dụ hỏi 'bao nhiêu tiền' khác 'là gì').",
   "intents": [
     {
-      "id": "i-want",
-      "emoji": "🙋",
-      "label": "Tôi muốn…",
-      "desc": "Nói điều mình muốn ăn, uống, mua, xem, đi",
-      "group": "Ăn uống & mua sắm",
-      "start": "s-subject",
-      "steps": {
-        "s-subject": {
-          "prompt": "Ai muốn?",
-          "slot": "subject",
-          "options": [
-            { "ref": "p-watashi", "next": "s-action" },
-            { "ref": "p-watashitachi", "next": "s-action" },
-            { "silent": true, "label": "Không cần chủ ngữ", "hint": "Người Nhật thường lược bỏ chủ ngữ khi đã rõ", "vi": "(tôi)", "next": "s-action" }
-          ]
-        },
-        "s-action": {
-          "prompt": "Muốn làm gì?",
-          "slot": "verb",
-          "options": [
-            { "ref": "v-taberu", "form": "tai", "next": "s-obj-food" },
-            { "ref": "v-nomu", "form": "tai", "next": "s-obj-drink" },
-            { "ref": "v-kau", "form": "tai", "next": "s-obj-buy" },
-            { "ref": "v-miru", "form": "tai", "next": "s-obj-see" },
-            { "ref": "v-iku", "form": "tai", "next": "s-obj-place" }
-          ]
-        },
-        "s-obj-food": {
-          "prompt": "Muốn ăn gì?",
-          "slot": "object",
-          "particle": "が",
-          "options": [
-            { "ref": "n-sushi", "next": null },
-            { "ref": "n-raamen", "next": null },
-            { "ref": "n-tempura", "next": null },
-            { "ref": "n-karee", "next": null },
-            { "ref": "n-gyuudon", "next": null },
-            { "ref": "d-kore", "next": null },
-            { "ref": "d-sore", "next": null }
-          ]
-        },
-        "s-obj-drink": {
-          "prompt": "Muốn uống gì?",
-          "slot": "object",
-          "particle": "が",
-          "options": [
-            { "ref": "n-mizu", "next": null },
-            { "ref": "n-ocha", "next": null },
-            { "ref": "n-koohii", "next": null },
-            { "ref": "n-biiru", "next": null },
-            { "ref": "n-juusu", "next": null },
-            { "ref": "d-kore", "next": null }
-          ]
-        },
-        "s-obj-buy": {
-          "prompt": "Muốn mua gì?",
-          "slot": "object",
-          "particle": "が",
-          "options": [
-            { "ref": "n-omiyage", "next": null },
-            { "ref": "n-kasa", "next": null },
-            { "ref": "n-kippu", "next": null },
-            { "ref": "d-kore", "next": null },
-            { "ref": "d-sore", "next": null }
-          ]
-        },
-        "s-obj-see": {
-          "prompt": "Muốn xem gì?",
-          "slot": "object",
-          "particle": "が",
-          "options": [
-            { "ref": "n-menu", "next": null },
-            { "ref": "n-chizu", "next": null },
-            { "ref": "n-shashin", "next": null },
-            { "ref": "d-kore", "next": null }
-          ]
-        },
-        "s-obj-place": {
-          "prompt": "Muốn đi đâu?",
-          "slot": "object",
-          "particle": "が",
-          "options": [
-            { "ref": "n-eki", "particle": "に", "vi": "đến ga", "next": null },
-            { "ref": "n-kukou", "particle": "に", "vi": "đến sân bay", "next": null },
-            { "ref": "n-hoteru", "particle": "に", "vi": "đến khách sạn", "next": null },
-            { "ref": "n-onsen", "particle": "に", "vi": "đến suối nước nóng", "next": null },
-            { "ref": "n-ichiba", "particle": "に", "vi": "đến chợ", "next": null },
-            { "ref": "n-konbini", "particle": "に", "vi": "đến cửa hàng tiện lợi", "next": null },
-            { "ref": "n-byouin", "particle": "に", "vi": "đến bệnh viện", "next": null }
-          ]
-        }
-      },
-      "template": [
-        { "slot": "subject", "particle": "は" },
-        { "slot": "object", "particle": "が" },
-        { "slot": "verb" },
-        { "text": "です", "kana": "です", "vi": "là (lịch sự)" }
-      ],
-      "viTemplate": "{subject} muốn {verb} {object}",
-      "grammar": ["tai", "particle-ga", "sov"],
-      "tip": "たい = 'muốn làm gì'. Với 行く (đi), đích đến đánh dấu bằng に chứ không phải が."
-    },
-    {
-      "id": "i-please",
-      "emoji": "🙏",
-      "label": "Cho tôi…",
-      "desc": "Câu gọi món / mua hàng lịch sự với ください",
-      "group": "Ăn uống & mua sắm",
-      "start": "s-object",
-      "steps": {
-        "s-object": {
-          "prompt": "Cho bạn cái gì?",
-          "slot": "object",
-          "particle": "を",
-          "options": [
-            { "ref": "d-kore", "next": "s-quantity" },
-            { "ref": "d-sore", "next": "s-quantity" },
-            { "ref": "d-are", "next": "s-quantity" },
-            { "ref": "n-mizu", "next": "s-quantity" },
-            { "ref": "n-ocha", "next": "s-quantity" },
-            { "ref": "n-koohii", "next": "s-quantity" },
-            { "ref": "n-biiru", "next": "s-quantity" },
-            { "ref": "n-menu", "next": "s-quantity" },
-            { "ref": "n-sushi", "next": "s-quantity" },
-            { "ref": "n-raamen", "next": "s-quantity" }
-          ]
-        },
-        "s-quantity": {
-          "prompt": "Số lượng?",
-          "slot": "quantity",
-          "options": [
-            { "silent": true, "label": "Không cần số lượng", "vi": "", "next": null },
-            { "jp": "一つ", "kana": "ひとつ", "vi": "một cái", "next": null },
-            { "jp": "二つ", "kana": "ふたつ", "vi": "hai cái", "next": null },
-            { "jp": "三つ", "kana": "みっつ", "vi": "ba cái", "next": null }
-          ]
-        }
-      },
-      "template": [
-        { "slot": "object", "particle": "を" },
-        { "slot": "quantity" },
-        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
-      ],
-      "viTemplate": "Cho tôi {object}, {quantity}",
-      "grammar": ["kudasai-onegai", "particle-wo", "counters"],
-      "tip": "ください là cách 'cho tôi' chuẩn mực nhất. Số lượng đứng ngay trước ください."
-    },
-    {
-      "id": "i-like",
-      "emoji": "❤️",
-      "label": "Tôi thích…",
-      "desc": "Nói món ăn, đồ uống, địa điểm mình thích",
-      "group": "Ăn uống & mua sắm",
-      "start": "s-subject",
-      "steps": {
-        "s-subject": {
-          "prompt": "Ai thích?",
-          "slot": "subject",
-          "options": [
-            { "ref": "p-watashi", "next": "s-object" },
-            { "ref": "p-watashitachi", "next": "s-object" },
-            { "silent": true, "label": "Không cần chủ ngữ", "vi": "(tôi)", "next": "s-object" }
-          ]
-        },
-        "s-object": {
-          "prompt": "Thích gì?",
-          "slot": "object",
-          "particle": "が",
-          "options": [
-            { "ref": "n-sushi", "next": null },
-            { "ref": "n-raamen", "next": null },
-            { "ref": "n-tempura", "next": null },
-            { "ref": "n-karee", "next": null },
-            { "ref": "n-koohii", "next": null },
-            { "ref": "n-ocha", "next": null },
-            { "ref": "n-nihon", "next": null },
-            { "ref": "n-onsen", "next": null }
-          ]
-        }
-      },
-      "template": [
-        { "slot": "subject", "particle": "は" },
-        { "slot": "object", "particle": "が" },
-        { "text": "好きです", "kana": "すきです", "vi": "thích" }
-      ],
-      "viTemplate": "{subject} thích {object}",
-      "grammar": ["suki", "particle-ga", "particle-wa"],
-      "tip": "好き là tính từ đuôi な, thứ được thích đánh dấu bằng が (không phải を)."
-    },
-    {
-      "id": "i-this",
-      "emoji": "👉",
-      "label": "Cái này thì sao?",
-      "desc": "Chỉ vào đồ vật rồi hỏi / mua",
-      "group": "Ăn uống & mua sắm",
-      "start": "s-demo",
-      "steps": {
-        "s-demo": {
-          "prompt": "Chỉ vào…",
-          "slot": "demo",
-          "options": [
-            { "ref": "d-kore", "next": "s-ask" },
-            { "ref": "d-sore", "next": "s-ask" },
-            { "ref": "d-are", "next": "s-ask" }
-          ]
-        },
-        "s-ask": {
-          "prompt": "Bạn muốn hỏi gì?",
-          "slot": "suffix",
-          "options": [
-            {
-              "jp": "何ですか", "kana": "なんですか", "vi": "là gì?",
-              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }],
-              "viTemplateOverride": "{demo} là gì?",
-              "next": null
-            },
-            {
-              "jp": "いくらですか", "kana": "いくらですか", "vi": "bao nhiêu tiền?",
-              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "いくらですか", "kana": "いくらですか", "vi": "bao nhiêu tiền?" }],
-              "viTemplateOverride": "{demo} bao nhiêu tiền?",
-              "next": null
-            },
-            {
-              "jp": "いいですか", "kana": "いいですか", "vi": "có được không?",
-              "templateOverride": [{ "slot": "demo", "particle": "で" }, { "text": "いいですか", "kana": "いいですか", "vi": "được không?" }],
-              "viTemplateOverride": "{demo} có được không ạ?",
-              "next": null
-            },
-            {
-              "jp": "ください", "kana": "ください", "vi": "cho tôi",
-              "templateOverride": [{ "slot": "demo", "particle": "を" }, { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }],
-              "viTemplateOverride": "Cho tôi {demo}",
-              "next": null
-            }
-          ]
-        }
-      },
-      "template": [
-        { "slot": "demo", "particle": "は" },
-        { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }
-      ],
-      "viTemplate": "{demo} là gì?",
-      "grammar": ["kosoado", "question-ka", "particle-wa"],
-      "tip": "これ/それ/あれ chọn theo khoảng cách: gần mình – gần người nghe – xa cả hai."
-    },
-    {
-      "id": "i-go",
-      "emoji": "🚕",
-      "label": "Đi đến…",
-      "desc": "Nói muốn đi đâu hoặc nhờ tài xế đưa đến nơi",
-      "group": "Đi lại & khách sạn",
-      "start": "s-way",
-      "steps": {
-        "s-way": {
-          "prompt": "Bạn muốn nói kiểu nào?",
-          "options": [
-            {
-              "silent": true, "label": "Tôi muốn đi đến…", "vi": "(tôi muốn đi đến)",
-              "templateOverride": [
-                { "slot": "place", "particle": "に" },
-                { "text": "行きたいです", "kana": "いきたいです", "vi": "muốn đi" }
-              ],
-              "viTemplateOverride": "Tôi muốn đi đến {place}",
-              "next": "s-place"
-            },
-            {
-              "silent": true, "label": "Nhờ đưa tôi đến… (taxi)", "vi": "(làm ơn đưa tôi đến)",
-              "templateOverride": [
-                { "slot": "place", "particle": "まで" },
-                { "text": "お願いします", "kana": "おねがいします", "vi": "xin nhờ / làm ơn" }
-              ],
-              "viTemplateOverride": "Làm ơn đưa tôi đến {place}",
-              "next": "s-place"
-            },
-            {
-              "silent": true, "label": "Tàu này có đi… không?", "vi": "(tàu này có đi)",
-              "templateOverride": [
-                { "text": "この電車は", "kana": "このでんしゃは", "vi": "tàu này thì", "roma": "kono densha wa", "viPron": "cô-nô đên-xa oa" },
-                { "slot": "place", "particle": "に" },
-                { "text": "行きますか", "kana": "いきますか", "vi": "có đi không?" }
-              ],
-              "viTemplateOverride": "Tàu này có đi {place} không?",
-              "next": "s-place-train"
-            }
-          ]
-        },
-        "s-place": {
-          "prompt": "Điểm đến là đâu?",
-          "slot": "place",
-          "options": [
-            { "ref": "n-eki", "next": null },
-            { "ref": "n-kukou", "next": null },
-            { "ref": "n-hoteru", "next": null },
-            { "ref": "n-toire", "next": null },
-            { "ref": "n-onsen", "next": null },
-            { "ref": "n-ichiba", "next": null },
-            { "ref": "n-ginkou", "next": null },
-            { "ref": "n-byouin", "next": null },
-            { "ref": "n-basutei", "next": null }
-          ]
-        },
-        "s-place-train": {
-          "prompt": "Tàu đi đâu?",
-          "slot": "place",
-          "options": [
-            { "ref": "n-toukyou", "next": null },
-            { "ref": "n-eki", "next": null },
-            { "ref": "n-kukou", "next": null },
-            { "ref": "n-hoteru", "next": null },
-            { "ref": "n-onsen", "next": null },
-            { "ref": "n-ichiba", "next": null },
-            { "ref": "n-jinja", "next": null },
-            { "ref": "n-otera", "next": null }
-          ]
-        }
-      },
-      "template": [
-        { "slot": "place", "particle": "に" },
-        { "text": "行きたいです", "kana": "いきたいです", "vi": "muốn đi" }
-      ],
-      "viTemplate": "Tôi muốn đi đến {place}",
-      "grammar": ["particle-ni", "tai"],
-      "tip": "Đến (điểm đích) dùng に; nhờ taxi đi đến dùng まで + お願いします."
-    },
-    {
-      "id": "i-do-please",
-      "emoji": "🆘",
-      "label": "Làm ơn giúp tôi…",
-      "desc": "Nhờ nói chậm, viết ra, chỉ đường, chụp ảnh…",
-      "group": "Giao tiếp",
-      "start": "s-action",
-      "steps": {
-        "s-action": {
-          "prompt": "Nhờ giúp điều gì?",
-          "slot": "action",
-          "options": [
-            { "jp": "ゆっくり話して", "kana": "ゆっくりはなして", "vi": "nói chậm lại", "next": null },
-            { "jp": "もう一度言って", "kana": "もういちどいって", "vi": "nói lại lần nữa", "next": null },
-            { "jp": "ここに書いて", "kana": "ここにかいて", "vi": "viết ra đây", "next": null },
-            { "jp": "地図で指して", "kana": "ちずでさして", "vi": "chỉ trên bản đồ", "next": null },
-            { "jp": "写真を撮って", "kana": "しゃしんをとって", "vi": "chụp ảnh giúp", "next": null },
-            { "jp": "医者を呼んで", "kana": "いしゃをよんで", "vi": "gọi bác sĩ", "next": null },
-            { "jp": "助けて", "kana": "たすけて", "vi": "giúp tôi", "next": null }
-          ]
-        }
-      },
-      "template": [
-        { "slot": "action" },
-        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
-      ],
-      "viTemplate": "Làm ơn {action}",
-      "grammar": ["te-kudasai", "kudasai-onegai"],
-      "tip": "Cấu trúc: thể て của động từ + ください = 'làm ơn hãy…'."
-    },
-    {
-      "id": "i-respond",
-      "emoji": "💬",
-      "label": "Trả lời & xử lý",
-      "desc": "Đồng ý, từ chối, không hiểu, nói về bạn",
-      "group": "Giao tiếp",
-      "start": "s-kind",
-      "steps": {
-        "s-kind": {
-          "prompt": "Bạn muốn phản hồi thế nào?",
-          "options": [
-            { "silent": true, "label": "Đồng ý / đã hiểu", "vi": "(đồng ý)", "next": "s-yes" },
-            { "silent": true, "label": "Từ chối lịch sự", "vi": "(từ chối)", "next": "s-no" },
-            { "silent": true, "label": "Không hiểu / nhờ giúp", "vi": "(không hiểu)", "next": "s-confused" },
-            { "silent": true, "label": "Nói về bạn", "vi": "(về tôi)", "next": "s-me" }
-          ]
-        },
-        "s-yes": {
-          "prompt": "Đồng ý thế nào?",
-          "options": [
-            { "jp": "はい", "kana": "はい", "vi": "Vâng / Dạ", "next": null },
-            { "jp": "わかりました", "kana": "わかりました", "vi": "Tôi hiểu rồi", "next": null },
-            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không sao đâu / Tôi ổn", "next": null },
-            { "jp": "そうですね", "kana": "そうですね", "vi": "Ừ nhỉ / Đúng vậy nhỉ", "next": null }
-          ]
-        },
-        "s-no": {
-          "prompt": "Từ chối thế nào?",
-          "options": [
-            { "jp": "いいえ", "kana": "いいえ", "vi": "Không", "note": "Người Nhật ít dùng thẳng.", "next": null },
-            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không, cảm ơn / Tôi ổn", "note": "Cách từ chối mềm phổ biến nhất.", "next": null },
-            { "jp": "いいです", "kana": "いいです", "vi": "Thôi, khỏi cần ạ", "note": "Khi được mời thêm, いいです nghĩa là từ chối.", "next": null },
-            { "jp": "結構です", "kana": "けっこうです", "vi": "Không cần đâu ạ", "next": null },
-            { "jp": "ちょっと難しいです", "kana": "ちょっとむずかしいです", "vi": "Hơi khó ạ…", "next": null },
-            {
-              "silent": true, "label": "Tôi không ăn được…", "vi": "(tôi không ăn được)",
-              "templateOverride": [
-                { "slot": "food", "particle": "は" },
-                { "text": "食べられません", "kana": "たべられません", "vi": "không ăn được" }
-              ],
-              "viTemplateOverride": "Tôi không ăn được {food}",
-              "next": "s-food"
-            }
-          ]
-        },
-        "s-confused": {
-          "prompt": "Không hiểu thì nói gì?",
-          "options": [
-            { "jp": "わかりません", "kana": "わかりません", "vi": "Tôi không hiểu", "next": null },
-            { "jp": "日本語がわかりません", "kana": "にほんごがわかりません", "vi": "Tôi không hiểu tiếng Nhật", "next": null },
-            { "jp": "英語でお願いします", "kana": "えいごでおねがいします", "vi": "Làm ơn nói tiếng Anh", "next": null },
-            { "jp": "もう一度お願いします", "kana": "もういちどおねがいします", "vi": "Làm ơn nhắc lại", "next": null },
-            { "jp": "ゆっくりお願いします", "kana": "ゆっくりおねがいします", "vi": "Làm ơn nói chậm hơn", "next": null },
-            { "jp": "ちょっと待ってください", "kana": "ちょっとまってください", "vi": "Làm ơn đợi một chút", "next": null },
-            { "jp": "書いてもらえますか", "kana": "かいてもらえますか", "vi": "Viết ra giúp tôi được không?", "next": null }
-          ]
-        },
-        "s-me": {
-          "prompt": "Nói gì về bạn?",
-          "options": [
-            { "jp": "ベトナム人です", "kana": "ベトナムじんです", "vi": "Tôi là người Việt Nam", "next": null },
-            { "jp": "日本語が話せません", "kana": "にほんごがはなせません", "vi": "Tôi không nói được tiếng Nhật", "next": null },
-            { "jp": "英語が少し話せます", "kana": "えいごがすこしはなせます", "vi": "Tôi nói được một chút tiếng Anh", "next": null },
-            { "jp": "日本語が少しわかります", "kana": "にほんごがすこしわかります", "vi": "Tôi hiểu một chút tiếng Nhật", "next": null },
-            { "jp": "アレルギーがあります", "kana": "アレルギーがあります", "vi": "Tôi bị dị ứng", "next": null }
-          ]
-        },
-        "s-food": {
-          "prompt": "Không ăn được gì?",
-          "slot": "food",
-          "options": [
-            { "ref": "n-butaniku", "next": null },
-            { "ref": "n-gyuuniku", "next": null },
-            { "ref": "n-toriniku", "next": null },
-            { "ref": "n-kaisen", "next": null }
-          ]
-        }
-      },
-      "template": null,
-      "viTemplate": null,
-      "grammar": ["desu", "te-kudasai"],
-      "tip": "Khi bí, chỉ cần すみません、わかりません — hoặc bấm 📺 đưa máy cho người đối diện."
-    },
-    {
-      "id": "i-can",
-      "emoji": "👌",
-      "label": "Cái này được không?",
-      "desc": "Xin phép hoặc hỏi dịch vụ có được không",
-      "group": "Giao tiếp",
-      "start": "s-can",
-      "steps": {
-        "s-can": {
-          "prompt": "Bạn muốn hỏi điều gì?",
-          "options": [
-            { "jp": "カードは使えますか", "kana": "カードはつかえますか", "vi": "Dùng thẻ được không?", "roma": "kaado wa tsukaemasu ka", "viPron": "ka-a-đô oa tsư-ka-ê-ma-xư-ka", "next": null },
-            { "jp": "免税できますか", "kana": "めんぜいできますか", "vi": "Được miễn thuế không?", "next": null },
-            { "jp": "持ち帰りできますか", "kana": "もちかえりできますか", "vi": "Mang về được không?", "next": null },
-            { "jp": "写真を撮ってもいいですか", "kana": "しゃしんをとってもいいですか", "vi": "Tôi chụp ảnh được không?", "next": null },
-            { "jp": "試着してもいいですか", "kana": "しちゃくしてもいいですか", "vi": "Tôi mặc thử được không?", "next": null },
-            { "jp": "入ってもいいですか", "kana": "はいってもいいですか", "vi": "Tôi vào được không?", "next": null },
-            { "jp": "座ってもいいですか", "kana": "すわってもいいですか", "vi": "Tôi ngồi được không?", "next": null }
-          ]
-        }
-      },
-      "template": null,
-      "viTemplate": null,
-      "grammar": ["te-mo-ii", "potential"],
-      "tip": "〜てもいいですか = xin phép; 〜できますか = có làm được không."
-    },
-    {
-      "id": "i-where",
-      "emoji": "🗺️",
-      "label": "…ở đâu?",
-      "desc": "Hỏi vị trí nhà vệ sinh, ga, khách sạn…",
-      "group": "Đi lại & khách sạn",
-      "start": "s-place",
-      "steps": {
-        "s-place": {
-          "prompt": "Tìm gì?",
-          "slot": "place",
-          "options": [
-            { "ref": "n-toire", "next": null },
-            { "ref": "n-eki", "next": null },
-            { "ref": "n-kukou", "next": null },
-            { "ref": "n-hoteru", "next": null },
-            { "ref": "n-yakkyoku", "next": null },
-            { "ref": "n-kouban", "next": null },
-            { "ref": "n-ginkou", "next": null },
-            { "ref": "n-konbini", "next": null },
-            { "ref": "n-basutei", "next": null },
-            { "ref": "n-byouin", "next": null }
-          ]
-        }
-      },
-      "template": [
-        { "slot": "place", "particle": "は" },
-        { "text": "どこですか", "kana": "どこですか", "vi": "ở đâu?" }
-      ],
-      "viTemplate": "{place} ở đâu?",
-      "grammar": ["question-ka", "particle-wa", "kosoado"],
-      "tip": "Công thức vạn năng: [địa điểm] + はどこですか."
-    },
-    {
       "id": "i-greet",
       "emoji": "👋",
       "label": "Chào hỏi & xã giao",
@@ -647,6 +150,503 @@
       "viTemplate": null,
       "grammar": ["te-kudasai", "kudasai-onegai"],
       "tip": "Mẫu 〜てくれてありがとう: động từ thể て + くれて + ありがとうございます — cảm ơn vì ai đó đã làm gì cho mình."
+    },
+    {
+      "id": "i-respond",
+      "emoji": "💬",
+      "label": "Trả lời & xử lý",
+      "desc": "Đồng ý, từ chối, không hiểu, nói về bạn",
+      "group": "Giao tiếp",
+      "start": "s-kind",
+      "steps": {
+        "s-kind": {
+          "prompt": "Bạn muốn phản hồi thế nào?",
+          "options": [
+            { "silent": true, "label": "Đồng ý / đã hiểu", "vi": "(đồng ý)", "next": "s-yes" },
+            { "silent": true, "label": "Từ chối lịch sự", "vi": "(từ chối)", "next": "s-no" },
+            { "silent": true, "label": "Không hiểu / nhờ giúp", "vi": "(không hiểu)", "next": "s-confused" },
+            { "silent": true, "label": "Nói về bạn", "vi": "(về tôi)", "next": "s-me" }
+          ]
+        },
+        "s-yes": {
+          "prompt": "Đồng ý thế nào?",
+          "options": [
+            { "jp": "はい", "kana": "はい", "vi": "Vâng / Dạ", "next": null },
+            { "jp": "わかりました", "kana": "わかりました", "vi": "Tôi hiểu rồi", "next": null },
+            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không sao đâu / Tôi ổn", "next": null },
+            { "jp": "そうですね", "kana": "そうですね", "vi": "Ừ nhỉ / Đúng vậy nhỉ", "next": null }
+          ]
+        },
+        "s-no": {
+          "prompt": "Từ chối thế nào?",
+          "options": [
+            { "jp": "いいえ", "kana": "いいえ", "vi": "Không", "note": "Người Nhật ít dùng thẳng.", "next": null },
+            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không, cảm ơn / Tôi ổn", "note": "Cách từ chối mềm phổ biến nhất.", "next": null },
+            { "jp": "いいです", "kana": "いいです", "vi": "Thôi, khỏi cần ạ", "note": "Khi được mời thêm, いいです nghĩa là từ chối.", "next": null },
+            { "jp": "結構です", "kana": "けっこうです", "vi": "Không cần đâu ạ", "next": null },
+            { "jp": "ちょっと難しいです", "kana": "ちょっとむずかしいです", "vi": "Hơi khó ạ…", "next": null },
+            {
+              "silent": true, "label": "Tôi không ăn được…", "vi": "(tôi không ăn được)",
+              "templateOverride": [
+                { "slot": "food", "particle": "は" },
+                { "text": "食べられません", "kana": "たべられません", "vi": "không ăn được" }
+              ],
+              "viTemplateOverride": "Tôi không ăn được {food}",
+              "next": "s-food"
+            }
+          ]
+        },
+        "s-confused": {
+          "prompt": "Không hiểu thì nói gì?",
+          "options": [
+            { "jp": "わかりません", "kana": "わかりません", "vi": "Tôi không hiểu", "next": null },
+            { "jp": "日本語がわかりません", "kana": "にほんごがわかりません", "vi": "Tôi không hiểu tiếng Nhật", "next": null },
+            { "jp": "英語でお願いします", "kana": "えいごでおねがいします", "vi": "Làm ơn nói tiếng Anh", "next": null },
+            { "jp": "もう一度お願いします", "kana": "もういちどおねがいします", "vi": "Làm ơn nhắc lại", "next": null },
+            { "jp": "ゆっくりお願いします", "kana": "ゆっくりおねがいします", "vi": "Làm ơn nói chậm hơn", "next": null },
+            { "jp": "ちょっと待ってください", "kana": "ちょっとまってください", "vi": "Làm ơn đợi một chút", "next": null },
+            { "jp": "書いてもらえますか", "kana": "かいてもらえますか", "vi": "Viết ra giúp tôi được không?", "next": null }
+          ]
+        },
+        "s-me": {
+          "prompt": "Nói gì về bạn?",
+          "options": [
+            { "jp": "ベトナム人です", "kana": "ベトナムじんです", "vi": "Tôi là người Việt Nam", "next": null },
+            { "jp": "日本語が話せません", "kana": "にほんごがはなせません", "vi": "Tôi không nói được tiếng Nhật", "next": null },
+            { "jp": "英語が少し話せます", "kana": "えいごがすこしはなせます", "vi": "Tôi nói được một chút tiếng Anh", "next": null },
+            { "jp": "日本語が少しわかります", "kana": "にほんごがすこしわかります", "vi": "Tôi hiểu một chút tiếng Nhật", "next": null },
+            { "jp": "アレルギーがあります", "kana": "アレルギーがあります", "vi": "Tôi bị dị ứng", "next": null }
+          ]
+        },
+        "s-food": {
+          "prompt": "Không ăn được gì?",
+          "slot": "food",
+          "options": [
+            { "ref": "n-butaniku", "next": null },
+            { "ref": "n-gyuuniku", "next": null },
+            { "ref": "n-toriniku", "next": null },
+            { "ref": "n-kaisen", "next": null }
+          ]
+        }
+      },
+      "template": null,
+      "viTemplate": null,
+      "grammar": ["desu", "te-kudasai"],
+      "tip": "Khi bí, chỉ cần すみません、わかりません — hoặc bấm 📺 đưa máy cho người đối diện."
+    },
+    {
+      "id": "i-do-please",
+      "emoji": "🆘",
+      "label": "Làm ơn giúp tôi…",
+      "desc": "Nhờ nói chậm, viết ra, chỉ đường, chụp ảnh…",
+      "group": "Giao tiếp",
+      "start": "s-action",
+      "steps": {
+        "s-action": {
+          "prompt": "Nhờ giúp điều gì?",
+          "slot": "action",
+          "options": [
+            { "jp": "ゆっくり話して", "kana": "ゆっくりはなして", "vi": "nói chậm lại", "next": null },
+            { "jp": "もう一度言って", "kana": "もういちどいって", "vi": "nói lại lần nữa", "next": null },
+            { "jp": "ここに書いて", "kana": "ここにかいて", "vi": "viết ra đây", "next": null },
+            { "jp": "地図で指して", "kana": "ちずでさして", "vi": "chỉ trên bản đồ", "next": null },
+            { "jp": "写真を撮って", "kana": "しゃしんをとって", "vi": "chụp ảnh giúp", "next": null },
+            { "jp": "医者を呼んで", "kana": "いしゃをよんで", "vi": "gọi bác sĩ", "next": null },
+            { "jp": "助けて", "kana": "たすけて", "vi": "giúp tôi", "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "action" },
+        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
+      ],
+      "viTemplate": "Làm ơn {action}",
+      "grammar": ["te-kudasai", "kudasai-onegai"],
+      "tip": "Cấu trúc: thể て của động từ + ください = 'làm ơn hãy…'."
+    },
+    {
+      "id": "i-can",
+      "emoji": "👌",
+      "label": "Cái này được không?",
+      "desc": "Xin phép hoặc hỏi dịch vụ có được không",
+      "group": "Giao tiếp",
+      "start": "s-can",
+      "steps": {
+        "s-can": {
+          "prompt": "Bạn muốn hỏi điều gì?",
+          "options": [
+            { "jp": "カードは使えますか", "kana": "カードはつかえますか", "vi": "Dùng thẻ được không?", "roma": "kaado wa tsukaemasu ka", "viPron": "ka-a-đô oa tsư-ka-ê-ma-xư-ka", "next": null },
+            { "jp": "免税できますか", "kana": "めんぜいできますか", "vi": "Được miễn thuế không?", "next": null },
+            { "jp": "持ち帰りできますか", "kana": "もちかえりできますか", "vi": "Mang về được không?", "next": null },
+            { "jp": "写真を撮ってもいいですか", "kana": "しゃしんをとってもいいですか", "vi": "Tôi chụp ảnh được không?", "next": null },
+            { "jp": "試着してもいいですか", "kana": "しちゃくしてもいいですか", "vi": "Tôi mặc thử được không?", "next": null },
+            { "jp": "入ってもいいですか", "kana": "はいってもいいですか", "vi": "Tôi vào được không?", "next": null },
+            { "jp": "座ってもいいですか", "kana": "すわってもいいですか", "vi": "Tôi ngồi được không?", "next": null }
+          ]
+        }
+      },
+      "template": null,
+      "viTemplate": null,
+      "grammar": ["te-mo-ii", "potential"],
+      "tip": "〜てもいいですか = xin phép; 〜できますか = có làm được không."
+    },
+    {
+      "id": "i-this",
+      "emoji": "👉",
+      "label": "Cái này thì sao?",
+      "desc": "Chỉ vào đồ vật rồi hỏi / mua",
+      "group": "Ăn uống & mua sắm",
+      "start": "s-demo",
+      "steps": {
+        "s-demo": {
+          "prompt": "Chỉ vào…",
+          "slot": "demo",
+          "options": [
+            { "ref": "d-kore", "next": "s-ask" },
+            { "ref": "d-sore", "next": "s-ask" },
+            { "ref": "d-are", "next": "s-ask" }
+          ]
+        },
+        "s-ask": {
+          "prompt": "Bạn muốn hỏi gì?",
+          "slot": "suffix",
+          "options": [
+            {
+              "jp": "何ですか", "kana": "なんですか", "vi": "là gì?",
+              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }],
+              "viTemplateOverride": "{demo} là gì?",
+              "next": null
+            },
+            {
+              "jp": "いくらですか", "kana": "いくらですか", "vi": "bao nhiêu tiền?",
+              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "いくらですか", "kana": "いくらですか", "vi": "bao nhiêu tiền?" }],
+              "viTemplateOverride": "{demo} bao nhiêu tiền?",
+              "next": null
+            },
+            {
+              "jp": "いいですか", "kana": "いいですか", "vi": "có được không?",
+              "templateOverride": [{ "slot": "demo", "particle": "で" }, { "text": "いいですか", "kana": "いいですか", "vi": "được không?" }],
+              "viTemplateOverride": "{demo} có được không ạ?",
+              "next": null
+            },
+            {
+              "jp": "ください", "kana": "ください", "vi": "cho tôi",
+              "templateOverride": [{ "slot": "demo", "particle": "を" }, { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }],
+              "viTemplateOverride": "Cho tôi {demo}",
+              "next": null
+            }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "demo", "particle": "は" },
+        { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }
+      ],
+      "viTemplate": "{demo} là gì?",
+      "grammar": ["kosoado", "question-ka", "particle-wa"],
+      "tip": "これ/それ/あれ chọn theo khoảng cách: gần mình – gần người nghe – xa cả hai."
+    },
+    {
+      "id": "i-please",
+      "emoji": "🙏",
+      "label": "Cho tôi…",
+      "desc": "Câu gọi món / mua hàng lịch sự với ください",
+      "group": "Ăn uống & mua sắm",
+      "start": "s-object",
+      "steps": {
+        "s-object": {
+          "prompt": "Cho bạn cái gì?",
+          "slot": "object",
+          "particle": "を",
+          "options": [
+            { "ref": "d-kore", "next": "s-quantity" },
+            { "ref": "d-sore", "next": "s-quantity" },
+            { "ref": "d-are", "next": "s-quantity" },
+            { "ref": "n-mizu", "next": "s-quantity" },
+            { "ref": "n-ocha", "next": "s-quantity" },
+            { "ref": "n-koohii", "next": "s-quantity" },
+            { "ref": "n-biiru", "next": "s-quantity" },
+            { "ref": "n-menu", "next": "s-quantity" },
+            { "ref": "n-sushi", "next": "s-quantity" },
+            { "ref": "n-raamen", "next": "s-quantity" }
+          ]
+        },
+        "s-quantity": {
+          "prompt": "Số lượng?",
+          "slot": "quantity",
+          "options": [
+            { "silent": true, "label": "Không cần số lượng", "vi": "", "next": null },
+            { "jp": "一つ", "kana": "ひとつ", "vi": "một cái", "next": null },
+            { "jp": "二つ", "kana": "ふたつ", "vi": "hai cái", "next": null },
+            { "jp": "三つ", "kana": "みっつ", "vi": "ba cái", "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "object", "particle": "を" },
+        { "slot": "quantity" },
+        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
+      ],
+      "viTemplate": "Cho tôi {object}, {quantity}",
+      "grammar": ["kudasai-onegai", "particle-wo", "counters"],
+      "tip": "ください là cách 'cho tôi' chuẩn mực nhất. Số lượng đứng ngay trước ください."
+    },
+    {
+      "id": "i-want",
+      "emoji": "🙋",
+      "label": "Tôi muốn…",
+      "desc": "Nói điều mình muốn ăn, uống, mua, xem, đi",
+      "group": "Ăn uống & mua sắm",
+      "start": "s-subject",
+      "steps": {
+        "s-subject": {
+          "prompt": "Ai muốn?",
+          "slot": "subject",
+          "options": [
+            { "ref": "p-watashi", "next": "s-action" },
+            { "ref": "p-watashitachi", "next": "s-action" },
+            { "silent": true, "label": "Không cần chủ ngữ", "hint": "Người Nhật thường lược bỏ chủ ngữ khi đã rõ", "vi": "(tôi)", "next": "s-action" }
+          ]
+        },
+        "s-action": {
+          "prompt": "Muốn làm gì?",
+          "slot": "verb",
+          "options": [
+            { "ref": "v-taberu", "form": "tai", "next": "s-obj-food" },
+            { "ref": "v-nomu", "form": "tai", "next": "s-obj-drink" },
+            { "ref": "v-kau", "form": "tai", "next": "s-obj-buy" },
+            { "ref": "v-miru", "form": "tai", "next": "s-obj-see" },
+            { "ref": "v-iku", "form": "tai", "next": "s-obj-place" }
+          ]
+        },
+        "s-obj-food": {
+          "prompt": "Muốn ăn gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            { "ref": "n-sushi", "next": null },
+            { "ref": "n-raamen", "next": null },
+            { "ref": "n-tempura", "next": null },
+            { "ref": "n-karee", "next": null },
+            { "ref": "n-gyuudon", "next": null },
+            { "ref": "d-kore", "next": null },
+            { "ref": "d-sore", "next": null }
+          ]
+        },
+        "s-obj-drink": {
+          "prompt": "Muốn uống gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            { "ref": "n-mizu", "next": null },
+            { "ref": "n-ocha", "next": null },
+            { "ref": "n-koohii", "next": null },
+            { "ref": "n-biiru", "next": null },
+            { "ref": "n-juusu", "next": null },
+            { "ref": "d-kore", "next": null }
+          ]
+        },
+        "s-obj-buy": {
+          "prompt": "Muốn mua gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            { "ref": "n-omiyage", "next": null },
+            { "ref": "n-kasa", "next": null },
+            { "ref": "n-kippu", "next": null },
+            { "ref": "d-kore", "next": null },
+            { "ref": "d-sore", "next": null }
+          ]
+        },
+        "s-obj-see": {
+          "prompt": "Muốn xem gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            { "ref": "n-menu", "next": null },
+            { "ref": "n-chizu", "next": null },
+            { "ref": "n-shashin", "next": null },
+            { "ref": "d-kore", "next": null }
+          ]
+        },
+        "s-obj-place": {
+          "prompt": "Muốn đi đâu?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            { "ref": "n-eki", "particle": "に", "vi": "đến ga", "next": null },
+            { "ref": "n-kukou", "particle": "に", "vi": "đến sân bay", "next": null },
+            { "ref": "n-hoteru", "particle": "に", "vi": "đến khách sạn", "next": null },
+            { "ref": "n-onsen", "particle": "に", "vi": "đến suối nước nóng", "next": null },
+            { "ref": "n-ichiba", "particle": "に", "vi": "đến chợ", "next": null },
+            { "ref": "n-konbini", "particle": "に", "vi": "đến cửa hàng tiện lợi", "next": null },
+            { "ref": "n-byouin", "particle": "に", "vi": "đến bệnh viện", "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "subject", "particle": "は" },
+        { "slot": "object", "particle": "が" },
+        { "slot": "verb" },
+        { "text": "です", "kana": "です", "vi": "là (lịch sự)" }
+      ],
+      "viTemplate": "{subject} muốn {verb} {object}",
+      "grammar": ["tai", "particle-ga", "sov"],
+      "tip": "たい = 'muốn làm gì'. Với 行く (đi), đích đến đánh dấu bằng に chứ không phải が."
+    },
+    {
+      "id": "i-like",
+      "emoji": "❤️",
+      "label": "Tôi thích…",
+      "desc": "Nói món ăn, đồ uống, địa điểm mình thích",
+      "group": "Ăn uống & mua sắm",
+      "start": "s-subject",
+      "steps": {
+        "s-subject": {
+          "prompt": "Ai thích?",
+          "slot": "subject",
+          "options": [
+            { "ref": "p-watashi", "next": "s-object" },
+            { "ref": "p-watashitachi", "next": "s-object" },
+            { "silent": true, "label": "Không cần chủ ngữ", "vi": "(tôi)", "next": "s-object" }
+          ]
+        },
+        "s-object": {
+          "prompt": "Thích gì?",
+          "slot": "object",
+          "particle": "が",
+          "options": [
+            { "ref": "n-sushi", "next": null },
+            { "ref": "n-raamen", "next": null },
+            { "ref": "n-tempura", "next": null },
+            { "ref": "n-karee", "next": null },
+            { "ref": "n-koohii", "next": null },
+            { "ref": "n-ocha", "next": null },
+            { "ref": "n-nihon", "next": null },
+            { "ref": "n-onsen", "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "subject", "particle": "は" },
+        { "slot": "object", "particle": "が" },
+        { "text": "好きです", "kana": "すきです", "vi": "thích" }
+      ],
+      "viTemplate": "{subject} thích {object}",
+      "grammar": ["suki", "particle-ga", "particle-wa"],
+      "tip": "好き là tính từ đuôi な, thứ được thích đánh dấu bằng が (không phải を)."
+    },
+    {
+      "id": "i-where",
+      "emoji": "🗺️",
+      "label": "…ở đâu?",
+      "desc": "Hỏi vị trí nhà vệ sinh, ga, khách sạn…",
+      "group": "Đi lại & khách sạn",
+      "start": "s-place",
+      "steps": {
+        "s-place": {
+          "prompt": "Tìm gì?",
+          "slot": "place",
+          "options": [
+            { "ref": "n-toire", "next": null },
+            { "ref": "n-eki", "next": null },
+            { "ref": "n-kukou", "next": null },
+            { "ref": "n-hoteru", "next": null },
+            { "ref": "n-yakkyoku", "next": null },
+            { "ref": "n-kouban", "next": null },
+            { "ref": "n-ginkou", "next": null },
+            { "ref": "n-konbini", "next": null },
+            { "ref": "n-basutei", "next": null },
+            { "ref": "n-byouin", "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "place", "particle": "は" },
+        { "text": "どこですか", "kana": "どこですか", "vi": "ở đâu?" }
+      ],
+      "viTemplate": "{place} ở đâu?",
+      "grammar": ["question-ka", "particle-wa", "kosoado"],
+      "tip": "Công thức vạn năng: [địa điểm] + はどこですか."
+    },
+    {
+      "id": "i-go",
+      "emoji": "🚕",
+      "label": "Đi đến…",
+      "desc": "Nói muốn đi đâu hoặc nhờ tài xế đưa đến nơi",
+      "group": "Đi lại & khách sạn",
+      "start": "s-way",
+      "steps": {
+        "s-way": {
+          "prompt": "Bạn muốn nói kiểu nào?",
+          "options": [
+            {
+              "silent": true, "label": "Tôi muốn đi đến…", "vi": "(tôi muốn đi đến)",
+              "templateOverride": [
+                { "slot": "place", "particle": "に" },
+                { "text": "行きたいです", "kana": "いきたいです", "vi": "muốn đi" }
+              ],
+              "viTemplateOverride": "Tôi muốn đi đến {place}",
+              "next": "s-place"
+            },
+            {
+              "silent": true, "label": "Nhờ đưa tôi đến… (taxi)", "vi": "(làm ơn đưa tôi đến)",
+              "templateOverride": [
+                { "slot": "place", "particle": "まで" },
+                { "text": "お願いします", "kana": "おねがいします", "vi": "xin nhờ / làm ơn" }
+              ],
+              "viTemplateOverride": "Làm ơn đưa tôi đến {place}",
+              "next": "s-place"
+            },
+            {
+              "silent": true, "label": "Tàu này có đi… không?", "vi": "(tàu này có đi)",
+              "templateOverride": [
+                { "text": "この電車は", "kana": "このでんしゃは", "vi": "tàu này thì", "roma": "kono densha wa", "viPron": "cô-nô đên-xa oa" },
+                { "slot": "place", "particle": "に" },
+                { "text": "行きますか", "kana": "いきますか", "vi": "có đi không?" }
+              ],
+              "viTemplateOverride": "Tàu này có đi {place} không?",
+              "next": "s-place-train"
+            }
+          ]
+        },
+        "s-place": {
+          "prompt": "Điểm đến là đâu?",
+          "slot": "place",
+          "options": [
+            { "ref": "n-eki", "next": null },
+            { "ref": "n-kukou", "next": null },
+            { "ref": "n-hoteru", "next": null },
+            { "ref": "n-toire", "next": null },
+            { "ref": "n-onsen", "next": null },
+            { "ref": "n-ichiba", "next": null },
+            { "ref": "n-ginkou", "next": null },
+            { "ref": "n-byouin", "next": null },
+            { "ref": "n-basutei", "next": null }
+          ]
+        },
+        "s-place-train": {
+          "prompt": "Tàu đi đâu?",
+          "slot": "place",
+          "options": [
+            { "ref": "n-toukyou", "next": null },
+            { "ref": "n-eki", "next": null },
+            { "ref": "n-kukou", "next": null },
+            { "ref": "n-hoteru", "next": null },
+            { "ref": "n-onsen", "next": null },
+            { "ref": "n-ichiba", "next": null },
+            { "ref": "n-jinja", "next": null },
+            { "ref": "n-otera", "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "place", "particle": "に" },
+        { "text": "行きたいです", "kana": "いきたいです", "vi": "muốn đi" }
+      ],
+      "viTemplate": "Tôi muốn đi đến {place}",
+      "grammar": ["particle-ni", "tai"],
+      "tip": "Đến (điểm đích) dùng に; nhờ taxi đi đến dùng まで + お願いします."
     },
     {
       "id": "i-hotel",
