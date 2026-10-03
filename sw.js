@@ -2,7 +2,7 @@
    Chiến lược: cache-first cho tài nguyên cùng origin (tự cập nhật ngầm),
    stale-while-revalidate cho Google Fonts. Đổi VERSION khi muốn ép cập nhật. */
 
-const VERSION = "qj-v1.2.0";
+const VERSION = "qj-v1.2.1";
 const CORE = [
   "./",
   "./index.html",
@@ -56,6 +56,19 @@ self.addEventListener("fetch", (event) => {
           .catch(() => cached);
         return cached || network;
       })
+    );
+    return;
+  }
+
+  // Điều hướng trang (HTML): network-first để bản mới hiện ngay, offline thì lấy cache
+  if (req.mode === "navigate") {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res && res.ok) caches.open(VERSION).then((c) => c.put(req, res.clone()));
+          return res;
+        })
+        .catch(() => caches.match("./index.html"))
     );
     return;
   }
