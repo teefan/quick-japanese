@@ -114,7 +114,16 @@
             { "ref": "v-toru", "form": "te", "vi": "chụp ảnh cho tôi", "next": null },
             { "ref": "v-yobu", "form": "te", "vi": "gọi giúp tôi", "next": null },
             { "ref": "v-matsu", "form": "te", "vi": "đợi tôi", "next": null },
-            { "ref": "v-tasukeru", "form": "te", "vi": "giúp tôi", "next": null }
+            { "ref": "v-tasukeru", "form": "te", "vi": "giúp tôi", "next": null },
+            { "ref": "v-hanasu", "form": "te", "vi": "nói chuyện với tôi", "next": null },
+            { "ref": "v-iu", "form": "te", "vi": "nói cho tôi biết", "next": null },
+            { "ref": "v-kiku", "form": "te", "vi": "nghe tôi nói", "next": null },
+            { "ref": "v-kaku", "form": "te", "vi": "viết cho tôi", "next": null },
+            { "ref": "v-yomu", "form": "te", "vi": "đọc cho tôi", "next": null },
+            { "ref": "v-akeru", "form": "te", "vi": "mở giúp tôi", "next": null },
+            { "ref": "v-motsu", "form": "te", "vi": "cầm giúp tôi", "next": null },
+            { "ref": "v-kuru", "form": "te", "vi": "đến với tôi", "next": null },
+            { "ref": "v-wakaru", "form": "te", "vi": "hiểu cho tôi", "next": null }
           ]
         },
         "s-sorry": {
@@ -223,7 +232,10 @@
             { "ref": "n-butaniku", "next": null },
             { "ref": "n-gyuuniku", "next": null },
             { "ref": "n-toriniku", "next": null },
-            { "ref": "n-kaisen", "next": null }
+            { "ref": "n-kaisen", "next": null },
+            { "ref": "n-tamago", "next": null },
+            { "ref": "n-soba", "next": null },
+            { "ref": "n-toufu", "next": null }
           ]
         }
       },
@@ -304,7 +316,6 @@
         },
         "s-ask": {
           "prompt": "Bạn muốn hỏi gì?",
-          "slot": "suffix",
           "options": [
             {
               "jp": "何ですか", "kana": "なんですか", "vi": "là gì?",
@@ -333,11 +344,6 @@
           ]
         }
       },
-      "template": [
-        { "slot": "demo", "particle": "は" },
-        { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }
-      ],
-      "viTemplate": "{demo} là gì?",
       "tip": "これ/それ/あれ chọn theo khoảng cách: gần mình – gần người nghe – xa cả hai."
     },
     {
@@ -360,9 +366,38 @@
             { "ref": "n-ocha", "next": "s-quantity" },
             { "ref": "n-koohii", "next": "s-quantity" },
             { "ref": "n-biiru", "next": "s-quantity" },
+            { "ref": "n-juusu", "next": "s-quantity" },
+            { "ref": "n-ryokucha", "next": "s-quantity" },
+            { "ref": "n-koucha", "next": "s-quantity" },
+            { "ref": "n-gyuunyuu", "next": "s-quantity" },
+            { "ref": "n-nihonshu", "next": "s-quantity" },
+            { "ref": "n-wain", "next": "s-quantity" },
             { "ref": "n-menu", "next": "s-quantity" },
             { "ref": "n-sushi", "next": "s-quantity" },
-            { "ref": "n-raamen", "next": "s-quantity" }
+            { "ref": "n-raamen", "next": "s-quantity" },
+            { "ref": "n-tempura", "next": "s-quantity" },
+            { "ref": "n-karee", "next": "s-quantity" },
+            { "ref": "n-gyuudon", "next": "s-quantity" },
+            { "ref": "n-udon", "next": "s-quantity" },
+            { "ref": "n-soba", "next": "s-quantity" },
+            { "ref": "n-sashimi", "next": "s-quantity" },
+            { "ref": "n-yakitori", "next": "s-quantity" },
+            { "ref": "n-yakiniku", "next": "s-quantity" },
+            { "ref": "n-okonomiyaki", "next": "s-quantity" },
+            { "ref": "n-teishoku", "next": "s-quantity" },
+            { "ref": "n-bentou", "next": "s-quantity" },
+            { "ref": "n-onigiri", "next": "s-quantity" },
+            { "ref": "n-misoshiru", "next": "s-quantity" },
+            { "ref": "n-gohan", "next": "s-quantity" },
+            { "ref": "n-pan", "next": "s-quantity" },
+            { "ref": "n-niku", "next": "s-quantity" },
+            { "ref": "n-sakana", "next": "s-quantity" },
+            { "ref": "n-yasai", "next": "s-quantity" },
+            { "ref": "n-kudamono", "next": "s-quantity" },
+            { "ref": "n-tamago", "next": "s-quantity" },
+            { "ref": "n-toufu", "next": "s-quantity" },
+            { "ref": "n-ebi", "next": "s-quantity" },
+            { "ref": "n-dezaato", "next": "s-quantity" }
           ]
         },
         "s-quantity": {
@@ -422,6 +457,26 @@
             { "ref": "n-tempura", "next": null },
             { "ref": "n-karee", "next": null },
             { "ref": "n-gyuudon", "next": null },
+            { "ref": "n-udon", "next": null },
+            { "ref": "n-soba", "next": null },
+            { "ref": "n-sashimi", "next": null },
+            { "ref": "n-yakitori", "next": null },
+            { "ref": "n-yakiniku", "next": null },
+            { "ref": "n-okonomiyaki", "next": null },
+            { "ref": "n-teishoku", "next": null },
+            { "ref": "n-bentou", "next": null },
+            { "ref": "n-onigiri", "next": null },
+            { "ref": "n-misoshiru", "next": null },
+            { "ref": "n-gohan", "next": null },
+            { "ref": "n-pan", "next": null },
+            { "ref": "n-niku", "next": null },
+            { "ref": "n-sakana", "next": null },
+            { "ref": "n-yasai", "next": null },
+            { "ref": "n-kudamono", "next": null },
+            { "ref": "n-tamago", "next": null },
+            { "ref": "n-toufu", "next": null },
+            { "ref": "n-ebi", "next": null },
+            { "ref": "n-dezaato", "next": null },
             { "ref": "d-kore", "next": null },
             { "ref": "d-sore", "next": null }
           ]
@@ -436,6 +491,11 @@
             { "ref": "n-koohii", "next": null },
             { "ref": "n-biiru", "next": null },
             { "ref": "n-juusu", "next": null },
+            { "ref": "n-ryokucha", "next": null },
+            { "ref": "n-koucha", "next": null },
+            { "ref": "n-gyuunyuu", "next": null },
+            { "ref": "n-nihonshu", "next": null },
+            { "ref": "n-wain", "next": null },
             { "ref": "d-kore", "next": null }
           ]
         },
@@ -447,6 +507,9 @@
             { "ref": "n-omiyage", "next": null },
             { "ref": "n-kasa", "next": null },
             { "ref": "n-kippu", "next": null },
+            { "ref": "n-bentou", "next": null },
+            { "ref": "n-pan", "next": null },
+            { "ref": "n-kudamono", "next": null },
             { "ref": "d-kore", "next": null },
             { "ref": "d-sore", "next": null }
           ]
@@ -473,7 +536,12 @@
             { "ref": "n-onsen", "particle": "に", "vi": "đến suối nước nóng", "next": null },
             { "ref": "n-ichiba", "particle": "に", "vi": "đến chợ", "next": null },
             { "ref": "n-konbini", "particle": "に", "vi": "đến cửa hàng tiện lợi", "next": null },
-            { "ref": "n-byouin", "particle": "に", "vi": "đến bệnh viện", "next": null }
+            { "ref": "n-byouin", "particle": "に", "vi": "đến bệnh viện", "next": null },
+            { "ref": "n-resutoran", "particle": "に", "vi": "đến nhà hàng", "next": null },
+            { "ref": "n-cafe", "particle": "に", "vi": "đến quán cà phê", "next": null },
+            { "ref": "n-super", "particle": "に", "vi": "đến siêu thị", "next": null },
+            { "ref": "n-depat", "particle": "に", "vi": "đến trung tâm thương mại", "next": null },
+            { "ref": "n-mise", "particle": "に", "vi": "đến cửa hàng", "next": null }
           ]
         }
       },
@@ -512,10 +580,41 @@
             { "ref": "n-raamen", "next": null },
             { "ref": "n-tempura", "next": null },
             { "ref": "n-karee", "next": null },
+            { "ref": "n-gyuudon", "next": null },
+            { "ref": "n-udon", "next": null },
+            { "ref": "n-soba", "next": null },
+            { "ref": "n-sashimi", "next": null },
+            { "ref": "n-yakitori", "next": null },
+            { "ref": "n-yakiniku", "next": null },
+            { "ref": "n-okonomiyaki", "next": null },
+            { "ref": "n-teishoku", "next": null },
+            { "ref": "n-bentou", "next": null },
+            { "ref": "n-onigiri", "next": null },
+            { "ref": "n-misoshiru", "next": null },
+            { "ref": "n-gohan", "next": null },
+            { "ref": "n-pan", "next": null },
+            { "ref": "n-niku", "next": null },
+            { "ref": "n-sakana", "next": null },
+            { "ref": "n-yasai", "next": null },
+            { "ref": "n-kudamono", "next": null },
+            { "ref": "n-tamago", "next": null },
+            { "ref": "n-toufu", "next": null },
+            { "ref": "n-ebi", "next": null },
+            { "ref": "n-dezaato", "next": null },
             { "ref": "n-koohii", "next": null },
             { "ref": "n-ocha", "next": null },
+            { "ref": "n-ryokucha", "next": null },
+            { "ref": "n-koucha", "next": null },
+            { "ref": "n-gyuunyuu", "next": null },
+            { "ref": "n-nihonshu", "next": null },
+            { "ref": "n-wain", "next": null },
             { "ref": "n-nihon", "next": null },
-            { "ref": "n-onsen", "next": null }
+            { "ref": "n-onsen", "next": null },
+            { "ref": "n-resutoran", "next": null },
+            { "ref": "n-cafe", "next": null },
+            { "ref": "n-super", "next": null },
+            { "ref": "n-depat", "next": null },
+            { "ref": "n-mise", "next": null }
           ]
         }
       },
@@ -548,7 +647,12 @@
             { "ref": "n-ginkou", "next": null },
             { "ref": "n-konbini", "next": null },
             { "ref": "n-basutei", "next": null },
-            { "ref": "n-byouin", "next": null }
+            { "ref": "n-byouin", "next": null },
+            { "ref": "n-resutoran", "next": null },
+            { "ref": "n-cafe", "next": null },
+            { "ref": "n-super", "next": null },
+            { "ref": "n-depat", "next": null },
+            { "ref": "n-mise", "next": null }
           ]
         }
       },
@@ -612,7 +716,12 @@
             { "ref": "n-ichiba", "next": null },
             { "ref": "n-ginkou", "next": null },
             { "ref": "n-byouin", "next": null },
-            { "ref": "n-basutei", "next": null }
+            { "ref": "n-basutei", "next": null },
+            { "ref": "n-resutoran", "next": null },
+            { "ref": "n-cafe", "next": null },
+            { "ref": "n-super", "next": null },
+            { "ref": "n-depat", "next": null },
+            { "ref": "n-mise", "next": null }
           ]
         },
         "s-place-taxi": {
@@ -626,7 +735,12 @@
             { "ref": "n-ichiba", "next": null },
             { "ref": "n-ginkou", "next": null },
             { "ref": "n-byouin", "next": null },
-            { "ref": "n-basutei", "next": null }
+            { "ref": "n-basutei", "next": null },
+            { "ref": "n-resutoran", "next": null },
+            { "ref": "n-cafe", "next": null },
+            { "ref": "n-super", "next": null },
+            { "ref": "n-depat", "next": null },
+            { "ref": "n-mise", "next": null }
           ]
         },
         "s-place-train": {
@@ -797,7 +911,8 @@
             { "ref": "n-saifu", "next": null },
             { "ref": "n-sumaho", "next": null },
             { "ref": "n-pasupooto", "next": null },
-            { "ref": "n-kaban", "next": null }
+            { "ref": "n-kaban", "next": null },
+            { "ref": "n-kippu", "next": null }
           ]
         },
         "s-call-what": {

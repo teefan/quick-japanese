@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `50874a4` · SW cache `qj-v2.0.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · SW cache `qj-v2.0.1` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -16,7 +16,8 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
   (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
   Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục.
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
-  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji.
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **~652 câu có thể
+  ghép** từ 13 cây; **104/183 từ biên tập** được dùng làm option.
 - **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
   460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
@@ -170,6 +171,9 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - Trọng âm dùng **Kanjium accents.txt** (CC BY-SA 4.0, 124k từ): dữ liệu mở, có sẵn số accent
   theo mora; từ kana-only ưu tiên ứng viên cùng reading; 18 từ thiếu dữ liệu thì **không hiện**
   trọng âm (không đoán).
+- **`が` với たい**: `i-want` giữ `[object:が] + たい` (chuẩn giáo trình Genki/Minna: 水が飲みたいです).
+  `を` cũng đúng và ngày càng phổ biến; giữ が cho nhất quán, để người bản ngữ xác nhận trong
+  `REVIEW-CHECKLIST.md` (nếu đổi chỉ cần sửa `particle` ở template `i-want`).
 - **v2.0.0 thu hẹp sản phẩm** theo yêu cầu: bỏ cụm từ, sổ tay, ngữ pháp, quiz, tìm kiếm toàn cục;
   xoá luôn dữ liệu/grammar refs để không còn code chết (grammar metadata trong `segment.js`,
   `grammar` array trong intents, CSS/JS của các tính năng cũ).

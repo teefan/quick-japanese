@@ -10,7 +10,8 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
       trong mỗi nhóm xếp cơ bản trước (Chào hỏi & xã giao → Cảm ơn & xin lỗi → …).
 - [ ] Mỗi mục: chạy 🎲 10 lần, đọc to từng câu — kiểm tra trợ từ và độ tự nhiên.
 - [ ] Các bẫy đã biết cần xác nhận:
-  - `水が飲みたいです` (が với たい) — chấp nhận を?
+  - `水が飲みたいです` (が với たい) — dự án giữ が theo chuẩn giáo trình; xác nhận có nên
+    đổi sang を hoặc ghi chú thêm không.
   - `これが買いたいです` — có tự nhiên hơn `これを買いたいです` không?
   - nhánh taxi `〜までお願いします` và nhánh `〜に行きたいです`.
   - mẫu cảm ơn `〜てくれてありがとうございます` (6 hành động) — mức thân mật có ổn với người lạ?
