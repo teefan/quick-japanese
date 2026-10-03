@@ -79,9 +79,12 @@ Cụm từ 📖     12 categories, 167 phrases
   Gọi món & ăn uống · Đi lại · Khách sạn · Hiệu thuốc & sức khỏe ·
   Sự cố & bảo hiểm · Khẩn cấp · Người Nhật có thể nói
 
-Ghép câu 🧩    9 intent trees (see §6)
-  Tôi muốn… · Cho tôi… · Tôi thích… · Cái này thì sao? · Đi đến… ·
-  Làm ơn giúp tôi… · Không, cảm ơn… · Cái này được không? · …ở đâu?
+Ghép câu 🧩    13 intent trees in 4 groups (see §6)
+  Giao tiếp:  Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
+              Làm ơn giúp tôi… · Cái này được không?
+  Ăn uống & mua sắm:  Tôi muốn… · Cho tôi… · Tôi thích… · Cái này thì sao?
+  Đi lại & khách sạn: Đi đến… · …ở đâu? · Khách sạn
+  Sức khỏe & sự cố:   Sức khỏe & sự cố
 
 Sổ tay ⭐      Favorites (localStorage): saved phrases + built sentences
 Từ vựng 📚     173 curated words + 6 counters + money chips, tag filters, search
@@ -185,8 +188,13 @@ set, mirroring how a phrasebook conversation actually branches.
 ### 6.3 Why deterministic, not AI
 
 Curated patterns guarantee correctness (no hallucinated particles), work offline, are fast,
-reviewable as JSON diffs, and can *explain* every particle. Scope is intentionally small:
-9 intents cover the vast majority of traveler needs. Extension = add one JSON object.
+reviewable as JSON diffs, and can *explain* every particle. Scope is intentionally bounded but
+broad: **13 intent trees** cover set phrases (greetings, thanks, apologies), conversation
+management (agree/decline/don’t-understand), transactions (order, buy, ask price/place),
+travel (train/taxi, hotel), and emergencies/health. Combinatorial branches multiply coverage
+from a small data set: e.g. 6 verbs × `〜てくれてありがとう` for thanks, 5 body parts × `〜が痛いです`,
+4 items × `〜をなくしました / 〜を盗まれました`, 4 services × `〜を呼んでください`.
+Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)
 

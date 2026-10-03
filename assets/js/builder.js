@@ -16,23 +16,42 @@
 
   /* ------------------------------ Điều hướng ------------------------------ */
 
+  const GROUP_ICONS = {
+    "Giao tiếp": "💬",
+    "Ăn uống & mua sắm": "🍜",
+    "Đi lại & khách sạn": "🚕",
+    "Sức khỏe & sự cố": "🚑",
+  };
+
   function renderHome() {
     state.intent = null;
     state.picks = [];
     state.stepId = null;
-    view.innerHTML = `
+    const intents = QJ.intents.intents;
+    const groups = [];
+    for (const i of intents) {
+      const g = i.group || "Khác";
+      if (!groups.includes(g)) groups.push(g);
+    }
+    const sections = groups.map(g => `
       <div class="section-title">
-        <h2>🧩 Ghép câu</h2>
-        <span class="desc">Chọn từng bước — app chỉ hiện những gì có thể nối tiếp</span>
+        <h2>${GROUP_ICONS[g] || "🧩"} ${U.esc(g)}</h2>
       </div>
       <div class="intent-grid">
-        ${QJ.intents.intents.map(i => `
+        ${intents.filter(i => (i.group || "Khác") === g).map(i => `
           <button class="intent-card" data-intent="${i.id}">
             <span class="emoji">${i.emoji}</span>
             <b>${U.esc(i.label)}</b>
             <span>${U.esc(i.desc)}</span>
           </button>`).join("")}
+      </div>`).join("");
+
+    view.innerHTML = `
+      <div class="section-title">
+        <h2>🧩 Ghép câu</h2>
+        <span class="desc">${intents.length} mục — chọn từng bước, app chỉ hiện những gì nối tiếp được</span>
       </div>
+      ${sections}
       <p style="font-size:13px;color:var(--muted);margin-top:14px">
         Mẹo: chọn “Tôi” → “muốn” → món ăn… App sẽ tự đặt trợ từ đúng
         (は, が, を, に…), hiện phiên âm và giải thích vì sao.

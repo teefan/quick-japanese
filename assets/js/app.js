@@ -269,6 +269,8 @@ const VOCAB_TAGS = [
   { id: "shopping", label: "🛍️ Mua sắm" },
   { id: "money", label: "💴 Tiền" },
   { id: "emergency", label: "🚑 Khẩn cấp" },
+  { id: "health", label: "🩺 Sức khỏe" },
+  { id: "hotel", label: "🏨 Khách sạn" },
   { id: "verb", label: "⚡ Động từ" },
   { id: "adj", label: "✨ Tính từ" },
   { id: "question", label: "❓ Từ hỏi" },

@@ -975,6 +975,114 @@ window.QJ.vocab = [
     "roma": "dezaato"
   },
   {
+    "id": "n-atama",
+    "pos": "noun",
+    "jp": "頭",
+    "kana": "あたま",
+    "vi": "đầu",
+    "tags": [
+      "health"
+    ],
+    "viPron": "a-ta-ma",
+    "roma": "atama"
+  },
+  {
+    "id": "n-onaka",
+    "pos": "noun",
+    "jp": "お腹",
+    "kana": "おなか",
+    "vi": "bụng",
+    "tags": [
+      "health"
+    ],
+    "viPron": "ô-na-ka",
+    "roma": "onaka"
+  },
+  {
+    "id": "n-nodo",
+    "pos": "noun",
+    "jp": "のど",
+    "kana": "のど",
+    "vi": "cổ họng",
+    "tags": [
+      "health"
+    ],
+    "viPron": "nô-đô",
+    "roma": "nodo"
+  },
+  {
+    "id": "n-ha",
+    "pos": "noun",
+    "jp": "歯",
+    "kana": "は",
+    "vi": "răng",
+    "tags": [
+      "health"
+    ],
+    "viPron": "ha",
+    "roma": "ha"
+  },
+  {
+    "id": "n-ashi",
+    "pos": "noun",
+    "jp": "足",
+    "kana": "あし",
+    "vi": "chân",
+    "tags": [
+      "health"
+    ],
+    "viPron": "a-xi",
+    "roma": "ashi"
+  },
+  {
+    "id": "n-sumaho",
+    "pos": "noun",
+    "jp": "スマホ",
+    "kana": "スマホ",
+    "vi": "điện thoại thông minh",
+    "tags": [
+      "emergency"
+    ],
+    "viPron": "xư-ma-hô",
+    "roma": "sumaho"
+  },
+  {
+    "id": "n-eakon",
+    "pos": "noun",
+    "jp": "エアコン",
+    "kana": "エアコン",
+    "vi": "điều hòa",
+    "tags": [
+      "hotel"
+    ],
+    "viPron": "ê-a-kôn",
+    "roma": "eakon"
+  },
+  {
+    "id": "n-denki",
+    "pos": "noun",
+    "jp": "電気",
+    "kana": "でんき",
+    "vi": "đèn / điện",
+    "tags": [
+      "hotel"
+    ],
+    "viPron": "đêng-ki",
+    "roma": "denki"
+  },
+  {
+    "id": "n-oyu",
+    "pos": "noun",
+    "jp": "お湯",
+    "kana": "おゆ",
+    "vi": "nước nóng",
+    "tags": [
+      "hotel"
+    ],
+    "viPron": "ô-yu",
+    "roma": "oyu"
+  },
+  {
     "id": "n-mizu",
     "pos": "noun",
     "jp": "水",

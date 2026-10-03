@@ -7,8 +7,11 @@ tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự
 
 - 🇻🇳 Giao diện, nghĩa và **phiên âm tiếng Việt** cho mọi câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`)
   — kèm **romaji chính thức** (Hepburn) song song: `sumimasen`, `konnichiwa`.
-- 🧩 **Ghép câu thu hẹp dần**: chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
+- 🧩 **Ghép câu thu hẹp dần** (13 mục, gom theo nhóm: Giao tiếp · Ăn uống & mua sắm · Đi lại & khách sạn ·
+  Sức khỏe & sự cố): chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và giải thích ngay trên từng trợ từ.
+  Bao gồm cả chào hỏi, **cảm ơn (kể cả mẫu 〜てくれてありがとう “cảm ơn vì đã…”)**, xin lỗi,
+  trả lời/không hiểu, khách sạn, đau ốm – mất đồ – gọi giúp khẩn cấp.
 - 🔬 **Bóc tách ngữ pháp từng câu**: mọi cụm từ và câu ghép đều được chia thành các mảnh
   (từ + trợ từ) **tô màu theo vai trò ngữ pháp** (đại từ, danh từ, động từ, tính từ, trợ từ,
   です, số đếm…), kèm phiên âm Việt + romaji, nghĩa, loại từ/thể và giải thích ngữ pháp —
@@ -18,7 +21,7 @@ tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự
 - 🔍 **Tìm kiếm toàn bộ**: cụm từ, từ vựng, ngữ pháp và mục ghép câu trong một ô tìm kiếm.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên mọi câu và câu tự ghép.
 - 📺 **Chế độ đưa máy**: chữ Nhật cỡ lớn để chỉ cho nhân viên/tài xế xem.
-- 📚 173 từ vựng du lịch, 6 lượng từ đếm số, mệnh giá tiền, 22 điểm ngữ pháp tối giản.
+- 📚 182 từ vựng du lịch, 6 lượng từ đếm số, mệnh giá tiền, 22 điểm ngữ pháp tối giản.
 - 📶 **PWA offline**: service worker cache toàn bộ app — không cần mạng khi đã mở một lần.
 - 📴 Không cần server, không cần build khi dùng, chạy được cả khi mở trực tiếp `index.html`.
 

@@ -266,7 +266,7 @@ function enrichTemplateSeg(seg) {
   }
   if (seg.text !== undefined) {
     if (!seg.kana) throw new Error(`Template text thiếu kana: ${JSON.stringify(seg)}`);
-    const e = enrichText({ jp: seg.text, kana: seg.kana, vi: seg.vi || "" });
+    const e = enrichText({ jp: seg.text, kana: seg.kana, vi: seg.vi || "", roma: seg.roma, viPron: seg.viPron });
     const isCopula = seg.text === "です" || seg.text === "でした";
     return { text: e.jp, kana: e.kana, roma: e.roma, viPron: e.viPron, vi: e.vi, role: isCopula ? "copula" : "expression" };
   }
