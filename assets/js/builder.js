@@ -255,18 +255,6 @@
     </div>`;
   }
 
-  function particleRowHtml(p) {
-    return `<div class="brk-row role-particle particle-row">
-      <div class="brk-jp">${U.esc(p.jp)}</div>
-      <div class="brk-body">
-        <span class="brk-pron">${U.esc(p.viPron || "")}</span>
-        <span class="brk-roma">${U.esc(p.roma || "")}</span>
-        <span class="brk-vi">${U.esc(p.vi)}${p.note ? ` · <em>${U.esc(p.note)}</em>` : ""}</span>
-      </div>
-      ${p.grammar ? `<button class="brk-g" data-grammar="${p.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
-    </div>`;
-  }
-
   function optionRowHtml(o) {
     const note = o._note || "";
     return `<div class="brk-row role-${U.esc(o.role || "expression")}">
@@ -302,7 +290,7 @@
       let html = Array.isArray(o.parts) && o.parts.length
         ? o.parts.map(tokenRowHtml).join("")
         : optionRowHtml({ ...o, _note: optionNote(part) });
-      if (part.particle) html += particleRowHtml(part.particle);
+      if (part.particle) html += tokenRowHtml(part.particle);
       return html;
     }).join("");
     const hasContent = parts.some(p => p.kind !== "blank");

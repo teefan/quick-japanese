@@ -123,6 +123,17 @@ const U = {
 };
 window.U = U;
 
+/* Ô tìm kiếm "gõ tới đâu vẽ tới đó": gọi apply(value) rồi giữ nguyên vị trí con trỏ */
+function bindLiveSearch(inputId, apply) {
+  const input = document.getElementById(inputId);
+  input.addEventListener("input", (e) => {
+    const pos = e.target.selectionStart;
+    apply(e.target.value);
+    const el = document.getElementById(inputId);
+    if (el) { el.focus(); el.setSelectionRange(pos, pos); }
+  });
+}
+
 /* ------------------------------ Sổ tay (localStorage) ------------------------------ */
 
 const Fav = {
@@ -248,14 +259,9 @@ function renderPhrases() {
     ${searching ? `<p style="font-size:13px;color:var(--muted)">${total} câu khớp "${U.esc(q)}"</p>` : ""}
     ${sections || `<div class="empty">Không tìm thấy câu phù hợp.<br>Thử từ khóa khác hoặc dùng 🔍 tìm toàn bộ nhé.</div>`}`;
 
-  const input = document.getElementById("phrase-search");
-  input.addEventListener("input", e => {
-    phraseState.q = e.target.value;
-    const pos = e.target.selectionStart;
+  bindLiveSearch("phrase-search", v => {
+    phraseState.q = v;
     renderPhrases();
-    const el = document.getElementById("phrase-search");
-    el.focus();
-    el.setSelectionRange(pos, pos);
   });
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -443,15 +449,10 @@ function renderVocab(opts = {}) {
       ? `<div class="empty">Đang tải từ vựng N5…</div>`
       : `<div class="empty">Không có từ nào khớp.</div>`)}`;
 
-  const input = document.getElementById("vocab-search");
-  input.addEventListener("input", e => {
-    vocabState.q = e.target.value;
+  bindLiveSearch("vocab-search", v => {
+    vocabState.q = v;
     vocabState.limit = VOCAB_PAGE;
-    const pos = e.target.selectionStart;
     renderVocab();
-    const el = document.getElementById("vocab-search");
-    el.focus();
-    el.setSelectionRange(pos, pos);
   });
   if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -973,14 +974,10 @@ function renderSearch() {
     ${grammar.length ? `<div class="section-title"><h2>📝 Ngữ pháp (${grammar.length})</h2></div>${grammar.map(grammarCard).join("")}` : ""}
     ${q && !total ? `<div class="empty">Không tìm thấy gì cho "${U.esc(q)}".</div>` : ""}`;
 
-  const input = document.getElementById("gs-input");
-  input.focus();
-  input.addEventListener("input", e => {
-    searchState.q = e.target.value;
-    const pos = e.target.selectionStart;
+  document.getElementById("gs-input").focus();
+  bindLiveSearch("gs-input", v => {
+    searchState.q = v;
     renderSearch();
-    const el = document.getElementById("gs-input");
-    if (el) { el.focus(); el.setSelectionRange(pos, pos); }
   });
 }
 
