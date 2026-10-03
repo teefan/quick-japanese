@@ -1,7 +1,8 @@
 # Checklist kiểm duyệt bởi người bản ngữ
 
-Mục tiêu: rà soát độ **tự nhiên – lịch sự – chính xác** của toàn bộ nội dung trước khi coi
-Phase 1 hoàn tất. Ưu tiên người Nhật bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
+Mục tiêu: rà soát độ **tự nhiên – lịch sự – chính xác** của toàn bộ nội dung (Phase 1 + 561 từ
+N5 của Phase 2) trước khi coi nội dung hoàn tất. Ưu tiên người Nhật bản ngữ hoặc giáo viên tiếng
+Nhật; có thể chia nhỏ theo nhóm.
 
 ## 1. Cụm từ (167 câu, 12 nhóm)
 
@@ -30,8 +31,10 @@ Phase 1 hoàn tất. Ưu tiên người Nhật bản ngữ hoặc giáo viên ti
 
 ## 3. Số đếm & tiền
 
-- [ ] Âm biến đổi: 一本 `いっぽん`, 三本 `さんぼん`, 一本? 一杯 `いっぱい`, 三杯 `さんばい`,
-      一人 `ひとり`, 二人 `ふたり`, 四人 `よにん`.
+- [ ] Âm biến đổi 1–10: 一本 `いっぽん`, 三本 `さんぼん`, 六本 `ろっぽん`, 八本 `はっぽん`,
+      十本 `じゅっぽん`; 一杯 `いっぱい`, 三杯 `さんばい`, 六杯 `ろっぱい`, 八杯 `はっぱい`,
+      十杯 `じゅっぱい`; 一人 `ひとり`, 二人 `ふたり`, 四人 `よにん`, 七人 `ななにん / しちにん`.
+- [ ] Cách đếm chung つ 1–9 + `十 (とお)` cho số 10 đã đúng và dễ hiểu chưa.
 - [ ] Người học có bị nhầm 一つ (cách đếm chung) với 一個 (đồ tròn nhỏ) trong ngữ cảnh mua sắm không.
 
 ## 4. Phiên âm tiếng Việt
@@ -43,7 +46,15 @@ Phase 1 hoàn tất. Ưu tiên người Nhật bản ngữ hoặc giáo viên ti
 - [ ] Màu vai trò khi bóc tách (đại từ, danh từ, động từ, tính từ, trạng từ, trợ từ, です,
       số đếm, cụm cố định) có giúp người học nhìn ra cấu trúc câu không?
 
-## 5. Cách ghi nhận kết quả
+## 5. Từ vựng JLPT N5 (561 từ mới, `data/source/vocab-n5.json`)
+
+- [ ] Nghĩa tiếng Việt tự nhiên, đúng trọng tâm; không trùng lặp khó hiểu với 183 từ biên tập tay.
+- [ ] Từ đồng âm khác chữ (厚い/暑い, 早い/速い, 取る/撮る, 止まる/泊まる) phân biệt rõ.
+- [ ] Động từ: đúng nhóm chia (`godan`/`ichidan`/`suru`), thể ます/て hiển thị chính xác.
+- [ ] Từ kana-only hiển thị không bị lặp chữ; từ katakana đúng chính tả.
+- [ ] Ghi chú dữ liệu: `せっけん` gốc OpenJLPT ghi “economy” — dự án đã sửa nghĩa Việt thành “xà phòng”.
+
+## 6. Cách ghi nhận kết quả
 
 - Sửa trực tiếp `data/source/*.json` (kèm ghi chú nếu là ngoại lệ), chạy `npm run build`, mở PR.
 - Hoặc mở issue theo mẫu: `review: <nhóm> — <câu/nhánh> — đề xuất`.

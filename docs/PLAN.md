@@ -4,7 +4,7 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v1.4.0, commit `9074a6c`)** — live at <https://teefan.github.io/quick-japanese/>:
+> **Current status (v1.4.0, commit `46bef46`)** — live at <https://teefan.github.io/quick-japanese/>:
 > 744 words (183 curated + 561 N5, N5 lazy-loaded) · 167 phrases (12 categories) · 22 grammar points
 > · 13 intent trees (4 groups) · 6 counters (1–10) · 🎧 Nghe & chọn quiz
 > · ⭐ notebook export/import JSON.

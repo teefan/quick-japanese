@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `9074a6c` · SW cache `qj-v1.3.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `46bef46` · SW cache `qj-v1.4.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese` (nhánh `archive/hanasou` giữ bản cũ trước khi ghi đè)
 
 Đọc file này trước khi bắt đầu code. Chi tiết đầy đủ nằm ở [`PLAN.md`](PLAN.md);
@@ -21,8 +21,14 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 - **Nghe & chọn 🎧**: quiz 10 câu/lượt từ cụm từ hoặc từ vựng — TTS đọc câu hỏi, chọn nghĩa,
   biết đáp án ngay; fallback **Đọc & chọn** khi máy không có TTS; lưu điểm cao `qj.quiz.v1`,
   phím 1–4 trên desktop. Không phải tab: mở từ nút 🎧 trên header hoặc banner trong tab Từ vựng.
-- Số liệu hiện tại: **183 từ vựng · 167 cụm từ (12 nhóm) · 22 điểm ngữ pháp · 13 cây · 6 lượng từ**.
-- Kiểm thử chuẩn: 13 cây × 3 đường ngẫu nhiên = **39/39**, không lỗi JS.
+- **Từ vựng N5 📚**: 561 từ JLPT N5 (OpenJLPT, CC BY-SA 4.0) nằm ở `data/vocab-n5.js` — tải nền
+  khi trang rảnh, không vào builder/segmenter, phân trang 60 từ/lần. Payload đầu giữ ~435 KB.
+- **Sổ tay ⭐**: lưu cụm từ + câu ghép (localStorage `qj.favs.v1`); **xuất/nhập JSON** có version
+  (`quick-japanese/notebook`), chọn gộp hoặc thay thế, bỏ mục lỗi/trùng.
+- Số liệu hiện tại: **744 từ vựng (183 biên tập + 561 N5) · 167 cụm từ (12 nhóm) · 22 điểm ngữ pháp
+  · 13 cây · 6 lượng từ (1–10)**.
+- Kiểm thử chuẩn: 13 cây × 3 đường ngẫu nhiên = **39/39**, 1 lượt Nghe & chọn mỗi nguồn,
+  xuất/nhập lại sổ tay, không lỗi JS.
 
 ## 1. Lệnh thường dùng
 
@@ -45,8 +51,8 @@ sw.js                      service worker (đổi VERSION mỗi lần release ap
 assets/css/style.css       design system + màu vai trò (--rl-*)
 assets/js/app.js           5 tab, cụm từ, từ vựng, ngữ pháp, sổ tay, tìm kiếm, Nghe & chọn, TTS, modal, PWA register
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
-data/source/*.json         dữ liệu gốc: vocab, phrases, grammar, intents, numbers
-data/*.js                  SINH TỰ ĐỘNG — không sửa tay
+data/source/*.json         dữ liệu gốc: vocab, vocab-n5, phrases, grammar, intents, numbers
+data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           từ điển + tokenizer DP bóc tách câu (EXPRESSIONS, EXPR_ROLE, PARTICLES)
 tools/build.js             validate + enrich + xuất data/*.js
@@ -63,6 +69,15 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - Động từ bắt buộc có `dict` + `kana` + `group` (`godan`/`ichidan`/`suru`/`kuru`); build tự chia
   `masu, masen, mashita, te, tai, potential, potentialNeg`.
 - Từ mới cần được tham chiếu bằng `ref` trong intents nếu muốn dùng ở builder.
+
+### Từ vựng N5 — `data/source/vocab-n5.json`
+- 561 từ nhập một lần từ OpenJLPT v0.3.0 (CC BY-SA 4.0); `id` giữ mã gốc dạng `n5-<10 hex>`,
+  `tags: ["n5"]`, động từ dùng `dict`/`kana`/`group` như từ vựng thường. Từ kana-only bỏ `jp`
+  (build tự lấy `kana`).
+- Nghĩa tiếng Việt do dự án biên tập; khi sửa phải giữ đúng `kana` gốc (khoá ghép với OpenJLPT).
+- File này **không** đi vào `buildLexicon`/builder — chỉ sinh `data/vocab-n5.js` để tab Từ vựng,
+  tìm kiếm và quiz dùng. Muốn một từ N5 xuất hiện trong builder thì thêm bản biên tập vào
+  `vocab.json` (và tham chiếu `ref` như bình thường).
 
 ### Thêm cụm từ — `data/source/phrases.json`
 - `id`, `jp`, `kana`, `vi`, optional `note` (mẹo dùng/văn hóa).
@@ -99,6 +114,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - **Thứ tự nhóm builder**: `GROUP_ORDER` trong `builder.js` (cố định, cơ bản nhất trước).
 - **Lịch sự**: chỉ です/ます trong câu chuẩn; thể thân mật chỉ để trong `note`.
 - **Dữ liệu sinh ra**: compact JSON + bỏ field rỗng (prune). Đừng sửa `data/*.js`.
+- **N5 tách rời**: `vocab-n5` không được đưa vào segmenter/builder — tránh đổi cách tách câu của
+  nội dung hiện có; muốn dùng ở builder thì thêm vào `vocab.json` trước.
+- **Sổ tay JSON**: format `quick-japanese/notebook` version 1 (`entries` = mảng fav); nhập chấp
+  nhận cả mảng trần, tối đa 2.000 mục, gộp thì chống trùng theo id (cụm từ) / `payload.jp` (câu).
 - **Mỗi lần release**: bump `VERSION` trong `sw.js` (`qj-vX.Y.Z`), chạy build, commit, push main.
 
 ## 5. Kiểm thử & deploy
@@ -106,7 +125,8 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 1. `npm run build` — phải **0 cảnh báo** (1 ghi chú fallback `ご迷惑をおかけしました` là bình thường).
 2. `node --check` các file JS đã sửa.
 3. Mở app (nhớ xoá SW khi test): kiểm 5 tab, tìm kiếm, builder chạy ngẫu nhiên vài cây, lưu Sổ tay,
-   và **Nghe & chọn**: chạy hết 1 lượt ở cả 2 nguồn (cụm từ / từ vựng), thử 🔊 nghe lại + phím 1–4.
+   **Nghe & chọn** (chạy hết 1 lượt ở cả 2 nguồn, thử 🔊 nghe lại + phím 1–4), **N5** (chip 🌱,
+   phân trang Xem thêm, badge N5, tìm một từ N5), và **xuất/nhập sổ tay** (gộp + thay thế).
 4. Release regression (khuyến nghị): vòng lặp tất cả cây × 3 đường 🎲, kiểm tra `.b-jp`, `.b-brk`,
    kết thúc 1 lượt quiz ở cả 2 nguồn, không lỗi JS (`window.__errs`).
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
@@ -116,12 +136,13 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 ## 6. Trạng thái & việc còn lại
 
 - **Phase 1** gần xong; việc duy nhất còn lại là **kiểm duyệt bởi người bản ngữ** — dùng
-  `docs/REVIEW-CHECKLIST.md`, sửa `data/source/*.json` + build là xong.
-- **Phase 2 gợi ý** (xem `PLAN.md` §10): ✅ **Nghe & chọn** (v1.3.0, quiz 2 nguồn + fallback Đọc & chọn);
-  còn lại: mở rộng đủ N5 (662 từ) từ OpenJLPT + nghĩa Việt biên tập, câu ví dụ Tatoeba,
-  lượng từ 1–10, pitch accent, export/import Sổ tay.
+  `docs/REVIEW-CHECKLIST.md` (đã bổ sung mục N5 + lượng từ 6–10), sửa `data/source/*.json` + build.
+- **Phase 2** (xem `PLAN.md` §10): ✅ Nghe & chọn (v1.3.0) · ✅ đủ N5 từ OpenJLPT — 561 từ mới,
+  nghĩa Việt biên tập, tải nền + phân trang · ✅ lượng từ 1–10 · ✅ xuất/nhập Sổ tay JSON.
+  Còn lại: **câu ví dụ Tatoeba** (OpenJLPT có sẵn ví dụ, cần lọc chất lượng/lịch sự trước khi nhập),
+  **pitch accent** (Kanjium/OJAD — cần xử lý trùng âm + thiết kế hiển thị).
 - **Tồn đã biết**: `ご迷惑をおかけしました` chưa tách mảnh (fallback 1 dòng); nhánh taxi vẫn cho chọn
-  `トイレ` (chấp nhận được); payload ≈ 415 KB (có thể nén/nâng cấp sau).
+  `トイレ` (chấp nhận được); nghĩa 561 từ N5 chờ kiểm duyệt; payload đầu ≈ 435 KB + 133 KB N5 tải nền.
 
 ## 7. Lịch sử quyết định ngắn
 
@@ -131,3 +152,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - Thứ tự nhóm/cây theo **độ cơ bản** (Giao tiếp lên đầu) — commit `8de933d`.
 - “Nghe & chọn” là **quiz deterministic** từ dữ liệu sẵn có (không thêm dữ liệu, không AI); TTS chỉ là
   enhancement — máy thiếu giọng Nhật thì tự chuyển sang Đọc & chọn; không thêm tab để giữ IA 5 tab.
+- N5 để ở file riêng tải nền (idle) thay vì nhét chung `vocab.js`: giữ payload đầu < 500 KB và
+  **không đụng vào kết quả tách câu** đã kiểm duyệt (N5 không vào lexicon/builder).
+- Sổ tay JSON có `format`/`version`; nhập chỉ nhận mục hợp lệ (cụm từ phải còn id, câu cần `payload.jp`),
+  gộp thì chống trùng theo id/`payload.jp`.
