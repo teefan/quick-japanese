@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `e1cefe1` · SW cache `qj-v2.0.1` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `c264937` · SW cache `qj-v2.1.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
