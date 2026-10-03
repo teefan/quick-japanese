@@ -4,9 +4,10 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v1.2.5, commit `8de933d`)** — live at <https://teefan.github.io/quick-japanese/>:
-> 183 words · 167 phrases (12 categories) · 22 grammar points · 13 intent trees (4 groups) · 6 counters.
-> PWA cache `qj-v1.2.5`. Regression: 13 intents × 3 random paths = 39/39, no JS errors.
+> **Current status (v1.3.0, commit `9074a6c`)** — live at <https://teefan.github.io/quick-japanese/>:
+> 183 words · 167 phrases (12 categories) · 22 grammar points · 13 intent trees (4 groups) · 6 counters
+> · 🎧 Nghe & chọn (10 câu/lượt từ cụm từ hoặc từ vựng, TTS + fallback Đọc & chọn).
+> PWA cache `qj-v1.3.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn, no JS errors.
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
 
 ---
@@ -96,6 +97,8 @@ Sổ tay ⭐      Favorites (localStorage): saved phrases + built sentences
 Từ vựng 📚     183 curated words + 6 counters + money chips, tag filters, search
 Ngữ pháp 📝    22 points, “cơ bản” / “nên biết”, examples with pronunciation
 Tìm kiếm 🔍    Global search across phrases, vocab, grammar and builder intents
+Nghe & chọn 🎧  Listen-and-choose quiz, 10 questions/round from phrases or vocab (header 🎧 /
+               vocab-tab banner; high score in localStorage); TTS with a reading fallback
 ```
 
 ---
@@ -282,7 +285,7 @@ manifest.webmanifest       PWA manifest (installable app)
 sw.js                      service worker: network-first HTML, cache-first assets, fonts SWR
 assets/icons/              PWA icons (source SVG + 192/512 PNG)
 assets/css/style.css       design system, light/dark, mobile-first
-assets/js/app.js           tabs, phrasebook, vocab, grammar, notebook, search, TTS, modal
+assets/js/app.js           tabs, phrasebook, vocab, grammar, notebook, search, Nghe & chọn quiz, TTS, modal
 assets/js/builder.js       narrowing builder engine (intent trees)
 data/source/*.json         authoring data (vocab, phrases, grammar, intents, numbers)
 tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugation
@@ -326,7 +329,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 |---|---|
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
 | **1 — MVP polish (v0.2 → v1.2.5, now)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (`docs/REVIEW-CHECKLIST.md`) |
-| **2 — Scale content** | Expand to full N5 from OpenJLPT (+ Vietnamese meanings, reviewed); example sentences from Tatoeba; “Nghe & chọn” audio quiz; counters 1–10; pitch-accent display (Kanjium/OJAD); notebook export/import JSON |
+| **2 — Scale content** | ✅ “Nghe & chọn” audio quiz (v1.3.0: 10 câu/lượt, 2 nguồn cụm từ & từ vựng, TTS + fallback Đọc & chọn, lưu điểm cao) · Expand to full N5 from OpenJLPT (+ Vietnamese meanings, reviewed); example sentences from Tatoeba; counters 1–10; pitch-accent display (Kanjium/OJAD); notebook export/import JSON |
 | **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
 
 ---

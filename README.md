@@ -17,6 +17,9 @@ tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự
   です, số đếm…), kèm phiên âm Việt + romaji, nghĩa, loại từ/thể và giải thích ngữ pháp —
   bấm vào mảnh để làm nổi dòng giải thích, bấm 📝 để mở điểm ngữ pháp. Bộ tách từ + chú giải
   nằm ở `tools/segment.js`; bảng màu xem trong tab Ngữ pháp.
+- 🎧 **Nghe & chọn**: luyện tai 10 câu một lượt từ cụm từ hoặc từ vựng — nghe giọng Nhật, chọn
+  nghĩa đúng, biết đáp án ngay; cuối lượt có danh sách câu cần ôn và điểm cao lưu trên máy.
+  Máy không hỗ trợ đọc tiếng Nhật thì tự chuyển sang chế độ **Đọc & chọn**.
 - ⭐ **Sổ tay của tôi**: lưu cụm từ và câu tự ghép (localStorage) để mở nhanh khi đi du lịch.
 - 🔍 **Tìm kiếm toàn bộ**: cụm từ, từ vựng, ngữ pháp và mục ghép câu trong một ô tìm kiếm.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên mọi câu và câu tự ghép.
@@ -44,7 +47,7 @@ index.html                 trang chính (load data + app)
 manifest.webmanifest       khai báo PWA (cài như app)
 sw.js                      service worker — cache offline
 assets/css/style.css       giao diện, mobile-first, có dark mode
-assets/js/app.js           5 tab: Cụm từ, Ghép câu, Sổ tay, Từ vựng, Ngữ pháp + tìm kiếm + TTS
+assets/js/app.js           5 tab: Cụm từ, Ghép câu, Sổ tay, Từ vựng, Ngữ pháp + tìm kiếm + Nghe & chọn + TTS
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
 data/source/*.json         dữ liệu gốc để biên tập (từ vựng, cụm từ, ngữ pháp, cây câu, số đếm)

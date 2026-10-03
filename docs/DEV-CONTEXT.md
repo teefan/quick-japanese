@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `8de933d` · SW cache `qj-v1.2.5` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `9074a6c` · SW cache `qj-v1.3.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese` (nhánh `archive/hanasou` giữ bản cũ trước khi ghi đè)
 
 Đọc file này trước khi bắt đầu code. Chi tiết đầy đủ nằm ở [`PLAN.md`](PLAN.md);
@@ -11,12 +11,16 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **5 tab**: Cụm từ 📖 · Ghép câu 🧩 · Sổ tay ⭐ · Từ vựng 📚 · Ngữ pháp 📝, + tìm kiếm toàn cục 🔍.
+- **5 tab**: Cụm từ 📖 · Ghép câu 🧩 · Sổ tay ⭐ · Từ vựng 📚 · Ngữ pháp 📝, + tìm kiếm toàn cục 🔍
+  + Nghe & chọn 🎧 (mở từ nút trên header, không chiếm tab).
 - **Builder** = cây ý định thu hẹp dần: **13 cây / 4 nhóm** theo độ cơ bản
   (Giao tiếp → Ăn uống & mua sắm → Đi lại & khách sạn → Sức khỏe & sự cố).
 - **Mọi câu** (cụm từ + câu ghép + câu cố định trong builder) đều được **bóc tách thành mảnh**,
   tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji Hepburn.
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
+- **Nghe & chọn 🎧**: quiz 10 câu/lượt từ cụm từ hoặc từ vựng — TTS đọc câu hỏi, chọn nghĩa,
+  biết đáp án ngay; fallback **Đọc & chọn** khi máy không có TTS; lưu điểm cao `qj.quiz.v1`,
+  phím 1–4 trên desktop. Không phải tab: mở từ nút 🎧 trên header hoặc banner trong tab Từ vựng.
 - Số liệu hiện tại: **183 từ vựng · 167 cụm từ (12 nhóm) · 22 điểm ngữ pháp · 13 cây · 6 lượng từ**.
 - Kiểm thử chuẩn: 13 cây × 3 đường ngẫu nhiên = **39/39**, không lỗi JS.
 
@@ -39,7 +43,7 @@ index.html                 entry; load data/*.js rồi assets/js/app.js, builder
 manifest.webmanifest       PWA manifest
 sw.js                      service worker (đổi VERSION mỗi lần release app/data)
 assets/css/style.css       design system + màu vai trò (--rl-*)
-assets/js/app.js           5 tab, cụm từ, từ vựng, ngữ pháp, sổ tay, tìm kiếm, TTS, modal, PWA register
+assets/js/app.js           5 tab, cụm từ, từ vựng, ngữ pháp, sổ tay, tìm kiếm, Nghe & chọn, TTS, modal, PWA register
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
 data/source/*.json         dữ liệu gốc: vocab, phrases, grammar, intents, numbers
 data/*.js                  SINH TỰ ĐỘNG — không sửa tay
@@ -101,8 +105,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 
 1. `npm run build` — phải **0 cảnh báo** (1 ghi chú fallback `ご迷惑をおかけしました` là bình thường).
 2. `node --check` các file JS đã sửa.
-3. Mở app (nhớ xoá SW khi test): kiểm 5 tab, tìm kiếm, builder chạy ngẫu nhiên vài cây, lưu Sổ tay.
-4. Release regression (khuyến nghị): vòng lặp tất cả cây × 3 đường 🎲, kiểm tra `.b-jp`, `.b-brk`, không lỗi.
+3. Mở app (nhớ xoá SW khi test): kiểm 5 tab, tìm kiếm, builder chạy ngẫu nhiên vài cây, lưu Sổ tay,
+   và **Nghe & chọn**: chạy hết 1 lượt ở cả 2 nguồn (cụm từ / từ vựng), thử 🔊 nghe lại + phím 1–4.
+4. Release regression (khuyến nghị): vòng lặp tất cả cây × 3 đường 🎲, kiểm tra `.b-jp`, `.b-brk`,
+   kết thúc 1 lượt quiz ở cả 2 nguồn, không lỗi JS (`window.__errs`).
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
    `gh api repos/teefan/quick-japanese/pages/builds/latest --jq '.status + " " + .commit'`
    và curl `https://teefan.github.io/quick-japanese/sw.js` để xác nhận VERSION mới.
@@ -111,8 +117,9 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 
 - **Phase 1** gần xong; việc duy nhất còn lại là **kiểm duyệt bởi người bản ngữ** — dùng
   `docs/REVIEW-CHECKLIST.md`, sửa `data/source/*.json` + build là xong.
-- **Phase 2 gợi ý** (xem `PLAN.md` §10): mở rộng đủ N5 (662 từ) từ OpenJLPT + nghĩa Việt biên tập,
-  câu ví dụ Tatoeba, chế độ “Nghe & chọn”, lượng từ 1–10, export/import Sổ tay.
+- **Phase 2 gợi ý** (xem `PLAN.md` §10): ✅ **Nghe & chọn** (v1.3.0, quiz 2 nguồn + fallback Đọc & chọn);
+  còn lại: mở rộng đủ N5 (662 từ) từ OpenJLPT + nghĩa Việt biên tập, câu ví dụ Tatoeba,
+  lượng từ 1–10, pitch accent, export/import Sổ tay.
 - **Tồn đã biết**: `ご迷惑をおかけしました` chưa tách mảnh (fallback 1 dòng); nhánh taxi vẫn cho chọn
   `トイレ` (chấp nhận được); payload ≈ 415 KB (có thể nén/nâng cấp sau).
 
@@ -122,3 +129,5 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - Bóc tách câu bằng **quy hoạch động có trọng số** (tránh lỗi tham lam `はいくら` → `はい+くら`) — §6.4.
 - Audit builder v1.2.4 (độ chính xác, nhất quán, override, chip ngữ pháp, payload) — §6.5.
 - Thứ tự nhóm/cây theo **độ cơ bản** (Giao tiếp lên đầu) — commit `8de933d`.
+- “Nghe & chọn” là **quiz deterministic** từ dữ liệu sẵn có (không thêm dữ liệu, không AI); TTS chỉ là
+  enhancement — máy thiếu giọng Nhật thì tự chuyển sang Đọc & chọn; không thêm tab để giữ IA 5 tab.
