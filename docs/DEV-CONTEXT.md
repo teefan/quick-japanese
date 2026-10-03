@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · SW cache `qj-v1.5.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `9b39d4c` · SW cache `qj-v1.5.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese` (nhánh `archive/hanasou` giữ bản cũ trước khi ghi đè)
 
 Đọc file này trước khi bắt đầu code. Chi tiết đầy đủ nằm ở [`PLAN.md`](PLAN.md);
