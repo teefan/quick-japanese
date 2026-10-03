@@ -5,12 +5,15 @@ tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
-- 🇻🇳 Giao diện, nghĩa và **phiên âm tiếng Việt** cho mọi câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`).
+- 🇻🇳 Giao diện, nghĩa và **phiên âm tiếng Việt** cho mọi câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`)
+  — kèm **romaji chính thức** (Hepburn) song song: `sumimasen`, `konnichiwa`.
 - 🧩 **Ghép câu thu hẹp dần**: chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và giải thích ngay trên từng trợ từ.
 - 🔬 **Bóc tách ngữ pháp từng câu**: mọi cụm từ và câu ghép đều được chia thành các mảnh
-  (từ + trợ từ) với phiên âm, nghĩa, loại từ/thể và giải thích ngữ pháp — bấm 📝 để mở chi tiết.
-  Bộ tách từ + chú giải nằm ở `tools/segment.js`.
+  (từ + trợ từ) **tô màu theo vai trò ngữ pháp** (đại từ, danh từ, động từ, tính từ, trợ từ,
+  です, số đếm…), kèm phiên âm Việt + romaji, nghĩa, loại từ/thể và giải thích ngữ pháp —
+  bấm vào mảnh để làm nổi dòng giải thích, bấm 📝 để mở điểm ngữ pháp. Bộ tách từ + chú giải
+  nằm ở `tools/segment.js`; bảng màu xem trong tab Ngữ pháp.
 - ⭐ **Sổ tay của tôi**: lưu cụm từ và câu tự ghép (localStorage) để mở nhanh khi đi du lịch.
 - 🔍 **Tìm kiếm toàn bộ**: cụm từ, từ vựng, ngữ pháp và mục ghép câu trong một ô tìm kiếm.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên mọi câu và câu tự ghép.

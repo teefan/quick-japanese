@@ -181,6 +181,19 @@
       .join(" ");
   }
 
+  function romaLine(parts) {
+    return parts
+      .filter(p => p.kind !== "blank")
+      .map(p => {
+        if (p.kind === "text") return p.text.roma || "";
+        const bits = [p.opt.roma];
+        if (p.particle) bits.push(p.particle.roma);
+        return bits.filter(Boolean).join(" ");
+      })
+      .filter(Boolean)
+      .join(" ");
+  }
+
   function jpText(parts) {
     return parts.map(p => {
       if (p.kind === "blank") return "＿";
@@ -210,20 +223,20 @@
     for (const part of parts) {
       if (part.kind === "blank") continue;
       if (part.kind === "text") {
-        rows.push({ jp: part.text.text, kana: part.text.kana, viPron: part.text.viPron, vi: part.text.vi, note: "", grammar: null });
+        rows.push({ jp: part.text.text, kana: part.text.kana, roma: part.text.roma, viPron: part.text.viPron, vi: part.text.vi, note: "", grammar: null, role: part.text.role || "expression" });
         continue;
       }
       const o = part.opt;
       rows.push({
-        jp: o.jp, kana: o.kana, viPron: o.viPron,
+        jp: o.jp, kana: o.kana, roma: o.roma, viPron: o.viPron,
         vi: o.viLabel || o.vi, note: optionNote(part),
-        grammar: o.grammarHint || null,
+        grammar: o.grammarHint || null, role: o.role || "expression",
       });
       if (part.particle) {
         rows.push({
-          jp: part.particle.jp, kana: part.particle.kana, viPron: part.particle.viPron,
+          jp: part.particle.jp, kana: part.particle.kana, roma: part.particle.roma, viPron: part.particle.viPron,
           vi: part.particle.vi, note: part.particle.note || "",
-          grammar: part.particle.grammar || null, isParticle: true,
+          grammar: part.particle.grammar || null, role: "particle", isParticle: true,
         });
       }
     }
@@ -238,27 +251,33 @@
       }
       if (part.kind === "text") {
         const t = part.text;
-        return `<div class="brk-row">
+        return `<div class="brk-row role-${U.esc(t.role || "expression")}">
           <div class="brk-jp">${U.esc(t.text)}${t.kana && t.kana !== t.text ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
           <div class="brk-body">
             <span class="brk-pron">${U.esc(t.viPron || "")}</span>
+            <span class="brk-roma">${U.esc(t.roma || "")}</span>
             <span class="brk-vi">${U.esc(t.vi || "—")}</span>
           </div></div>`;
       }
       const o = part.opt;
       const note = optionNote(part);
-      let html = `<div class="brk-row">
+      let html = `<div class="brk-row role-${U.esc(o.role || "expression")}">
         <div class="brk-jp">${U.esc(o.jp)}${o.kana && o.kana !== o.jp ? `<small>${U.esc(o.kana)}</small>` : ""}</div>
         <div class="brk-body">
           <span class="brk-pron">${U.esc(o.viPron || "")}</span>
+          <span class="brk-roma">${U.esc(o.roma || "")}</span>
           <span class="brk-vi">${U.esc(o.viLabel || o.vi || "")}${note ? ` · <em>${U.esc(note)}</em>` : ""}</span>
         </div>
         ${o.grammarHint ? `<button class="brk-g" data-grammar="${o.grammarHint}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
       </div>`;
       if (part.particle) {
-        html += `<div class="brk-row particle-row">
+        html += `<div class="brk-row role-particle particle-row">
           <div class="brk-jp">${U.esc(part.particle.jp)}</div>
-          <div class="brk-body"><span class="brk-vi">${U.esc(part.particle.vi)}${part.particle.note ? ` · <em>${U.esc(part.particle.note)}</em>` : ""}</span></div>
+          <div class="brk-body">
+            <span class="brk-pron">${U.esc(part.particle.viPron || "")}</span>
+            <span class="brk-roma">${U.esc(part.particle.roma || "")}</span>
+            <span class="brk-vi">${U.esc(part.particle.vi)}${part.particle.note ? ` · <em>${U.esc(part.particle.note)}</em>` : ""}</span>
+          </div>
           ${part.particle.grammar ? `<button class="brk-g" data-grammar="${part.particle.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
         </div>`;
       }
@@ -334,6 +353,7 @@
         ${done ? `<span class="done-badge">✓ Câu đã sẵn sàng</span>` : ""}
         <div class="b-jp">${sentenceHtml(parts)}</div>
         <div class="b-pron">${U.esc(pronLine(parts))}</div>
+        <div class="b-roma">${U.esc(romaLine(parts))}</div>
         <div class="b-vi">${U.esc(vi)}</div>
         ${actions}
         ${done && intent.tip ? `<div class="note" style="margin-top:10px">${U.esc(intent.tip)}</div>` : ""}
@@ -370,7 +390,7 @@
             Fav.toggle({
               type: "sentence",
               id: "s" + Date.now(),
-              payload: { jp, kana: kanaText(parts), viPron: pronLine(parts), vi, structure: structureData(parts) },
+              payload: { jp, kana: kanaText(parts), viPron: pronLine(parts), roma: romaLine(parts), vi, structure: structureData(parts) },
               savedAt: Date.now(),
             });
             btn.textContent = "★ Đã lưu";

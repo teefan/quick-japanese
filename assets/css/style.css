@@ -15,6 +15,16 @@
   --ok-soft: #e9f5ee;
   --gold: #c9930a;
   --gold-soft: #fdf5dd;
+  --rl-pron: #7b5cc4;       --rl-pron-bg: #f2eefb;
+  --rl-noun: #2f6fb3;       --rl-noun-bg: #eaf2fb;
+  --rl-verb: #2e7d4f;       --rl-verb-bg: #e9f5ee;
+  --rl-adj: #b46a1f;        --rl-adj-bg: #fdf3e7;
+  --rl-adverb: #5a7d9a;     --rl-adverb-bg: #eaf1f6;
+  --rl-particle: #d94f5c;   --rl-particle-bg: #fdeef0;
+  --rl-copula: #6f7480;     --rl-copula-bg: #f1f2f4;
+  --rl-number: #0f7b7b;     --rl-number-bg: #e7f5f5;
+  --rl-expression: #a8850a; --rl-expression-bg: #fdf6dd;
+  --rl-unknown: #9aa0ad;    --rl-unknown-bg: #f1f2f4;
   --shadow: 0 1px 2px rgba(35, 38, 47, .05), 0 6px 20px -8px rgba(35, 38, 47, .12);
   --radius: 16px;
   --jp-font: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
@@ -36,6 +46,16 @@
     --ok-soft: #1e3327;
     --gold: #e8c15a;
     --gold-soft: #332c17;
+    --rl-pron: #b9a1f0;       --rl-pron-bg: #2a2440;
+    --rl-noun: #8fb8e8;       --rl-noun-bg: #1d2a3d;
+    --rl-verb: #7fd0a2;       --rl-verb-bg: #1e3327;
+    --rl-adj: #e8b06a;        --rl-adj-bg: #38291a;
+    --rl-adverb: #9dbcd6;     --rl-adverb-bg: #1f2b36;
+    --rl-particle: #f27481;   --rl-particle-bg: #3a262c;
+    --rl-copula: #a8adba;     --rl-copula-bg: #262a33;
+    --rl-number: #6cc7c7;     --rl-number-bg: #17302f;
+    --rl-expression: #e8c15a; --rl-expression-bg: #332c17;
+    --rl-unknown: #9aa0ad;    --rl-unknown-bg: #262a33;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
   }
 }
@@ -209,6 +229,10 @@ main {
 }
 .note::before { content: "💡 "; }
 
+/* Romaji (phiên âm chính thức, Hepburn) — hiển thị cạnh phiên âm Việt */
+.roma { color: var(--muted); font-weight: 500; font-style: italic; }
+.b-roma { color: var(--muted); font-style: italic; font-size: 13.5px; margin-top: 2px; min-height: 18px; }
+
 /* ---------- Bóc tách câu (composition + giải thích) ---------- */
 
 .compose {
@@ -219,7 +243,6 @@ main {
   margin-top: 10px;
 }
 .compose .c {
-  background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 9px;
   padding: 3px 9px;
@@ -227,14 +250,37 @@ main {
   font-size: 14.5px;
   font-weight: 600;
   cursor: pointer;
+  transition: transform .08s ease;
 }
-.compose .c.p {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
-  background: var(--accent-soft);
-}
-.compose .c.u { color: var(--muted); font-style: italic; }
+.compose .c:active { transform: scale(.94); }
 .compose .sep { color: var(--line); font-style: normal; }
+
+/* Màu theo vai trò ngữ pháp (dùng chung cho chip, dòng bóc tách và legend) */
+.role-pron { color: var(--rl-pron); background: var(--rl-pron-bg); border-color: color-mix(in srgb, var(--rl-pron) 35%, var(--line)); }
+.role-noun { color: var(--rl-noun); background: var(--rl-noun-bg); border-color: color-mix(in srgb, var(--rl-noun) 35%, var(--line)); }
+.role-verb { color: var(--rl-verb); background: var(--rl-verb-bg); border-color: color-mix(in srgb, var(--rl-verb) 35%, var(--line)); }
+.role-adj { color: var(--rl-adj); background: var(--rl-adj-bg); border-color: color-mix(in srgb, var(--rl-adj) 35%, var(--line)); }
+.role-adverb { color: var(--rl-adverb); background: var(--rl-adverb-bg); border-color: color-mix(in srgb, var(--rl-adverb) 35%, var(--line)); }
+.role-particle { color: var(--rl-particle); background: var(--rl-particle-bg); border-color: color-mix(in srgb, var(--rl-particle) 35%, var(--line)); }
+.role-copula { color: var(--rl-copula); background: var(--rl-copula-bg); border-color: color-mix(in srgb, var(--rl-copula) 35%, var(--line)); }
+.role-number { color: var(--rl-number); background: var(--rl-number-bg); border-color: color-mix(in srgb, var(--rl-number) 35%, var(--line)); }
+.role-expression { color: var(--rl-expression); background: var(--rl-expression-bg); border-color: color-mix(in srgb, var(--rl-expression) 35%, var(--line)); }
+.role-unknown { color: var(--rl-unknown); background: var(--rl-unknown-bg); border-color: var(--line); }
+.compose .c.u { font-style: italic; }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 12.5px;
+}
+.legend .c {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-weight: 600;
+}
 
 .brk-toggle {
   margin-top: 9px;
@@ -260,10 +306,42 @@ main {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  padding: 8px 2px;
+  padding: 8px 2px 8px 9px;
   border-bottom: 1px dashed var(--line);
+  border-left: 3px solid transparent;
 }
 .brk-row:last-child { border-bottom: 0; }
+.brk-row.role-pron { border-left-color: var(--rl-pron); }
+.brk-row.role-noun { border-left-color: var(--rl-noun); }
+.brk-row.role-verb { border-left-color: var(--rl-verb); }
+.brk-row.role-adj { border-left-color: var(--rl-adj); }
+.brk-row.role-adverb { border-left-color: var(--rl-adverb); }
+.brk-row.role-particle { border-left-color: var(--rl-particle); }
+.brk-row.role-copula { border-left-color: var(--rl-copula); }
+.brk-row.role-number { border-left-color: var(--rl-number); }
+.brk-row.role-expression { border-left-color: var(--rl-expression); }
+.brk-row.role-unknown { border-left-color: var(--rl-unknown); }
+.brk-row .brk-jp { color: inherit; }
+.brk-row.role-pron .brk-jp { color: var(--rl-pron); }
+.brk-row.role-noun .brk-jp { color: var(--rl-noun); }
+.brk-row.role-verb .brk-jp { color: var(--rl-verb); }
+.brk-row.role-adj .brk-jp { color: var(--rl-adj); }
+.brk-row.role-adverb .brk-jp { color: var(--rl-adverb); }
+.brk-row.role-particle .brk-jp { color: var(--rl-particle); }
+.brk-row.role-copula .brk-jp { color: var(--rl-copula); }
+.brk-row.role-number .brk-jp { color: var(--rl-number); }
+.brk-row.role-expression .brk-jp { color: var(--rl-expression); }
+.brk-row.role-unknown .brk-jp { color: var(--rl-unknown); }
+
+.brk-row.hl {
+  animation: hlflash 1.4s ease;
+  border-radius: 8px;
+}
+@keyframes hlflash {
+  0% { background: color-mix(in srgb, var(--indigo) 18%, transparent); }
+  100% { background: transparent; }
+}
+
 .brk-jp {
   font-family: var(--jp-font);
   font-size: 15px;
@@ -279,12 +357,19 @@ main {
 }
 .brk-body { flex: 1; }
 .brk-pron {
-  display: block;
+  display: inline-block;
   color: var(--accent);
   font-size: 12.5px;
   font-weight: 600;
 }
-.brk-vi { font-size: 13px; }
+.brk-roma {
+  display: inline-block;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 12.5px;
+  margin-left: 6px;
+}
+.brk-vi { display: block; font-size: 13px; }
 .brk-vi em { color: var(--muted); font-style: normal; }
 .brk-g {
   flex: 0 0 auto;
@@ -295,7 +380,6 @@ main {
   font-size: 12px;
   cursor: pointer;
 }
-.brk .particle-row .brk-jp { color: var(--accent); }
 .b-brk { margin-top: 12px; }
 
 /* ---------- Tabs ---------- */

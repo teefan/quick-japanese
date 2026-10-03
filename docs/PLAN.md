@@ -204,9 +204,13 @@ Every phrase and every built sentence is also shown **broken into its grammatica
   is derived directly from picks: word row (meaning + part of speech + verb form, e.g.
   “động từ, mong muốn たい”) and particle row (role + reading), each linking to a grammar card.
   Saved notebook sentences keep their structure in the payload, so the breakdown survives.
-- **UI**: a compact composition strip (segments separated by `·`, particles in accent colour)
-  plus an expandable “🧩 Giải thích ngữ pháp” table; tapping a particle or 📝 opens the
-  matching grammar point.
+- **UI**: a compact composition strip (segments separated by `·`, each segment **colour-coded by
+  grammatical role** — pronoun, noun, verb, adjective, adverb, particle, copula です, number,
+  fixed expression) plus an expandable “🧩 Giải thích ngữ pháp” table. Every segment shows the
+  Vietnamese approximation **and Hepburn romaji**; tapping a chip opens the table and flashes its
+  row; 📝 opens the matching grammar point. A colour legend lives in the Grammar tab.
+- **Notebook**: saved sentences keep the structure payload (roles, pronunciations, notes), so the
+  breakdown survives in “Sổ tay của tôi”.
 
 ---
 

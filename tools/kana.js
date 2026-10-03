@@ -155,11 +155,8 @@ function translit(input, override) {
       }
     } else {
       let vi = m.vi;
-      // う sau âm ô/ư/u: viết "u" để giữ trường âm tự nhiên (とう -> "tô-u", くう -> "cư-u")
-      if (m.roma === "u" && groups.length) {
-        const before = groups[groups.length - 1].vi.slice(-1);
-        if (before === "ô" || before === "ư" || before === "u") vi = "u";
-      }
+      // う sau một nguyên âm: viết "u" cho dễ đọc và nhất quán (とう -> "tô-u", アウト -> "a-u-tô")
+      if (m.roma === "u" && groups.length) vi = "u";
       groups.push({ roma: m.roma, vi });
     }
     i += m.len;

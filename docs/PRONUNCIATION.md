@@ -69,6 +69,14 @@ Phụ âm của mora sau được "gấp" vào cuối mora trước:
 - いっぱい → `ip-pa-i`
 - けっこう → `kêk-kô-u`
 
+### Nguyên âm đứng trước う
+
+う ngay sau một nguyên âm luôn viết là `u` cho dễ đọc và nhất quán với trường âm:
+
+- とう → `tô-u`, きょう → `kiô-u`, アウト → `a-u-tô`, かう → `ka-u`
+
+(Đứng đầu từ, う vẫn là `ư`: うん → `ưn` những trường hợp này hiếm gặp.)
+
 ### ー — trường âm (katakana)
 
 Kéo dài nguyên âm trước đó:
@@ -88,6 +96,20 @@ Một số câu có phiên âm ghi đè (`viPron` trong `data/source/phrases.jso
 | 私はベトナム人です | `oa-ta-xi oa bê-tô-na-mư-jin đê-xư` | は = chủ đề |
 
 Trong công cụ ghép câu, trợ từ được app tự chèn và phiên âm sẵn (`は` → `oa`, `へ` → `ê`, `を` → `ô`).
+
+## Romaji (phiên âm chính thức, Hepburn)
+
+Mỗi câu hiển thị **cả hai**: phiên âm Việt (chính) và **romaji Hepburn** (phụ, in nghiêng),
+ví dụ `côn-ni-chi-oa · konnichiwa`, `xư-mi-ma-xên · sumimasen`.
+
+- Dùng Hepburn tiêu chuẩn: し→shi, ち→chi, つ→tsu, ふ→fu, じ→ji, しゃ→sha…
+- Trường âm viết kiểu Wāpuro (ou/uu) thay vì dấu macron: とうきょう → `toukyou`,
+  コーヒー → `koohii`, ありがとう → `arigatou`. Cách này thân thiện với bàn phím và
+  người Việt; dạng có macron (`Tōkyō`, `kōhī`) chỉ khác cách trình bày.
+- Trợ từ đọc đúng như khi nói: は → `wa`, へ → `e`, を → `o`.
+- Romaji của cả câu được **ghép theo từng mảnh** (có khoảng cách): `kore wa ikura desu ka`
+  thay vì dính liền `korewaikuradesuka`.
+- Nguồn: sinh tự động bởi `tools/kana.js` (hàm `romanize`), không gõ tay.
 
 ## Hạn chế đã biết
 

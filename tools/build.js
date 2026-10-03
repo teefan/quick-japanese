@@ -9,7 +9,7 @@
 const fs = require("fs");
 const path = require("path");
 const K = require("./kana.js");
-const { PARTICLES, POS_VI, POS_GRAMMAR, FORM_VI, FORM_GRAMMAR, buildLexicon, tokenize } = require("./segment.js");
+const { PARTICLES, POS_VI, POS_ROLE, POS_GRAMMAR, FORM_VI, FORM_GRAMMAR, buildLexicon, tokenize } = require("./segment.js");
 
 const SRC = path.join(__dirname, "..", "data", "source");
 const OUT = path.join(__dirname, "..", "data");
@@ -28,6 +28,7 @@ function enrichParticle(p) {
     vi: PARTICLES[p].vi,
     note: PARTICLES[p].note,
     grammar: PARTICLES[p].grammar,
+    role: "particle",
     isParticle: true,
   };
 }
@@ -132,6 +133,7 @@ function buildPhrases(vocab, numbers, grammarIds) {
           vi: part.vi || "",
           note: part.note || "",
           grammar: part.grammar || null,
+          role: part.role || (part.isParticle ? "particle" : part.unknown ? "unknown" : "expression"),
           isParticle: !!part.isParticle,
           unknown: !!part.unknown,
         };
@@ -145,6 +147,19 @@ function buildPhrases(vocab, numbers, grammarIds) {
       if (out.parts.length === 1 && p.viPron) {
         out.parts[0].viPron = p.viPron;
         if (p.roma) out.parts[0].roma = p.roma;
+      }
+      // Romaji "chính thức" (Hepburn) ghép theo từng mảnh, có khoảng cách cho dễ đọc
+      if (out.parts.length && p.roma === undefined) {
+        out.roma = out.parts.map((x) => x.roma).join(" ");
+      }
+      if (out.parts.length && p.viPron === undefined) {
+        out.viPron = out.parts.map((x) => x.viPron).join(" ");
+      }
+      // Audit: các mảnh phải ghép lại đúng bằng câu gốc (bỏ dấu câu)
+      const joinParts = out.parts.map((x) => x.kana).join("");
+      const clean = (s) => (s || "").replace(/[、。！？!?\s〜「」（）()・…]/g, "");
+      if (clean(joinParts) !== clean(p.kana)) {
+        warn(`[${p.id}] mảnh ghép không khớp câu gốc: "${joinParts}" ≠ "${p.kana}"`);
       }
       return out;
     }),
@@ -229,6 +244,7 @@ function enrichOption(opt, vocabById) {
     base.posVi = POS_VI[v.pos] || "";
     if (opt.form) base.formNote = FORM_VI[opt.form] || "";
     base.grammarHint = (opt.form && FORM_GRAMMAR[opt.form]) || POS_GRAMMAR[v.pos] || null;
+    base.role = v.pos === "verb" ? "verb" : POS_ROLE[v.pos] || "expression";
   } else {
     if (!opt.kana) throw new Error(`Option thiếu kana: ${JSON.stringify(opt)}`);
     base.jp = opt.jp !== undefined ? opt.jp : opt.kana;
@@ -251,7 +267,8 @@ function enrichTemplateSeg(seg) {
   if (seg.text !== undefined) {
     if (!seg.kana) throw new Error(`Template text thiếu kana: ${JSON.stringify(seg)}`);
     const e = enrichText({ jp: seg.text, kana: seg.kana, vi: seg.vi || "" });
-    return { text: e.jp, kana: e.kana, roma: e.roma, viPron: e.viPron, vi: e.vi };
+    const isCopula = seg.text === "です" || seg.text === "でした";
+    return { text: e.jp, kana: e.kana, roma: e.roma, viPron: e.viPron, vi: e.vi, role: isCopula ? "copula" : "expression" };
   }
   throw new Error(`Template segment không hợp lệ: ${JSON.stringify(seg)}`);
 }

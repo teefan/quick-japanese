@@ -109,9 +109,9 @@
         { "id": "shop-12", "jp": "免税できますか", "kana": "めんぜいできますか", "vi": "Được miễn thuế không?", "note": "Thường áp dụng từ 5.000 yên, nhớ mang hộ chiếu." },
         { "id": "shop-13", "jp": "袋はいりません", "kana": "ふくろはいりません", "vi": "Tôi không cần túi", "note": "Ngược lại: 袋をお願いします = cho tôi xin cái túi.",
           "parts": [
-            { "jp": "袋", "kana": "ふくろ", "vi": "túi đựng", "note": "danh từ" },
-            { "jp": "は", "kana": "は", "vi": "～ thì / còn ～", "note": "trợ từ chủ đề, đọc là 'oa'", "grammar": "particle-wa", "isParticle": true },
-            { "jp": "いりません", "kana": "いりません", "vi": "không cần", "note": "từ 要る (cần)" }
+            { "jp": "袋", "kana": "ふくろ", "vi": "túi đựng", "note": "danh từ", "role": "noun" },
+            { "jp": "は", "kana": "は", "vi": "～ thì / còn ～", "note": "trợ từ chủ đề, đọc là 'oa'", "grammar": "particle-wa", "role": "particle", "isParticle": true },
+            { "jp": "いりません", "kana": "いりません", "vi": "không cần", "note": "từ 要る (cần)", "role": "verb" }
           ] },
         { "id": "shop-14", "jp": "レシートをください", "kana": "レシートをください", "vi": "Cho tôi hóa đơn", "note": "Cần khi hoàn thuế." },
         { "id": "shop-15", "jp": "これでお願いします", "kana": "これでおねがいします", "vi": "Làm ơn tính cái này ạ", "note": "Nói khi đưa đồ ra quầy." },
@@ -181,7 +181,7 @@
         { "id": "hotel-03", "jp": "部屋を見せてもらえますか", "kana": "へやをみせてもらえますか", "vi": "Cho tôi xem phòng được không?", "note": "Dùng khi muốn đổi phòng." },
         { "id": "hotel-04", "jp": "Wi-Fiのパスワードは何ですか", "kana": "ワイファイのパスワードはなんですか", "vi": "Mật khẩu Wi-Fi là gì?", "roma": "waifai no pasuwaado wa nan desu ka", "viPron": "oa-i-pha-i nô pa-xư-oaa-đô oa nan-đê-xư-ka" },
         { "id": "hotel-05", "jp": "荷物を預かってもらえますか", "kana": "にもつをあずかってもらえますか", "vi": "Gửi hành lý giúp tôi được không?", "note": "Dùng trước khi nhận phòng hoặc sau khi trả phòng." },
-        { "id": "hotel-06", "jp": "チェックアウトは何時ですか", "kana": "チェックアウトはなんじですか", "vi": "Trả phòng lúc mấy giờ?", "roma": "chekku auto wa nanji desu ka", "viPron": "chek-ku-a-u-tô oa nan-ji đê-xư-ka" },
+        { "id": "hotel-06", "jp": "チェックアウトは何時ですか", "kana": "チェックアウトはなんじですか", "vi": "Trả phòng lúc mấy giờ?", "roma": "chekku auto wa nanji desu ka", "viPron": "chêk-ku-a-u-tô oa nan-ji đê-xư-ka" },
         { "id": "hotel-07", "jp": "チェックアウトをお願いします", "kana": "チェックアウトをおねがいします", "vi": "Cho tôi làm thủ tục trả phòng", "note": "Nói ở quầy lễ tân." },
         { "id": "hotel-08", "jp": "タオルをもう一枚ください", "kana": "タオルをもういちまいください", "vi": "Cho tôi thêm một cái khăn", "note": "もう = thêm nữa; 一枚 = một cái (đếm vật mỏng)." },
         { "id": "hotel-09", "jp": "部屋のエアコンが動きません", "kana": "へやのエアコンがうごきません", "vi": "Điều hòa trong phòng không chạy", "note": "Đổi エアコン thành お湯 (nước nóng) / 電気 (đèn) nếu cần." },

@@ -32,6 +32,41 @@ const PARTICLES = {
 
 /* ------------------------------ Chú giải loại từ ------------------------------ */
 
+/* Vai trò cho các cụm cố định (mặc định là expression) */
+const EXPR_ROLE = {
+  // danh từ
+  "さとう": "noun", "かぜぐすり": "noun", "ずつう": "noun", "やく": "noun", "くすり": "noun",
+  "いたみどめ": "noun", "ばんそうこう": "noun", "しょほうせん": "noun", "めまい": "noun",
+  "サイズ": "noun", "いろ": "noun", "ほか": "noun", "おすすめ": "noun", "おかいけい": "noun",
+  "おかわり": "noun", "おみず": "noun", "もちかえり": "noun", "てんない": "noun",
+  "きんえんせき": "noun", "きつえんせき": "noun", "ごちゅうもん": "noun", "おきまり": "noun",
+  "なんめいさま": "noun", "よやく": "noun", "おなか": "noun", "のど": "noun", "ねつ": "noun",
+  "きぶん": "noun", "ほけん": "noun", "しょるい": "noun", "じこ": "noun", "とうなん": "noun",
+  "しょうめい": "noun", "りょうしゅうしょ": "noun", "ベトナム": "noun", "たいしかん": "noun",
+  "ぼこく": "noun", "れんらく": "noun", "スマホ": "noun", "チェックイン": "noun",
+  "チェックアウト": "noun", "ワイファイ": "noun", "パスワード": "noun", "へや": "noun",
+  "にもつ": "noun", "タオル": "noun", "エアコン": "noun", "ちょうしょく": "noun",
+  "でんしゃ": "noun", "とうきょう": "noun", "なんばんせん": "noun", "みち": "noun",
+  "じゅうしょ": "noun", "ごりよう": "noun", "おじゃま": "noun", "しつれい": "noun",
+  // tính từ / trạng từ
+  "しずか": "adj", "いたい": "adj", "わるい": "adj", "べつ": "adj",
+  "よく": "adverb", "からく": "adverb", "やすく": "adverb",
+  "ゆっくり": "adverb", "ちょっと": "adverb", "すこし": "adverb", "もう": "adverb",
+  "また": "adverb", "まっすぐ": "adverb", "くらい": "adverb", "いっしょ": "adverb",
+  "べつべつ": "adverb", "どうやって": "adverb", "じゃあ": "adverb", "そう": "adverb",
+  "けっこう": "adverb", "どうも": "adverb", "どうぞ": "adverb", "おさきに": "adverb",
+  // từ hỏi / số
+  "どの": "pron", "なんかい": "pron", "いちど": "number", "えん": "number",
+  // động từ (dạng chia sẵn)
+  "あずかって": "verb", "かえて": "verb", "おいて": "verb", "うごきません": "verb",
+  "あるいて": "verb", "さして": "verb", "とめて": "verb", "とめたい": "verb",
+  "とどけたい": "verb", "あいました": "verb", "おとしました": "verb", "ぬすまれました": "verb",
+  "まよいました": "verb", "なくしました": "verb", "さがりません": "verb", "いりません": "verb",
+  "いれないで": "verb", "しないで": "verb", "もらえます": "verb", "もらえますか": "verb",
+  "なります": "verb", "なりません": "verb", "かかります": "verb", "います": "verb",
+  "あります": "verb", "ありません": "verb",
+};
+
 const POS_VI = {
   pron: "đại từ",
   demo: "đại từ chỉ định",
@@ -40,6 +75,12 @@ const POS_VI = {
   verb: "động từ",
   "adj-i": "tính từ đuôi い",
   "adj-na": "tính từ đuôi な",
+};
+
+/* Vai trò để tô màu trong dòng composition (khớp với legend trên UI) */
+const POS_ROLE = {
+  pron: "pron", demo: "pron", q: "pron",
+  noun: "noun", verb: "verb", "adj-i": "adj", "adj-na": "adj",
 };
 
 const POS_GRAMMAR = {
@@ -121,7 +162,7 @@ const EXPRESSIONS = [
   { kana: "どういたしまして", jp: "どういたしまして", vi: "không có gì" },
   { kana: "いただきます", jp: "いただきます", vi: "con xin phép dùng bữa", note: "nói trước khi ăn" },
   { kana: "ごちそうさま", jp: "ごちそうさま", vi: "cảm ơn vì bữa ăn", note: "nói sau khi ăn xong" },
-  { kana: "でした", jp: "でした", vi: "đã là (quá khứ của です)", grammar: "desu" },
+  { kana: "でした", jp: "でした", vi: "đã là (quá khứ của です)", grammar: "desu", role: "copula" },
   { kana: "おじゃま", jp: "お邪魔", vi: "làm phiền", note: "trong お邪魔します = xin phép vào nhà" },
   { kana: "しつれい", jp: "失礼", vi: "thất lễ", note: "trong 失礼します = xin phép" },
   { kana: "おさきに", jp: "お先に", vi: "trước mọi người", note: "trong お先に失礼します = tôi về trước" },
@@ -138,7 +179,7 @@ const EXPRESSIONS = [
   { kana: "じゃあ", jp: "じゃあ", vi: "vậy thì / thôi nhé", note: "dùng khi chia tay thân mật" },
 
   // Đuôi câu / ngữ pháp rời
-  { kana: "です", jp: "です", vi: "là (lịch sự)", note: "đuôi câu danh từ/tính từ", grammar: "desu" },
+  { kana: "です", jp: "です", vi: "là (lịch sự)", note: "đuôi câu danh từ/tính từ", grammar: "desu", role: "copula" },
   { kana: "ないでください", jp: "ないでください", vi: "xin đừng…", note: "phủ định + ください", grammar: "te-kudasai" },
   { kana: "もらえます", jp: "もらえます", vi: "có thể nhận được", note: "〜てもらえますか = nhờ ai làm giúp", grammar: "te-kudasai" },
   { kana: "もらえますか", jp: "もらえますか", vi: "…giúp tôi được không?", note: "nhờ vả lịch sự", grammar: "te-kudasai" },
@@ -149,7 +190,7 @@ const EXPRESSIONS = [
   { kana: "あります", jp: "あります", vi: "có (đồ vật)", grammar: "masu-form" },
   { kana: "ありません", jp: "ありません", vi: "không có", grammar: "masu-form" },
   { kana: "いりません", jp: "いりません", vi: "không cần", note: "từ 要る (cần)" },
-  { kana: "いれないでください", jp: "入れないでください", vi: "xin đừng cho vào", note: "từ 入れる (cho vào)" },
+  { kana: "いれないで", jp: "入れないで", vi: "xin đừng cho vào", note: "phủ định thể て của 入れる", grammar: "te-kudasai" },
   { kana: "しないで", jp: "しないで", vi: "đừng làm", note: "phủ định thể て của する" },
   { kana: "よく", jp: "よく", vi: "tốt / thường xuyên", note: "dạng trạng từ của いい" },
   { kana: "なん", jp: "何", vi: "cái gì", note: "đọc 'なん' trước です/です", grammar: "question-ka" },
@@ -263,7 +304,7 @@ function buildLexicon(vocab, numbers) {
 
   // Trợ từ
   for (const [kana, p] of Object.entries(PARTICLES)) {
-    addEntry(lex, { kana, jp: kana, vi: p.vi, note: p.note, grammar: p.grammar, isParticle: true });
+    addEntry(lex, { kana, jp: kana, vi: p.vi, note: p.note, grammar: p.grammar, isParticle: true, role: "particle" });
   }
 
   // Lượng từ & mệnh giá (một 一つ, một chai 一本, 100円…)
@@ -272,29 +313,30 @@ function buildLexicon(vocab, numbers) {
       for (const combo of c.combos || []) {
         addEntry(lex, {
           kana: combo.kana, jp: combo.jp, vi: combo.vi,
-          note: `lượng từ "${c.jp}" (${c.vi})`, grammar: "counters",
+          note: `lượng từ "${c.jp}" (${c.vi})`, grammar: "counters", role: "number",
         });
       }
     }
     for (const m of numbers.money || []) {
-      addEntry(lex, { kana: m.kana, jp: m.jp, vi: m.vi, note: "tiền Nhật", grammar: "counters" });
+      addEntry(lex, { kana: m.kana, jp: m.jp, vi: m.vi, note: "tiền Nhật", grammar: "counters", role: "number" });
     }
   }
 
   // Cụm cố định (đăng trước để giữ nguyên dạng hiển thị)
   for (const e of EXPRESSIONS) {
-    addEntry(lex, { isExpression: true, ...e });
+    addEntry(lex, { isExpression: true, role: EXPR_ROLE[e.kana] || "expression", ...e });
   }
 
   // Từ vựng
   for (const v of vocab) {
+    const role = POS_ROLE[v.pos] || "expression";
     if (v.pos === "verb") {
       for (const [form, f] of Object.entries(v.forms)) {
         addEntry(lex, {
           kana: f.kana, jp: f.jp, vi: v.vi,
           note: FORM_VI[form] || "động từ",
           grammar: FORM_GRAMMAR[form] || null,
-          isVerb: true,
+          isVerb: true, role: "verb",
         });
       }
       // phủ định thể khả năng (食べられません…) phục vụ câu "không ăn được"
@@ -306,7 +348,7 @@ function buildLexicon(vocab, numbers) {
           vi: v.vi,
           note: "khả năng (phủ định)",
           grammar: "potential",
-          isVerb: true,
+          isVerb: true, role: "verb",
         });
       }
       continue;
@@ -319,13 +361,13 @@ function buildLexicon(vocab, numbers) {
           jp: v.jp.slice(0, -1) + "く",
           vi: v.vi,
           note: "dạng trạng từ (〜く)",
-          grammar: "adj",
+          grammar: "adj", role: "adj",
         });
       }
-      addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos], grammar: POS_GRAMMAR[v.pos] });
+      addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos], grammar: POS_GRAMMAR[v.pos], role });
       continue;
     }
-    addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos] || "", grammar: POS_GRAMMAR[v.pos] || null });
+    addEntry(lex, { kana: v.kana, jp: v.jp, vi: v.vi, note: POS_VI[v.pos] || "", grammar: POS_GRAMMAR[v.pos] || null, role });
   }
 
   return lex;
@@ -429,6 +471,6 @@ function tokenize(kana, lex) {
 }
 
 module.exports = {
-  PARTICLES, POS_VI, POS_GRAMMAR, FORM_VI, FORM_GRAMMAR,
+  PARTICLES, POS_VI, POS_ROLE, POS_GRAMMAR, FORM_VI, FORM_GRAMMAR,
   EXPRESSIONS, buildLexicon, tokenize,
 };

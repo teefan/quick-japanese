@@ -1,6 +1,6 @@
 window.QJ = window.QJ || {};
 window.QJ.meta = {
-  "builtAt": "2026-10-03T02:36:42.307Z",
+  "builtAt": "2026-10-03T02:48:37.476Z",
   "counts": {
     "vocab": 173,
     "phrases": 167,

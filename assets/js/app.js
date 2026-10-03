@@ -165,23 +165,29 @@ function phraseMatches(p, q) {
 }
 
 function compositionHtml(p) {
-  const chips = p.parts.map(part => `
-    <span class="c ${part.isParticle ? "p" : ""} ${part.unknown ? "u" : ""}"
-      ${part.grammar ? `data-grammar="${part.grammar}" title="${U.esc(part.vi || part.note || "")}"` : ""}>
+  const chips = p.parts.map((part, i) => `
+    <span class="c role-${U.esc(part.role || "expression")} ${part.unknown ? "u" : ""}"
+      data-chip="${i}" data-for="${U.esc(p.id)}"
+      title="${U.esc(part.vi || part.note || "Xem giải thích")}">
       ${U.esc(part.jp)}</span>`).join('<i class="sep">·</i>');
-  const rows = p.parts.map(part => `
-    <div class="brk-row">
-      <div class="brk-jp">${U.esc(part.jp)}${part.kana && part.kana !== part.jp ? `<small>${U.esc(part.kana)}</small>` : ""}</div>
-      <div class="brk-body">
-        <span class="brk-pron">${U.esc(part.viPron)}</span>
-        <span class="brk-vi">${U.esc(part.vi || "—")}${part.note ? ` · <em>${U.esc(part.note)}</em>` : ""}</span>
-      </div>
-      ${part.grammar ? `<button class="brk-g" data-grammar="${part.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
-    </div>`).join("");
+  const rows = structureRowsHtml(p.parts, p.id);
   return `
     <div class="compose">${chips}</div>
     <button class="brk-toggle" data-brk="${U.esc(p.id)}">🧩 Giải thích ngữ pháp</button>
     <div class="brk" id="brk-${U.esc(p.id)}" hidden>${rows}</div>`;
+}
+
+function structureRowsHtml(parts, pid) {
+  return parts.map((part, i) => `
+    <div class="brk-row role-${U.esc(part.role || "expression")}${part.isParticle ? " particle-row" : ""}" data-row="${i}">
+      <div class="brk-jp">${U.esc(part.jp)}${part.kana && part.kana !== part.jp ? `<small>${U.esc(part.kana)}</small>` : ""}</div>
+      <div class="brk-body">
+        <span class="brk-pron">${U.esc(part.viPron)}</span>
+        <span class="brk-roma">${U.esc(part.roma || "")}</span>
+        <span class="brk-vi">${U.esc(part.vi || "—")}${part.note ? ` · <em>${U.esc(part.note)}</em>` : ""}</span>
+      </div>
+      ${part.grammar ? `<button class="brk-g" data-grammar="${part.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+    </div>`).join("");
 }
 
 function phraseCard(p) {
@@ -196,8 +202,8 @@ function phraseCard(p) {
         <button class="icon-btn" title="Đưa máy" data-act="show" data-key="${key}">📺</button>
         <button class="icon-btn" title="Copy" data-act="copy" data-key="${key}">📋</button>
       </div>
-      ${p.kana && p.kana !== p.jp ? `<div class="kana-line">${U.esc(p.kana)}${p.roma ? " · " + U.esc(p.roma) : ""}</div>` : ""}
-      <div class="pron">${U.esc(p.viPron || "")}</div>
+      ${p.kana && p.kana !== p.jp ? `<div class="kana-line">${U.esc(p.kana)}</div>` : ""}
+      <div class="pron">${U.esc(p.viPron || "")}<span class="roma"> · ${U.esc(p.roma || "")}</span></div>
       <div class="meaning">${U.esc(p.vi)}</div>
       ${p.parts && p.parts.length ? compositionHtml(p) : ""}
       ${p.note ? `<div class="note">${U.esc(p.note)}</div>` : ""}
@@ -297,7 +303,7 @@ function vocabCard(v) {
           <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-act="speak" data-key="${key}">🔊</button>
         </span>
       </div>
-      <div class="pron" style="font-size:13.5px">${U.esc(v.viPron)}</div>
+      <div class="pron" style="font-size:13.5px">${U.esc(v.viPron)}<span class="roma"> · ${U.esc(v.roma || "")}</span></div>
       <div class="w-meaning">${U.esc(v.vi)}</div>
       ${extra ? `<div class="w-extra">${extra}</div>` : ""}
     </div>`;
@@ -313,12 +319,12 @@ function renderVocab() {
       <div class="w-top"><b>${U.esc(c.jp)}</b><span class="w-kana">${U.esc(c.vi)}</span></div>
       <div class="w-extra">${U.esc(c.note || "")}</div>
       <div class="combo-row">
-        ${c.combos.map(x => `<div class="combo"><b>${U.esc(x.jp)}</b><span>${U.esc(x.vi)}</span><span class="pron" style="font-size:11.5px">${U.esc(x.viPron)}</span></div>`).join("")}
+        ${c.combos.map(x => `<div class="combo"><b>${U.esc(x.jp)}</b><span>${U.esc(x.vi)}</span><span class="pron" style="font-size:11.5px">${U.esc(x.viPron)}</span><span class="roma" style="font-size:11px">${U.esc(x.roma)}</span></div>`).join("")}
       </div>
     </div>`).join("");
 
   const money = (QJ.numbers?.money || []).map(m => `
-    <div class="combo"><b>${U.esc(m.jp)}</b><span>${U.esc(m.vi)}</span><span class="pron" style="font-size:11.5px">${U.esc(m.viPron)}</span></div>`).join("");
+    <div class="combo"><b>${U.esc(m.jp)}</b><span>${U.esc(m.vi)}</span><span class="pron" style="font-size:11.5px">${U.esc(m.viPron)}</span><span class="roma" style="font-size:11px">${U.esc(m.roma)}</span></div>`).join("");
 
   view.innerHTML = `
     <input id="vocab-search" class="search" type="search" placeholder="Tìm từ: 'nước', 'mizu', 'đắt'…" value="${U.esc(vocabState.q)}">
@@ -353,18 +359,6 @@ function renderVocab() {
 
 /* ------------------------------ Sổ tay của tôi ------------------------------ */
 
-function structureRowsHtml(rows) {
-  return rows.map(part => `
-    <div class="brk-row${part.isParticle ? " particle-row" : ""}">
-      <div class="brk-jp">${U.esc(part.jp)}${part.kana && part.kana !== part.jp ? `<small>${U.esc(part.kana)}</small>` : ""}</div>
-      <div class="brk-body">
-        <span class="brk-pron">${U.esc(part.viPron || "")}</span>
-        <span class="brk-vi">${U.esc(part.vi || "—")}${part.note ? ` · <em>${U.esc(part.note)}</em>` : ""}</span>
-      </div>
-      ${part.grammar ? `<button class="brk-g" data-grammar="${part.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
-    </div>`).join("");
-}
-
 function sentenceCard(f) {
   const p = f.payload;
   const key = U.register(p);
@@ -372,7 +366,7 @@ function sentenceCard(f) {
   const structure = Array.isArray(p.structure) && p.structure.length
     ? `
       <button class="brk-toggle" data-brk="${U.esc(brkId)}">🧩 Giải thích ngữ pháp</button>
-      <div class="brk" id="brk-${U.esc(brkId)}" hidden>${structureRowsHtml(p.structure)}</div>`
+      <div class="brk" id="brk-${U.esc(brkId)}" hidden>${structureRowsHtml(p.structure, brkId)}</div>`
     : "";
   return `
     <div class="card">
@@ -384,7 +378,7 @@ function sentenceCard(f) {
         <button class="icon-btn fav-on" title="Bỏ khỏi sổ tay" data-act="unfav-sentence" data-id="${U.esc(f.id)}">★</button>
       </div>
       ${p.kana && p.kana !== p.jp ? `<div class="kana-line">${U.esc(p.kana)}</div>` : ""}
-      <div class="pron">${U.esc(p.viPron || "")}</div>
+      <div class="pron">${U.esc(p.viPron || "")}${p.roma ? `<span class="roma"> · ${U.esc(p.roma)}</span>` : ""}</div>
       <div class="meaning">${U.esc(p.vi)}</div>
       ${structure}
     </div>`;
@@ -417,10 +411,32 @@ function renderNotebook() {
 
 /* ------------------------------ Ngữ pháp ------------------------------ */
 
+const ROLE_LEGEND = [
+  ["pron", "Đại từ / từ hỏi"],
+  ["noun", "Danh từ"],
+  ["verb", "Động từ"],
+  ["adj", "Tính từ"],
+  ["adverb", "Trạng từ"],
+  ["particle", "Trợ từ"],
+  ["copula", "です / でした"],
+  ["number", "Số đếm"],
+  ["expression", "Cụm cố định / khác"],
+];
+
 function renderGrammar() {
   view.innerHTML = `
     <div class="section-title"><h2>📝 Ngữ pháp tối giản</h2>
       <span class="desc">${QJ.grammar.points.length} điểm — đủ để hiểu mọi câu trong app</span></div>
+    <div class="card">
+      <b style="font-size:14px">🎨 Màu trong phân tích câu</b>
+      <div class="legend">
+        ${ROLE_LEGEND.map(([role, label]) => `<span class="c role-${role}">${label}</span>`).join("")}
+      </div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:8px">
+        Mỗi câu được tách thành các mảnh theo vai trò ngữ pháp. Bấm vào một mảnh để xem giải thích,
+        hoặc bấm 📝 để mở điểm ngữ pháp tương ứng.
+      </div>
+    </div>
     ${QJ.grammar.points.map(g => `
       <details class="g">
         <summary>
@@ -435,7 +451,7 @@ function renderGrammar() {
           ${(g.examples || []).map(e => `
             <div class="ex">
               <div class="ex-jp">${U.esc(e.jp)}</div>
-              ${e.viPron ? `<div class="ex-pron">${U.esc(e.viPron)}</div>` : ""}
+              ${e.viPron ? `<div class="ex-pron">${U.esc(e.viPron)}${e.roma ? `<span class="roma"> · ${U.esc(e.roma)}</span>` : ""}</div>` : ""}
               <div class="ex-vi">${U.esc(e.vi)}</div>
             </div>`).join("")}
         </div>
@@ -553,6 +569,27 @@ document.addEventListener("click", e => {
       panel.hidden = !panel.hidden;
       brk.classList.toggle("open", !panel.hidden);
       brk.textContent = panel.hidden ? "🧩 Giải thích ngữ pháp" : "🧩 Thu gọn giải thích";
+    }
+    return;
+  }
+
+  const chip = e.target.closest("[data-chip]");
+  if (chip) {
+    const pid = chip.dataset.for;
+    const panel = document.getElementById("brk-" + pid);
+    if (panel) {
+      if (panel.hidden) {
+        panel.hidden = false;
+        const t = document.querySelector(`[data-brk="${pid}"]`);
+        if (t) { t.classList.add("open"); t.textContent = "🧩 Thu gọn giải thích"; }
+      }
+      const row = panel.querySelector(`[data-row="${chip.dataset.chip}"]`);
+      if (row) {
+        row.classList.remove("hl");
+        void row.offsetWidth; // restart animation
+        row.classList.add("hl");
+        row.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
     return;
   }

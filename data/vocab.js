@@ -2005,7 +2005,7 @@ window.QJ.vocab = [
         "jp": "買う",
         "kana": "かう",
         "roma": "kau",
-        "viPron": "ka-ư"
+        "viPron": "ka-u"
       },
       "masu": {
         "jp": "買います",
@@ -2045,7 +2045,7 @@ window.QJ.vocab = [
       }
     },
     "roma": "kau",
-    "viPron": "ka-ư"
+    "viPron": "ka-u"
   },
   {
     "id": "v-hanasu",
@@ -2120,7 +2120,7 @@ window.QJ.vocab = [
         "jp": "言う",
         "kana": "いう",
         "roma": "iu",
-        "viPron": "i-ư"
+        "viPron": "i-u"
       },
       "masu": {
         "jp": "言います",
@@ -2160,7 +2160,7 @@ window.QJ.vocab = [
       }
     },
     "roma": "iu",
-    "viPron": "i-ư"
+    "viPron": "i-u"
   },
   {
     "id": "v-kiku",
@@ -2348,7 +2348,7 @@ window.QJ.vocab = [
         "jp": "使う",
         "kana": "つかう",
         "roma": "tsukau",
-        "viPron": "tsư-ka-ư"
+        "viPron": "tsư-ka-u"
       },
       "masu": {
         "jp": "使います",
@@ -2388,7 +2388,7 @@ window.QJ.vocab = [
       }
     },
     "roma": "tsukau",
-    "viPron": "tsư-ka-ư"
+    "viPron": "tsư-ka-u"
   },
   {
     "id": "v-hairu",
@@ -2690,7 +2690,7 @@ window.QJ.vocab = [
         "jp": "払う",
         "kana": "はらう",
         "roma": "harau",
-        "viPron": "ha-ra-ư"
+        "viPron": "ha-ra-u"
       },
       "masu": {
         "jp": "払います",
@@ -2730,7 +2730,7 @@ window.QJ.vocab = [
       }
     },
     "roma": "harau",
-    "viPron": "ha-ra-ư"
+    "viPron": "ha-ra-u"
   },
   {
     "id": "v-motsu",

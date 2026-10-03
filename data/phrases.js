@@ -24,6 +24,7 @@ window.QJ.phrases = {
               "vi": "xin chào (ban ngày)",
               "note": "は viết 'ha' nhưng đọc 'oa' — dấu vết trợ từ chủ đề",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -35,8 +36,8 @@ window.QJ.phrases = {
           "kana": "おはようございます",
           "vi": "Chào buổi sáng (lịch sự)",
           "note": "Trước ~10 giờ sáng. Với bạn bè chỉ nói おはよう.",
-          "roma": "ohayougozaimasu",
-          "viPron": "ô-ha-yô-u-gô-za-i-ma-xư",
+          "roma": "ohayou gozaimasu",
+          "viPron": "ô-ha-yô-u gô-za-i-ma-xư",
           "parts": [
             {
               "jp": "おはよう",
@@ -46,6 +47,7 @@ window.QJ.phrases = {
               "vi": "chào buổi sáng",
               "note": "dạng thân mật; thêm ございます để lịch sự",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -57,6 +59,7 @@ window.QJ.phrases = {
               "vi": "làm cho câu lịch sự",
               "note": "dạng lịch sự của ある",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -79,6 +82,7 @@ window.QJ.phrases = {
               "vi": "chào buổi tối",
               "note": "は đọc 'oa'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -101,6 +105,7 @@ window.QJ.phrases = {
               "vi": "tạm biệt",
               "note": "trang trọng, lâu mới gặp lại",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -112,8 +117,8 @@ window.QJ.phrases = {
           "kana": "じゃあ、また",
           "vi": "Hẹn gặp lại nhé",
           "note": "Thân mật. Cũng có thể nói また明日 (mai gặp lại).",
-          "roma": "jaamata",
-          "viPron": "ja-a-ma-ta",
+          "roma": "jaa mata",
+          "viPron": "ja-a ma-ta",
           "parts": [
             {
               "jp": "じゃあ",
@@ -123,6 +128,7 @@ window.QJ.phrases = {
               "vi": "vậy thì / thôi nhé",
               "note": "dùng khi chia tay thân mật",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -134,6 +140,7 @@ window.QJ.phrases = {
               "vi": "lại, lần nữa",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             }
@@ -156,6 +163,7 @@ window.QJ.phrases = {
               "vi": "rất vui được gặp",
               "note": "câu chào lần đầu gặp",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -167,8 +175,8 @@ window.QJ.phrases = {
           "kana": "よろしくおねがいします",
           "vi": "Mong được giúp đỡ / Rất vui được biết bạn",
           "note": "Câu nói sau khi giới thiệu tên. Ngắn hơn: よろしく.",
-          "roma": "yoroshikuonegaishimasu",
-          "viPron": "yô-rô-xi-cư-ô-nê-ga-i-xi-ma-xư",
+          "roma": "yoroshiku onegai shimasu",
+          "viPron": "yô-rô-xi-cư ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "よろしく",
@@ -178,6 +186,7 @@ window.QJ.phrases = {
               "vi": "mong được giúp đỡ",
               "note": "nói sau khi giới thiệu tên",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -189,6 +198,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -200,6 +210,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -211,8 +222,8 @@ window.QJ.phrases = {
           "kana": "おげんきですか",
           "vi": "Bạn khỏe không?",
           "note": "Trả lời: はい、元気です (Vâng, tôi khỏe).",
-          "roma": "ogenkidesuka",
-          "viPron": "ô-gêng-ki-đê-xư-ka",
+          "roma": "o genki desu ka",
+          "viPron": "ô gêng-ki đê-xư ka",
           "parts": [
             {
               "jp": "お",
@@ -222,6 +233,7 @@ window.QJ.phrases = {
               "vi": "tiền tố lịch sự",
               "note": "thêm trước danh từ để lịch sự (お水, お名前…)",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -233,6 +245,7 @@ window.QJ.phrases = {
               "vi": "khỏe",
               "note": "tính từ đuôi な",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -244,6 +257,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -255,6 +269,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -277,6 +292,7 @@ window.QJ.phrases = {
               "vi": "chúc ngủ ngon",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -299,6 +315,7 @@ window.QJ.phrases = {
               "vi": "tôi đi nhé",
               "note": "nói khi rời nhà/khách sạn",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -321,6 +338,7 @@ window.QJ.phrases = {
               "vi": "tôi về rồi đây",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -332,8 +350,8 @@ window.QJ.phrases = {
           "kana": "おひさしぶりです",
           "vi": "Lâu rồi không gặp",
           "note": "Gặp lại người quen sau thời gian dài.",
-          "roma": "ohisashiburidesu",
-          "viPron": "ô-hi-xa-xi-bư-ri-đê-xư",
+          "roma": "ohisashiburi desu",
+          "viPron": "ô-hi-xa-xi-bư-ri đê-xư",
           "parts": [
             {
               "jp": "お久しぶり",
@@ -343,6 +361,7 @@ window.QJ.phrases = {
               "vi": "lâu rồi không gặp",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -354,6 +373,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -373,8 +393,8 @@ window.QJ.phrases = {
           "kana": "ありがとうございます",
           "vi": "Cảm ơn (lịch sự)",
           "note": "Dùng mọi lúc. Thêm どうも lên đầu để nhấn mạnh: どうもありがとうございます.",
-          "roma": "arigatougozaimasu",
-          "viPron": "a-ri-ga-tô-u-gô-za-i-ma-xư",
+          "roma": "arigatou gozaimasu",
+          "viPron": "a-ri-ga-tô-u gô-za-i-ma-xư",
           "parts": [
             {
               "jp": "ありがとう",
@@ -384,6 +404,7 @@ window.QJ.phrases = {
               "vi": "cảm ơn",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -395,6 +416,7 @@ window.QJ.phrases = {
               "vi": "làm cho câu lịch sự",
               "note": "dạng lịch sự của ある",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -406,8 +428,8 @@ window.QJ.phrases = {
           "kana": "ありがとうございました",
           "vi": "Cảm ơn vì mọi chuyện đã giúp",
           "note": "Lời cảm ơn ở thì quá khứ khi việc đã xong.",
-          "roma": "arigatougozaimashita",
-          "viPron": "a-ri-ga-tô-u-gô-za-i-ma-xi-ta",
+          "roma": "arigatou gozaimashita",
+          "viPron": "a-ri-ga-tô-u gô-za-i-ma-xi-ta",
           "parts": [
             {
               "jp": "ありがとう",
@@ -417,6 +439,7 @@ window.QJ.phrases = {
               "vi": "cảm ơn",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -428,6 +451,7 @@ window.QJ.phrases = {
               "vi": "đã… (quá khứ lịch sự)",
               "note": "quá khứ của ございます",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -450,6 +474,7 @@ window.QJ.phrases = {
               "vi": "cảm ơn",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -472,6 +497,7 @@ window.QJ.phrases = {
               "vi": "không có gì",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -494,6 +520,7 @@ window.QJ.phrases = {
               "vi": "xin lỗi / cho hỏi",
               "note": "câu đa dụng: gọi nhân viên, hỏi đường, xin lỗi",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -516,6 +543,7 @@ window.QJ.phrases = {
               "vi": "xin lỗi (khi mắc lỗi)",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -527,8 +555,8 @@ window.QJ.phrases = {
           "kana": "おねがいします",
           "vi": "Nhờ anh/chị ạ",
           "note": "Câu 'xin nhờ' đa dụng, khối câu lịch sự nhất.",
-          "roma": "onegaishimasu",
-          "viPron": "ô-nê-ga-i-xi-ma-xư",
+          "roma": "onegai shimasu",
+          "viPron": "ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "お願い",
@@ -538,6 +566,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -549,6 +578,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -571,6 +601,7 @@ window.QJ.phrases = {
               "vi": "xin mời",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             }
@@ -582,8 +613,8 @@ window.QJ.phrases = {
           "kana": "しつれいします",
           "vi": "Xin phép",
           "note": "Nói khi vào/ra phòng, cúp máy, kết thúc câu chuyện.",
-          "roma": "shitsureishimasu",
-          "viPron": "xi-tsư-rê-i-xi-ma-xư",
+          "roma": "shitsurei shimasu",
+          "viPron": "xi-tsư-rê-i xi-ma-xư",
           "parts": [
             {
               "jp": "失礼",
@@ -593,6 +624,7 @@ window.QJ.phrases = {
               "vi": "thất lễ",
               "note": "trong 失礼します = xin phép",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -604,6 +636,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -626,6 +659,7 @@ window.QJ.phrases = {
               "vi": "con xin phép dùng bữa",
               "note": "nói trước khi ăn",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -637,8 +671,8 @@ window.QJ.phrases = {
           "kana": "ごちそうさまでした",
           "vi": "Cảm ơn vì bữa ăn ngon",
           "note": "Nói sau khi ăn xong / khi ra khỏi quán.",
-          "roma": "gochisousamadeshita",
-          "viPron": "gô-chi-xô-u-xa-ma-đê-xi-ta",
+          "roma": "gochisousama deshita",
+          "viPron": "gô-chi-xô-u-xa-ma đê-xi-ta",
           "parts": [
             {
               "jp": "ごちそうさま",
@@ -648,6 +682,7 @@ window.QJ.phrases = {
               "vi": "cảm ơn vì bữa ăn",
               "note": "nói sau khi ăn xong",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -659,6 +694,7 @@ window.QJ.phrases = {
               "vi": "đã là (quá khứ của です)",
               "note": "",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -670,8 +706,8 @@ window.QJ.phrases = {
           "kana": "おじゃまします",
           "vi": "Xin phép làm phiền",
           "note": "Nói khi bước vào nhà riêng hoặc phòng của ai đó.",
-          "roma": "ojamashimasu",
-          "viPron": "ô-ja-ma-xi-ma-xư",
+          "roma": "ojama shimasu",
+          "viPron": "ô-ja-ma xi-ma-xư",
           "parts": [
             {
               "jp": "お邪魔",
@@ -681,6 +717,7 @@ window.QJ.phrases = {
               "vi": "làm phiền",
               "note": "trong お邪魔します = xin phép vào nhà",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -692,6 +729,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -703,8 +741,8 @@ window.QJ.phrases = {
           "kana": "おさきにしつれいします",
           "vi": "Tôi xin phép về trước",
           "note": "Khi về trước mọi người.",
-          "roma": "osakinishitsureishimasu",
-          "viPron": "ô-xa-ki-ni-xi-tsư-rê-i-xi-ma-xư",
+          "roma": "osakini shitsurei shimasu",
+          "viPron": "ô-xa-ki-ni xi-tsư-rê-i xi-ma-xư",
           "parts": [
             {
               "jp": "お先に",
@@ -714,6 +752,7 @@ window.QJ.phrases = {
               "vi": "trước mọi người",
               "note": "trong お先に失礼します = tôi về trước",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -725,6 +764,7 @@ window.QJ.phrases = {
               "vi": "thất lễ",
               "note": "trong 失礼します = xin phép",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -736,6 +776,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -758,6 +799,7 @@ window.QJ.phrases = {
               "vi": "cảm ơn / chào (thân mật)",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             }
@@ -788,6 +830,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -799,6 +842,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -810,6 +854,7 @@ window.QJ.phrases = {
               "vi": "cái gì",
               "note": "đọc 'なん' trước です/です",
               "grammar": "question-ka",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -821,6 +866,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -832,6 +878,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -854,6 +901,7 @@ window.QJ.phrases = {
               "vi": "cái đó",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -865,6 +913,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -876,6 +925,7 @@ window.QJ.phrases = {
               "vi": "cái gì",
               "note": "đọc 'なん' trước です/です",
               "grammar": "question-ka",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -887,6 +937,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -898,6 +949,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -920,6 +972,7 @@ window.QJ.phrases = {
               "vi": "cái kia",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -931,6 +984,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -942,6 +996,7 @@ window.QJ.phrases = {
               "vi": "cái gì",
               "note": "đọc 'なん' trước です/です",
               "grammar": "question-ka",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -953,6 +1008,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -964,6 +1020,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -975,8 +1032,8 @@ window.QJ.phrases = {
           "kana": "これをください",
           "vi": "Cho tôi cái này",
           "note": "Câu mua hàng / gọi món quan trọng nhất.",
-          "roma": "koreokudasai",
-          "viPron": "kô-rê-ô-cư-đa-xa-i",
+          "roma": "kore o kudasai",
+          "viPron": "kô-rê ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "これ",
@@ -986,6 +1043,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -997,6 +1055,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1008,6 +1067,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1019,8 +1079,8 @@ window.QJ.phrases = {
           "kana": "これをひとつください",
           "vi": "Cho tôi một cái này",
           "note": "一つ = một cái (cách đếm chung).",
-          "roma": "koreohitotsukudasai",
-          "viPron": "kô-rê-ô-hi-tô-tsư-cư-đa-xa-i",
+          "roma": "kore o hitotsu kudasai",
+          "viPron": "kô-rê ô hi-tô-tsư cư-đa-xa-i",
           "parts": [
             {
               "jp": "これ",
@@ -1030,6 +1090,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -1041,6 +1102,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1052,6 +1114,7 @@ window.QJ.phrases = {
               "vi": "một cái",
               "note": "lượng từ \"つ\" (cái (đếm chung))",
               "grammar": "counters",
+              "role": "number",
               "isParticle": false,
               "unknown": false
             },
@@ -1063,6 +1126,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1074,8 +1138,8 @@ window.QJ.phrases = {
           "kana": "これをふたつください",
           "vi": "Cho tôi hai cái này",
           "note": "二つ = hai cái.",
-          "roma": "koreofutatsukudasai",
-          "viPron": "kô-rê-ô-phư-ta-tsư-cư-đa-xa-i",
+          "roma": "kore o futatsu kudasai",
+          "viPron": "kô-rê ô phư-ta-tsư cư-đa-xa-i",
           "parts": [
             {
               "jp": "これ",
@@ -1085,6 +1149,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -1096,6 +1161,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1107,6 +1173,7 @@ window.QJ.phrases = {
               "vi": "hai cái",
               "note": "lượng từ \"つ\" (cái (đếm chung))",
               "grammar": "counters",
+              "role": "number",
               "isParticle": false,
               "unknown": false
             },
@@ -1118,6 +1185,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1129,8 +1197,8 @@ window.QJ.phrases = {
           "kana": "これでいいですか",
           "vi": "Cái này được không ạ?",
           "note": "Hỏi lại khi chọn đồ / thanh toán.",
-          "roma": "koredeiidesuka",
-          "viPron": "kô-rê-đê-i-i-đê-xư-ka",
+          "roma": "kore de ii desu ka",
+          "viPron": "kô-rê đê i-i đê-xư ka",
           "parts": [
             {
               "jp": "これ",
@@ -1140,6 +1208,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -1151,6 +1220,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1162,6 +1232,7 @@ window.QJ.phrases = {
               "vi": "tốt, được",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -1173,6 +1244,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -1184,6 +1256,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -1195,8 +1268,8 @@ window.QJ.phrases = {
           "kana": "これをおねがいします",
           "vi": "Làm ơn cái này ạ",
           "note": "Mềm hơn これをください.",
-          "roma": "koreoonegaishimasu",
-          "viPron": "kô-rê-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "kore o onegai shimasu",
+          "viPron": "kô-rê ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "これ",
@@ -1206,6 +1279,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -1217,6 +1291,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1228,6 +1303,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -1239,6 +1315,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1261,6 +1338,7 @@ window.QJ.phrases = {
               "vi": "ở đây",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -1272,6 +1350,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1283,6 +1362,7 @@ window.QJ.phrases = {
               "vi": "ở đâu",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -1294,6 +1374,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -1305,6 +1386,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -1316,8 +1398,8 @@ window.QJ.phrases = {
           "kana": "ここをおねがいします",
           "vi": "Làm ơn đến đây ạ",
           "note": "Đưa bản đồ cho tài xế taxi và chỉ điểm đến.",
-          "roma": "kokooonegaishimasu",
-          "viPron": "kô-kô-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "koko o onegai shimasu",
+          "viPron": "kô-kô ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "ここ",
@@ -1327,6 +1409,7 @@ window.QJ.phrases = {
               "vi": "ở đây",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -1338,6 +1421,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1349,6 +1433,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -1360,6 +1445,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1371,8 +1457,8 @@ window.QJ.phrases = {
           "kana": "ちずでさしてください",
           "vi": "Làm ơn chỉ trên bản đồ",
           "note": "Khi hỏi đường.",
-          "roma": "chizudesashitekudasai",
-          "viPron": "chi-zư-đê-xa-xi-tê-cư-đa-xa-i",
+          "roma": "chizu de sashite kudasai",
+          "viPron": "chi-zư đê xa-xi-tê cư-đa-xa-i",
           "parts": [
             {
               "jp": "地図",
@@ -1382,6 +1468,7 @@ window.QJ.phrases = {
               "vi": "bản đồ",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -1393,6 +1480,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1404,6 +1492,7 @@ window.QJ.phrases = {
               "vi": "chỉ (thể て)",
               "note": "từ 指す",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -1415,6 +1504,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1426,8 +1516,8 @@ window.QJ.phrases = {
           "kana": "しゃしんをとってもらえますか",
           "vi": "Chụp ảnh giúp tôi được không?",
           "note": "Ngắn hơn: 写真をお願いします (kèm đưa điện thoại).",
-          "roma": "shashinotottemoraemasuka",
-          "viPron": "xa-xin-ô-tôt-tê-mô-ra-ê-ma-xư-ka",
+          "roma": "shashin o totte moraemasuka",
+          "viPron": "xa-xin ô tôt-tê mô-ra-ê-ma-xư-ka",
           "parts": [
             {
               "jp": "写真",
@@ -1437,6 +1527,7 @@ window.QJ.phrases = {
               "vi": "ảnh",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -1448,6 +1539,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1459,6 +1551,7 @@ window.QJ.phrases = {
               "vi": "chụp (ảnh)",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -1470,6 +1563,7 @@ window.QJ.phrases = {
               "vi": "…giúp tôi được không?",
               "note": "nhờ vả lịch sự",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1481,8 +1575,8 @@ window.QJ.phrases = {
           "kana": "メニューをみせてください",
           "vi": "Cho tôi xem thực đơn",
           "note": "見せて = cho xem.",
-          "roma": "menyuuomisetekudasai",
-          "viPron": "mê-niuu-ô-mi-xê-tê-cư-đa-xa-i",
+          "roma": "menyuu o misete kudasai",
+          "viPron": "mê-niuu ô mi-xê-tê cư-đa-xa-i",
           "parts": [
             {
               "jp": "メニュー",
@@ -1492,6 +1586,7 @@ window.QJ.phrases = {
               "vi": "thực đơn",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -1503,6 +1598,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1514,6 +1610,7 @@ window.QJ.phrases = {
               "vi": "cho xem",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -1525,6 +1622,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1555,6 +1653,7 @@ window.QJ.phrases = {
               "vi": "vâng / dạ",
               "note": "đôi khi chỉ nghĩa 'tôi đang nghe'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1577,6 +1676,7 @@ window.QJ.phrases = {
               "vi": "không",
               "note": "người Nhật ít dùng thẳng",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1599,6 +1699,7 @@ window.QJ.phrases = {
               "vi": "hiểu",
               "note": "quá khứ ました",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1621,6 +1722,7 @@ window.QJ.phrases = {
               "vi": "hiểu",
               "note": "phủ định ません",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1632,8 +1734,8 @@ window.QJ.phrases = {
           "kana": "だいじょうぶです",
           "vi": "Không sao đâu / Không cần đâu",
           "note": "Vừa là 'tôi ổn', vừa là cách từ chối lịch sự.",
-          "roma": "daijoubudesu",
-          "viPron": "đa-i-jô-u-bư-đê-xư",
+          "roma": "daijoubu desu",
+          "viPron": "đa-i-jô-u-bư đê-xư",
           "parts": [
             {
               "jp": "大丈夫",
@@ -1643,6 +1745,7 @@ window.QJ.phrases = {
               "vi": "ổn, không sao",
               "note": "tính từ đuôi な",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -1654,6 +1757,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -1665,8 +1769,8 @@ window.QJ.phrases = {
           "kana": "いいです",
           "vi": "Thôi, được rồi ạ",
           "note": "Cẩn thận: khi được mời thêm đồ, いいです = 'khỏi cần'.",
-          "roma": "iidesu",
-          "viPron": "i-i-đê-xư",
+          "roma": "ii desu",
+          "viPron": "i-i đê-xư",
           "parts": [
             {
               "jp": "いい",
@@ -1676,6 +1780,7 @@ window.QJ.phrases = {
               "vi": "tốt, được",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -1687,6 +1792,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -1698,8 +1804,8 @@ window.QJ.phrases = {
           "kana": "けっこうです",
           "vi": "Không cần đâu ạ",
           "note": "Lịch sự nhưng có thể nghe hơi lạnh. 大丈夫です an toàn hơn.",
-          "roma": "kekkoudesu",
-          "viPron": "kêk-kô-u-đê-xư",
+          "roma": "kekkou desu",
+          "viPron": "kêk-kô-u đê-xư",
           "parts": [
             {
               "jp": "結構",
@@ -1709,6 +1815,7 @@ window.QJ.phrases = {
               "vi": "khỏi cần / không cần đâu",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -1720,6 +1827,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -1742,6 +1850,7 @@ window.QJ.phrases = {
               "vi": "một chút",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             }
@@ -1753,8 +1862,8 @@ window.QJ.phrases = {
           "kana": "もういちどおねがいします",
           "vi": "Làm ơn nhắc lại lần nữa",
           "note": "Khi không nghe rõ.",
-          "roma": "mouichidoonegaishimasu",
-          "viPron": "mô-u-i-chi-đô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "mou ichido onegai shimasu",
+          "viPron": "mô-u i-chi-đô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "もう",
@@ -1764,6 +1873,7 @@ window.QJ.phrases = {
               "vi": "thêm nữa / đã rồi",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -1775,6 +1885,7 @@ window.QJ.phrases = {
               "vi": "một lần",
               "note": "",
               "grammar": null,
+              "role": "number",
               "isParticle": false,
               "unknown": false
             },
@@ -1786,6 +1897,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -1797,6 +1909,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1808,8 +1921,8 @@ window.QJ.phrases = {
           "kana": "ゆっくりおねがいします",
           "vi": "Làm ơn nói chậm hơn",
           "note": "Câu đầy đủ: ゆっくり話してください.",
-          "roma": "yukkurionegaishimasu",
-          "viPron": "yuk-cư-ri-ô-nê-ga-i-xi-ma-xư",
+          "roma": "yukkuri onegai shimasu",
+          "viPron": "yuk-cư-ri ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "ゆっくり",
@@ -1819,6 +1932,7 @@ window.QJ.phrases = {
               "vi": "chậm rãi",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -1830,6 +1944,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -1841,6 +1956,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1852,8 +1968,8 @@ window.QJ.phrases = {
           "kana": "えいごでおねがいします",
           "vi": "Làm ơn nói tiếng Anh",
           "note": "Nếu bạn không hiểu tiếng Nhật.",
-          "roma": "eigodeonegaishimasu",
-          "viPron": "ê-i-gô-đê-ô-nê-ga-i-xi-ma-xư",
+          "roma": "eigo de onegai shimasu",
+          "viPron": "ê-i-gô đê ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "英語",
@@ -1863,6 +1979,7 @@ window.QJ.phrases = {
               "vi": "tiếng Anh",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -1874,6 +1991,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -1885,6 +2003,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -1896,6 +2015,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1907,8 +2027,8 @@ window.QJ.phrases = {
           "kana": "かいてもらえますか",
           "vi": "Viết ra giúp tôi được không?",
           "note": "Đưa giấy bút hoặc mở ghi chú điện thoại.",
-          "roma": "kaitemoraemasuka",
-          "viPron": "ka-i-tê-mô-ra-ê-ma-xư-ka",
+          "roma": "kaite moraemasuka",
+          "viPron": "ka-i-tê mô-ra-ê-ma-xư-ka",
           "parts": [
             {
               "jp": "書いて",
@@ -1918,6 +2038,7 @@ window.QJ.phrases = {
               "vi": "viết",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -1929,6 +2050,7 @@ window.QJ.phrases = {
               "vi": "…giúp tôi được không?",
               "note": "nhờ vả lịch sự",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -1940,8 +2062,8 @@ window.QJ.phrases = {
           "kana": "ちょっとまってください",
           "vi": "Làm ơn đợi một chút",
           "note": "Nói khi cần thời gian.",
-          "roma": "chottomattekudasai",
-          "viPron": "chôt-tô-mat-tê-cư-đa-xa-i",
+          "roma": "chotto matte kudasai",
+          "viPron": "chôt-tô mat-tê cư-đa-xa-i",
           "parts": [
             {
               "jp": "ちょっと",
@@ -1951,6 +2073,7 @@ window.QJ.phrases = {
               "vi": "một chút",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -1962,6 +2085,7 @@ window.QJ.phrases = {
               "vi": "đợi",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -1973,6 +2097,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -1984,8 +2109,8 @@ window.QJ.phrases = {
           "kana": "そうですね",
           "vi": "Ừ nhỉ / Đúng vậy nhỉ",
           "note": "Thể hiện đồng cảm trong câu chuyện.",
-          "roma": "soudesune",
-          "viPron": "xô-u-đê-xư-nê",
+          "roma": "sou desu ne",
+          "viPron": "xô-u đê-xư nê",
           "parts": [
             {
               "jp": "そう",
@@ -1995,6 +2120,7 @@ window.QJ.phrases = {
               "vi": "như vậy / đúng vậy",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -2006,6 +2132,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -2017,6 +2144,7 @@ window.QJ.phrases = {
               "vi": "～ nhỉ / nhé",
               "note": "trợ từ tình cảm, tìm đồng cảm",
               "grammar": null,
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2028,8 +2156,8 @@ window.QJ.phrases = {
           "kana": "にほんごがわかりません",
           "vi": "Tôi không hiểu tiếng Nhật",
           "note": "Câu 'mở đường' khi bí.",
-          "roma": "nihongogawakarimasen",
-          "viPron": "ni-hông-gô-ga-oa-ka-ri-ma-xên",
+          "roma": "nihongo ga wakarimasen",
+          "viPron": "ni-hông-gô ga oa-ka-ri-ma-xên",
           "parts": [
             {
               "jp": "日本語",
@@ -2039,6 +2167,7 @@ window.QJ.phrases = {
               "vi": "tiếng Nhật",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2050,6 +2179,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2061,6 +2191,7 @@ window.QJ.phrases = {
               "vi": "hiểu",
               "note": "phủ định ません",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -2072,8 +2203,8 @@ window.QJ.phrases = {
           "kana": "えいごをはなせますか",
           "vi": "Bạn nói được tiếng Anh không?",
           "note": "話せます = có thể nói (thể khả năng).",
-          "roma": "eigoohanasemasuka",
-          "viPron": "ê-i-gô-ô-ha-na-xê-ma-xư-ka",
+          "roma": "eigo o hanasemasu ka",
+          "viPron": "ê-i-gô ô ha-na-xê-ma-xư ka",
           "parts": [
             {
               "jp": "英語",
@@ -2083,6 +2214,7 @@ window.QJ.phrases = {
               "vi": "tiếng Anh",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2094,6 +2226,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2105,6 +2238,7 @@ window.QJ.phrases = {
               "vi": "nói",
               "note": "thể khả năng",
               "grammar": "potential",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2116,6 +2250,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2138,6 +2273,7 @@ window.QJ.phrases = {
               "vi": "tôi",
               "note": "đại từ",
               "grammar": null,
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -2149,6 +2285,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2160,6 +2297,7 @@ window.QJ.phrases = {
               "vi": "người Việt Nam",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2171,6 +2309,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -2190,8 +2329,8 @@ window.QJ.phrases = {
           "kana": "いくらですか",
           "vi": "Bao nhiêu tiền?",
           "note": "Chỉ vào món đồ khi hỏi.",
-          "roma": "ikuradesuka",
-          "viPron": "i-cư-ra-đê-xư-ka",
+          "roma": "ikura desu ka",
+          "viPron": "i-cư-ra đê-xư ka",
           "parts": [
             {
               "jp": "いくら",
@@ -2201,6 +2340,7 @@ window.QJ.phrases = {
               "vi": "bao nhiêu tiền",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -2212,6 +2352,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -2223,6 +2364,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2244,6 +2386,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -2255,6 +2398,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2266,6 +2410,7 @@ window.QJ.phrases = {
               "vi": "bao nhiêu tiền",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -2277,6 +2422,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -2288,6 +2434,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2299,8 +2446,8 @@ window.QJ.phrases = {
           "kana": "たかいですね",
           "vi": "Đắt nhỉ",
           "note": "ですね = 'nhỉ', thể hiện cảm nhận chung.",
-          "roma": "takaidesune",
-          "viPron": "ta-ka-i-đê-xư-nê",
+          "roma": "takai desu ne",
+          "viPron": "ta-ka-i đê-xư nê",
           "parts": [
             {
               "jp": "高い",
@@ -2310,6 +2457,7 @@ window.QJ.phrases = {
               "vi": "đắt; cao",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -2321,6 +2469,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -2332,6 +2481,7 @@ window.QJ.phrases = {
               "vi": "～ nhỉ / nhé",
               "note": "trợ từ tình cảm, tìm đồng cảm",
               "grammar": null,
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2343,8 +2493,8 @@ window.QJ.phrases = {
           "kana": "すこしやすくなりませんか",
           "vi": "Bớt một chút được không ạ?",
           "note": "Dùng ở chợ / đồ cũ. Siêu thị, cửa hàng lớn thường không mặc cả.",
-          "roma": "sukoshiyasukunarimasenka",
-          "viPron": "xư-kô-xi-ya-xư-cư-na-ri-ma-xêng-ka",
+          "roma": "sukoshi yasuku narimasen ka",
+          "viPron": "xư-kô-xi ya-xư-cư na-ri-ma-xên ka",
           "parts": [
             {
               "jp": "少し",
@@ -2354,6 +2504,7 @@ window.QJ.phrases = {
               "vi": "một chút",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -2365,6 +2516,7 @@ window.QJ.phrases = {
               "vi": "rẻ (dạng trạng từ)",
               "note": "từ 安い",
               "grammar": "adj",
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -2376,6 +2528,7 @@ window.QJ.phrases = {
               "vi": "không trở nên",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2387,6 +2540,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2398,8 +2552,8 @@ window.QJ.phrases = {
           "kana": "これをください",
           "vi": "Cho tôi cái này",
           "note": "Câu chốt khi mua.",
-          "roma": "koreokudasai",
-          "viPron": "kô-rê-ô-cư-đa-xa-i",
+          "roma": "kore o kudasai",
+          "viPron": "kô-rê ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "これ",
@@ -2409,6 +2563,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -2420,6 +2575,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2431,6 +2587,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -2442,8 +2599,8 @@ window.QJ.phrases = {
           "kana": "これをみせてください",
           "vi": "Cho tôi xem cái này",
           "note": "Khi muốn xem kỹ món đồ.",
-          "roma": "koreomisetekudasai",
-          "viPron": "kô-rê-ô-mi-xê-tê-cư-đa-xa-i",
+          "roma": "kore o misete kudasai",
+          "viPron": "kô-rê ô mi-xê-tê cư-đa-xa-i",
           "parts": [
             {
               "jp": "これ",
@@ -2453,6 +2610,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -2464,6 +2622,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2475,6 +2634,7 @@ window.QJ.phrases = {
               "vi": "cho xem",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2486,6 +2646,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -2497,8 +2658,8 @@ window.QJ.phrases = {
           "kana": "しちゃくしてもいいですか",
           "vi": "Tôi mặc thử được không?",
           "note": "Dùng cho quần áo.",
-          "roma": "shichakushitemoiidesuka",
-          "viPron": "xi-cha-cư-xi-tê-mô-i-i-đê-xư-ka",
+          "roma": "shichakushite mo ii desu ka",
+          "viPron": "xi-cha-cư-xi-tê mô i-i đê-xư ka",
           "parts": [
             {
               "jp": "試着して",
@@ -2508,6 +2669,7 @@ window.QJ.phrases = {
               "vi": "thử đồ",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2519,6 +2681,7 @@ window.QJ.phrases = {
               "vi": "～ cũng",
               "note": "trợ từ 'cũng'",
               "grammar": "particle-mo-to",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2530,6 +2693,7 @@ window.QJ.phrases = {
               "vi": "tốt, được",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -2541,6 +2705,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -2552,6 +2717,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2574,6 +2740,7 @@ window.QJ.phrases = {
               "vi": "to, lớn",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -2585,6 +2752,7 @@ window.QJ.phrases = {
               "vi": "cỡ / kích thước",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2596,6 +2764,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2607,6 +2776,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2618,6 +2788,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2639,6 +2810,7 @@ window.QJ.phrases = {
               "vi": "khác",
               "note": "",
               "grammar": null,
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -2650,6 +2822,7 @@ window.QJ.phrases = {
               "vi": "～ của",
               "note": "trợ từ sở hữu / nối danh từ",
               "grammar": "particle-no",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2661,6 +2834,7 @@ window.QJ.phrases = {
               "vi": "màu",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2672,6 +2846,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2683,6 +2858,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2694,6 +2870,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2716,6 +2893,7 @@ window.QJ.phrases = {
               "vi": "thẻ",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2727,6 +2905,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2738,6 +2917,7 @@ window.QJ.phrases = {
               "vi": "dùng",
               "note": "thể khả năng",
               "grammar": "potential",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2749,6 +2929,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2760,8 +2941,8 @@ window.QJ.phrases = {
           "kana": "げんきんでもいいですか",
           "vi": "Trả tiền mặt được không?",
           "note": "でもいいですか = …cũng được chứ?",
-          "roma": "genkindemoiidesuka",
-          "viPron": "gêng-kin-đê-mô-i-i-đê-xư-ka",
+          "roma": "genkin demo ii desu ka",
+          "viPron": "gêng-kin đê-mô i-i đê-xư ka",
           "parts": [
             {
               "jp": "現金",
@@ -2771,6 +2952,7 @@ window.QJ.phrases = {
               "vi": "tiền mặt",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2782,6 +2964,7 @@ window.QJ.phrases = {
               "vi": "～ cũng (được)",
               "note": "も sau で: '… cũng được'",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2793,6 +2976,7 @@ window.QJ.phrases = {
               "vi": "tốt, được",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -2804,6 +2988,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -2815,6 +3000,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2826,8 +3012,8 @@ window.QJ.phrases = {
           "kana": "めんぜいできますか",
           "vi": "Được miễn thuế không?",
           "note": "Thường áp dụng từ 5.000 yên, nhớ mang hộ chiếu.",
-          "roma": "menzeidekimasuka",
-          "viPron": "mên-zê-i-đê-ki-ma-xư-ka",
+          "roma": "menzei dekimasu ka",
+          "viPron": "mên-zê-i đê-ki-ma-xư ka",
           "parts": [
             {
               "jp": "免税",
@@ -2837,6 +3023,7 @@ window.QJ.phrases = {
               "vi": "miễn thuế",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -2848,6 +3035,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể khả năng",
               "grammar": "potential",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -2859,6 +3047,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -2879,6 +3068,7 @@ window.QJ.phrases = {
               "vi": "túi đựng",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2890,6 +3080,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2901,12 +3092,13 @@ window.QJ.phrases = {
               "vi": "không cần",
               "note": "từ 要る (cần)",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
           ],
-          "roma": "fukurohairimasen",
-          "viPron": "phư-cư-rô-ha-i-ri-ma-xên"
+          "roma": "fukuro wa irimasen",
+          "viPron": "phư-cư-rô oa i-ri-ma-xên"
         },
         {
           "id": "shop-14",
@@ -2914,8 +3106,8 @@ window.QJ.phrases = {
           "kana": "レシートをください",
           "vi": "Cho tôi hóa đơn",
           "note": "Cần khi hoàn thuế.",
-          "roma": "reshiitookudasai",
-          "viPron": "rê-xii-tô-ô-cư-đa-xa-i",
+          "roma": "reshiito o kudasai",
+          "viPron": "rê-xii-tô ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "レシート",
@@ -2925,6 +3117,7 @@ window.QJ.phrases = {
               "vi": "hóa đơn",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -2936,6 +3129,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2947,6 +3141,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -2958,8 +3153,8 @@ window.QJ.phrases = {
           "kana": "これでおねがいします",
           "vi": "Làm ơn tính cái này ạ",
           "note": "Nói khi đưa đồ ra quầy.",
-          "roma": "koredeonegaishimasu",
-          "viPron": "kô-rê-đê-ô-nê-ga-i-xi-ma-xư",
+          "roma": "kore de onegai shimasu",
+          "viPron": "kô-rê đê ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "これ",
@@ -2969,6 +3164,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -2980,6 +3176,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -2991,6 +3188,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3002,6 +3200,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3013,8 +3212,8 @@ window.QJ.phrases = {
           "kana": "ほかにもありますか",
           "vi": "Còn loại khác không?",
           "note": "他に = ngoài ra.",
-          "roma": "hokanimoarimasuka",
-          "viPron": "hô-ka-ni-mô-a-ri-ma-xư-ka",
+          "roma": "hoka ni mo arimasu ka",
+          "viPron": "hô-ka ni mô a-ri-ma-xư ka",
           "parts": [
             {
               "jp": "他",
@@ -3024,6 +3223,7 @@ window.QJ.phrases = {
               "vi": "khác (còn gì nữa)",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3035,6 +3235,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3046,6 +3247,7 @@ window.QJ.phrases = {
               "vi": "～ cũng",
               "note": "trợ từ 'cũng'",
               "grammar": "particle-mo-to",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3057,6 +3259,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -3068,6 +3271,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -3079,8 +3283,8 @@ window.QJ.phrases = {
           "kana": "みているだけです",
           "vi": "Tôi chỉ xem thôi ạ",
           "note": "Khi nhân viên đến hỏi bạn cần gì.",
-          "roma": "miteirudakedesu",
-          "viPron": "mi-tê-i-rư-đa-kê-đê-xư",
+          "roma": "mite iru dake desu",
+          "viPron": "mi-tê i-rư đa-kê đê-xư",
           "parts": [
             {
               "jp": "見て",
@@ -3090,6 +3294,7 @@ window.QJ.phrases = {
               "vi": "xem",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -3101,6 +3306,7 @@ window.QJ.phrases = {
               "vi": "có (người)",
               "note": "thể từ điển",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -3112,6 +3318,7 @@ window.QJ.phrases = {
               "vi": "chỉ ～",
               "note": "trợ từ giới hạn 'chỉ'",
               "grammar": null,
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3123,6 +3330,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -3142,8 +3350,8 @@ window.QJ.phrases = {
           "kana": "メニューをおねがいします",
           "vi": "Cho tôi thực đơn",
           "note": "Kèm すみません để gọi nhân viên.",
-          "roma": "menyuuoonegaishimasu",
-          "viPron": "mê-niuu-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "menyuu o onegai shimasu",
+          "viPron": "mê-niuu ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "メニュー",
@@ -3153,6 +3361,7 @@ window.QJ.phrases = {
               "vi": "thực đơn",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3164,6 +3373,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3175,6 +3385,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3186,6 +3397,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3207,6 +3419,7 @@ window.QJ.phrases = {
               "vi": "tiếng Anh",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3218,6 +3431,7 @@ window.QJ.phrases = {
               "vi": "～ của",
               "note": "trợ từ sở hữu / nối danh từ",
               "grammar": "particle-no",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3229,6 +3443,7 @@ window.QJ.phrases = {
               "vi": "thực đơn",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3240,6 +3455,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3251,6 +3467,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -3262,6 +3479,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -3284,6 +3502,7 @@ window.QJ.phrases = {
               "vi": "gợi ý / món nên thử",
               "note": "nhà hàng hay dùng",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3295,6 +3514,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3306,6 +3526,7 @@ window.QJ.phrases = {
               "vi": "cái gì",
               "note": "đọc 'なん' trước です/です",
               "grammar": "question-ka",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3317,6 +3538,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -3328,6 +3550,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -3339,8 +3562,8 @@ window.QJ.phrases = {
           "kana": "これをください",
           "vi": "Cho tôi món này",
           "note": "Chỉ vào ảnh/tên món trên menu.",
-          "roma": "koreokudasai",
-          "viPron": "kô-rê-ô-cư-đa-xa-i",
+          "roma": "kore o kudasai",
+          "viPron": "kô-rê ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "これ",
@@ -3350,6 +3573,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -3361,6 +3585,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3372,6 +3597,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -3383,8 +3609,8 @@ window.QJ.phrases = {
           "kana": "これをおねがいします",
           "vi": "Làm ơn món này ạ",
           "note": "Cách gọi món mềm mỏng hơn.",
-          "roma": "koreoonegaishimasu",
-          "viPron": "kô-rê-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "kore o onegai shimasu",
+          "viPron": "kô-rê ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "これ",
@@ -3394,6 +3620,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -3405,6 +3632,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3416,6 +3644,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3427,6 +3656,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3448,6 +3678,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -3459,6 +3690,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3470,6 +3702,7 @@ window.QJ.phrases = {
               "vi": "cái gì",
               "note": "đọc 'なん' trước です/です",
               "grammar": "question-ka",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3481,6 +3714,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -3492,6 +3726,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -3503,8 +3738,8 @@ window.QJ.phrases = {
           "kana": "おみずをください",
           "vi": "Cho tôi nước",
           "note": "Nước/trà thường được phục vụ miễn phí ở Nhật.",
-          "roma": "omizuokudasai",
-          "viPron": "ô-mi-zư-ô-cư-đa-xa-i",
+          "roma": "omizu o kudasai",
+          "viPron": "ô-mi-zư ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "お水",
@@ -3514,6 +3749,7 @@ window.QJ.phrases = {
               "vi": "nước (lịch sự)",
               "note": "お là tiền tố lịch sự",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3525,6 +3761,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3536,6 +3773,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -3547,8 +3785,8 @@ window.QJ.phrases = {
           "kana": "おかわりをください",
           "vi": "Cho tôi thêm một phần (cơm/nước)",
           "note": "おかわり = phần thêm miễn phí hoặc tính tiền thêm.",
-          "roma": "okawariokudasai",
-          "viPron": "ô-ka-oa-ri-ô-cư-đa-xa-i",
+          "roma": "okawari o kudasai",
+          "viPron": "ô-ka-oa-ri ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "おかわり",
@@ -3558,6 +3796,7 @@ window.QJ.phrases = {
               "vi": "phần thêm (cơm/nước)",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3569,6 +3808,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3580,6 +3820,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -3591,8 +3832,8 @@ window.QJ.phrases = {
           "kana": "おかいけいをおねがいします",
           "vi": "Cho tôi thanh toán",
           "note": "Nói khi ra quầy hoặc gọi nhân viên.",
-          "roma": "okaikeioonegaishimasu",
-          "viPron": "ô-ka-i-kê-i-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "okaikei o onegai shimasu",
+          "viPron": "ô-ka-i-kê-i ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "お会計",
@@ -3602,6 +3843,7 @@ window.QJ.phrases = {
               "vi": "thanh toán",
               "note": "hóa đơn tính tiền",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3613,6 +3855,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3624,6 +3867,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3635,6 +3879,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3646,8 +3891,8 @@ window.QJ.phrases = {
           "kana": "いっしょでおねがいします",
           "vi": "Tính tiền chung với nhau ạ",
           "note": "一緒 = cùng nhau.",
-          "roma": "isshodeonegaishimasu",
-          "viPron": "ix-xô-đê-ô-nê-ga-i-xi-ma-xư",
+          "roma": "issho de onegai shimasu",
+          "viPron": "ix-xô đê ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "一緒",
@@ -3657,6 +3902,7 @@ window.QJ.phrases = {
               "vi": "cùng nhau",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -3668,6 +3914,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3679,6 +3926,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3690,6 +3938,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3701,8 +3950,8 @@ window.QJ.phrases = {
           "kana": "べつべつでおねがいします",
           "vi": "Tính tiền riêng cho từng người ạ",
           "note": "別々 = riêng ra.",
-          "roma": "betsubetsudeonegaishimasu",
-          "viPron": "bê-tsư-bê-tsư-đê-ô-nê-ga-i-xi-ma-xư",
+          "roma": "betsubetsu de onegai shimasu",
+          "viPron": "bê-tsư-bê-tsư đê ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "別々",
@@ -3712,6 +3961,7 @@ window.QJ.phrases = {
               "vi": "riêng ra (từng người)",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -3723,6 +3973,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3734,6 +3985,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3745,6 +3997,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3756,8 +4009,8 @@ window.QJ.phrases = {
           "kana": "もちかえりでおねがいします",
           "vi": "Cho tôi mang về",
           "note": "Ăn tại chỗ: 店内でお願いします.",
-          "roma": "mochikaerideonegaishimasu",
-          "viPron": "mô-chi-ka-ê-ri-đê-ô-nê-ga-i-xi-ma-xư",
+          "roma": "mochikaeri de onegai shimasu",
+          "viPron": "mô-chi-ka-ê-ri đê ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "持ち帰り",
@@ -3767,6 +4020,7 @@ window.QJ.phrases = {
               "vi": "mang về",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3778,6 +4032,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3789,6 +4044,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3800,6 +4056,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3811,8 +4068,8 @@ window.QJ.phrases = {
           "kana": "おいしいです",
           "vi": "Ngon quá!",
           "note": "Khen để làm vui lòng đầu bếp. Nhấn mạnh: とても美味しいです.",
-          "roma": "oishiidesu",
-          "viPron": "ô-i-xi-i-đê-xư",
+          "roma": "oishii desu",
+          "viPron": "ô-i-xi-i đê-xư",
           "parts": [
             {
               "jp": "美味しい",
@@ -3822,6 +4079,7 @@ window.QJ.phrases = {
               "vi": "ngon",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -3833,6 +4091,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -3844,8 +4103,8 @@ window.QJ.phrases = {
           "kana": "ベジタリアンです",
           "vi": "Tôi ăn chay",
           "note": "Nói rõ thêm: 肉と魚は食べません = không ăn thịt và cá.",
-          "roma": "bejitariandesu",
-          "viPron": "bê-ji-ta-ri-an-đê-xư",
+          "roma": "bejitarian desu",
+          "viPron": "bê-ji-ta-ri-an đê-xư",
           "parts": [
             {
               "jp": "ベジタリアン",
@@ -3855,6 +4114,7 @@ window.QJ.phrases = {
               "vi": "người ăn chay",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -3866,6 +4126,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -3877,8 +4138,8 @@ window.QJ.phrases = {
           "kana": "アレルギーがあります",
           "vi": "Tôi bị dị ứng",
           "note": "Thêm loại cụ thể: エビアレルギーがあります = dị ứng tôm.",
-          "roma": "arerugiigaarimasu",
-          "viPron": "a-rê-rư-gii-ga-a-ri-ma-xư",
+          "roma": "arerugii ga arimasu",
+          "viPron": "a-rê-rư-gii ga a-ri-ma-xư",
           "parts": [
             {
               "jp": "アレルギー",
@@ -3888,6 +4149,7 @@ window.QJ.phrases = {
               "vi": "dị ứng",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3899,6 +4161,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3910,6 +4173,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3932,6 +4196,7 @@ window.QJ.phrases = {
               "vi": "thịt lợn",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -3943,6 +4208,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3954,6 +4220,7 @@ window.QJ.phrases = {
               "vi": "ăn",
               "note": "khả năng (phủ định)",
               "grammar": "potential",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -3976,6 +4243,7 @@ window.QJ.phrases = {
               "vi": "cái này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -3987,6 +4255,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -3998,6 +4267,7 @@ window.QJ.phrases = {
               "vi": "thịt lợn",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4009,6 +4279,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4020,6 +4291,7 @@ window.QJ.phrases = {
               "vi": "vào",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4031,6 +4303,7 @@ window.QJ.phrases = {
               "vi": "có (người/vật sống)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4042,6 +4315,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -4053,8 +4327,8 @@ window.QJ.phrases = {
           "kana": "からくしないでください",
           "vi": "Làm ơn đừng làm cay",
           "note": "Mềm hơn: 辛いのは苦手です = tôi không hợp đồ cay.",
-          "roma": "karakushinaidekudasai",
-          "viPron": "ka-ra-cư-xi-na-i-đê-cư-đa-xa-i",
+          "roma": "karaku shinaide kudasai",
+          "viPron": "ka-ra-cư xi-na-i-đê cư-đa-xa-i",
           "parts": [
             {
               "jp": "辛く",
@@ -4064,6 +4338,7 @@ window.QJ.phrases = {
               "vi": "cay (dạng trạng từ)",
               "note": "từ 辛い",
               "grammar": "adj",
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -4075,6 +4350,7 @@ window.QJ.phrases = {
               "vi": "đừng làm",
               "note": "phủ định thể て của する",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4086,6 +4362,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -4097,8 +4374,8 @@ window.QJ.phrases = {
           "kana": "さとうをいれないでください",
           "vi": "Làm ơn đừng cho đường",
           "note": "Dùng khi gọi cà phê/trà.",
-          "roma": "satouoirenaidekudasai",
-          "viPron": "xa-tô-u-ô-i-rê-na-i-đê-cư-đa-xa-i",
+          "roma": "satou o irenaide kudasai",
+          "viPron": "xa-tô-u ô i-rê-na-i-đê cư-đa-xa-i",
           "parts": [
             {
               "jp": "砂糖",
@@ -4108,6 +4385,7 @@ window.QJ.phrases = {
               "vi": "đường",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4119,17 +4397,31 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
             {
-              "jp": "入れないでください",
-              "kana": "いれないでください",
-              "roma": "irenaidekudasai",
-              "viPron": "i-rê-na-i-đê-cư-đa-xa-i",
+              "jp": "入れないで",
+              "kana": "いれないで",
+              "roma": "irenaide",
+              "viPron": "i-rê-na-i-đê",
               "vi": "xin đừng cho vào",
-              "note": "từ 入れる (cho vào)",
-              "grammar": null,
+              "note": "phủ định thể て của 入れる",
+              "grammar": "te-kudasai",
+              "role": "verb",
+              "isParticle": false,
+              "unknown": false
+            },
+            {
+              "jp": "ください",
+              "kana": "ください",
+              "roma": "kudasai",
+              "viPron": "cư-đa-xa-i",
+              "vi": "xin hãy cho",
+              "note": "đuôi yêu cầu lịch sự",
+              "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -4141,8 +4433,8 @@ window.QJ.phrases = {
           "kana": "ちゅうもんをおねがいします",
           "vi": "Cho tôi gọi món",
           "note": "Nói khi nhân viên đi ngang qua.",
-          "roma": "chuumonoonegaishimasu",
-          "viPron": "chu-u-môn-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "chuumon o onegai shimasu",
+          "viPron": "chu-u-môn ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "注文",
@@ -4152,6 +4444,7 @@ window.QJ.phrases = {
               "vi": "gọi món",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -4163,6 +4456,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4174,6 +4468,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -4185,6 +4480,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -4196,8 +4492,8 @@ window.QJ.phrases = {
           "kana": "きんえんせきをおねがいします",
           "vi": "Cho tôi chỗ không hút thuốc",
           "note": "喫煙席 = chỗ hút thuốc.",
-          "roma": "kinensekioonegaishimasu",
-          "viPron": "kin-ên-xê-ki-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "kinenseki o onegai shimasu",
+          "viPron": "kin-ên-xê-ki ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "禁煙席",
@@ -4207,6 +4503,7 @@ window.QJ.phrases = {
               "vi": "chỗ không hút thuốc",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4218,6 +4515,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4229,6 +4527,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -4240,6 +4539,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -4251,8 +4551,8 @@ window.QJ.phrases = {
           "kana": "ふたりです",
           "vi": "Hai người",
           "note": "Trả lời câu 何名様ですか. Một người: 一人です.",
-          "roma": "futaridesu",
-          "viPron": "phư-ta-ri-đê-xư",
+          "roma": "futari desu",
+          "viPron": "phư-ta-ri đê-xư",
           "parts": [
             {
               "jp": "二人",
@@ -4262,6 +4562,7 @@ window.QJ.phrases = {
               "vi": "hai người",
               "note": "lượng từ \"人\" (người)",
               "grammar": "counters",
+              "role": "number",
               "isParticle": false,
               "unknown": false
             },
@@ -4273,6 +4574,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -4295,6 +4597,7 @@ window.QJ.phrases = {
               "vi": "đặt trước",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4306,6 +4609,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4317,6 +4621,7 @@ window.QJ.phrases = {
               "vi": "không có",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -4346,6 +4651,7 @@ window.QJ.phrases = {
               "vi": "ga tàu",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4357,6 +4663,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4368,6 +4675,7 @@ window.QJ.phrases = {
               "vi": "ở đâu",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4379,6 +4687,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -4390,6 +4699,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -4411,6 +4721,7 @@ window.QJ.phrases = {
               "vi": "nhà vệ sinh",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4422,6 +4733,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4433,6 +4745,7 @@ window.QJ.phrases = {
               "vi": "ở đâu",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4444,6 +4757,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -4455,6 +4769,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -4477,6 +4792,7 @@ window.QJ.phrases = {
               "vi": "… này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4488,6 +4804,7 @@ window.QJ.phrases = {
               "vi": "tàu điện",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4499,6 +4816,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4510,6 +4828,7 @@ window.QJ.phrases = {
               "vi": "Tokyo",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4521,6 +4840,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4532,6 +4852,7 @@ window.QJ.phrases = {
               "vi": "đi",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4543,6 +4864,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -4554,8 +4876,8 @@ window.QJ.phrases = {
           "kana": "なんばんせんですか",
           "vi": "Ở sân ga số mấy?",
           "note": "番線 = số hiệu đường ray.",
-          "roma": "nanbansendesuka",
-          "viPron": "nam-ban-xên-đê-xư-ka",
+          "roma": "nanbansen desu ka",
+          "viPron": "nam-ban-xên đê-xư ka",
           "parts": [
             {
               "jp": "何番線",
@@ -4565,6 +4887,7 @@ window.QJ.phrases = {
               "vi": "sân ga số mấy",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4576,6 +4899,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -4587,6 +4911,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -4598,8 +4923,8 @@ window.QJ.phrases = {
           "kana": "どのくらいかかりますか",
           "vi": "Mất khoảng bao lâu?",
           "note": "Hỏi thời gian/chi phí.",
-          "roma": "donokuraikakarimasuka",
-          "viPron": "đô-nô-cư-ra-i-ka-ka-ri-ma-xư-ka",
+          "roma": "dono kurai kakarimasu ka",
+          "viPron": "đô-nô cư-ra-i ka-ka-ri-ma-xư ka",
           "parts": [
             {
               "jp": "どの",
@@ -4609,6 +4934,7 @@ window.QJ.phrases = {
               "vi": "... nào (đứng trước danh từ)",
               "note": "thuộc bộ こ・そ・あ・ど",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4620,6 +4946,7 @@ window.QJ.phrases = {
               "vi": "khoảng chừng",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -4631,6 +4958,7 @@ window.QJ.phrases = {
               "vi": "mất (thời gian/tiền)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4642,6 +4970,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -4653,8 +4982,8 @@ window.QJ.phrases = {
           "kana": "ここでおります",
           "vi": "Tôi xuống ở đây",
           "note": "Nói với tài xế taxi hoặc khi chen qua đám đông trên tàu.",
-          "roma": "kokodeorimasu",
-          "viPron": "kô-kô-đê-ô-ri-ma-xư",
+          "roma": "koko de orimasu",
+          "viPron": "kô-kô đê ô-ri-ma-xư",
           "parts": [
             {
               "jp": "ここ",
@@ -4664,6 +4993,7 @@ window.QJ.phrases = {
               "vi": "ở đây",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4675,6 +5005,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4686,6 +5017,7 @@ window.QJ.phrases = {
               "vi": "xuống (xe, tàu)",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -4697,8 +5029,8 @@ window.QJ.phrases = {
           "kana": "ここでとめてください",
           "vi": "Làm ơn dừng ở đây",
           "note": "Dùng với taxi.",
-          "roma": "kokodetometekudasai",
-          "viPron": "kô-kô-đê-tô-mê-tê-cư-đa-xa-i",
+          "roma": "koko de tomete kudasai",
+          "viPron": "kô-kô đê tô-mê-tê cư-đa-xa-i",
           "parts": [
             {
               "jp": "ここ",
@@ -4708,6 +5040,7 @@ window.QJ.phrases = {
               "vi": "ở đây",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4719,6 +5052,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4730,6 +5064,7 @@ window.QJ.phrases = {
               "vi": "dừng lại (thể て)",
               "note": "từ 止める",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4741,6 +5076,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -4752,8 +5088,8 @@ window.QJ.phrases = {
           "kana": "タクシーをよんでください",
           "vi": "Gọi taxi giúp tôi",
           "note": "Nhờ lễ tân khách sạn.",
-          "roma": "takushiioyondekudasai",
-          "viPron": "ta-cư-xii-ô-yôn-đê-cư-đa-xa-i",
+          "roma": "takushii o yonde kudasai",
+          "viPron": "ta-cư-xii ô yôn-đê cư-đa-xa-i",
           "parts": [
             {
               "jp": "タクシー",
@@ -4763,6 +5099,7 @@ window.QJ.phrases = {
               "vi": "taxi",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4774,6 +5111,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4785,6 +5123,7 @@ window.QJ.phrases = {
               "vi": "gọi",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4796,6 +5135,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -4807,8 +5147,8 @@ window.QJ.phrases = {
           "kana": "このじゅうしょまでおねがいします",
           "vi": "Làm ơn đến địa chỉ này",
           "note": "Đưa điện thoại/giấy cho tài xế.",
-          "roma": "konojuushomadeonegaishimasu",
-          "viPron": "kô-nô-ju-u-xô-ma-đê-ô-nê-ga-i-xi-ma-xư",
+          "roma": "kono juusho made onegai shimasu",
+          "viPron": "kô-nô ju-u-xô ma-đê ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "この",
@@ -4818,6 +5158,7 @@ window.QJ.phrases = {
               "vi": "… này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4829,6 +5170,7 @@ window.QJ.phrases = {
               "vi": "địa chỉ",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4840,6 +5182,7 @@ window.QJ.phrases = {
               "vi": "～ cho đến (điểm đến)",
               "note": "trợ từ giới hạn điểm đến",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4851,6 +5194,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -4862,6 +5206,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -4873,8 +5218,8 @@ window.QJ.phrases = {
           "kana": "みちにまよいました",
           "vi": "Tôi bị lạc đường",
           "note": "迷いました = đã bị lạc.",
-          "roma": "michinimayoimashita",
-          "viPron": "mi-chi-ni-ma-yô-i-ma-xi-ta",
+          "roma": "michi ni mayoimashita",
+          "viPron": "mi-chi ni ma-yô-i-ma-xi-ta",
           "parts": [
             {
               "jp": "道",
@@ -4884,6 +5229,7 @@ window.QJ.phrases = {
               "vi": "đường",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -4895,6 +5241,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -4906,6 +5253,7 @@ window.QJ.phrases = {
               "vi": "đã bị lạc",
               "note": "từ 迷う",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -4917,8 +5265,8 @@ window.QJ.phrases = {
           "kana": "あるいてどのくらいですか",
           "vi": "Đi bộ mất bao lâu?",
           "note": "歩いて = bằng cách đi bộ.",
-          "roma": "aruitedonokuraidesuka",
-          "viPron": "a-rư-i-tê-đô-nô-cư-ra-i-đê-xư-ka",
+          "roma": "aruite dono kurai desu ka",
+          "viPron": "a-rư-i-tê đô-nô cư-ra-i đê-xư ka",
           "parts": [
             {
               "jp": "歩いて",
@@ -4928,6 +5276,7 @@ window.QJ.phrases = {
               "vi": "đi bộ (thể て)",
               "note": "từ 歩く",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -4939,6 +5288,7 @@ window.QJ.phrases = {
               "vi": "... nào (đứng trước danh từ)",
               "note": "thuộc bộ こ・そ・あ・ど",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -4950,6 +5300,7 @@ window.QJ.phrases = {
               "vi": "khoảng chừng",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -4961,6 +5312,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -4972,6 +5324,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -4994,6 +5347,7 @@ window.QJ.phrases = {
               "vi": "thẳng",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             }
@@ -5013,8 +5367,8 @@ window.QJ.phrases = {
           "kana": "チェックインをおねがいします",
           "vi": "Tôi muốn làm thủ tục nhận phòng",
           "note": "Đưa hộ chiếu và tên đặt phòng nếu được hỏi.",
-          "roma": "chekkuinoonegaishimasu",
-          "viPron": "chêk-cư-in-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "chekkuin o onegai shimasu",
+          "viPron": "chêk-cư-in ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "チェックイン",
@@ -5024,6 +5378,7 @@ window.QJ.phrases = {
               "vi": "nhận phòng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5035,6 +5390,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5046,6 +5402,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -5057,6 +5414,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -5068,8 +5426,8 @@ window.QJ.phrases = {
           "kana": "よやくしています",
           "vi": "Tôi có đặt phòng trước",
           "note": "Nếu được hỏi tên: 〜です (tên tôi là …).",
-          "roma": "yoyakushiteimasu",
-          "viPron": "yô-ya-cư-xi-tê-i-ma-xư",
+          "roma": "yoyakushite imasu",
+          "viPron": "yô-ya-cư-xi-tê i-ma-xư",
           "parts": [
             {
               "jp": "予約して",
@@ -5079,6 +5437,7 @@ window.QJ.phrases = {
               "vi": "đặt trước",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -5090,6 +5449,7 @@ window.QJ.phrases = {
               "vi": "có (người/vật sống)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -5101,8 +5461,8 @@ window.QJ.phrases = {
           "kana": "へやをみせてもらえますか",
           "vi": "Cho tôi xem phòng được không?",
           "note": "Dùng khi muốn đổi phòng.",
-          "roma": "heyaomisetemoraemasuka",
-          "viPron": "hê-ya-ô-mi-xê-tê-mô-ra-ê-ma-xư-ka",
+          "roma": "heya o misete moraemasuka",
+          "viPron": "hê-ya ô mi-xê-tê mô-ra-ê-ma-xư-ka",
           "parts": [
             {
               "jp": "部屋",
@@ -5112,6 +5472,7 @@ window.QJ.phrases = {
               "vi": "phòng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5123,6 +5484,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5134,6 +5496,7 @@ window.QJ.phrases = {
               "vi": "cho xem",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -5145,6 +5508,7 @@ window.QJ.phrases = {
               "vi": "…giúp tôi được không?",
               "note": "nhờ vả lịch sự",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -5166,6 +5530,7 @@ window.QJ.phrases = {
               "vi": "Wi-Fi",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5177,6 +5542,7 @@ window.QJ.phrases = {
               "vi": "～ của",
               "note": "trợ từ sở hữu / nối danh từ",
               "grammar": "particle-no",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5188,6 +5554,7 @@ window.QJ.phrases = {
               "vi": "mật khẩu",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5199,6 +5566,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5210,6 +5578,7 @@ window.QJ.phrases = {
               "vi": "cái gì",
               "note": "đọc 'なん' trước です/です",
               "grammar": "question-ka",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -5221,6 +5590,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -5232,6 +5602,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -5243,8 +5614,8 @@ window.QJ.phrases = {
           "kana": "にもつをあずかってもらえますか",
           "vi": "Gửi hành lý giúp tôi được không?",
           "note": "Dùng trước khi nhận phòng hoặc sau khi trả phòng.",
-          "roma": "nimotsuoazukattemoraemasuka",
-          "viPron": "ni-mô-tsư-ô-a-zư-kat-tê-mô-ra-ê-ma-xư-ka",
+          "roma": "nimotsu o azukatte moraemasuka",
+          "viPron": "ni-mô-tsư ô a-zư-kat-tê mô-ra-ê-ma-xư-ka",
           "parts": [
             {
               "jp": "荷物",
@@ -5254,6 +5625,7 @@ window.QJ.phrases = {
               "vi": "hành lý",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5265,6 +5637,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5276,6 +5649,7 @@ window.QJ.phrases = {
               "vi": "giữ hộ (thể て)",
               "note": "từ 預かる",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -5287,6 +5661,7 @@ window.QJ.phrases = {
               "vi": "…giúp tôi được không?",
               "note": "nhờ vả lịch sự",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -5298,16 +5673,17 @@ window.QJ.phrases = {
           "kana": "チェックアウトはなんじですか",
           "vi": "Trả phòng lúc mấy giờ?",
           "roma": "chekku auto wa nanji desu ka",
-          "viPron": "chek-ku-a-u-tô oa nan-ji đê-xư-ka",
+          "viPron": "chêk-ku-a-u-tô oa nan-ji đê-xư-ka",
           "parts": [
             {
               "jp": "チェックアウト",
               "kana": "チェックアウト",
               "roma": "chekkuauto",
-              "viPron": "chêk-cư-a-ư-tô",
+              "viPron": "chêk-cư-a-u-tô",
               "vi": "trả phòng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5319,6 +5695,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5330,6 +5707,7 @@ window.QJ.phrases = {
               "vi": "mấy giờ",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -5341,6 +5719,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -5352,6 +5731,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -5363,17 +5743,18 @@ window.QJ.phrases = {
           "kana": "チェックアウトをおねがいします",
           "vi": "Cho tôi làm thủ tục trả phòng",
           "note": "Nói ở quầy lễ tân.",
-          "roma": "chekkuautooonegaishimasu",
-          "viPron": "chêk-cư-a-ư-tô-ô-ô-nê-ga-i-xi-ma-xư",
+          "roma": "chekkuauto o onegai shimasu",
+          "viPron": "chêk-cư-a-u-tô ô ô-nê-ga-i xi-ma-xư",
           "parts": [
             {
               "jp": "チェックアウト",
               "kana": "チェックアウト",
               "roma": "chekkuauto",
-              "viPron": "chêk-cư-a-ư-tô",
+              "viPron": "chêk-cư-a-u-tô",
               "vi": "trả phòng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5385,6 +5766,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5396,6 +5778,7 @@ window.QJ.phrases = {
               "vi": "nhờ vả / mong",
               "note": "đi với します thành 'xin nhờ'",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -5407,6 +5790,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -5418,8 +5802,8 @@ window.QJ.phrases = {
           "kana": "タオルをもういちまいください",
           "vi": "Cho tôi thêm một cái khăn",
           "note": "もう = thêm nữa; 一枚 = một cái (đếm vật mỏng).",
-          "roma": "taoruomouichimaikudasai",
-          "viPron": "ta-ô-rư-ô-mô-u-i-chi-ma-i-cư-đa-xa-i",
+          "roma": "taoru o mou ichimai kudasai",
+          "viPron": "ta-ô-rư ô mô-u i-chi-ma-i cư-đa-xa-i",
           "parts": [
             {
               "jp": "タオル",
@@ -5429,6 +5813,7 @@ window.QJ.phrases = {
               "vi": "khăn",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5440,6 +5825,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5451,6 +5837,7 @@ window.QJ.phrases = {
               "vi": "thêm nữa / đã rồi",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -5462,6 +5849,7 @@ window.QJ.phrases = {
               "vi": "một tấm",
               "note": "lượng từ \"枚\" (tấm / tờ)",
               "grammar": "counters",
+              "role": "number",
               "isParticle": false,
               "unknown": false
             },
@@ -5473,6 +5861,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -5484,8 +5873,8 @@ window.QJ.phrases = {
           "kana": "へやのエアコンがうごきません",
           "vi": "Điều hòa trong phòng không chạy",
           "note": "Đổi エアコン thành お湯 (nước nóng) / 電気 (đèn) nếu cần.",
-          "roma": "heyanoeakongaugokimasen",
-          "viPron": "hê-ya-nô-ê-a-kông-ga-ư-gô-ki-ma-xên",
+          "roma": "heya no eakon ga ugokimasen",
+          "viPron": "hê-ya nô ê-a-kôn ga ư-gô-ki-ma-xên",
           "parts": [
             {
               "jp": "部屋",
@@ -5495,6 +5884,7 @@ window.QJ.phrases = {
               "vi": "phòng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5506,6 +5896,7 @@ window.QJ.phrases = {
               "vi": "～ của",
               "note": "trợ từ sở hữu / nối danh từ",
               "grammar": "particle-no",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5517,6 +5908,7 @@ window.QJ.phrases = {
               "vi": "điều hòa",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5528,6 +5920,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5539,6 +5932,7 @@ window.QJ.phrases = {
               "vi": "không chạy / không hoạt động",
               "note": "từ 動く",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -5550,8 +5944,8 @@ window.QJ.phrases = {
           "kana": "しずかなへやにかえてもらえますか",
           "vi": "Đổi cho tôi phòng yên tĩnh được không?",
           "note": "変える = đổi, thay.",
-          "roma": "shizukanaheyanikaetemoraemasuka",
-          "viPron": "xi-zư-ka-na-hê-ya-ni-ka-ê-tê-mô-ra-ê-ma-xư-ka",
+          "roma": "shizuka na heya ni kaete moraemasuka",
+          "viPron": "xi-zư-ka na hê-ya ni ka-ê-tê mô-ra-ê-ma-xư-ka",
           "parts": [
             {
               "jp": "静か",
@@ -5561,6 +5955,7 @@ window.QJ.phrases = {
               "vi": "yên tĩnh",
               "note": "tính từ đuôi な",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -5572,6 +5967,7 @@ window.QJ.phrases = {
               "vi": "nối tính từ な với danh từ",
               "note": "静かな部屋 = phòng yên tĩnh",
               "grammar": "adj",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -5583,6 +5979,7 @@ window.QJ.phrases = {
               "vi": "phòng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5594,6 +5991,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5605,6 +6003,7 @@ window.QJ.phrases = {
               "vi": "đổi (thể て)",
               "note": "từ 変える",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -5616,6 +6015,7 @@ window.QJ.phrases = {
               "vi": "…giúp tôi được không?",
               "note": "nhờ vả lịch sự",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -5627,8 +6027,8 @@ window.QJ.phrases = {
           "kana": "にもつをここにおいてもいいですか",
           "vi": "Tôi để hành lý ở đây được không?",
           "note": "置いて = để, đặt (thể て của 置く).",
-          "roma": "nimotsuokokonioitemoiidesuka",
-          "viPron": "ni-mô-tsư-ô-kô-kô-ni-ô-i-tê-mô-i-i-đê-xư-ka",
+          "roma": "nimotsu o koko ni oite mo ii desu ka",
+          "viPron": "ni-mô-tsư ô kô-kô ni ô-i-tê mô i-i đê-xư ka",
           "parts": [
             {
               "jp": "荷物",
@@ -5638,6 +6038,7 @@ window.QJ.phrases = {
               "vi": "hành lý",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5649,6 +6050,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5660,6 +6062,7 @@ window.QJ.phrases = {
               "vi": "ở đây",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -5671,6 +6074,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5682,6 +6086,7 @@ window.QJ.phrases = {
               "vi": "để, đặt (thể て)",
               "note": "từ 置く",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -5693,6 +6098,7 @@ window.QJ.phrases = {
               "vi": "～ cũng",
               "note": "trợ từ 'cũng'",
               "grammar": "particle-mo-to",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5704,6 +6110,7 @@ window.QJ.phrases = {
               "vi": "tốt, được",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -5715,6 +6122,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -5726,6 +6134,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -5747,6 +6156,7 @@ window.QJ.phrases = {
               "vi": "bữa sáng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5758,6 +6168,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5769,6 +6180,7 @@ window.QJ.phrases = {
               "vi": "mấy giờ",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -5780,6 +6192,7 @@ window.QJ.phrases = {
               "vi": "～ từ / vì",
               "note": "trợ từ điểm bắt đầu",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5791,6 +6204,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -5802,6 +6216,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -5831,6 +6246,7 @@ window.QJ.phrases = {
               "vi": "thuốc cảm",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5842,6 +6258,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5853,6 +6270,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -5864,6 +6282,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -5875,8 +6294,8 @@ window.QJ.phrases = {
           "kana": "ずつうやくをください",
           "vi": "Cho tôi thuốc đau đầu",
           "note": "頭痛薬 = thuốc đau đầu.",
-          "roma": "zutsuuyakuokudasai",
-          "viPron": "zư-tsư-u-ya-cư-ô-cư-đa-xa-i",
+          "roma": "zutsuu yaku o kudasai",
+          "viPron": "zư-tsư-u ya-cư ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "頭痛",
@@ -5886,6 +6305,7 @@ window.QJ.phrases = {
               "vi": "đau đầu",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5897,6 +6317,7 @@ window.QJ.phrases = {
               "vi": "thuốc (trong từ ghép)",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5908,6 +6329,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5919,6 +6341,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -5929,8 +6352,8 @@ window.QJ.phrases = {
           "jp": "お腹が痛いです",
           "kana": "おなかがいたいです",
           "vi": "Tôi bị đau bụng",
-          "roma": "onakagaitaidesu",
-          "viPron": "ô-na-ka-ga-i-ta-i-đê-xư",
+          "roma": "onaka ga itai desu",
+          "viPron": "ô-na-ka ga i-ta-i đê-xư",
           "parts": [
             {
               "jp": "お腹",
@@ -5940,6 +6363,7 @@ window.QJ.phrases = {
               "vi": "bụng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -5951,6 +6375,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -5962,6 +6387,7 @@ window.QJ.phrases = {
               "vi": "đau",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -5973,6 +6399,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -5983,8 +6410,8 @@ window.QJ.phrases = {
           "jp": "のどが痛いです",
           "kana": "のどがいたいです",
           "vi": "Tôi bị đau họng",
-          "roma": "nodogaitaidesu",
-          "viPron": "nô-đô-ga-i-ta-i-đê-xư",
+          "roma": "nodo ga itai desu",
+          "viPron": "nô-đô ga i-ta-i đê-xư",
           "parts": [
             {
               "jp": "のど",
@@ -5994,6 +6421,7 @@ window.QJ.phrases = {
               "vi": "cổ họng",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6005,6 +6433,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6016,6 +6445,7 @@ window.QJ.phrases = {
               "vi": "đau",
               "note": "tính từ đuôi い",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -6027,6 +6457,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -6038,8 +6469,8 @@ window.QJ.phrases = {
           "kana": "ねつがさがりません",
           "vi": "Sốt mãi không hạ",
           "note": "下がる = hạ xuống.",
-          "roma": "netsugasagarimasen",
-          "viPron": "nê-tsư-ga-xa-ga-ri-ma-xên",
+          "roma": "netsu ga sagarimasen",
+          "viPron": "nê-tsư ga xa-ga-ri-ma-xên",
           "parts": [
             {
               "jp": "熱",
@@ -6049,6 +6480,7 @@ window.QJ.phrases = {
               "vi": "sốt",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6060,6 +6492,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6071,6 +6504,7 @@ window.QJ.phrases = {
               "vi": "không hạ xuống",
               "note": "từ 下がる",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6092,6 +6526,7 @@ window.QJ.phrases = {
               "vi": "… này",
               "note": "đại từ chỉ định",
               "grammar": "kosoado",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -6103,6 +6538,7 @@ window.QJ.phrases = {
               "vi": "thuốc",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6114,6 +6550,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6125,6 +6562,7 @@ window.QJ.phrases = {
               "vi": "bằng cách nào",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -6136,6 +6574,7 @@ window.QJ.phrases = {
               "vi": "uống",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -6147,6 +6586,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -6158,8 +6598,8 @@ window.QJ.phrases = {
           "kana": "いちにちになんかいのみますか",
           "vi": "Một ngày uống mấy lần?",
           "note": "何回 = mấy lần.",
-          "roma": "ichinichininankainomimasuka",
-          "viPron": "i-chi-ni-chi-ni-nang-ka-i-nô-mi-ma-xư-ka",
+          "roma": "ichinichi ni nankai nomimasu ka",
+          "viPron": "i-chi-ni-chi ni nang-ka-i nô-mi-ma-xư ka",
           "parts": [
             {
               "jp": "一日",
@@ -6169,6 +6609,7 @@ window.QJ.phrases = {
               "vi": "một ngày",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -6180,6 +6621,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6191,6 +6633,7 @@ window.QJ.phrases = {
               "vi": "mấy lần",
               "note": "",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -6202,6 +6645,7 @@ window.QJ.phrases = {
               "vi": "uống",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -6213,6 +6657,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -6234,6 +6679,7 @@ window.QJ.phrases = {
               "vi": "thuốc giảm đau",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6245,6 +6691,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6256,6 +6703,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -6267,6 +6715,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -6278,8 +6727,8 @@ window.QJ.phrases = {
           "kana": "ばんそうこうをください",
           "vi": "Cho tôi băng cá nhân",
           "note": "絆創膏 = băng dán vết thương.",
-          "roma": "bansoukouokudasai",
-          "viPron": "ban-xô-u-kô-u-ô-cư-đa-xa-i",
+          "roma": "bansoukou o kudasai",
+          "viPron": "ban-xô-u-kô-u ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "絆創膏",
@@ -6289,6 +6738,7 @@ window.QJ.phrases = {
               "vi": "băng cá nhân",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6300,6 +6750,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6311,6 +6762,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -6322,8 +6774,8 @@ window.QJ.phrases = {
           "kana": "しょほうせんなしでかえますか",
           "vi": "Mua không cần đơn thuốc được không?",
           "note": "処方箋 = đơn thuốc; なし = không có.",
-          "roma": "shohousennashidekaemasuka",
-          "viPron": "xô-hô-u-xên-na-xi-đê-ka-ê-ma-xư-ka",
+          "roma": "shohousen nashi de kaemasu ka",
+          "viPron": "xô-hô-u-xên na-xi đê ka-ê-ma-xư ka",
           "parts": [
             {
               "jp": "処方箋",
@@ -6333,6 +6785,7 @@ window.QJ.phrases = {
               "vi": "đơn thuốc",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6344,6 +6797,7 @@ window.QJ.phrases = {
               "vi": "không có",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -6355,6 +6809,7 @@ window.QJ.phrases = {
               "vi": "～ (nơi xảy ra / phương tiện)",
               "note": "trợ từ nơi / cách thức",
               "grammar": "particle-de",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6366,6 +6821,7 @@ window.QJ.phrases = {
               "vi": "mua",
               "note": "thể khả năng",
               "grammar": "potential",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -6377,6 +6833,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -6387,8 +6844,8 @@ window.QJ.phrases = {
           "jp": "薬アレルギーがあります",
           "kana": "くすりアレルギーがあります",
           "vi": "Tôi bị dị ứng thuốc",
-          "roma": "kusuriarerugiigaarimasu",
-          "viPron": "cư-xư-ri-a-rê-rư-gii-ga-a-ri-ma-xư",
+          "roma": "kusuri arerugii ga arimasu",
+          "viPron": "cư-xư-ri a-rê-rư-gii ga a-ri-ma-xư",
           "parts": [
             {
               "jp": "薬",
@@ -6398,6 +6855,7 @@ window.QJ.phrases = {
               "vi": "thuốc",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6409,6 +6867,7 @@ window.QJ.phrases = {
               "vi": "dị ứng",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6420,6 +6879,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6431,6 +6891,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6442,8 +6903,8 @@ window.QJ.phrases = {
           "kana": "めまいがします",
           "vi": "Tôi thấy chóng mặt",
           "note": "めまい = chóng mặt.",
-          "roma": "memaigashimasu",
-          "viPron": "mê-ma-i-ga-xi-ma-xư",
+          "roma": "memai ga shimasu",
+          "viPron": "mê-ma-i ga xi-ma-xư",
           "parts": [
             {
               "jp": "めまい",
@@ -6453,6 +6914,7 @@ window.QJ.phrases = {
               "vi": "chóng mặt",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6464,6 +6926,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6475,6 +6938,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "thể ます (lịch sự)",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6494,8 +6958,8 @@ window.QJ.phrases = {
           "kana": "りょこうほけんにはいっています",
           "vi": "Tôi có mua bảo hiểm du lịch",
           "note": "Nói khi cần khai báo sự cố.",
-          "roma": "ryokouhokennihaitteimasu",
-          "viPron": "riô-kô-u-hô-kên-ni-ha-it-tê-i-ma-xư",
+          "roma": "ryokou hoken ni haitte imasu",
+          "viPron": "riô-kô-u hô-kên ni ha-it-tê i-ma-xư",
           "parts": [
             {
               "jp": "旅行",
@@ -6505,6 +6969,7 @@ window.QJ.phrases = {
               "vi": "du lịch",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -6516,6 +6981,7 @@ window.QJ.phrases = {
               "vi": "bảo hiểm",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6527,6 +6993,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6538,6 +7005,7 @@ window.QJ.phrases = {
               "vi": "vào",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -6549,6 +7017,7 @@ window.QJ.phrases = {
               "vi": "có (người/vật sống)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6560,8 +7029,8 @@ window.QJ.phrases = {
           "kana": "ほけんのしょるいをください",
           "vi": "Cho tôi giấy tờ bảo hiểm",
           "note": "書類 = giấy tờ, hồ sơ.",
-          "roma": "hokennoshoruiokudasai",
-          "viPron": "hô-kên-nô-xô-rư-i-ô-cư-đa-xa-i",
+          "roma": "hoken no shorui o kudasai",
+          "viPron": "hô-kên nô xô-rư-i ô cư-đa-xa-i",
           "parts": [
             {
               "jp": "保険",
@@ -6571,6 +7040,7 @@ window.QJ.phrases = {
               "vi": "bảo hiểm",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6582,6 +7052,7 @@ window.QJ.phrases = {
               "vi": "～ của",
               "note": "trợ từ sở hữu / nối danh từ",
               "grammar": "particle-no",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6593,6 +7064,7 @@ window.QJ.phrases = {
               "vi": "giấy tờ",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6604,6 +7076,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6615,6 +7088,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -6626,8 +7100,8 @@ window.QJ.phrases = {
           "kana": "じこにあいました",
           "vi": "Tôi gặp tai nạn",
           "note": "事故 = tai nạn.",
-          "roma": "jikoniaimashita",
-          "viPron": "ji-kô-ni-a-i-ma-xi-ta",
+          "roma": "jiko ni aimashita",
+          "viPron": "ji-kô ni a-i-ma-xi-ta",
           "parts": [
             {
               "jp": "事故",
@@ -6637,6 +7111,7 @@ window.QJ.phrases = {
               "vi": "tai nạn",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6648,6 +7123,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6659,6 +7135,7 @@ window.QJ.phrases = {
               "vi": "đã gặp (tai nạn)",
               "note": "từ 遭う",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6670,8 +7147,8 @@ window.QJ.phrases = {
           "kana": "さいふをなくしました",
           "vi": "Tôi bị mất ví",
           "note": "Thay 財布 bằng スマホ (điện thoại) / かばん (túi) nếu cần.",
-          "roma": "saifuonakushimashita",
-          "viPron": "xa-i-phư-ô-na-cư-xi-ma-xi-ta",
+          "roma": "saifu o nakushimashita",
+          "viPron": "xa-i-phư ô na-cư-xi-ma-xi-ta",
           "parts": [
             {
               "jp": "財布",
@@ -6681,6 +7158,7 @@ window.QJ.phrases = {
               "vi": "ví",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6692,6 +7170,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6703,6 +7182,7 @@ window.QJ.phrases = {
               "vi": "đã làm mất",
               "note": "từ なくす",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6714,8 +7194,8 @@ window.QJ.phrases = {
           "kana": "さいふをぬすまれました",
           "vi": "Ví của tôi bị mất trộm",
           "note": "盗まれました = bị lấy cắp.",
-          "roma": "saifuonusumaremashita",
-          "viPron": "xa-i-phư-ô-nư-xư-ma-rê-ma-xi-ta",
+          "roma": "saifu o nusumaremashita",
+          "viPron": "xa-i-phư ô nư-xư-ma-rê-ma-xi-ta",
           "parts": [
             {
               "jp": "財布",
@@ -6725,6 +7205,7 @@ window.QJ.phrases = {
               "vi": "ví",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6736,6 +7217,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6747,6 +7229,7 @@ window.QJ.phrases = {
               "vi": "đã bị lấy cắp",
               "note": "từ 盗む",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6758,8 +7241,8 @@ window.QJ.phrases = {
           "kana": "スマホをおとしました",
           "vi": "Tôi đánh rơi điện thoại",
           "note": "落とす = đánh rơi.",
-          "roma": "sumahoootoshimashita",
-          "viPron": "xư-ma-hô-ô-ô-tô-xi-ma-xi-ta",
+          "roma": "sumaho o otoshimashita",
+          "viPron": "xư-ma-hô ô ô-tô-xi-ma-xi-ta",
           "parts": [
             {
               "jp": "スマホ",
@@ -6769,6 +7252,7 @@ window.QJ.phrases = {
               "vi": "điện thoại thông minh",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6780,6 +7264,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6791,6 +7276,7 @@ window.QJ.phrases = {
               "vi": "đã đánh rơi",
               "note": "từ 落とす",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6802,8 +7288,8 @@ window.QJ.phrases = {
           "kana": "けいさつにとどけたいです",
           "vi": "Tôi muốn báo cảnh sát",
           "note": "届ける = trình báo. Đến 交番 (chốt cảnh sát) gần nhất.",
-          "roma": "keisatsunitodoketaidesu",
-          "viPron": "kê-i-xa-tsư-ni-tô-đô-kê-ta-i-đê-xư",
+          "roma": "keisatsu ni todoketai desu",
+          "viPron": "kê-i-xa-tsư ni tô-đô-kê-ta-i đê-xư",
           "parts": [
             {
               "jp": "警察",
@@ -6813,6 +7299,7 @@ window.QJ.phrases = {
               "vi": "cảnh sát",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6824,6 +7311,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6835,6 +7323,7 @@ window.QJ.phrases = {
               "vi": "muốn trình báo",
               "note": "từ 届ける",
               "grammar": "tai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -6846,6 +7335,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -6857,8 +7347,8 @@ window.QJ.phrases = {
           "kana": "とうなんしょうめいをかいてもらえますか",
           "vi": "Viết giấy xác nhận mất trộm cho tôi được không?",
           "note": "Cần cho hồ sơ bảo hiểm.",
-          "roma": "tounanshoumeiokaitemoraemasuka",
-          "viPron": "tô-u-nan-xô-u-mê-i-ô-ka-i-tê-mô-ra-ê-ma-xư-ka",
+          "roma": "tounan shoumei o kaite moraemasuka",
+          "viPron": "tô-u-nan xô-u-mê-i ô ka-i-tê mô-ra-ê-ma-xư-ka",
           "parts": [
             {
               "jp": "盗難",
@@ -6868,6 +7358,7 @@ window.QJ.phrases = {
               "vi": "trộm cắp",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6879,6 +7370,7 @@ window.QJ.phrases = {
               "vi": "chứng nhận / xác nhận",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6890,6 +7382,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6901,6 +7394,7 @@ window.QJ.phrases = {
               "vi": "viết",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -6912,6 +7406,7 @@ window.QJ.phrases = {
               "vi": "…giúp tôi được không?",
               "note": "nhờ vả lịch sự",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6923,8 +7418,8 @@ window.QJ.phrases = {
           "kana": "りょうしゅうしょをもらえますか",
           "vi": "Cho tôi xin hóa đơn được không?",
           "note": "Giữ hóa đơn để đòi bảo hiểm.",
-          "roma": "ryoushuushoomoraemasuka",
-          "viPron": "riô-u-xư-u-xô-ô-mô-ra-ê-ma-xư-ka",
+          "roma": "ryoushuusho o moraemasuka",
+          "viPron": "riô-u-xư-u-xô ô mô-ra-ê-ma-xư-ka",
           "parts": [
             {
               "jp": "領収書",
@@ -6934,6 +7429,7 @@ window.QJ.phrases = {
               "vi": "hóa đơn nhận tiền",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6945,6 +7441,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -6956,6 +7453,7 @@ window.QJ.phrases = {
               "vi": "…giúp tôi được không?",
               "note": "nhờ vả lịch sự",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -6977,6 +7475,7 @@ window.QJ.phrases = {
               "vi": "Việt Nam",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6988,6 +7487,7 @@ window.QJ.phrases = {
               "vi": "đại sứ quán",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -6999,6 +7499,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7010,6 +7511,7 @@ window.QJ.phrases = {
               "vi": "ở đâu",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -7021,6 +7523,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -7032,6 +7535,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -7043,8 +7547,8 @@ window.QJ.phrases = {
           "kana": "ぼこくにれんらくしたいです",
           "vi": "Tôi muốn liên lạc về nước",
           "note": "母国 = quê hương, đất nước mình.",
-          "roma": "bokokunirenrakushitaidesu",
-          "viPron": "bô-kô-cư-ni-rên-ra-cư-xi-ta-i-đê-xư",
+          "roma": "bokoku ni renraku shitai desu",
+          "viPron": "bô-kô-cư ni rên-ra-cư xi-ta-i đê-xư",
           "parts": [
             {
               "jp": "母国",
@@ -7054,6 +7558,7 @@ window.QJ.phrases = {
               "vi": "quê hương",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7065,6 +7570,7 @@ window.QJ.phrases = {
               "vi": "～ (hướng đến / thời điểm)",
               "note": "trợ từ hướng, đích",
               "grammar": "particle-ni",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7076,6 +7582,7 @@ window.QJ.phrases = {
               "vi": "liên lạc",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7087,6 +7594,7 @@ window.QJ.phrases = {
               "vi": "làm",
               "note": "mong muốn たい",
               "grammar": "tai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -7098,6 +7606,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -7109,8 +7618,8 @@ window.QJ.phrases = {
           "kana": "クレジットカードをとめたいです",
           "vi": "Tôi muốn khóa thẻ tín dụng",
           "note": "Gọi ngân hàng phát hành thẻ càng sớm càng tốt.",
-          "roma": "kurejittokaadootometaidesu",
-          "viPron": "cư-rê-jit-tô-kaa-đô-ô-tô-mê-ta-i-đê-xư",
+          "roma": "kurejittokaado o tometai desu",
+          "viPron": "cư-rê-jit-tô-kaa-đô ô tô-mê-ta-i đê-xư",
           "parts": [
             {
               "jp": "クレジットカード",
@@ -7120,6 +7629,7 @@ window.QJ.phrases = {
               "vi": "thẻ tín dụng",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -7131,6 +7641,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7142,6 +7653,7 @@ window.QJ.phrases = {
               "vi": "muốn dừng / khóa",
               "note": "",
               "grammar": "tai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -7153,6 +7665,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -7172,8 +7685,8 @@ window.QJ.phrases = {
           "kana": "たすけてください",
           "vi": "Làm ơn giúp tôi!",
           "note": "Khẩn cấp, nói to: 助けて！",
-          "roma": "tasuketekudasai",
-          "viPron": "ta-xư-kê-tê-cư-đa-xa-i",
+          "roma": "tasukete kudasai",
+          "viPron": "ta-xư-kê-tê cư-đa-xa-i",
           "parts": [
             {
               "jp": "助けて",
@@ -7183,6 +7696,7 @@ window.QJ.phrases = {
               "vi": "giúp, cứu",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -7194,6 +7708,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -7205,8 +7720,8 @@ window.QJ.phrases = {
           "kana": "けいさつをよんでください",
           "vi": "Gọi cảnh sát giúp tôi",
           "note": "交番 = chốt cảnh sát nhỏ gần ga.",
-          "roma": "keisatsuoyondekudasai",
-          "viPron": "kê-i-xa-tsư-ô-yôn-đê-cư-đa-xa-i",
+          "roma": "keisatsu o yonde kudasai",
+          "viPron": "kê-i-xa-tsư ô yôn-đê cư-đa-xa-i",
           "parts": [
             {
               "jp": "警察",
@@ -7216,6 +7731,7 @@ window.QJ.phrases = {
               "vi": "cảnh sát",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7227,6 +7743,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7238,6 +7755,7 @@ window.QJ.phrases = {
               "vi": "gọi",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -7249,6 +7767,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -7260,8 +7779,8 @@ window.QJ.phrases = {
           "kana": "きゅうきゅうしゃをよんでください",
           "vi": "Gọi xe cứu thương",
           "note": "Số khẩn cấp tại Nhật: 119 (cứu thương), 110 (cảnh sát).",
-          "roma": "kyuukyuushaoyondekudasai",
-          "viPron": "kiu-u-kiu-u-xa-ô-yôn-đê-cư-đa-xa-i",
+          "roma": "kyuukyuusha o yonde kudasai",
+          "viPron": "kiu-u-kiu-u-xa ô yôn-đê cư-đa-xa-i",
           "parts": [
             {
               "jp": "救急車",
@@ -7271,6 +7790,7 @@ window.QJ.phrases = {
               "vi": "xe cứu thương",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7282,6 +7802,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7293,6 +7814,7 @@ window.QJ.phrases = {
               "vi": "gọi",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -7304,6 +7826,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -7315,8 +7838,8 @@ window.QJ.phrases = {
           "kana": "いしゃをよんでください",
           "vi": "Gọi bác sĩ giúp tôi",
           "note": "医者 = bác sĩ.",
-          "roma": "ishaoyondekudasai",
-          "viPron": "i-xa-ô-yôn-đê-cư-đa-xa-i",
+          "roma": "isha o yonde kudasai",
+          "viPron": "i-xa ô yôn-đê cư-đa-xa-i",
           "parts": [
             {
               "jp": "医者",
@@ -7326,6 +7849,7 @@ window.QJ.phrases = {
               "vi": "bác sĩ",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7337,6 +7861,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7348,6 +7873,7 @@ window.QJ.phrases = {
               "vi": "gọi",
               "note": "thể て",
               "grammar": "te-kudasai",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             },
@@ -7359,6 +7885,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -7370,8 +7897,8 @@ window.QJ.phrases = {
           "kana": "きぶんがわるいです",
           "vi": "Tôi thấy không khỏe",
           "note": "気分 = tình trạng sức khỏe/tâm trạng.",
-          "roma": "kibungawaruidesu",
-          "viPron": "ki-bưng-ga-oa-rư-i-đê-xư",
+          "roma": "kibun ga warui desu",
+          "viPron": "ki-bưn ga oa-rư-i đê-xư",
           "parts": [
             {
               "jp": "気分",
@@ -7381,6 +7908,7 @@ window.QJ.phrases = {
               "vi": "tâm trạng / sức khỏe",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7392,6 +7920,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7403,6 +7932,7 @@ window.QJ.phrases = {
               "vi": "tệ, không khỏe",
               "note": "",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -7414,6 +7944,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -7425,8 +7956,8 @@ window.QJ.phrases = {
           "kana": "ねつがあります",
           "vi": "Tôi bị sốt",
           "note": "熱 = sốt.",
-          "roma": "netsugaarimasu",
-          "viPron": "nê-tsư-ga-a-ri-ma-xư",
+          "roma": "netsu ga arimasu",
+          "viPron": "nê-tsư ga a-ri-ma-xư",
           "parts": [
             {
               "jp": "熱",
@@ -7436,6 +7967,7 @@ window.QJ.phrases = {
               "vi": "sốt",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7447,6 +7979,7 @@ window.QJ.phrases = {
               "vi": "～ (chủ ngữ / thứ được thích, muốn)",
               "note": "trợ từ chủ ngữ",
               "grammar": "particle-ga",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7458,6 +7991,7 @@ window.QJ.phrases = {
               "vi": "có (đồ vật)",
               "note": "",
               "grammar": "masu-form",
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -7469,8 +8003,8 @@ window.QJ.phrases = {
           "kana": "パスポートをなくしました",
           "vi": "Tôi bị mất hộ chiếu",
           "note": "Thay bằng 財布 (ví) / かばん (túi) nếu cần.",
-          "roma": "pasupootoonakushimashita",
-          "viPron": "pa-xư-pôô-tô-ô-na-cư-xi-ma-xi-ta",
+          "roma": "pasupooto o nakushimashita",
+          "viPron": "pa-xư-pôô-tô ô na-cư-xi-ma-xi-ta",
           "parts": [
             {
               "jp": "パスポート",
@@ -7480,6 +8014,7 @@ window.QJ.phrases = {
               "vi": "hộ chiếu",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7491,6 +8026,7 @@ window.QJ.phrases = {
               "vi": "～ (đối tượng của hành động)",
               "note": "trợ từ tân ngữ, đọc là 'ô'",
               "grammar": "particle-wo",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7502,6 +8038,7 @@ window.QJ.phrases = {
               "vi": "đã làm mất",
               "note": "từ なくす",
               "grammar": null,
+              "role": "verb",
               "isParticle": false,
               "unknown": false
             }
@@ -7523,6 +8060,7 @@ window.QJ.phrases = {
               "vi": "bệnh viện",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7534,6 +8072,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7545,6 +8084,7 @@ window.QJ.phrases = {
               "vi": "ở đâu",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -7556,6 +8096,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -7567,6 +8108,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -7588,6 +8130,7 @@ window.QJ.phrases = {
               "vi": "hiệu thuốc",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7599,6 +8142,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7610,6 +8154,7 @@ window.QJ.phrases = {
               "vi": "ở đâu",
               "note": "từ để hỏi",
               "grammar": "question-ka",
+              "role": "pron",
               "isParticle": false,
               "unknown": false
             },
@@ -7621,6 +8166,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -7632,6 +8178,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -7643,8 +8190,8 @@ window.QJ.phrases = {
           "kana": "だいじょうぶですか",
           "vi": "Bạn có sao không?",
           "note": "Hỏi khi thấy ai đó gặp chuyện.",
-          "roma": "daijoubudesuka",
-          "viPron": "đa-i-jô-u-bư-đê-xư-ka",
+          "roma": "daijoubu desu ka",
+          "viPron": "đa-i-jô-u-bư đê-xư ka",
           "parts": [
             {
               "jp": "大丈夫",
@@ -7654,6 +8201,7 @@ window.QJ.phrases = {
               "vi": "ổn, không sao",
               "note": "tính từ đuôi な",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -7665,6 +8213,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -7676,6 +8225,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -7687,8 +8237,8 @@ window.QJ.phrases = {
           "kana": "じしんです",
           "vi": "Động đất!",
           "note": "Nhật có nhiều động đất; bình tĩnh làm theo hướng dẫn.",
-          "roma": "jishindesu",
-          "viPron": "ji-xin-đê-xư",
+          "roma": "jishin desu",
+          "viPron": "ji-xin đê-xư",
           "parts": [
             {
               "jp": "地震",
@@ -7698,6 +8248,7 @@ window.QJ.phrases = {
               "vi": "động đất",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -7709,6 +8260,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -7739,6 +8291,7 @@ window.QJ.phrases = {
               "vi": "chào mừng quý khách",
               "note": "câu cửa miệng của nhân viên",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -7750,8 +8303,8 @@ window.QJ.phrases = {
           "kana": "なんめいさまですか",
           "vi": "Quý khách đi mấy người ạ?",
           "note": "Trả lời: 二人です (2 người), 一人です (1 người).",
-          "roma": "nanmeisamadesuka",
-          "viPron": "nam-mê-i-xa-ma-đê-xư-ka",
+          "roma": "nanmeisama desu ka",
+          "viPron": "nam-mê-i-xa-ma đê-xư ka",
           "parts": [
             {
               "jp": "何名様",
@@ -7761,6 +8314,7 @@ window.QJ.phrases = {
               "vi": "quý khách mấy người",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7772,6 +8326,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -7783,6 +8338,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -7794,8 +8350,8 @@ window.QJ.phrases = {
           "kana": "しょうしょうおまちください",
           "vi": "Xin chờ một chút ạ",
           "note": "少々 = một chút (lịch sự).",
-          "roma": "shoushouomachikudasai",
-          "viPron": "xô-u-xô-u-ô-ma-chi-cư-đa-xa-i",
+          "roma": "shoushou omachi kudasai",
+          "viPron": "xô-u-xô-u ô-ma-chi cư-đa-xa-i",
           "parts": [
             {
               "jp": "少々",
@@ -7805,6 +8361,7 @@ window.QJ.phrases = {
               "vi": "một chút (lịch sự)",
               "note": "",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -7816,6 +8373,7 @@ window.QJ.phrases = {
               "vi": "chờ đợi",
               "note": "trong お待ちください = xin chờ",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -7827,6 +8385,7 @@ window.QJ.phrases = {
               "vi": "xin hãy cho",
               "note": "đuôi yêu cầu lịch sự",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -7849,6 +8408,7 @@ window.QJ.phrases = {
               "vi": "việc gọi món (kính ngữ)",
               "note": "",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7860,6 +8420,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7871,6 +8432,7 @@ window.QJ.phrases = {
               "vi": "đã chọn xong",
               "note": "trong ご注文はお決まりですか",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7882,6 +8444,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -7893,6 +8456,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -7904,8 +8468,8 @@ window.QJ.phrases = {
           "kana": "〜えんです",
           "vi": "Là … yên ạ",
           "note": "Nghe số tiền: ひゃくえん = 100 yên, せんえん = 1.000 yên.",
-          "roma": "endesu",
-          "viPron": "ên-đê-xư",
+          "roma": "en desu",
+          "viPron": "ên đê-xư",
           "parts": [
             {
               "jp": "円",
@@ -7915,6 +8479,7 @@ window.QJ.phrases = {
               "vi": "yên (tiền Nhật)",
               "note": "",
               "grammar": null,
+              "role": "number",
               "isParticle": false,
               "unknown": false
             },
@@ -7926,6 +8491,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             }
@@ -7948,6 +8514,7 @@ window.QJ.phrases = {
               "vi": "túi đựng",
               "note": "danh từ",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7959,6 +8526,7 @@ window.QJ.phrases = {
               "vi": "～ thì / còn ～",
               "note": "trợ từ chủ đề, đọc là 'oa'",
               "grammar": "particle-wa",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             },
@@ -7970,6 +8538,7 @@ window.QJ.phrases = {
               "vi": "quý khách sử dụng",
               "note": "kính ngữ của 利用",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -7981,6 +8550,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -7992,6 +8562,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -8003,8 +8574,8 @@ window.QJ.phrases = {
           "kana": "だいじょうぶですか",
           "vi": "Quý khách ổn chứ ạ?",
           "note": "Nhân viên hỏi khi thấy bạn phân vân.",
-          "roma": "daijoubudesuka",
-          "viPron": "đa-i-jô-u-bư-đê-xư-ka",
+          "roma": "daijoubu desu ka",
+          "viPron": "đa-i-jô-u-bư đê-xư ka",
           "parts": [
             {
               "jp": "大丈夫",
@@ -8014,6 +8585,7 @@ window.QJ.phrases = {
               "vi": "ổn, không sao",
               "note": "tính từ đuôi な",
               "grammar": "adj",
+              "role": "adj",
               "isParticle": false,
               "unknown": false
             },
@@ -8025,6 +8597,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -8036,6 +8609,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -8058,6 +8632,7 @@ window.QJ.phrases = {
               "vi": "vâng, tôi đã hiểu ạ",
               "note": "nhân viên xác nhận yêu cầu",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -8080,6 +8655,7 @@ window.QJ.phrases = {
               "vi": "thành thật xin lỗi ạ",
               "note": "xin lỗi trang trọng nhất",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }
@@ -8102,6 +8678,7 @@ window.QJ.phrases = {
               "vi": "xin mời",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             }
@@ -8113,8 +8690,8 @@ window.QJ.phrases = {
           "kana": "おかいけいですか",
           "vi": "Quý khách thanh toán ạ?",
           "note": "Trả lời: はい、お願いします.",
-          "roma": "okaikeidesuka",
-          "viPron": "ô-ka-i-kê-i-đê-xư-ka",
+          "roma": "okaikei desu ka",
+          "viPron": "ô-ka-i-kê-i đê-xư ka",
           "parts": [
             {
               "jp": "お会計",
@@ -8124,6 +8701,7 @@ window.QJ.phrases = {
               "vi": "thanh toán",
               "note": "hóa đơn tính tiền",
               "grammar": null,
+              "role": "noun",
               "isParticle": false,
               "unknown": false
             },
@@ -8135,6 +8713,7 @@ window.QJ.phrases = {
               "vi": "là (lịch sự)",
               "note": "đuôi câu danh từ/tính từ",
               "grammar": "desu",
+              "role": "copula",
               "isParticle": false,
               "unknown": false
             },
@@ -8146,6 +8725,7 @@ window.QJ.phrases = {
               "vi": "～? (nghi vấn)",
               "note": "trợ từ nghi vấn cuối câu",
               "grammar": "question-ka",
+              "role": "particle",
               "isParticle": true,
               "unknown": false
             }
@@ -8157,8 +8737,8 @@ window.QJ.phrases = {
           "kana": "またおこしくださいませ",
           "vi": "Hẹn quý khách quay lại ạ",
           "note": "Câu tiễn khách cuối cùng.",
-          "roma": "mataokoshikudasaimase",
-          "viPron": "ma-ta-ô-kô-xi-cư-đa-xa-i-ma-xê",
+          "roma": "mata okoshi kudasaimase",
+          "viPron": "ma-ta ô-kô-xi cư-đa-xa-i-ma-xê",
           "parts": [
             {
               "jp": "また",
@@ -8168,6 +8748,7 @@ window.QJ.phrases = {
               "vi": "lại, lần nữa",
               "note": "",
               "grammar": null,
+              "role": "adverb",
               "isParticle": false,
               "unknown": false
             },
@@ -8179,6 +8760,7 @@ window.QJ.phrases = {
               "vi": "ghé đến",
               "note": "trong またお越しくださいませ = hẹn quay lại",
               "grammar": null,
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             },
@@ -8190,6 +8772,7 @@ window.QJ.phrases = {
               "vi": "xin mời (trang trọng hơn)",
               "note": "",
               "grammar": "kudasai-onegai",
+              "role": "expression",
               "isParticle": false,
               "unknown": false
             }

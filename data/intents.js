@@ -22,7 +22,8 @@ window.QJ.intents = {
               "vi": "tôi",
               "viLabel": "tôi",
               "posVi": "đại từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "pron"
             },
             {
               "ref": "p-watashitachi",
@@ -34,7 +35,8 @@ window.QJ.intents = {
               "vi": "chúng tôi",
               "viLabel": "chúng tôi",
               "posVi": "đại từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "pron"
             },
             {
               "silent": true,
@@ -66,7 +68,8 @@ window.QJ.intents = {
               "viLabel": "ăn",
               "posVi": "động từ",
               "formNote": "mong muốn たい",
-              "grammarHint": "tai"
+              "grammarHint": "tai",
+              "role": "verb"
             },
             {
               "ref": "v-nomu",
@@ -80,7 +83,8 @@ window.QJ.intents = {
               "viLabel": "uống",
               "posVi": "động từ",
               "formNote": "mong muốn たい",
-              "grammarHint": "tai"
+              "grammarHint": "tai",
+              "role": "verb"
             },
             {
               "ref": "v-kau",
@@ -94,7 +98,8 @@ window.QJ.intents = {
               "viLabel": "mua",
               "posVi": "động từ",
               "formNote": "mong muốn たい",
-              "grammarHint": "tai"
+              "grammarHint": "tai",
+              "role": "verb"
             },
             {
               "ref": "v-miru",
@@ -108,7 +113,8 @@ window.QJ.intents = {
               "viLabel": "xem",
               "posVi": "động từ",
               "formNote": "mong muốn たい",
-              "grammarHint": "tai"
+              "grammarHint": "tai",
+              "role": "verb"
             },
             {
               "ref": "v-iku",
@@ -122,7 +128,8 @@ window.QJ.intents = {
               "viLabel": "đi",
               "posVi": "động từ",
               "formNote": "mong muốn たい",
-              "grammarHint": "tai"
+              "grammarHint": "tai",
+              "role": "verb"
             }
           ]
         },
@@ -141,7 +148,8 @@ window.QJ.intents = {
               "vi": "sushi",
               "viLabel": "sushi",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-raamen",
@@ -153,7 +161,8 @@ window.QJ.intents = {
               "vi": "mì ramen",
               "viLabel": "mì ramen",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-tempura",
@@ -165,7 +174,8 @@ window.QJ.intents = {
               "vi": "tempura",
               "viLabel": "tempura",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-karee",
@@ -177,7 +187,8 @@ window.QJ.intents = {
               "vi": "cà ri",
               "viLabel": "cà ri",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-gyuudon",
@@ -189,7 +200,8 @@ window.QJ.intents = {
               "vi": "cơm thịt bò",
               "viLabel": "cơm thịt bò",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "d-kore",
@@ -201,7 +213,8 @@ window.QJ.intents = {
               "vi": "cái này",
               "viLabel": "cái này",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             },
             {
               "ref": "d-sore",
@@ -213,7 +226,8 @@ window.QJ.intents = {
               "vi": "cái đó",
               "viLabel": "cái đó",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             }
           ]
         },
@@ -232,7 +246,8 @@ window.QJ.intents = {
               "vi": "nước",
               "viLabel": "nước",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-ocha",
@@ -244,7 +259,8 @@ window.QJ.intents = {
               "vi": "trà",
               "viLabel": "trà",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-koohii",
@@ -256,7 +272,8 @@ window.QJ.intents = {
               "vi": "cà phê",
               "viLabel": "cà phê",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-biiru",
@@ -268,7 +285,8 @@ window.QJ.intents = {
               "vi": "bia",
               "viLabel": "bia",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-juusu",
@@ -280,7 +298,8 @@ window.QJ.intents = {
               "vi": "nước ép",
               "viLabel": "nước ép",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "d-kore",
@@ -292,7 +311,8 @@ window.QJ.intents = {
               "vi": "cái này",
               "viLabel": "cái này",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             }
           ]
         },
@@ -311,7 +331,8 @@ window.QJ.intents = {
               "vi": "quà lưu niệm",
               "viLabel": "quà lưu niệm",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-kasa",
@@ -323,7 +344,8 @@ window.QJ.intents = {
               "vi": "ô, dù",
               "viLabel": "ô, dù",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-kippu",
@@ -335,7 +357,8 @@ window.QJ.intents = {
               "vi": "vé tàu/xe",
               "viLabel": "vé tàu/xe",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "d-kore",
@@ -347,7 +370,8 @@ window.QJ.intents = {
               "vi": "cái này",
               "viLabel": "cái này",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             },
             {
               "ref": "d-sore",
@@ -359,7 +383,8 @@ window.QJ.intents = {
               "vi": "cái đó",
               "viLabel": "cái đó",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             }
           ]
         },
@@ -378,7 +403,8 @@ window.QJ.intents = {
               "vi": "thực đơn",
               "viLabel": "thực đơn",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-chizu",
@@ -390,7 +416,8 @@ window.QJ.intents = {
               "vi": "bản đồ",
               "viLabel": "bản đồ",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-shashin",
@@ -402,7 +429,8 @@ window.QJ.intents = {
               "vi": "ảnh",
               "viLabel": "ảnh",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "d-kore",
@@ -414,7 +442,8 @@ window.QJ.intents = {
               "vi": "cái này",
               "viLabel": "cái này",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             }
           ]
         },
@@ -435,6 +464,7 @@ window.QJ.intents = {
               "viLabel": "đến ga",
               "posVi": "danh từ",
               "grammarHint": null,
+              "role": "noun",
               "particleObj": {
                 "jp": "に",
                 "kana": "に",
@@ -443,6 +473,7 @@ window.QJ.intents = {
                 "vi": "～ (hướng đến / thời điểm)",
                 "note": "trợ từ hướng, đích",
                 "grammar": "particle-ni",
+                "role": "particle",
                 "isParticle": true
               }
             },
@@ -458,6 +489,7 @@ window.QJ.intents = {
               "viLabel": "đến sân bay",
               "posVi": "danh từ",
               "grammarHint": null,
+              "role": "noun",
               "particleObj": {
                 "jp": "に",
                 "kana": "に",
@@ -466,6 +498,7 @@ window.QJ.intents = {
                 "vi": "～ (hướng đến / thời điểm)",
                 "note": "trợ từ hướng, đích",
                 "grammar": "particle-ni",
+                "role": "particle",
                 "isParticle": true
               }
             },
@@ -481,6 +514,7 @@ window.QJ.intents = {
               "viLabel": "đến khách sạn",
               "posVi": "danh từ",
               "grammarHint": null,
+              "role": "noun",
               "particleObj": {
                 "jp": "に",
                 "kana": "に",
@@ -489,6 +523,7 @@ window.QJ.intents = {
                 "vi": "～ (hướng đến / thời điểm)",
                 "note": "trợ từ hướng, đích",
                 "grammar": "particle-ni",
+                "role": "particle",
                 "isParticle": true
               }
             },
@@ -504,6 +539,7 @@ window.QJ.intents = {
               "viLabel": "đến suối nước nóng",
               "posVi": "danh từ",
               "grammarHint": null,
+              "role": "noun",
               "particleObj": {
                 "jp": "に",
                 "kana": "に",
@@ -512,6 +548,7 @@ window.QJ.intents = {
                 "vi": "～ (hướng đến / thời điểm)",
                 "note": "trợ từ hướng, đích",
                 "grammar": "particle-ni",
+                "role": "particle",
                 "isParticle": true
               }
             },
@@ -527,6 +564,7 @@ window.QJ.intents = {
               "viLabel": "đến chợ",
               "posVi": "danh từ",
               "grammarHint": null,
+              "role": "noun",
               "particleObj": {
                 "jp": "に",
                 "kana": "に",
@@ -535,6 +573,7 @@ window.QJ.intents = {
                 "vi": "～ (hướng đến / thời điểm)",
                 "note": "trợ từ hướng, đích",
                 "grammar": "particle-ni",
+                "role": "particle",
                 "isParticle": true
               }
             },
@@ -550,6 +589,7 @@ window.QJ.intents = {
               "viLabel": "đến cửa hàng tiện lợi",
               "posVi": "danh từ",
               "grammarHint": null,
+              "role": "noun",
               "particleObj": {
                 "jp": "に",
                 "kana": "に",
@@ -558,6 +598,7 @@ window.QJ.intents = {
                 "vi": "～ (hướng đến / thời điểm)",
                 "note": "trợ từ hướng, đích",
                 "grammar": "particle-ni",
+                "role": "particle",
                 "isParticle": true
               }
             },
@@ -573,6 +614,7 @@ window.QJ.intents = {
               "viLabel": "đến bệnh viện",
               "posVi": "danh từ",
               "grammarHint": null,
+              "role": "noun",
               "particleObj": {
                 "jp": "に",
                 "kana": "に",
@@ -581,6 +623,7 @@ window.QJ.intents = {
                 "vi": "～ (hướng đến / thời điểm)",
                 "note": "trợ từ hướng, đích",
                 "grammar": "particle-ni",
+                "role": "particle",
                 "isParticle": true
               }
             }
@@ -598,6 +641,7 @@ window.QJ.intents = {
             "vi": "～ thì / còn ～",
             "note": "trợ từ chủ đề, đọc là 'oa'",
             "grammar": "particle-wa",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -611,6 +655,7 @@ window.QJ.intents = {
             "vi": "～ (chủ ngữ / thứ được thích, muốn)",
             "note": "trợ từ chủ ngữ",
             "grammar": "particle-ga",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -623,7 +668,8 @@ window.QJ.intents = {
           "kana": "です",
           "roma": "desu",
           "viPron": "đê-xư",
-          "vi": "là (lịch sự)"
+          "vi": "là (lịch sự)",
+          "role": "copula"
         }
       ],
       "viTemplate": "{subject} muốn {verb} {object}",
@@ -656,7 +702,8 @@ window.QJ.intents = {
               "vi": "cái này",
               "viLabel": "cái này",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             },
             {
               "ref": "d-sore",
@@ -668,7 +715,8 @@ window.QJ.intents = {
               "vi": "cái đó",
               "viLabel": "cái đó",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             },
             {
               "ref": "d-are",
@@ -680,7 +728,8 @@ window.QJ.intents = {
               "vi": "cái kia",
               "viLabel": "cái kia",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             },
             {
               "ref": "n-mizu",
@@ -692,7 +741,8 @@ window.QJ.intents = {
               "vi": "nước",
               "viLabel": "nước",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-ocha",
@@ -704,7 +754,8 @@ window.QJ.intents = {
               "vi": "trà",
               "viLabel": "trà",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-koohii",
@@ -716,7 +767,8 @@ window.QJ.intents = {
               "vi": "cà phê",
               "viLabel": "cà phê",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-biiru",
@@ -728,7 +780,8 @@ window.QJ.intents = {
               "vi": "bia",
               "viLabel": "bia",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-menu",
@@ -740,7 +793,8 @@ window.QJ.intents = {
               "vi": "thực đơn",
               "viLabel": "thực đơn",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-sushi",
@@ -752,7 +806,8 @@ window.QJ.intents = {
               "vi": "sushi",
               "viLabel": "sushi",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-raamen",
@@ -764,7 +819,8 @@ window.QJ.intents = {
               "vi": "mì ramen",
               "viLabel": "mì ramen",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             }
           ]
         },
@@ -824,6 +880,7 @@ window.QJ.intents = {
             "vi": "～ (đối tượng của hành động)",
             "note": "trợ từ tân ngữ, đọc là 'ô'",
             "grammar": "particle-wo",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -836,7 +893,8 @@ window.QJ.intents = {
           "kana": "ください",
           "roma": "kudasai",
           "viPron": "cư-đa-xa-i",
-          "vi": "xin hãy cho"
+          "vi": "xin hãy cho",
+          "role": "expression"
         }
       ],
       "viTemplate": "Cho tôi {object}, {quantity}",
@@ -868,7 +926,8 @@ window.QJ.intents = {
               "vi": "tôi",
               "viLabel": "tôi",
               "posVi": "đại từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "pron"
             },
             {
               "ref": "p-watashitachi",
@@ -880,7 +939,8 @@ window.QJ.intents = {
               "vi": "chúng tôi",
               "viLabel": "chúng tôi",
               "posVi": "đại từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "pron"
             },
             {
               "silent": true,
@@ -910,7 +970,8 @@ window.QJ.intents = {
               "vi": "sushi",
               "viLabel": "sushi",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-raamen",
@@ -922,7 +983,8 @@ window.QJ.intents = {
               "vi": "mì ramen",
               "viLabel": "mì ramen",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-tempura",
@@ -934,7 +996,8 @@ window.QJ.intents = {
               "vi": "tempura",
               "viLabel": "tempura",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-karee",
@@ -946,7 +1009,8 @@ window.QJ.intents = {
               "vi": "cà ri",
               "viLabel": "cà ri",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-koohii",
@@ -958,7 +1022,8 @@ window.QJ.intents = {
               "vi": "cà phê",
               "viLabel": "cà phê",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-ocha",
@@ -970,7 +1035,8 @@ window.QJ.intents = {
               "vi": "trà",
               "viLabel": "trà",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-nihon",
@@ -982,7 +1048,8 @@ window.QJ.intents = {
               "vi": "Nhật Bản",
               "viLabel": "Nhật Bản",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-onsen",
@@ -994,7 +1061,8 @@ window.QJ.intents = {
               "vi": "suối nước nóng",
               "viLabel": "suối nước nóng",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             }
           ]
         }
@@ -1010,6 +1078,7 @@ window.QJ.intents = {
             "vi": "～ thì / còn ～",
             "note": "trợ từ chủ đề, đọc là 'oa'",
             "grammar": "particle-wa",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -1023,6 +1092,7 @@ window.QJ.intents = {
             "vi": "～ (chủ ngữ / thứ được thích, muốn)",
             "note": "trợ từ chủ ngữ",
             "grammar": "particle-ga",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -1031,7 +1101,8 @@ window.QJ.intents = {
           "kana": "すきです",
           "roma": "sukidesu",
           "viPron": "xư-ki-đê-xư",
-          "vi": "thích"
+          "vi": "thích",
+          "role": "expression"
         }
       ],
       "viTemplate": "{subject} thích {object}",
@@ -1063,7 +1134,8 @@ window.QJ.intents = {
               "vi": "cái này",
               "viLabel": "cái này",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             },
             {
               "ref": "d-sore",
@@ -1075,7 +1147,8 @@ window.QJ.intents = {
               "vi": "cái đó",
               "viLabel": "cái đó",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             },
             {
               "ref": "d-are",
@@ -1087,7 +1160,8 @@ window.QJ.intents = {
               "vi": "cái kia",
               "viLabel": "cái kia",
               "posVi": "đại từ chỉ định",
-              "grammarHint": "kosoado"
+              "grammarHint": "kosoado",
+              "role": "pron"
             }
           ]
         },
@@ -1110,6 +1184,7 @@ window.QJ.intents = {
                     "vi": "～ thì / còn ～",
                     "note": "trợ từ chủ đề, đọc là 'oa'",
                     "grammar": "particle-wa",
+                    "role": "particle",
                     "isParticle": true
                   }
                 },
@@ -1118,7 +1193,8 @@ window.QJ.intents = {
                   "kana": "なんですか",
                   "roma": "nandesuka",
                   "viPron": "nan-đê-xư-ka",
-                  "vi": "là gì?"
+                  "vi": "là gì?",
+                  "role": "expression"
                 }
               ],
               "viTemplateOverride": "{demo} là gì?",
@@ -1142,6 +1218,7 @@ window.QJ.intents = {
                     "vi": "～ thì / còn ～",
                     "note": "trợ từ chủ đề, đọc là 'oa'",
                     "grammar": "particle-wa",
+                    "role": "particle",
                     "isParticle": true
                   }
                 },
@@ -1150,7 +1227,8 @@ window.QJ.intents = {
                   "kana": "いくらですか",
                   "roma": "ikuradesuka",
                   "viPron": "i-cư-ra-đê-xư-ka",
-                  "vi": "bao nhiêu tiền?"
+                  "vi": "bao nhiêu tiền?",
+                  "role": "expression"
                 }
               ],
               "viTemplateOverride": "{demo} bao nhiêu tiền?",
@@ -1174,6 +1252,7 @@ window.QJ.intents = {
                     "vi": "～ (nơi xảy ra / phương tiện)",
                     "note": "trợ từ nơi / cách thức",
                     "grammar": "particle-de",
+                    "role": "particle",
                     "isParticle": true
                   }
                 },
@@ -1182,7 +1261,8 @@ window.QJ.intents = {
                   "kana": "いいですか",
                   "roma": "iidesuka",
                   "viPron": "i-i-đê-xư-ka",
-                  "vi": "được không?"
+                  "vi": "được không?",
+                  "role": "expression"
                 }
               ],
               "viTemplateOverride": "{demo} có được không ạ?",
@@ -1206,6 +1286,7 @@ window.QJ.intents = {
                     "vi": "～ (đối tượng của hành động)",
                     "note": "trợ từ tân ngữ, đọc là 'ô'",
                     "grammar": "particle-wo",
+                    "role": "particle",
                     "isParticle": true
                   }
                 },
@@ -1214,7 +1295,8 @@ window.QJ.intents = {
                   "kana": "ください",
                   "roma": "kudasai",
                   "viPron": "cư-đa-xa-i",
-                  "vi": "xin hãy cho"
+                  "vi": "xin hãy cho",
+                  "role": "expression"
                 }
               ],
               "viTemplateOverride": "Cho tôi {demo}",
@@ -1237,6 +1319,7 @@ window.QJ.intents = {
             "vi": "～ thì / còn ～",
             "note": "trợ từ chủ đề, đọc là 'oa'",
             "grammar": "particle-wa",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -1245,7 +1328,8 @@ window.QJ.intents = {
           "kana": "なんですか",
           "roma": "nandesuka",
           "viPron": "nan-đê-xư-ka",
-          "vi": "là gì?"
+          "vi": "là gì?",
+          "role": "expression"
         }
       ],
       "viTemplate": "{demo} là gì?",
@@ -1281,6 +1365,7 @@ window.QJ.intents = {
                     "vi": "～ (hướng đến / thời điểm)",
                     "note": "trợ từ hướng, đích",
                     "grammar": "particle-ni",
+                    "role": "particle",
                     "isParticle": true
                   }
                 },
@@ -1289,7 +1374,8 @@ window.QJ.intents = {
                   "kana": "いきたいです",
                   "roma": "ikitaidesu",
                   "viPron": "i-ki-ta-i-đê-xư",
-                  "vi": "muốn đi"
+                  "vi": "muốn đi",
+                  "role": "expression"
                 }
               ],
               "viTemplateOverride": "Tôi muốn đi đến {place}",
@@ -1315,6 +1401,7 @@ window.QJ.intents = {
                     "vi": "～ cho đến (điểm đến)",
                     "note": "trợ từ giới hạn điểm đến",
                     "grammar": "particle-ni",
+                    "role": "particle",
                     "isParticle": true
                   }
                 },
@@ -1323,7 +1410,8 @@ window.QJ.intents = {
                   "kana": "おねがいします",
                   "roma": "onegaishimasu",
                   "viPron": "ô-nê-ga-i-xi-ma-xư",
-                  "vi": "xin nhờ / làm ơn"
+                  "vi": "xin nhờ / làm ơn",
+                  "role": "expression"
                 }
               ],
               "viTemplateOverride": "Làm ơn đưa tôi đến {place}",
@@ -1350,7 +1438,8 @@ window.QJ.intents = {
               "vi": "ga tàu",
               "viLabel": "ga tàu",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-kukou",
@@ -1362,7 +1451,8 @@ window.QJ.intents = {
               "vi": "sân bay",
               "viLabel": "sân bay",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-hoteru",
@@ -1374,7 +1464,8 @@ window.QJ.intents = {
               "vi": "khách sạn",
               "viLabel": "khách sạn",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-toire",
@@ -1386,7 +1477,8 @@ window.QJ.intents = {
               "vi": "nhà vệ sinh",
               "viLabel": "nhà vệ sinh",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-onsen",
@@ -1398,7 +1490,8 @@ window.QJ.intents = {
               "vi": "suối nước nóng",
               "viLabel": "suối nước nóng",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-ichiba",
@@ -1410,7 +1503,8 @@ window.QJ.intents = {
               "vi": "chợ",
               "viLabel": "chợ",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-ginkou",
@@ -1422,7 +1516,8 @@ window.QJ.intents = {
               "vi": "ngân hàng",
               "viLabel": "ngân hàng",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-byouin",
@@ -1434,7 +1529,8 @@ window.QJ.intents = {
               "vi": "bệnh viện",
               "viLabel": "bệnh viện",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-basutei",
@@ -1446,7 +1542,8 @@ window.QJ.intents = {
               "vi": "trạm xe buýt",
               "viLabel": "trạm xe buýt",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             }
           ]
         }
@@ -1462,6 +1559,7 @@ window.QJ.intents = {
             "vi": "～ (hướng đến / thời điểm)",
             "note": "trợ từ hướng, đích",
             "grammar": "particle-ni",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -1470,7 +1568,8 @@ window.QJ.intents = {
           "kana": "いきたいです",
           "roma": "ikitaidesu",
           "viPron": "i-ki-ta-i-đê-xư",
-          "vi": "muốn đi"
+          "vi": "muốn đi",
+          "role": "expression"
         }
       ],
       "viTemplate": "Tôi muốn đi đến {place}",
@@ -1567,7 +1666,8 @@ window.QJ.intents = {
           "kana": "ください",
           "roma": "kudasai",
           "viPron": "cư-đa-xa-i",
-          "vi": "xin hãy cho"
+          "vi": "xin hãy cho",
+          "role": "expression"
         }
       ],
       "viTemplate": "Làm ơn {action}",
@@ -1675,6 +1775,7 @@ window.QJ.intents = {
                     "vi": "～ thì / còn ～",
                     "note": "trợ từ chủ đề, đọc là 'oa'",
                     "grammar": "particle-wa",
+                    "role": "particle",
                     "isParticle": true
                   }
                 },
@@ -1683,7 +1784,8 @@ window.QJ.intents = {
                   "kana": "たべられません",
                   "roma": "taberaremasen",
                   "viPron": "ta-bê-ra-rê-ma-xên",
-                  "vi": "không ăn được"
+                  "vi": "không ăn được",
+                  "role": "expression"
                 }
               ],
               "viTemplateOverride": "Tôi không ăn được {food}",
@@ -1719,7 +1821,8 @@ window.QJ.intents = {
               "vi": "thịt lợn",
               "viLabel": "thịt lợn",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-gyuuniku",
@@ -1731,7 +1834,8 @@ window.QJ.intents = {
               "vi": "thịt bò",
               "viLabel": "thịt bò",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-toriniku",
@@ -1743,7 +1847,8 @@ window.QJ.intents = {
               "vi": "thịt gà",
               "viLabel": "thịt gà",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-kaisen",
@@ -1755,7 +1860,8 @@ window.QJ.intents = {
               "vi": "hải sản",
               "viLabel": "hải sản",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             }
           ]
         }
@@ -1871,7 +1977,8 @@ window.QJ.intents = {
               "vi": "nhà vệ sinh",
               "viLabel": "nhà vệ sinh",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-eki",
@@ -1883,7 +1990,8 @@ window.QJ.intents = {
               "vi": "ga tàu",
               "viLabel": "ga tàu",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-kukou",
@@ -1895,7 +2003,8 @@ window.QJ.intents = {
               "vi": "sân bay",
               "viLabel": "sân bay",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-hoteru",
@@ -1907,7 +2016,8 @@ window.QJ.intents = {
               "vi": "khách sạn",
               "viLabel": "khách sạn",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-yakkyoku",
@@ -1919,7 +2029,8 @@ window.QJ.intents = {
               "vi": "hiệu thuốc",
               "viLabel": "hiệu thuốc",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-kouban",
@@ -1931,7 +2042,8 @@ window.QJ.intents = {
               "vi": "chốt cảnh sát",
               "viLabel": "chốt cảnh sát",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-ginkou",
@@ -1943,7 +2055,8 @@ window.QJ.intents = {
               "vi": "ngân hàng",
               "viLabel": "ngân hàng",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-konbini",
@@ -1955,7 +2068,8 @@ window.QJ.intents = {
               "vi": "cửa hàng tiện lợi",
               "viLabel": "cửa hàng tiện lợi",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-basutei",
@@ -1967,7 +2081,8 @@ window.QJ.intents = {
               "vi": "trạm xe buýt",
               "viLabel": "trạm xe buýt",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             },
             {
               "ref": "n-byouin",
@@ -1979,7 +2094,8 @@ window.QJ.intents = {
               "vi": "bệnh viện",
               "viLabel": "bệnh viện",
               "posVi": "danh từ",
-              "grammarHint": null
+              "grammarHint": null,
+              "role": "noun"
             }
           ]
         }
@@ -1995,6 +2111,7 @@ window.QJ.intents = {
             "vi": "～ thì / còn ～",
             "note": "trợ từ chủ đề, đọc là 'oa'",
             "grammar": "particle-wa",
+            "role": "particle",
             "isParticle": true
           }
         },
@@ -2003,7 +2120,8 @@ window.QJ.intents = {
           "kana": "どこですか",
           "roma": "dokodesuka",
           "viPron": "đô-kô-đê-xư-ka",
-          "vi": "ở đâu?"
+          "vi": "ở đâu?",
+          "role": "expression"
         }
       ],
       "viTemplate": "{place} ở đâu?",
