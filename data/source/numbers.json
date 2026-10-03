@@ -22,63 +22,93 @@
   ],
   "counters": [
     {
-      "id": "c-tsu", "jp": "つ", "vi": "cái (đếm chung)", "note": "Dễ nhất, dùng cho hầu hết đồ vật từ 1 đến 9.",
+      "id": "c-tsu", "jp": "つ", "vi": "cái (đếm chung)", "note": "Dễ nhất, dùng cho hầu hết đồ vật từ 1 đến 9. Số 10 đếm chung là 十 (とお), không dùng つ.",
       "combos": [
         { "jp": "一つ", "kana": "ひとつ", "vi": "một cái" },
         { "jp": "二つ", "kana": "ふたつ", "vi": "hai cái" },
         { "jp": "三つ", "kana": "みっつ", "vi": "ba cái" },
         { "jp": "四つ", "kana": "よっつ", "vi": "bốn cái" },
-        { "jp": "五つ", "kana": "いつつ", "vi": "năm cái" }
+        { "jp": "五つ", "kana": "いつつ", "vi": "năm cái" },
+        { "jp": "六つ", "kana": "むっつ", "vi": "sáu cái" },
+        { "jp": "七つ", "kana": "ななつ", "vi": "bảy cái" },
+        { "jp": "八つ", "kana": "やっつ", "vi": "tám cái" },
+        { "jp": "九つ", "kana": "ここのつ", "vi": "chín cái" },
+        { "jp": "十", "kana": "とお", "vi": "mười cái" }
       ]
     },
     {
-      "id": "c-ko", "jp": "個", "vi": "cục / món nhỏ", "note": "Trái cây, bánh, đồ tròn nhỏ.",
+      "id": "c-ko", "jp": "個", "vi": "cục / món nhỏ", "note": "Trái cây, bánh, đồ tròn nhỏ. 6 = ろっこ, 10 = じゅっこ.",
       "combos": [
         { "jp": "一個", "kana": "いっこ", "vi": "một cục" },
         { "jp": "二個", "kana": "にこ", "vi": "hai cục" },
         { "jp": "三個", "kana": "さんこ", "vi": "ba cục" },
         { "jp": "四個", "kana": "よんこ", "vi": "bốn cục" },
-        { "jp": "五個", "kana": "ごこ", "vi": "năm cục" }
+        { "jp": "五個", "kana": "ごこ", "vi": "năm cục" },
+        { "jp": "六個", "kana": "ろっこ", "vi": "sáu cục" },
+        { "jp": "七個", "kana": "ななこ", "vi": "bảy cục" },
+        { "jp": "八個", "kana": "はっこ", "vi": "tám cục" },
+        { "jp": "九個", "kana": "きゅうこ", "vi": "chín cục" },
+        { "jp": "十個", "kana": "じゅっこ", "vi": "mười cục" }
       ]
     },
     {
-      "id": "c-mai", "jp": "枚", "vi": "tấm / tờ", "note": "Vé, áo, giấy, đĩa.",
+      "id": "c-mai", "jp": "枚", "vi": "tấm / tờ", "note": "Vé, áo, giấy, đĩa. Từ 6 đến 10 đọc đều: ろくまい → じゅうまい.",
       "combos": [
         { "jp": "一枚", "kana": "いちまい", "vi": "một tấm" },
         { "jp": "二枚", "kana": "にまい", "vi": "hai tấm" },
         { "jp": "三枚", "kana": "さんまい", "vi": "ba tấm" },
         { "jp": "四枚", "kana": "よんまい", "vi": "bốn tấm" },
-        { "jp": "五枚", "kana": "ごまい", "vi": "năm tấm" }
+        { "jp": "五枚", "kana": "ごまい", "vi": "năm tấm" },
+        { "jp": "六枚", "kana": "ろくまい", "vi": "sáu tấm" },
+        { "jp": "七枚", "kana": "ななまい", "vi": "bảy tấm" },
+        { "jp": "八枚", "kana": "はちまい", "vi": "tám tấm" },
+        { "jp": "九枚", "kana": "きゅうまい", "vi": "chín tấm" },
+        { "jp": "十枚", "kana": "じゅうまい", "vi": "mười tấm" }
       ]
     },
     {
-      "id": "c-hon", "jp": "本", "vi": "chai / cây", "note": "Đồ dài: chai bia, bút, ô.",
+      "id": "c-hon", "jp": "本", "vi": "chai / cây", "note": "Đồ dài: chai bia, bút, ô. 6 = ろっぽん, 8 = はっぽん, 10 = じゅっぽん.",
       "combos": [
         { "jp": "一本", "kana": "いっぽん", "vi": "một chai" },
         { "jp": "二本", "kana": "にほん", "vi": "hai chai" },
         { "jp": "三本", "kana": "さんぼん", "vi": "ba chai" },
         { "jp": "四本", "kana": "よんほん", "vi": "bốn chai" },
-        { "jp": "五本", "kana": "ごほん", "vi": "năm chai" }
+        { "jp": "五本", "kana": "ごほん", "vi": "năm chai" },
+        { "jp": "六本", "kana": "ろっぽん", "vi": "sáu chai" },
+        { "jp": "七本", "kana": "ななほん", "vi": "bảy chai" },
+        { "jp": "八本", "kana": "はっぽん", "vi": "tám chai" },
+        { "jp": "九本", "kana": "きゅうほん", "vi": "chín chai" },
+        { "jp": "十本", "kana": "じゅっぽん", "vi": "mười chai" }
       ]
     },
     {
-      "id": "c-hai", "jp": "杯", "vi": "ly / cốc", "note": "Nước, cà phê, cơm (bát).",
+      "id": "c-hai", "jp": "杯", "vi": "ly / cốc", "note": "Nước, cà phê, cơm (bát). 6 = ろっぱい, 8 = はっぱい, 10 = じゅっぱい.",
       "combos": [
         { "jp": "一杯", "kana": "いっぱい", "vi": "một ly" },
         { "jp": "二杯", "kana": "にはい", "vi": "hai ly" },
         { "jp": "三杯", "kana": "さんばい", "vi": "ba ly" },
         { "jp": "四杯", "kana": "よんはい", "vi": "bốn ly" },
-        { "jp": "五杯", "kana": "ごはい", "vi": "năm ly" }
+        { "jp": "五杯", "kana": "ごはい", "vi": "năm ly" },
+        { "jp": "六杯", "kana": "ろっぱい", "vi": "sáu ly" },
+        { "jp": "七杯", "kana": "ななはい", "vi": "bảy ly" },
+        { "jp": "八杯", "kana": "はっぱい", "vi": "tám ly" },
+        { "jp": "九杯", "kana": "きゅうはい", "vi": "chín ly" },
+        { "jp": "十杯", "kana": "じゅっぱい", "vi": "mười ly" }
       ]
     },
     {
-      "id": "c-nin", "jp": "人", "vi": "người", "note": "Đếm người. 1 và 2 có cách đọc đặc biệt: ひとり, ふたり.",
+      "id": "c-nin", "jp": "人", "vi": "người", "note": "Đếm người. 1 = ひとり, 2 = ふたり, 7 có thể đọc ななにん hoặc しちにん.",
       "combos": [
         { "jp": "一人", "kana": "ひとり", "vi": "một người" },
         { "jp": "二人", "kana": "ふたり", "vi": "hai người" },
         { "jp": "三人", "kana": "さんにん", "vi": "ba người" },
         { "jp": "四人", "kana": "よにん", "vi": "bốn người" },
-        { "jp": "五人", "kana": "ごにん", "vi": "năm người" }
+        { "jp": "五人", "kana": "ごにん", "vi": "năm người" },
+        { "jp": "六人", "kana": "ろくにん", "vi": "sáu người" },
+        { "jp": "七人", "kana": "ななにん", "vi": "bảy người (cũng đọc しちにん)" },
+        { "jp": "八人", "kana": "はちにん", "vi": "tám người" },
+        { "jp": "九人", "kana": "きゅうにん", "vi": "chín người" },
+        { "jp": "十人", "kana": "じゅうにん", "vi": "mười người" }
       ]
     }
   ],

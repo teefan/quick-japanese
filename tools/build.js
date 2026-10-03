@@ -52,11 +52,10 @@ const debug = (msg) => debugs.push(msg);
 
 /* ------------------------------ Từ vựng ------------------------------ */
 
-function buildVocab() {
-  const src = read("vocab.json");
+function buildVocabItems(srcItems) {
   const items = [];
   const seen = new Set();
-  for (const it of src.items) {
+  for (const it of srcItems) {
     if (seen.has(it.id)) throw new Error(`Trùng id từ vựng: ${it.id}`);
     seen.add(it.id);
     let out;
@@ -85,7 +84,7 @@ function buildVocab() {
       out = enrichText({
         id: it.id,
         pos: it.pos || "noun",
-        jp: it.jp,
+        jp: it.jp || it.kana,
         kana: it.kana,
         vi: it.vi,
         tags: it.tags || [],
@@ -96,7 +95,18 @@ function buildVocab() {
     }
     items.push(out);
   }
+  return items;
+}
+
+function buildVocab() {
+  const src = read("vocab.json");
+  const items = buildVocabItems(src.items);
   return { items, byId: Object.fromEntries(items.map((i) => [i.id, i])) };
+}
+
+/* Từ vựng N5 bổ sung: chỉ dùng cho tab Từ vựng / tìm kiếm / quiz, không vào bộ ghép câu */
+function buildVocabN5() {
+  return buildVocabItems(read("vocab-n5.json").items);
 }
 
 const mapObj = (obj, fn) =>
@@ -316,16 +326,17 @@ function prune(v) {
   return v;
 }
 
-function writeData(name, value) {
+function writeData(name, value, fileBase = name) {
   const js = "window.QJ = window.QJ || {};\nwindow.QJ." + name + " = " + JSON.stringify(prune(value)) + ";\n";
-  fs.writeFileSync(path.join(OUT, name + ".js"), js);
+  fs.writeFileSync(path.join(OUT, fileBase + ".js"), js);
   const kb = (Buffer.byteLength(js) / 1024).toFixed(1);
-  console.log(`  ✓ data/${name}.js  (${kb} KB)`);
+  console.log(`  ✓ data/${fileBase}.js  (${kb} KB)`);
 }
 
 function main() {
   console.log("Building quick-japanese data...");
   const vocab = buildVocab();
+  const vocabN5 = buildVocabN5();
   const grammar = buildGrammar();
   const grammarIds = new Set(grammar.points.map((g) => g.id));
   const numbers = buildNumbers();
@@ -333,6 +344,7 @@ function main() {
   const intents = buildIntents(vocab.byId, numbers, grammarIds);
 
   writeData("vocab", vocab.items);
+  writeData("vocabN5", vocabN5, "vocab-n5");
   writeData("phrases", phrases);
   writeData("grammar", grammar);
   writeData("numbers", numbers);
@@ -342,6 +354,7 @@ function main() {
     builtAt: new Date().toISOString(),
     counts: {
       vocab: vocab.items.length,
+      vocabN5: vocabN5.length,
       phrases: phrases.categories.reduce((n, c) => n + c.items.length, 0),
       phraseCategories: phrases.categories.length,
       grammar: grammar.points.length,

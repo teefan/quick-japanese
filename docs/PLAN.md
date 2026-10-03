@@ -4,10 +4,12 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v1.3.0, commit `9074a6c`)** — live at <https://teefan.github.io/quick-japanese/>:
-> 183 words · 167 phrases (12 categories) · 22 grammar points · 13 intent trees (4 groups) · 6 counters
-> · 🎧 Nghe & chọn (10 câu/lượt từ cụm từ hoặc từ vựng, TTS + fallback Đọc & chọn).
-> PWA cache `qj-v1.3.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn, no JS errors.
+> **Current status (v1.4.0, commit `9074a6c`)** — live at <https://teefan.github.io/quick-japanese/>:
+> 744 words (183 curated + 561 N5, N5 lazy-loaded) · 167 phrases (12 categories) · 22 grammar points
+> · 13 intent trees (4 groups) · 6 counters (1–10) · 🎧 Nghe & chọn quiz
+> · ⭐ notebook export/import JSON.
+> PWA cache `qj-v1.4.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn,
+> N5 561 từ tải nền + phân trang, no JS errors.
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
 
 ---
@@ -29,8 +31,8 @@ replies. Communication is mostly one-way: traveler speaks Japanese → local und
 recognition, no account, no backend, no ads, no tracking.
 
 **Success signals.** Time-to-first-sentence < 15s; a traveler can order food, shop, ask
-directions, refuse politely, and ask for help; initial payload < 500 KB (currently ≈ 415 KB);
-works offline after first load.
+directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435 KB; danh sách
+561 từ N5 133 KB tải nền sau khi trang rảnh); works offline after first load.
 
 ---
 
@@ -93,8 +95,9 @@ Ghép câu 🧩    13 intent trees in 4 groups, ordered basic → advanced (see 
   Đi lại & khách sạn: …ở đâu? · Đi đến… · Khách sạn
   Sức khỏe & sự cố:   Sức khỏe & sự cố
 
-Sổ tay ⭐      Favorites (localStorage): saved phrases + built sentences
-Từ vựng 📚     183 curated words + 6 counters + money chips, tag filters, search
+Sổ tay ⭐      Favorites (localStorage): saved phrases + built sentences · export/import JSON
+Từ vựng 📚     744 words (183 curated + 561 N5 lazy) + counters 1–10 + money chips, tag filters,
+               paginated list, search
 Ngữ pháp 📝    22 points, “cơ bản” / “nên biết”, examples with pronunciation
 Tìm kiếm 🔍    Global search across phrases, vocab, grammar and builder intents
 Nghe & chọn 🎧  Listen-and-choose quiz, 10 questions/round from phrases or vocab (header 🎧 /
@@ -108,10 +111,10 @@ Nghe & chọn 🎧  Listen-and-choose quiz, 10 questions/round from phrases or v
 Authoring sources live in `data/source/*.json`; `node tools/build.js` enriches them
 (romaji, Vietnamese pronunciation, verb conjugation, intent expansion, sentence segmentation,
 validation) and emits browser-ready `data/*.js` as `window.QJ.<name>` globals. Generated files
-are compact JSON with empty fields pruned (≈ 350 KB total) — always rebuild from sources,
-never edit `data/*.js` by hand.
+are compact JSON with empty fields pruned (~350 KB initial; +133 KB for the lazy N5 list) — always
+rebuild from sources, never edit `data/*.js` by hand.
 
-### 5.1 Vocabulary (`data/source/vocab.json`)
+### 5.1 Vocabulary (`data/source/vocab.json` + `data/source/vocab-n5.json`)
 
 ```jsonc
 { "id": "n-mizu", "pos": "noun", "jp": "水", "kana": "みず", "vi": "nước",
@@ -124,6 +127,12 @@ never edit `data/*.js` by hand.
 Build adds `roma`, `viPron`, and for verbs a full `forms` object:
 `dict, masu, masen, mashita, te, tai, potential, potentialNeg` (each with `jp`, `kana`, `roma`, `viPron`).
 Supported groups: `godan`, `ichidan`, `suru` (incl. compounds like 試着する), `kuru`.
+
+`vocab-n5.json` holds 561 additional JLPT N5 words imported once from
+[OpenJLPT](https://github.com/evanclan/OpenJLPT) v0.3.0 (CC BY-SA 4.0) with Vietnamese glosses
+authored by the project. They are enriched like curated words but **not** fed into the sentence
+segmenter or the builder; the build emits them to `data/vocab-n5.js`, which the app lazy-loads
+on idle and paginates in the Từ vựng tab, keeping the initial payload flat.
 
 ### 5.2 Phrases (`data/source/phrases.json`)
 
@@ -142,8 +151,8 @@ with the builder.
 
 ### 5.4 Numbers (`data/source/numbers.json`)
 
-`numbers[]`, `counters[]` (with combos 1–5 including sound changes: 一本 いっぽん, 一杯 いっぱい,
-一人 ひとり…), `money[]`.
+`numbers[]`, `counters[]` (combos 1–10 including sound changes: 一本 いっぽん, 六本 ろっぽん,
+一杯 いっぱい, 八杯 はっぱい, 一人 ひとり, 二人 ふたり…), `money[]`.
 
 ### 5.5 Intents / builder trees (`data/source/intents.json`)
 
@@ -287,25 +296,28 @@ assets/icons/              PWA icons (source SVG + 192/512 PNG)
 assets/css/style.css       design system, light/dark, mobile-first
 assets/js/app.js           tabs, phrasebook, vocab, grammar, notebook, search, Nghe & chọn quiz, TTS, modal
 assets/js/builder.js       narrowing builder engine (intent trees)
-data/source/*.json         authoring data (vocab, phrases, grammar, intents, numbers)
+data/source/*.json         authoring data (vocab, vocab-n5, phrases, grammar, intents, numbers)
 tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugation
 tools/segment.js           sentence dissection: lexicon + weighted DP tokenizer
 tools/build.js             validates + enriches sources → data/*.js
-data/*.js                  generated, loaded as window.QJ.* (works over file:// too)
+data/*.js                  generated, loaded as window.QJ.* (works over file:// too);
+                           vocab-n5.js is injected on idle by app.js (561 từ, lazy)
 docs/                      this plan + DEV-CONTEXT + pronunciation spec + review checklist
 ```
 
 - **No framework, no bundler, no runtime build.** Vanilla JS + CSS.
 - **Data as JS globals** instead of `fetch(json)` so the app works from `file://` and needs
-  no server or CORS handling.
+  no server or CORS handling. The large N5 list is loaded lazily via an injected `<script>`
+  so first paint stays under the payload budget; the SW pre-caches it for offline use.
 - **TTS** = Web Speech API (`ja-JP`), progressive enhancement only.
 - **Offline (Phase 1, done)**: `sw.js` is network-first for page navigations (new versions show
   up immediately when online) and cache-first with background refresh for assets; Google Fonts
   use stale-while-revalidate. Installable via `manifest.webmanifest`.
 - **Favorites (Phase 1, done)**: `localStorage` (`qj.favs.v1`) stores saved phrases by id and
-  built sentences as full payloads, so the notebook survives data updates gracefully.
-- **Performance budget**: data ≈ 350 KB (compact JSON, empty fields pruned) + app ≈ 70 KB;
-  fonts optional via Google Fonts with system fallbacks; renders 167 cards instantly.
+  built sentences as full payloads; exported/imported as versioned JSON (`qj-notebook` format).
+- **Performance budget**: initial payload ≈ 435 KB (compact JSON, empty fields pruned) + lazy N5
+  list 133 KB; fonts optional via Google Fonts with system fallbacks; vocab list paginates at 60
+  cards and renders 167 phrase cards instantly.
 - **GitHub Pages deploy**: push to `main`, Settings → Pages → Deploy from branch `/root`
   (already live at <https://teefan.github.io/quick-japanese/>).
 
@@ -317,8 +329,9 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 2. Every phrase: `jp`, `kana`, `vi`; pronunciation auto-generated; `note` explains *when/who*.
 3. Option lists in intents are curated so only natural collocations can be built.
 4. No copied phrase lists: content is hand-authored and cross-checked against the sources in §2;
-   third-party datasets (if imported later) keep their licenses and attribution (see §11).
-5. Vocabulary scope: JLPT N5 + travel essentials; expand with OpenJLPT N5 (662 words) in Phase 2.
+   third-party datasets keep their licenses and attribution (see §11).
+5. Vocabulary scope: JLPT N5 + travel essentials; ✅ N5 imported from OpenJLPT (561 từ mới, nghĩa
+   Việt biên tập tay, chờ kiểm duyệt cùng `REVIEW-CHECKLIST.md`).
 6. Vietnamese wording: natural, traveler-oriented, avoiding machine-translation tone.
 
 ---
@@ -328,8 +341,8 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 | Phase | Scope |
 |---|---|
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
-| **1 — MVP polish (v0.2 → v1.2.5, now)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (`docs/REVIEW-CHECKLIST.md`) |
-| **2 — Scale content** | ✅ “Nghe & chọn” audio quiz (v1.3.0: 10 câu/lượt, 2 nguồn cụm từ & từ vựng, TTS + fallback Đọc & chọn, lưu điểm cao) · Expand to full N5 from OpenJLPT (+ Vietnamese meanings, reviewed); example sentences from Tatoeba; counters 1–10; pitch-accent display (Kanjium/OJAD); notebook export/import JSON |
+| **1 — MVP polish (v0.2 → v1.2.5)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (`docs/REVIEW-CHECKLIST.md`) |
+| **2 — Scale content (v1.3.0 → now)** | ✅ “Nghe & chọn” audio quiz (10 câu/lượt, 2 nguồn, TTS + fallback Đọc & chọn, lưu điểm cao) · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang; nghĩa Việt chờ kiểm duyệt) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON (versioned format, merge/replace) · ⏳ Example sentences from Tatoeba · ⏳ Pitch-accent display (Kanjium/OJAD) |
 | **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
 
 ---
@@ -339,8 +352,12 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 - **Code**: MIT recommended.
 - **Curated data/content**: recommend CC BY-SA 4.0 (keeps attribution culture, matches the
   likely upstream sources). If kept MIT, document content provenance in the README.
-- Planned imports and their licenses: OpenJLPT **CC BY-SA 4.0**, JMdict/JMdict-simplified
-  **EDRDG license (CC BY-SA 4.0)**, Tatoeba **CC BY 2.0 FR**, frequency lists per their repos.
+- **Imported data in tree**: [OpenJLPT](https://github.com/evanclan/OpenJLPT) N5 vocabulary,
+  **CC BY-SA 4.0** — 561 entries in `data/source/vocab-n5.json`, Vietnamese glosses authored by
+  this project (not from OpenJLPT). Attribution lives in the file header (`note`/`source`),
+  README §Giấy phép and this section.
+- Planned/optional imports: JMdict/JMdict-simplified **EDRDG license (CC BY-SA 4.0)**,
+  Tatoeba **CC BY 2.0 FR**, Kanjium **CC BY-SA 4.0**, frequency lists per their repos.
 - Wikivoyage used as *reference only*; no verbatim copying (CC BY-SA requires attribution if
   text is reused — safer to author original phrasing).
 

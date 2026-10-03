@@ -20,11 +20,13 @@ tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự
 - 🎧 **Nghe & chọn**: luyện tai 10 câu một lượt từ cụm từ hoặc từ vựng — nghe giọng Nhật, chọn
   nghĩa đúng, biết đáp án ngay; cuối lượt có danh sách câu cần ôn và điểm cao lưu trên máy.
   Máy không hỗ trợ đọc tiếng Nhật thì tự chuyển sang chế độ **Đọc & chọn**.
-- ⭐ **Sổ tay của tôi**: lưu cụm từ và câu tự ghép (localStorage) để mở nhanh khi đi du lịch.
+- ⭐ **Sổ tay của tôi**: lưu cụm từ và câu tự ghép (localStorage) để mở nhanh khi đi du lịch;
+  **xuất / nhập JSON** để sao lưu hoặc chuyển sang máy khác.
 - 🔍 **Tìm kiếm toàn bộ**: cụm từ, từ vựng, ngữ pháp và mục ghép câu trong một ô tìm kiếm.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên mọi câu và câu tự ghép.
 - 📺 **Chế độ đưa máy**: chữ Nhật cỡ lớn để chỉ cho nhân viên/tài xế xem.
-- 📚 183 từ vựng du lịch, 6 lượng từ đếm số, mệnh giá tiền, 22 điểm ngữ pháp tối giản.
+- 📚 **744 từ vựng** (183 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu),
+  lượng từ đếm 1–10, mệnh giá tiền, 22 điểm ngữ pháp tối giản.
 - 📶 **PWA offline**: service worker cache toàn bộ app — không cần mạng khi đã mở một lần.
 - 📴 Không cần server, không cần build khi dùng, chạy được cả khi mở trực tiếp `index.html`.
 
@@ -50,8 +52,8 @@ assets/css/style.css       giao diện, mobile-first, có dark mode
 assets/js/app.js           5 tab: Cụm từ, Ghép câu, Sổ tay, Từ vựng, Ngữ pháp + tìm kiếm + Nghe & chọn + TTS
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
-data/source/*.json         dữ liệu gốc để biên tập (từ vựng, cụm từ, ngữ pháp, cây câu, số đếm)
-data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay)
+data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, cụm từ, ngữ pháp, cây câu, số đếm)
+data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay); vocab-n5.js tải theo nhu cầu
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/build.js             kiểm tra + làm giàu dữ liệu, xuất data/*.js
 docs/PLAN.md               kế hoạch tổng thể, thiết kế dữ liệu, lộ trình
@@ -81,5 +83,6 @@ Gợi ý giai đoạn sau: thêm service worker để dùng offline hoàn toàn 
 ## Giấy phép
 
 Mã nguồn: MIT. Nội dung (cụm từ, từ vựng, ngữ pháp) được biên soạn thủ công cho dự án này;
-nếu bổ sung dữ liệu từ OpenJLPT / JMdict / Tatoeba, giữ nguyên giấy phép và ghi công tương ứng
-(chi tiết trong `docs/PLAN.md` mục 11).
+561 từ vựng JLPT N5 lấy từ [OpenJLPT](https://github.com/evanclan/OpenJLPT) (CC BY-SA 4.0),
+nghĩa tiếng Việt do dự án biên tập — xem chi tiết giấy phép và ghi công trong
+[`docs/PLAN.md`](docs/PLAN.md) mục 11.

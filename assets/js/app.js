@@ -131,7 +131,7 @@ const Fav = {
     try { return JSON.parse(localStorage.getItem(Fav.KEY)) || []; } catch { return []; }
   },
   save(list) {
-    try { localStorage.setItem(Fav.KEY, JSON.stringify(list)); } catch { /* riêng tư / hết chỗ */ }
+    try { localStorage.setItem(Fav.KEY, JSON.stringify(list)); return true; } catch { return false; /* riêng tư / hết chỗ */ }
   },
   has(type, id) {
     return Fav.list().some(f => f.type === type && f.id === id);
@@ -262,10 +262,12 @@ function renderPhrases() {
 
 /* ------------------------------ Từ vựng ------------------------------ */
 
-const vocabState = { tag: "all", q: "" };
+const VOCAB_PAGE = 60;   // số từ hiện mỗi lần (danh sách N5 dài, không dựng hết DOM)
+const vocabState = { tag: "all", q: "", limit: VOCAB_PAGE };
 
 const VOCAB_TAGS = [
   { id: "all", label: "Tất cả" },
+  { id: "n5", label: "🌱 JLPT N5" },
   { id: "food", label: "🍜 Món ăn" },
   { id: "drink", label: "🍵 Đồ uống" },
   { id: "place", label: "📍 Địa điểm" },
@@ -279,6 +281,56 @@ const VOCAB_TAGS = [
   { id: "question", label: "❓ Từ hỏi" },
   { id: "person", label: "👤 Xưng hô" },
 ];
+
+/* Từ vựng N5 (561 từ) nằm ở file riêng, nạp nền để payload ban đầu vẫn nhẹ */
+const N5 = {
+  state: "idle",       // idle | loading | ready | error
+  _promise: null,
+  load() {
+    if (N5.state === "ready") return Promise.resolve(true);
+    if (N5._promise) return N5._promise;
+    N5.state = "loading";
+    N5._promise = new Promise(resolve => {
+      const s = document.createElement("script");
+      s.src = "data/vocab-n5.js";
+      s.onload = () => { N5.state = "ready"; resolve(true); };
+      s.onerror = () => { N5.state = "error"; N5._promise = null; resolve(false); };
+      document.head.appendChild(s);
+    });
+    return N5._promise;
+  },
+  list() { return QJ.vocabN5 ? QJ.vocab.concat(QJ.vocabN5) : QJ.vocab; },
+};
+
+/* Nạp N5 rồi vẽ lại màn đang xem nếu màn đó cần danh sách đầy đủ */
+function loadN5() {
+  const pending = N5.load();
+  if (!N5._refreshAttached) {
+    N5._refreshAttached = true;
+    pending.then(ok => {
+      if (!ok) { N5._refreshAttached = false; return; }
+      refreshAfterN5();
+    });
+  }
+  return pending;
+}
+
+function refreshAfterN5() {
+  const vocabInput = document.getElementById("vocab-search");
+  const searchInput = document.getElementById("gs-input");
+  if (vocabInput) rerenderKeepingFocus(vocabInput, () => renderVocab({ keepScroll: true }));
+  else if (searchInput) rerenderKeepingFocus(searchInput, renderSearch);
+  else if (document.querySelector('[data-quiz="start"]') && quizState.pool === "vocab") renderQuiz();
+}
+
+function rerenderKeepingFocus(inputEl, render) {
+  const focused = document.activeElement === inputEl;
+  const caret = focused ? inputEl.selectionStart : 0;
+  render();
+  if (!focused) return;
+  const el = document.getElementById(inputEl.id);
+  if (el) { el.focus(); el.setSelectionRange(caret, caret); }
+}
 
 function vocabMatches(v, q) {
   if (!q) return true;
@@ -303,7 +355,8 @@ function vocabCard(v) {
     <div class="word">
       <div class="w-top">
         <b>${U.esc(v.jp)}</b>
-        <span class="w-kana">${U.esc(v.kana)}</span>
+        ${v.kana && v.kana !== v.jp ? `<span class="w-kana">${U.esc(v.kana)}</span>` : ""}
+        ${(v.tags || []).includes("n5") ? `<span class="w-lv" title="Từ vựng JLPT N5">N5</span>` : ""}
         <span style="margin-left:auto;display:flex;gap:6px">
           <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-act="speak" data-key="${key}">🔊</button>
         </span>
@@ -314,10 +367,12 @@ function vocabCard(v) {
     </div>`;
 }
 
-function renderVocab() {
+function renderVocab(opts = {}) {
   U.resetReg();
+  if (N5.state === "idle") loadN5();
   const q = vocabState.q.trim();
-  const items = QJ.vocab.filter(v => vocabFilter(v) && vocabMatches(v, q));
+  const items = N5.list().filter(v => vocabFilter(v) && vocabMatches(v, q));
+  const shown = items.slice(0, vocabState.limit);
 
   const counters = (QJ.numbers?.counters || []).map(c => `
     <div class="word counter-card">
@@ -351,22 +406,37 @@ function renderVocab() {
       <div class="combo-row">${money}</div>
     ` : ""}
 
-    <div class="section-title"><h2>📚 ${items.length} từ</h2></div>
-    <div class="word-grid">
-      ${items.map(v => vocabCard(v)).join("")}
+    <div class="section-title">
+      <h2>📚 ${items.length} từ</h2>
+      ${N5.state === "loading" ? `<span class="desc">đang tải thêm từ N5…</span>` : ""}
     </div>
-    ${items.length ? "" : `<div class="empty">Không có từ nào khớp.</div>`}`;
+    ${N5.state === "error" ? `
+      <div class="note" style="display:flex;align-items:center;gap:8px;justify-content:space-between">
+        <span>Không tải được 561 từ N5.</span>
+        <button class="chip" data-act="retry-n5">Thử lại</button>
+      </div>` : ""}
+    <div class="word-grid">
+      ${shown.map(v => vocabCard(v)).join("")}
+    </div>
+    ${items.length > shown.length ? `
+      <div style="text-align:center;margin:14px 0">
+        <button class="chip" data-act="vocab-more">Xem thêm ${items.length - shown.length} từ</button>
+      </div>` : ""}
+    ${items.length ? "" : (N5.state === "loading"
+      ? `<div class="empty">Đang tải từ vựng N5…</div>`
+      : `<div class="empty">Không có từ nào khớp.</div>`)}`;
 
   const input = document.getElementById("vocab-search");
   input.addEventListener("input", e => {
     vocabState.q = e.target.value;
+    vocabState.limit = VOCAB_PAGE;
     const pos = e.target.selectionStart;
     renderVocab();
     const el = document.getElementById("vocab-search");
     el.focus();
     el.setSelectionRange(pos, pos);
   });
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 /* ------------------------------ Sổ tay của tôi ------------------------------ */
@@ -396,6 +466,137 @@ function sentenceCard(f) {
     </div>`;
 }
 
+/* ------------------------------ Nhập / xuất sổ tay ------------------------------ */
+
+const NOTEBOOK_FORMAT = "quick-japanese/notebook";
+const NOTEBOOK_VERSION = 1;
+const NOTEBOOK_MAX = 2000;   // số mục tối đa mỗi lần nhập
+let pendingImport = null;    // các mục hợp lệ đang chờ chọn gộp / thay thế
+
+function notebookFileName() {
+  return `quick-japanese-notebook-${new Date().toISOString().slice(0, 10)}.json`;
+}
+
+function exportNotebook() {
+  const list = Fav.list();
+  if (!list.length) { U.toast("Sổ tay đang trống"); return; }
+  const payload = {
+    format: NOTEBOOK_FORMAT,
+    version: NOTEBOOK_VERSION,
+    exportedAt: new Date().toISOString(),
+    counts: {
+      phrases: list.filter(f => f.type === "phrase").length,
+      sentences: list.filter(f => f.type === "sentence").length,
+    },
+    entries: list,
+  };
+  const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = notebookFileName();
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  U.toast(`Đã xuất ${list.length} mục ra file JSON`);
+}
+
+/* Chấp nhận cả file có vỏ { format, entries } lẫn mảng trần; lọc mục hỏng */
+function parseNotebook(text) {
+  let data;
+  try { data = JSON.parse(text); } catch { return { error: "File không phải JSON hợp lệ." }; }
+  const raw = Array.isArray(data) ? data : data && Array.isArray(data.entries) ? data.entries : null;
+  if (!raw) return { error: "File không đúng định dạng sổ tay Quick Japanese." };
+  if (raw.length > NOTEBOOK_MAX) return { error: `File quá lớn (tối đa ${NOTEBOOK_MAX} mục).` };
+
+  const entries = [];
+  let skipped = 0;
+  for (const item of raw) {
+    if (!item || typeof item !== "object") { skipped++; continue; }
+    if (item.type === "phrase" && typeof item.id === "string" && PHRASE_MAP.has(item.id)) {
+      entries.push({ type: "phrase", id: item.id });
+    } else if (item.type === "sentence" && item.payload && typeof item.payload.jp === "string" && item.payload.jp) {
+      entries.push({
+        type: "sentence",
+        id: typeof item.id === "string" && item.id ? item.id : "s" + Date.now() + Math.random().toString(36).slice(2, 6),
+        payload: item.payload,
+        savedAt: Number(item.savedAt) || Date.now(),
+      });
+    } else {
+      skipped++;
+    }
+  }
+  return { entries, skipped };
+}
+
+function importNotebookFile(file) {
+  file.text().then(text => {
+    const parsed = parseNotebook(text);
+    if (parsed.error) { U.toast(parsed.error); return; }
+    if (!parsed.entries.length) { U.toast("Không có mục hợp lệ để nhập"); return; }
+    pendingImport = parsed;
+    U.openModal(`
+      <h3>Nhập sổ tay</h3>
+      <p>Tìm thấy <b>${parsed.entries.length}</b> mục hợp lệ.${parsed.skipped ? ` Bỏ qua ${parsed.skipped} mục không hợp lệ.` : ""}</p>
+      <p style="color:var(--muted);font-size:13px">
+        <b>Gộp vào</b>: giữ sổ tay hiện tại và thêm các mục chưa có.<br>
+        <b>Thay thế</b>: xóa sổ tay hiện tại rồi nhập file này.
+      </p>
+      <div class="b-actions">
+        <button class="primary" data-act="import-merge">Gộp vào</button>
+        <button data-act="import-replace">Thay thế</button>
+        <button data-act="import-cancel">Hủy</button>
+      </div>
+    `);
+  }).catch(() => U.toast("Không đọc được file"));
+}
+
+function mergeImport() {
+  if (!pendingImport) return;
+  const current = Fav.list();
+  const phraseIds = new Set(current.filter(f => f.type === "phrase").map(f => f.id));
+  const sentenceTexts = new Set(current.filter(f => f.type === "sentence" && f.payload).map(f => f.payload.jp));
+  const added = [];
+  for (const entry of pendingImport.entries) {
+    if (entry.type === "phrase") {
+      if (phraseIds.has(entry.id)) continue;
+      phraseIds.add(entry.id);
+    } else {
+      if (sentenceTexts.has(entry.payload.jp)) continue;
+      sentenceTexts.add(entry.payload.jp);
+    }
+    added.push(entry);
+  }
+  if (!Fav.save(current.concat(added))) { U.toast("Không đủ dung lượng để lưu sổ tay"); return; }
+  const dupes = pendingImport.entries.length - added.length;
+  finishImport(`Đã thêm ${added.length} mục${dupes ? `, bỏ qua ${dupes} mục đã có` : ""}`);
+}
+
+function replaceImport() {
+  if (!pendingImport) return;
+  const count = pendingImport.entries.length;
+  if (!Fav.save(pendingImport.entries)) { U.toast("Không đủ dung lượng để lưu sổ tay"); return; }
+  finishImport(`Đã nhập ${count} mục`);
+}
+
+function finishImport(msg) {
+  pendingImport = null;
+  U.closeModal();
+  renderNotebook();
+  U.toast(msg);
+}
+
+function pickNotebookFile() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json,application/json";
+  input.addEventListener("change", () => {
+    const file = input.files && input.files[0];
+    if (file) importNotebookFile(file);
+  });
+  input.click();
+}
+
 function renderNotebook() {
   U.resetReg();
   const list = Fav.list();
@@ -407,6 +608,10 @@ function renderNotebook() {
     <div class="section-title">
       <h2>⭐ Sổ tay của tôi</h2>
       <span class="desc">${total} mục đã lưu trên thiết bị này</span>
+    </div>
+    <div class="notebook-io">
+      ${total ? `<button class="chip" data-act="export-notebook">⬇ Xuất JSON</button>` : ""}
+      <button class="chip" data-act="import-notebook">⬆ Nhập JSON</button>
     </div>
     ${sentences.length ? `
       <div class="section-title"><h2>🧩 Câu tự ghép (${sentences.length})</h2></div>
@@ -507,7 +712,7 @@ function shuffle(arr) {
   return a;
 }
 
-const quizPool = () => (quizState.pool === "vocab" ? QJ.vocab : PHRASE_ALL);
+const quizPool = () => (quizState.pool === "vocab" ? N5.list() : PHRASE_ALL);
 
 /* Mỗi câu: 1 đáp án + 3 phương án nhiễu cùng nguồn, khác nghĩa */
 function makeQuestions() {
@@ -604,7 +809,7 @@ function quizHomeHtml() {
       <p>Nghe câu tiếng Nhật rồi chọn nghĩa đúng. Mỗi lượt ${QUIZ_ROUND} câu, biết đáp án ngay sau khi chọn.</p>
       <div class="chip-row">
         <button class="chip ${quizState.pool === "phrases" ? "active" : ""}" data-quiz="pool" data-pool="phrases">📖 Cụm từ (${PHRASE_ALL.length})</button>
-        <button class="chip ${quizState.pool === "vocab" ? "active" : ""}" data-quiz="pool" data-pool="vocab">📚 Từ vựng (${QJ.vocab.length})</button>
+        <button class="chip ${quizState.pool === "vocab" ? "active" : ""}" data-quiz="pool" data-pool="vocab">📚 Từ vựng (${N5.list().length})</button>
       </div>
       <div class="quiz-meta">
         ${best ? `🏆 Điểm cao nhất: <b>${best}/${maxScore}</b>` : "Chưa có điểm — thử một lượt xem sao!"}${st.rounds ? ` · Đã chơi ${st.rounds} lượt` : ""}
@@ -690,6 +895,7 @@ function quizDoneHtml() {
 
 function renderQuiz() {
   U.resetReg();
+  if (quizState.pool === "vocab" && N5.state === "idle") loadN5();
   if (quizState.view === "play") view.innerHTML = quizQuestionHtml();
   else if (quizState.view === "done") view.innerHTML = quizDoneHtml();
   else view.innerHTML = quizHomeHtml();
@@ -702,6 +908,7 @@ const searchState = { q: "" };
 
 function renderSearch() {
   U.resetReg();
+  if (N5.state === "idle") loadN5();
   setActiveTab(null);
   const q = searchState.q.trim();
   const lq = q.toLowerCase();
@@ -709,7 +916,7 @@ function renderSearch() {
   let phrases = [], vocab = [], grammar = [], intents = [];
   if (q) {
     phrases = PHRASE_ALL.filter(p => phraseMatches(p, q)).slice(0, 20);
-    vocab = QJ.vocab.filter(v => vocabMatches(v, q)).slice(0, 20);
+    vocab = N5.list().filter(v => vocabMatches(v, q)).slice(0, 20);
     grammar = QJ.grammar.points.filter(g => {
       const hay = [g.title, g.summary, g.detail, ...(g.examples || []).map(e => e.jp + " " + e.vi)].join(" ").toLowerCase();
       return hay.includes(lq);
@@ -859,7 +1066,22 @@ document.addEventListener("click", e => {
   if (cat) { phraseState.cat = cat.dataset.cat; renderPhrases(); return; }
 
   const vtag = e.target.closest("[data-vtag]");
-  if (vtag) { vocabState.tag = vtag.dataset.vtag; renderVocab(); return; }
+  if (vtag) {
+    vocabState.tag = vtag.dataset.vtag;
+    vocabState.limit = VOCAB_PAGE;
+    renderVocab();
+    return;
+  }
+
+  const vocabMore = e.target.closest('[data-act="vocab-more"]');
+  if (vocabMore) {
+    vocabState.limit += VOCAB_PAGE;
+    renderVocab({ keepScroll: true });
+    return;
+  }
+
+  const retryN5 = e.target.closest('[data-act="retry-n5"]');
+  if (retryN5) { loadN5(); return; }
 
   const fav = e.target.closest('[data-act="fav"]');
   if (fav) {
@@ -886,6 +1108,21 @@ document.addEventListener("click", e => {
     if (confirm("Xóa toàn bộ sổ tay?")) { Fav.clear(); renderNotebook(); U.toast("Đã xóa sổ tay"); }
     return;
   }
+
+  const exportNb = e.target.closest('[data-act="export-notebook"]');
+  if (exportNb) { exportNotebook(); return; }
+
+  const importNb = e.target.closest('[data-act="import-notebook"]');
+  if (importNb) { pickNotebookFile(); return; }
+
+  const importMerge = e.target.closest('[data-act="import-merge"]');
+  if (importMerge) { mergeImport(); return; }
+
+  const importReplace = e.target.closest('[data-act="import-replace"]');
+  if (importReplace) { replaceImport(); return; }
+
+  const importCancel = e.target.closest('[data-act="import-cancel"]');
+  if (importCancel) { pendingImport = null; U.closeModal(); return; }
 
   const openIntent = e.target.closest('[data-act="open-intent"]');
   if (openIntent) {
@@ -930,6 +1167,10 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
     navigator.serviceWorker.register("./sw.js").catch(() => { /* môi trường không hỗ trợ */ });
   });
 }
+
+/* Nạp trước từ vựng N5 khi máy rảnh — không chặn màn hình đầu */
+if ("requestIdleCallback" in window) requestIdleCallback(() => loadN5());
+else setTimeout(() => loadN5(), 1500);
 
 /* Khởi động */
 switchTab("phrases");
