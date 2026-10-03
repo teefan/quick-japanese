@@ -4,6 +4,11 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
+> **Current status (v1.2.5, commit `8de933d`)** — live at <https://teefan.github.io/quick-japanese/>:
+> 183 words · 167 phrases (12 categories) · 22 grammar points · 13 intent trees (4 groups) · 6 counters.
+> PWA cache `qj-v1.2.5`. Regression: 13 intents × 3 random paths = 39/39, no JS errors.
+> **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
+
 ---
 
 ## 1. Product definition
@@ -23,7 +28,8 @@ replies. Communication is mostly one-way: traveler speaks Japanese → local und
 recognition, no account, no backend, no ads, no tracking.
 
 **Success signals.** Time-to-first-sentence < 15s; a traveler can order food, shop, ask
-directions, refuse politely, and ask for help; payload < 300 KB; works offline after first load.
+directions, refuse politely, and ask for help; initial payload < 500 KB (currently ≈ 415 KB);
+works offline after first load.
 
 ---
 
@@ -79,15 +85,15 @@ Cụm từ 📖     12 categories, 167 phrases
   Gọi món & ăn uống · Đi lại · Khách sạn · Hiệu thuốc & sức khỏe ·
   Sự cố & bảo hiểm · Khẩn cấp · Người Nhật có thể nói
 
-Ghép câu 🧩    13 intent trees in 4 groups (see §6)
-  Giao tiếp:  Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
-              Làm ơn giúp tôi… · Cái này được không?
-  Ăn uống & mua sắm:  Tôi muốn… · Cho tôi… · Tôi thích… · Cái này thì sao?
-  Đi lại & khách sạn: Đi đến… · …ở đâu? · Khách sạn
+Ghép câu 🧩    13 intent trees in 4 groups, ordered basic → advanced (see §6)
+  Giao tiếp:          Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
+                      Làm ơn giúp tôi… · Cái này được không?
+  Ăn uống & mua sắm:  Cái này thì sao? · Cho tôi… · Tôi muốn… · Tôi thích…
+  Đi lại & khách sạn: …ở đâu? · Đi đến… · Khách sạn
   Sức khỏe & sự cố:   Sức khỏe & sự cố
 
 Sổ tay ⭐      Favorites (localStorage): saved phrases + built sentences
-Từ vựng 📚     173 curated words + 6 counters + money chips, tag filters, search
+Từ vựng 📚     183 curated words + 6 counters + money chips, tag filters, search
 Ngữ pháp 📝    22 points, “cơ bản” / “nên biết”, examples with pronunciation
 Tìm kiếm 🔍    Global search across phrases, vocab, grammar and builder intents
 ```
@@ -97,8 +103,10 @@ Tìm kiếm 🔍    Global search across phrases, vocab, grammar and builder int
 ## 5. Data model
 
 Authoring sources live in `data/source/*.json`; `node tools/build.js` enriches them
-(romaji, Vietnamese pronunciation, verb conjugation, intent expansion, validation) and emits
-browser-ready `data/*.js` as `window.QJ.<name>` globals.
+(romaji, Vietnamese pronunciation, verb conjugation, intent expansion, sentence segmentation,
+validation) and emits browser-ready `data/*.js` as `window.QJ.<name>` globals. Generated files
+are compact JSON with empty fields pruned (≈ 350 KB total) — always rebuild from sources,
+never edit `data/*.js` by hand.
 
 ### 5.1 Vocabulary (`data/source/vocab.json`)
 
@@ -111,13 +119,17 @@ browser-ready `data/*.js` as `window.QJ.<name>` globals.
 ```
 
 Build adds `roma`, `viPron`, and for verbs a full `forms` object:
-`dict, masu, masen, mashita, te, tai, potential` (each with `jp`, `kana`, `roma`, `viPron`).
+`dict, masu, masen, mashita, te, tai, potential, potentialNeg` (each with `jp`, `kana`, `roma`, `viPron`).
 Supported groups: `godan`, `ichidan`, `suru` (incl. compounds like 試着する), `kuru`.
 
 ### 5.2 Phrases (`data/source/phrases.json`)
 
 Categories → items. Each item: `id`, `jp`, `kana`, `vi`, optional `note`, and optional
 overrides `roma` / `viPron` (used for particle は, e.g. こんにちは → `côn-ni-chi-oa`).
+Build also attaches `parts` — the sentence segmented into annotated tokens (`jp`, `kana`,
+`roma`, `viPron`, `vi`, `note`, `role`, optional `grammar`) — and derives word-spaced
+`roma` / `viPron` from those parts. Use a hand-written `parts` array only when the automatic
+segmentation is not good enough (the build audits that parts rejoin the original kana).
 
 ### 5.3 Grammar (`data/source/grammar.json`)
 
@@ -132,7 +144,10 @@ with the builder.
 
 ### 5.5 Intents / builder trees (`data/source/intents.json`)
 
-See §6. Validation at build time: unique IDs, all `ref` exist, all `next` steps exist,
+See §6. Intents carry a `group` (one of the four builder groups); steps hold `options` where an
+option can be a vocabulary `ref` (+ `form`), a `silent` branch choice, or a fixed sentence
+(with optional `roma`/`viPron` overrides and automatic `parts` segmentation).
+Validation at build time: unique IDs, all `ref` exist, all `next` steps exist,
 grammar references exist.
 
 ---
@@ -208,10 +223,10 @@ Every phrase and every built sentence is also shown **broken into its grammatica
   (part of speech, verb form, particle role) and an optional grammar id. The build **fails
   loudly with warnings** when a chunk cannot be segmented; tricky phrases can override with a
   hand-written `parts` array in `phrases.json` (e.g. `袋はいりません` → 袋 + は + いりません).
-- **Built sentences**: the builder already assembles from typed parts, so the structure panel
-  is derived directly from picks: word row (meaning + part of speech + verb form, e.g.
-  “động từ, mong muốn たい”) and particle row (role + reading), each linking to a grammar card.
-  Saved notebook sentences keep their structure in the payload, so the breakdown survives.
+- **Built sentences**: the structure panel is derived from picks; fixed-sentence options are
+  segmented at build time with the same tokenizer, so they expand into full breakdowns too
+  (e.g. `英語 + で + お願い + します`). Each row shows meaning + part of speech/verb form + reading,
+  and links to a grammar card. Saved notebook sentences keep their structure in the payload.
 - **UI**: a compact composition strip (segments separated by `·`, each segment **colour-coded by
   grammatical role** — pronoun, noun, verb, adjective, adverb, particle, copula です, number,
   fixed expression) plus an expandable “🧩 Giải thích ngữ pháp” table. Every segment shows the
@@ -264,7 +279,7 @@ Full spec: [`docs/PRONUNCIATION.md`](PRONUNCIATION.md). Highlights:
 ```
 index.html                 static entry; loads data + app scripts
 manifest.webmanifest       PWA manifest (installable app)
-sw.js                      service worker: app-shell cache-first + fonts SWR
+sw.js                      service worker: network-first HTML, cache-first assets, fonts SWR
 assets/icons/              PWA icons (source SVG + 192/512 PNG)
 assets/css/style.css       design system, light/dark, mobile-first
 assets/js/app.js           tabs, phrasebook, vocab, grammar, notebook, search, TTS, modal
@@ -274,19 +289,20 @@ tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugat
 tools/segment.js           sentence dissection: lexicon + weighted DP tokenizer
 tools/build.js             validates + enriches sources → data/*.js
 data/*.js                  generated, loaded as window.QJ.* (works over file:// too)
-docs/                      this plan + pronunciation spec
+docs/                      this plan + DEV-CONTEXT + pronunciation spec + review checklist
 ```
 
 - **No framework, no bundler, no runtime build.** Vanilla JS + CSS.
 - **Data as JS globals** instead of `fetch(json)` so the app works from `file://` and needs
   no server or CORS handling.
 - **TTS** = Web Speech API (`ja-JP`), progressive enhancement only.
-- **Offline (Phase 1, done)**: `sw.js` caches the whole app shell (cache-first with background
-  refresh) and Google Fonts (stale-while-revalidate). Installable via `manifest.webmanifest`.
+- **Offline (Phase 1, done)**: `sw.js` is network-first for page navigations (new versions show
+  up immediately when online) and cache-first with background refresh for assets; Google Fonts
+  use stale-while-revalidate. Installable via `manifest.webmanifest`.
 - **Favorites (Phase 1, done)**: `localStorage` (`qj.favs.v1`) stores saved phrases by id and
   built sentences as full payloads, so the notebook survives data updates gracefully.
-- **Performance budget**: data ≈ 240 KB + app ≈ 40 KB; fonts optional via Google Fonts with
-  system fallbacks; renders 167 cards instantly.
+- **Performance budget**: data ≈ 350 KB (compact JSON, empty fields pruned) + app ≈ 70 KB;
+  fonts optional via Google Fonts with system fallbacks; renders 167 cards instantly.
 - **GitHub Pages deploy**: push to `main`, Settings → Pages → Deploy from branch `/root`
   (already live at <https://teefan.github.io/quick-japanese/>).
 
@@ -309,7 +325,7 @@ docs/                      this plan + pronunciation spec
 | Phase | Scope |
 |---|---|
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
-| **1 — MVP polish (v0.2, now)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline (manifest + service worker) · ✅ Global search across tabs · ✅ Hotel / pharmacy / insurance & lost-property phrase sets (12 categories, 167 phrases) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (checklist in `docs/REVIEW-CHECKLIST.md`) |
+| **1 — MVP polish (v0.2 → v1.2.5, now)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (`docs/REVIEW-CHECKLIST.md`) |
 | **2 — Scale content** | Expand to full N5 from OpenJLPT (+ Vietnamese meanings, reviewed); example sentences from Tatoeba; “Nghe & chọn” audio quiz; counters 1–10; pitch-accent display (Kanjium/OJAD); notebook export/import JSON |
 | **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
 
@@ -336,4 +352,4 @@ docs/                      this plan + pronunciation spec
 | Unnatural buildable sentences | Curated per-branch option lists; native review in Phase 1 |
 | Copyright issues when scaling | Only import datasets with clear licenses; keep `NOTICE`/attribution |
 | Data drift between sources and generated files | One-command rebuild + build-time validation (IDs, refs, steps) |
-| Over-engineering the builder | Deterministic tree, JSON-only extension, 9 intents cover MVP needs |
+| Over-engineering the builder | Deterministic tree, JSON-only extension, 13 intents cover MVP needs |

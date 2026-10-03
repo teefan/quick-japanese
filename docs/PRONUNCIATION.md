@@ -87,7 +87,8 @@ Kéo dài nguyên âm trước đó:
 
 ## Ngoại lệ viết tay trong dữ liệu
 
-Một số câu có phiên âm ghi đè (`viPron` trong `data/source/phrases.json`), chủ yếu vì chứa trợ từ `は`:
+Một số câu có phiên âm ghi đè (`viPron`) trong `data/source/phrases.json` và trong option cố định
+của `data/source/intents.json`, chủ yếu vì chứa trợ từ `は`:
 
 | Câu | Phiên âm | Vì sao |
 |---|---|---|
@@ -96,6 +97,8 @@ Một số câu có phiên âm ghi đè (`viPron` trong `data/source/phrases.jso
 | 私はベトナム人です | `oa-ta-xi oa bê-tô-na-mư-jin đê-xư` | は = chủ đề |
 
 Trong công cụ ghép câu, trợ từ được app tự chèn và phiên âm sẵn (`は` → `oa`, `へ` → `ê`, `を` → `ô`).
+Câu cố định trong option cũng được tách mảnh tự động như thẻ cụm từ; romaji và phiên âm cả câu
+được ghép lại theo từng mảnh (có khoảng cách) khi build.
 
 ## Romaji (phiên âm chính thức, Hepburn)
 
@@ -119,6 +122,8 @@ ví dụ `côn-ni-chi-oa · konnichiwa`, `xư-mi-ma-xên · sumimasen`.
 
 ## Dành cho người đóng góp
 
-- Đừng gõ tay phiên âm: chạy `node tools/build.js` — script sẽ tự sinh `viPron` và `roma`.
+- Đừng gõ tay phiên âm: chạy `node tools/build.js` (hoặc `npm run build`) — script sẽ tự sinh `viPron` và `roma`.
 - Chỉ thêm `viPron` viết tay khi có ngoại lệ (trợ từ, cách đọc đặc biệt), kèm `note` giải thích.
 - Mọi thay đổi quy tắc phải sửa ở `tools/kana.js` và thêm ví dụ vào bảng kiểm ở trên.
+- Nếu build báo `Option cố định chưa tách được…`, đó là **ghi chú, không phải lỗi**: câu đó hiển
+  thị 1 dòng trong bảng cấu trúc. Muốn tách được, bổ sung từ/cụm vào `tools/segment.js` rồi build lại.
