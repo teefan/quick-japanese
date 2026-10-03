@@ -1,8 +1,8 @@
 # Checklist kiểm duyệt bởi người bản ngữ
 
 Mục tiêu: rà soát độ **tự nhiên – lịch sự – chính xác** của toàn bộ nội dung (Phase 1 + 561 từ
-N5 + 460 câu ví dụ của Phase 2) trước khi coi nội dung hoàn tất. Ưu tiên người Nhật bản ngữ hoặc
-giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
+N5 + 460 câu ví dụ + 726 trọng âm của Phase 2) trước khi coi nội dung hoàn tất. Ưu tiên người Nhật
+bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 
 ## 1. Cụm từ (167 câu, 12 nhóm)
 
@@ -67,7 +67,18 @@ giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 - [ ] Nếu câu không đạt: sửa `jp`/`furi`/`kana`/`vi` trong file, hoặc xoá mục đó (app chỉ hiện
       ví dụ khi có), rồi `npm run build`.
 
-## 7. Cách ghi nhận kết quả
+## 7. Trọng âm (pitch accent, 726 từ)
+
+- [ ] Một số từ ngẫu nhiên (đặc biệt từ kana-only và katakana): số `[n]` và vị trí ↓ có đúng
+      giọng Tokyo không (これ [0], ここ [1], パン [1], コーヒー [3]…).
+- [ ] Mora cao được gạch trên có hiển thị đúng trên giao diện (không lệch dấu khi kana dài,
+      mora ghép きゃ/しゃ, ー, っ, ん).
+- [ ] Các từ nhập nhằng đã chọn tay trong `accents.json` (xem ghi chú “21 ca” trong DEV-CONTEXT)
+      có hợp lý không; từ thiếu dữ liệu (18 từ) chấp nhận không hiện.
+- [ ] Nếu sửa: chỉnh trực tiếp `data/source/accents.json` (hoặc thêm id vào MANUAL khi nhập lại),
+      chạy `npm run build`.
+
+## 8. Cách ghi nhận kết quả
 
 - Sửa trực tiếp `data/source/*.json` (kèm ghi chú nếu là ngoại lệ), chạy `npm run build`, mở PR.
 - Hoặc mở issue theo mẫu: `review: <nhóm> — <câu/nhánh> — đề xuất`.

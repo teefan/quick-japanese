@@ -402,6 +402,19 @@ function main() {
   const phrases = buildPhrases(vocab.items, numbers, grammarIds);
   const intents = buildIntents(vocab.byId, numbers, grammarIds);
 
+  /* Trọng âm (pitch accent) Kanjium — gắn theo id vào cả từ biên tập lẫn N5 */
+  const accentMap = read("accents.json").items;
+  const allVocab = vocab.items.concat(vocabN5);
+  const vocabIds = new Set(allVocab.map((i) => i.id));
+  let accents = 0;
+  for (const it of allVocab) {
+    if (accentMap[it.id] !== undefined) { it.accent = accentMap[it.id]; accents += 1; }
+  }
+  for (const id of Object.keys(accentMap)) {
+    if (!vocabIds.has(id)) warn(`[trọng âm] id không tồn tại: ${id}`);
+  }
+  note(`Trọng âm (Kanjium): ${accents}/${Object.keys(accentMap).length} từ được gắn pitch accent`);
+
   writeData("vocab", vocab.items);
   writeData("vocabN5", vocabN5, "vocab-n5");
   writeData("phrases", phrases);
@@ -415,6 +428,7 @@ function main() {
       vocab: vocab.items.length,
       vocabN5: vocabN5.length,
       vocabN5Examples: vocabN5.reduce((n, v) => n + (v.examples ? v.examples.length : 0), 0),
+      vocabAccents: accents,
       phrases: phrases.categories.reduce((n, c) => n + c.items.length, 0),
       phraseCategories: phrases.categories.length,
       grammar: grammar.points.length,

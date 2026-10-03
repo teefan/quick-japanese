@@ -4,12 +4,12 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v1.5.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> 744 words (183 curated + 561 N5, N5 lazy-loaded) · **460 N5 example sentences (Tatoeba)** · 167 phrases
-> (12 categories) · 22 grammar points · 13 intent trees (4 groups) · 6 counters (1–10)
-> · 🎧 Nghe & chọn quiz · ⭐ notebook export/import JSON.
-> PWA cache `qj-v1.5.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn,
-> N5 561 từ tải nền + phân trang + ví dụ, no JS errors.
+> **Current status (v1.6.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> 744 words (183 curated + 561 N5, N5 lazy-loaded) · **460 N5 example sentences (Tatoeba)** ·
+> **726 pitch accents (Kanjium)** · 167 phrases (12 categories) · 22 grammar points · 13 intent trees
+> (4 groups) · 6 counters (1–10) · 🎧 Nghe & chọn quiz · ⭐ notebook export/import JSON.
+> PWA cache `qj-v1.6.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn,
+> N5 561 từ tải nền + phân trang + ví dụ + trọng âm, no JS errors.
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
 
 ---
@@ -140,6 +140,14 @@ and project-authored Vietnamese translations. The build derives kana + `viPron`/
 the furigana and an N5-extended lexicon (so particles は/へ read `oa`/`ê` correctly, and kanji
 readings are never mistaken for particles); examples are attached to `vocab-n5.js` and shown
 on vocab cards + quiz results. Words without a suitable polite/natural example are omitted.
+
+`accents.json` maps vocabulary id → pitch-accent number for 726 of 744 words (curated + N5),
+imported once from [Kanjium](https://github.com/mifunetoshiro/kanjium) `accents.txt` (124k words,
+CC BY-SA 4.0). Value `n` = pitch drops after mora *n*; `0` = heiban (no drop). Where Kanjium
+offers several accents, the first is kept; for kana-only homographs the candidate matching the
+word's reading is preferred (e.g. これ [0], not the interjection [1]). The build attaches
+`accent` to vocab items; the app renders high morae with an overline + `↓` marker and `[n]`
+on every vocab card, with a legend in the Grammar tab.
 
 ### 5.2 Phrases (`data/source/phrases.json`)
 
@@ -350,7 +358,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 |---|---|
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
 | **1 — MVP polish (v0.2 → v1.2.5)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (`docs/REVIEW-CHECKLIST.md`) |
-| **2 — Scale content (v1.3.0 → now)** | ✅ “Nghe & chọn” audio quiz (10 câu/lượt, 2 nguồn, TTS + fallback Đọc & chọn, lưu điểm cao) · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang; nghĩa Việt chờ kiểm duyệt) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON (versioned format, merge/replace) · ✅ Example sentences from Tatoeba (460/561 từ N5, furigana gốc → kana + phiên âm, nghĩa Việt biên tập, hiện trên thẻ từ vựng + kết quả quiz) · ⏳ Pitch-accent display (Kanjium/OJAD) |
+| **2 — Scale content (v1.3.0 → v1.6.0)** | ✅ “Nghe & chọn” audio quiz (10 câu/lượt, 2 nguồn, TTS + fallback Đọc & chọn, lưu điểm cao) · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang; nghĩa Việt chờ kiểm duyệt) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON (versioned format, merge/replace) · ✅ Example sentences from Tatoeba (460/561 từ N5, furigana gốc → kana + phiên âm, nghĩa Việt biên tập, hiện trên thẻ từ vựng + kết quả quiz) · ✅ Pitch-accent display (Kanjium accents.txt, 726/744 từ; mora cao + ↓ + [n], legend trong tab Ngữ pháp) |
 | **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
 
 ---
@@ -368,6 +376,12 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
   `data/source/vocab-n5-examples.json`, taken from OpenJLPT's example lists (which carry the
   Tatoeba sentence id and furigana). Vietnamese translations authored by this project.
   Attribution in the file header, README §Giấy phép and this section.
+- **Pitch accent**: [Kanjium](https://github.com/mifunetoshiro/kanjium) — **CC BY-SA 4.0** —
+  726 accents in `data/source/accents.json`, imported from `data/source_files/raw/accents.txt`
+  (124,137 words). Required attribution: “The pitch accent notation, verb particle data,
+  phonetics, homonyms and other additions or modifications to EDICT, KANJIDIC or KRADFILE were
+  provided by Uros O. through his free database.” Shown in the source header, app (Grammar tab
+  + source note) and this section.
 - Planned/optional imports: JMdict/JMdict-simplified **EDRDG license (CC BY-SA 4.0)**,
   Tatoeba **CC BY 2.0 FR**, Kanjium **CC BY-SA 4.0**, frequency lists per their repos.
 - Wikivoyage used as *reference only*; no verbatim copying (CC BY-SA requires attribution if

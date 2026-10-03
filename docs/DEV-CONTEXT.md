@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `9b39d4c` · SW cache `qj-v1.5.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · SW cache `qj-v1.6.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese` (nhánh `archive/hanasou` giữ bản cũ trước khi ghi đè)
 
 Đọc file này trước khi bắt đầu code. Chi tiết đầy đủ nằm ở [`PLAN.md`](PLAN.md);
@@ -25,12 +25,14 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
   khi trang rảnh, không vào builder/segmenter, phân trang 60 từ/lần. **460 từ có câu ví dụ
   Tatoeba** (CC BY 2.0 FR) kèm furigana gốc → kana + phiên âm Việt + nghĩa Việt; hiện trên thẻ
   từ vựng và màn kết quả quiz. Payload đầu giữ ~435 KB, file N5 tải nền ≈ 259 KB.
+- **Trọng âm 🎵**: 726/744 từ có pitch accent (Kanjium accents.txt, CC BY-SA 4.0) — thẻ từ vựng
+  hiện kana với mora cao có gạch trên + ↓ + `[n]`; legend trong tab Ngữ pháp; 18 từ chưa có dữ liệu.
 - **Sổ tay ⭐**: lưu cụm từ + câu ghép (localStorage `qj.favs.v1`); **xuất/nhập JSON** có version
   (`quick-japanese/notebook`), chọn gộp hoặc thay thế, bỏ mục lỗi/trùng.
-- Số liệu hiện tại: **744 từ vựng (183 biên tập + 561 N5, 460 có câu ví dụ) · 167 cụm từ (12 nhóm)
-  · 22 điểm ngữ pháp · 13 cây · 6 lượng từ (1–10)**.
+- Số liệu hiện tại: **744 từ vựng (183 biên tập + 561 N5; 460 có câu ví dụ; 726 có trọng âm)
+  · 167 cụm từ (12 nhóm) · 22 điểm ngữ pháp · 13 cây · 6 lượng từ (1–10)**.
 - Kiểm thử chuẩn: 13 cây × 3 đường ngẫu nhiên = **39/39**, 1 lượt Nghe & chọn mỗi nguồn,
-  xuất/nhập lại sổ tay, **thẻ N5 hiện câu ví dụ + 🔊**, không lỗi JS.
+  xuất/nhập lại sổ tay, **thẻ N5 hiện câu ví dụ + 🔊, trọng âm `[n]`**, không lỗi JS.
 
 ## 1. Lệnh thường dùng
 
@@ -53,7 +55,7 @@ sw.js                      service worker (đổi VERSION mỗi lần release ap
 assets/css/style.css       design system + màu vai trò (--rl-*)
 assets/js/app.js           5 tab, cụm từ, từ vựng, ngữ pháp, sổ tay, tìm kiếm, Nghe & chọn, TTS, modal, PWA register
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
-data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, phrases, grammar, intents, numbers
+data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, phrases, grammar, intents, numbers
 data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           từ điển + tokenizer DP bóc tách câu (EXPRESSIONS, EXPR_ROLE, PARTICLES)
@@ -99,6 +101,19 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - Từ kana dễ bị tách nhầm thành trợ từ (はっきり, はかり…) thêm vào `EXAMPLE_EXTRA_KANA` trong
   `tools/build.js`. Câu lấy từ Tatoeba (CC BY 2.0 FR) qua OpenJLPT v0.3.0; xem `docs/PLAN.md` §11.
 
+### Trọng âm — `data/source/accents.json`
+```jsonc
+"items": { "n-mizu": 0, "d-kore": 0, "n5-7ce7f7d305": 1 }
+```
+- Khoá là id từ vựng (cả `vocab.json` lẫn `vocab-n5.json`); giá trị `n` = xuống giọng sau mora
+  thứ n, `0` = heiban. Build gắn `accent` vào từ tương ứng và cảnh báo nếu id lạ.
+- Nguồn: Kanjium `data/source_files/raw/accents.txt` (124.137 từ, CC BY-SA 4.0). Script nhập một lần
+  nằm ở `/tmp/opencode/import-accents.py` (không commit): khớp chính xác `(jp, kana)` → cùng reading →
+  từ katakana (reading trống); từ kana-only ưu tiên ứng viên cùng reading để tránh bắt nhầm từ đồng âm
+  khác loại (これ [0] chứ không phải thán từ [1]). 21 từ nhập nhằng chọn tay trong chính ứng viên Kanjium.
+- Thêm từ mới: thêm id vào file (chạy lại script nhập nếu có), hoặc bỏ trống — app chỉ hiện trọng âm khi có.
+- Trợ từ (より…) không có trọng âm từ nên bị loại; 18 từ (スマホ, ごめんなさい…) chưa có dữ liệu.
+
 ### Thêm cụm từ — `data/source/phrases.json`
 - `id`, `jp`, `kana`, `vi`, optional `note` (mẹo dùng/văn hóa).
 - Thêm `roma`/`viPron` viết tay khi có trợ từ đọc đặc biệt (は → `oa`).
@@ -140,6 +155,9 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   kết quả tách câu của cụm từ/cây ghép.
 - **Furigana câu ví dụ**: build đọc `{漢|かん}` để lấy kana; chỉ ghi đè は/へ khi ký tự đó là kana
   viết thẳng và token đúng là trợ từ — không ghi đè vào cách đọc kanji.
+- **Trọng âm**: chỉ hiển thị khi `accent` tồn tại; mora cao = `i ≥ 2` và (`accent = 0` hoặc `i ≤ accent`),
+  riêng `accent = 1` thì mora 1 cao; ↓ đặt sau mora `min(accent, số mora)`. Không suy diễn thêm — số liệu
+  lấy nguyên từ Kanjium (xem `data/source/accents.json`).
 - **Sổ tay JSON**: format `quick-japanese/notebook` version 1 (`entries` = mảng fav); nhập chấp
   nhận cả mảng trần, tối đa 2.000 mục, gộp thì chống trùng theo id (cụm từ) / `payload.jp` (câu).
 - **Mỗi lần release**: bump `VERSION` trong `sw.js` (`qj-vX.Y.Z`), chạy build, commit, push main.
@@ -151,7 +169,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 3. Mở app (nhớ xoá SW khi test): kiểm 5 tab, tìm kiếm, builder chạy ngẫu nhiên vài cây, lưu Sổ tay,
    **Nghe & chọn** (chạy hết 1 lượt ở cả 2 nguồn, thử 🔊 nghe lại + phím 1–4), **N5** (chip 🌱,
    phân trang Xem thêm, badge N5, tìm một từ N5, **câu ví dụ + 🔊 trên thẻ từ vựng và ở kết quả
-   quiz**), và **xuất/nhập sổ tay** (gộp + thay thế).
+   quiz**, **trọng âm `[n]` + gạch trên + ↓**), và **xuất/nhập sổ tay** (gộp + thay thế).
 4. Release regression (khuyến nghị): vòng lặp tất cả cây × 3 đường 🎲, kiểm tra `.b-jp`, `.b-brk`,
    kết thúc 1 lượt quiz ở cả 2 nguồn, không lỗi JS (`window.__errs`).
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
@@ -161,15 +179,16 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 ## 6. Trạng thái & việc còn lại
 
 - **Phase 1** gần xong; việc duy nhất còn lại là **kiểm duyệt bởi người bản ngữ** — dùng
-  `docs/REVIEW-CHECKLIST.md` (đã bổ sung mục N5 + lượng từ 6–10 + câu ví dụ), sửa
+  `docs/REVIEW-CHECKLIST.md` (đã bổ sung mục N5 + lượng từ 6–10 + câu ví dụ + trọng âm), sửa
   `data/source/*.json` + build.
 - **Phase 2** (xem `PLAN.md` §10): ✅ Nghe & chọn (v1.3.0) · ✅ đủ N5 từ OpenJLPT — 561 từ mới,
   nghĩa Việt biên tập, tải nền + phân trang · ✅ lượng từ 1–10 · ✅ xuất/nhập Sổ tay JSON ·
-  ✅ **câu ví dụ Tatoeba (v1.5.0)** — 460/561 từ N5, furigana gốc → kana + phiên âm, nghĩa Việt
-  biên tập, hiện trên thẻ từ vựng + kết quả quiz. Còn lại: **pitch accent** (Kanjium/OJAD —
-  cần xử lý trùng âm + thiết kế hiển thị).
-- **Tồn đã biết**: nghĩa 561 từ N5 + **460 câu ví dụ** chờ kiểm duyệt; 101 từ N5 chưa có
-  câu ví dụ phù hợp; file N5 tải nền giờ ≈ 259 KB (vẫn lazy, không vào payload đầu).
+  ✅ câu ví dụ Tatoeba (v1.5.0) — 460/561 từ N5 · ✅ **trọng âm Kanjium (v1.6.0)** — 726/744 từ.
+  **Phase 2 đã xong**; việc tiếp theo thuộc **Phase 3**: URL chia sẻ câu ghép (`#s=…`),
+  lưu thẻ thành ảnh, gói audio offline, OCR menu, giao diện tiếng Anh (xem `PLAN.md` §10).
+- **Tồn đã biết**: nghĩa 561 từ N5 + **460 câu ví dụ** + **726 trọng âm** chờ kiểm duyệt;
+  101 từ N5 chưa có câu ví dụ phù hợp; 18 từ chưa có trọng âm (スマホ, ごめんなさい…);
+  file N5 tải nền ≈ 259 KB (vẫn lazy, không vào payload đầu).
 
 ## 7. Lịch sử quyết định ngắn
 
@@ -186,5 +205,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   lẫn lỗi “đọc trợ từ thành cách đọc kanji”; từ kana dễ tách nhầm nằm trong `EXAMPLE_EXTRA_KANA`.
   Thà thiếu ví dụ (101 từ) còn hơn nhập câu thân mật/phản cảm. Nghĩa Việt + độ lịch sự vẫn chờ
   người bản ngữ duyệt như mục N5.
+- Trọng âm (v1.6.0) dùng **Kanjium accents.txt** (CC BY-SA 4.0, 124k từ) thay vì OJAD: dữ liệu mở,
+  tải được, có sẵn số accent theo mora. Từ kana-only ưu tiên ứng viên cùng reading (tránh bắt nhầm
+  từ đồng âm khác loại như これ [0] vs thán từ [1]); 21 ca nhập nhằng chọn tay trong chính ứng viên
+  Kanjium; 18 từ thiếu dữ liệu thì **không hiện** trọng âm (không đoán). Hiển thị: gạch trên = mora
+  cao, ↓ = xuống giọng, `[n]` = số mora; kèm legend + ghi công trong app.
 - Sổ tay JSON có `format`/`version`; nhập chỉ nhận mục hợp lệ (cụm từ phải còn id, câu cần `payload.jp`),
   gộp thì chống trùng theo id/`payload.jp`.

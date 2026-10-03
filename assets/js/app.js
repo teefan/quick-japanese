@@ -353,6 +353,34 @@ function vocabFilter(v) {
 
 const firstExample = (item) => (Array.isArray(item.examples) ? item.examples[0] : null);
 
+/* Trọng âm (pitch accent): chia kana thành mora — kana nhỏ dính vào mora trước */
+function moraSplit(kana) {
+  const small = "ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ";
+  const out = [];
+  for (const ch of kana || "") {
+    if (out.length && small.includes(ch)) out[out.length - 1] += ch;
+    else out.push(ch);
+  }
+  return out;
+}
+
+/* Vẽ trọng âm: mora cao có gạch trên, ↓ = xuống giọng sau mora đó, kèm số [n] */
+function pitchHtml(kana, accent) {
+  if (accent === undefined || accent === null) return "";
+  const morae = moraSplit(kana);
+  if (!morae.length) return "";
+  const n = morae.length;
+  const hi = (i) => (accent === 1 ? i === 1 : i >= 2 && (accent === 0 || i <= accent));
+  let pattern = "";
+  morae.forEach((m, idx) => {
+    const i = idx + 1;
+    pattern += `<span class="pm${hi(i) ? " hi" : ""}">${U.esc(m)}</span>`;
+    if (accent > 0 && i === Math.min(accent, n)) pattern += `<span class="pdrop">↓</span>`;
+  });
+  const tip = accent === 0 ? "không xuống giọng (heiban)" : `xuống giọng sau mora ${accent}`;
+  return `<div class="pitch" title="Trọng âm [${accent}] — ${tip}">${pattern}<span class="pitch-num">[${accent}]</span></div>`;
+}
+
 function exampleHtml(ex) {
   if (!ex) return "";
   const key = U.register({ jp: ex.jp, kana: ex.kana, viPron: ex.viPron, vi: ex.vi });
@@ -384,6 +412,7 @@ function vocabCard(v) {
         </span>
       </div>
       <div class="pron" style="font-size:13.5px">${U.esc(v.viPron)}<span class="roma"> · ${U.esc(v.roma || "")}</span></div>
+      ${pitchHtml(v.kana, v.accent)}
       <div class="w-meaning">${U.esc(v.vi)}</div>
       ${extra ? `<div class="w-extra">${extra}</div>` : ""}
       ${exampleHtml(firstExample(v))}
@@ -672,6 +701,15 @@ function renderGrammar() {
         hoặc bấm 📝 để mở điểm ngữ pháp tương ứng.
       </div>
     </div>
+    <div class="card">
+      <b style="font-size:14px">🎵 Trọng âm (pitch accent)</b>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:6px">
+        Mora có <span class="pm hi">gạch trên</span> đọc cao, mora còn lại đọc thấp;
+        <span class="pdrop">↓</span> = xuống giọng sau mora đó. <b>[0]</b> = không xuống (heiban),
+        <b>[1]</b> = xuống ngay sau mora đầu, các số khác = xuống sau mora thứ đó.
+        Trọng âm lấy từ <a href="https://github.com/mifunetoshiro/kanjium" target="_blank" rel="noopener">Kanjium</a> (CC BY-SA 4.0).
+      </div>
+    </div>
     ${QJ.grammar.points.map(g => `
       <details class="g">
         <summary>
@@ -696,6 +734,7 @@ function renderGrammar() {
       <p>
         Từ vựng JLPT N5: <a href="https://github.com/evanclan/OpenJLPT" target="_blank" rel="noopener">OpenJLPT</a> (CC BY-SA 4.0).
         Câu ví dụ: <a href="https://tatoeba.org" target="_blank" rel="noopener">Tatoeba</a> (CC BY 2.0 FR) qua OpenJLPT.
+        Trọng âm: <a href="https://github.com/mifunetoshiro/kanjium" target="_blank" rel="noopener">Kanjium</a> (CC BY-SA 4.0).
         Nghĩa tiếng Việt, phiên âm và nội dung còn lại do dự án biên tập.
       </p>
       <p>Mã nguồn <a href="https://github.com/teefan/quick-japanese" target="_blank" rel="noopener">teefan/quick-japanese</a> (MIT).</p>
