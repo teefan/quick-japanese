@@ -224,6 +224,9 @@
       : "";
 
     const notes = [...new Set(state.picks.map(p => p.option.note).filter(Boolean))];
+    const jpNow = jpText(parts);
+    const savedNow = done && window.Fav &&
+      Fav.list().some(f => f.type === "sentence" && f.payload && f.payload.jp === jpNow);
 
     const grammarBtns = (intent.grammar || [])
       .map(id => {
@@ -237,6 +240,7 @@
           <button class="primary" data-b="speak">🔊 Nghe</button>
           <button data-b="show">📺 Đưa máy</button>
           <button data-b="copy">📋 Copy</button>
+          <button data-b="fav">${savedNow ? "★ Đã lưu" : "☆ Lưu câu"}</button>
           <button data-b="random">🎲 Câu khác</button>
         </div>`
       : "";
@@ -282,6 +286,24 @@
         else if (b === "random") randomPath();
         else if (b === "speak") U.speak(jpText(parts));
         else if (b === "copy") U.copy(`${jpText(parts)}\n${pronLine(parts)}\n${vi}`, jpText(parts));
+        else if (b === "fav" && window.Fav) {
+          const jp = jpText(parts);
+          const existing = Fav.list().find(f => f.type === "sentence" && f.payload && f.payload.jp === jp);
+          if (existing) {
+            Fav.remove("sentence", existing.id);
+            btn.textContent = "☆ Lưu câu";
+            U.toast("Đã bỏ khỏi sổ tay");
+          } else {
+            Fav.toggle({
+              type: "sentence",
+              id: "s" + Date.now(),
+              payload: { jp, kana: kanaText(parts), viPron: pronLine(parts), vi },
+              savedAt: Date.now(),
+            });
+            btn.textContent = "★ Đã lưu";
+            U.toast("Đã lưu vào sổ tay");
+          }
+        }
         else if (b === "show") {
           U.showToLocal({ jp: jpText(parts), kana: kanaText(parts), viPron: pronLine(parts), vi }, intent.label);
         }
@@ -296,5 +318,11 @@
     );
   }
 
-  window.Builder = { open: () => (state.intent ? renderBuilder() : renderHome()) };
+  window.Builder = {
+    open: () => (state.intent ? renderBuilder() : renderHome()),
+    startWith: (id) => {
+      const intent = QJ.intents.intents.find(i => i.id === id);
+      if (intent) startIntent(intent);
+    },
+  };
 })();

@@ -1,0 +1,21 @@
+{
+  "name": "Quick Japanese — Tiếng Nhật du lịch cho người Việt",
+  "short_name": "Quick Japanese",
+  "description": "Sổ tay tiếng Nhật sinh tồn: cụm từ, phiên âm tiếng Việt, ghép câu thông minh, dùng offline.",
+  "lang": "vi",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f5f2",
+  "theme_color": "#d94f5c",
+  "categories": ["travel", "education", "utilities"],
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

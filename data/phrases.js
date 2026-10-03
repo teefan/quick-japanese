@@ -1024,6 +1024,344 @@ window.QJ.phrases = {
       ]
     },
     {
+      "id": "hotel",
+      "label": "Khách sạn",
+      "icon": "🏨",
+      "desc": "Nhận phòng, Wi-Fi, hành lý, trả phòng",
+      "items": [
+        {
+          "id": "hotel-01",
+          "jp": "チェックインをお願いします",
+          "kana": "チェックインをおねがいします",
+          "vi": "Tôi muốn làm thủ tục nhận phòng",
+          "note": "Đưa hộ chiếu và tên đặt phòng nếu được hỏi.",
+          "roma": "chekkuinoonegaishimasu",
+          "viPron": "chêk-cư-in-ô-ô-nê-ga-i-xi-ma-xư"
+        },
+        {
+          "id": "hotel-02",
+          "jp": "予約しています",
+          "kana": "よやくしています",
+          "vi": "Tôi có đặt phòng trước",
+          "note": "Nếu được hỏi tên: 〜です (tên tôi là …).",
+          "roma": "yoyakushiteimasu",
+          "viPron": "yô-ya-cư-xi-tê-i-ma-xư"
+        },
+        {
+          "id": "hotel-03",
+          "jp": "部屋を見せてもらえますか",
+          "kana": "へやをみせてもらえますか",
+          "vi": "Cho tôi xem phòng được không?",
+          "note": "Dùng khi muốn đổi phòng.",
+          "roma": "heyaomisetemoraemasuka",
+          "viPron": "hê-ya-ô-mi-xê-tê-mô-ra-ê-ma-xư-ka"
+        },
+        {
+          "id": "hotel-04",
+          "jp": "Wi-Fiのパスワードは何ですか",
+          "kana": "ワイファイのパスワードはなんですか",
+          "vi": "Mật khẩu Wi-Fi là gì?",
+          "roma": "waifai no pasuwaado wa nan desu ka",
+          "viPron": "oa-i-pha-i nô pa-xư-oaa-đô oa nan-đê-xư-ka"
+        },
+        {
+          "id": "hotel-05",
+          "jp": "荷物を預かってもらえますか",
+          "kana": "にもつをあずかってもらえますか",
+          "vi": "Gửi hành lý giúp tôi được không?",
+          "note": "Dùng trước khi nhận phòng hoặc sau khi trả phòng.",
+          "roma": "nimotsuoazukattemoraemasuka",
+          "viPron": "ni-mô-tsư-ô-a-zư-kat-tê-mô-ra-ê-ma-xư-ka"
+        },
+        {
+          "id": "hotel-06",
+          "jp": "チェックアウトは何時ですか",
+          "kana": "チェックアウトはなんじですか",
+          "vi": "Trả phòng lúc mấy giờ?",
+          "roma": "chekku auto wa nanji desu ka",
+          "viPron": "chek-ku-a-u-tô oa nan-ji đê-xư-ka"
+        },
+        {
+          "id": "hotel-07",
+          "jp": "チェックアウトをお願いします",
+          "kana": "チェックアウトをおねがいします",
+          "vi": "Cho tôi làm thủ tục trả phòng",
+          "note": "Nói ở quầy lễ tân.",
+          "roma": "chekkuautooonegaishimasu",
+          "viPron": "chêk-cư-a-ư-tô-ô-ô-nê-ga-i-xi-ma-xư"
+        },
+        {
+          "id": "hotel-08",
+          "jp": "タオルをもう一枚ください",
+          "kana": "タオルをもういちまいください",
+          "vi": "Cho tôi thêm một cái khăn",
+          "note": "もう = thêm nữa; 一枚 = một cái (đếm vật mỏng).",
+          "roma": "taoruomouichimaikudasai",
+          "viPron": "ta-ô-rư-ô-mô-u-i-chi-ma-i-cư-đa-xa-i"
+        },
+        {
+          "id": "hotel-09",
+          "jp": "部屋のエアコンが動きません",
+          "kana": "へやのエアコンがうごきません",
+          "vi": "Điều hòa trong phòng không chạy",
+          "note": "Đổi エアコン thành お湯 (nước nóng) / 電気 (đèn) nếu cần.",
+          "roma": "heyanoeakongaugokimasen",
+          "viPron": "hê-ya-nô-ê-a-kông-ga-ư-gô-ki-ma-xên"
+        },
+        {
+          "id": "hotel-10",
+          "jp": "静かな部屋に変えてもらえますか",
+          "kana": "しずかなへやにかえてもらえますか",
+          "vi": "Đổi cho tôi phòng yên tĩnh được không?",
+          "note": "変える = đổi, thay.",
+          "roma": "shizukanaheyanikaetemoraemasuka",
+          "viPron": "xi-zư-ka-na-hê-ya-ni-ka-ê-tê-mô-ra-ê-ma-xư-ka"
+        },
+        {
+          "id": "hotel-11",
+          "jp": "荷物をここに置いてもいいですか",
+          "kana": "にもつをここにおいてもいいですか",
+          "vi": "Tôi để hành lý ở đây được không?",
+          "note": "置いて = để, đặt (thể て của 置く).",
+          "roma": "nimotsuokokonioitemoiidesuka",
+          "viPron": "ni-mô-tsư-ô-kô-kô-ni-ô-i-tê-mô-i-i-đê-xư-ka"
+        },
+        {
+          "id": "hotel-12",
+          "jp": "朝食は何時からですか",
+          "kana": "ちょうしょくはなんじからですか",
+          "vi": "Bữa sáng từ mấy giờ?",
+          "roma": "choushoku wa nanji kara desu ka",
+          "viPron": "chô-u-xô-kư oa nan-ji ka-ra đê-xư-ka"
+        }
+      ]
+    },
+    {
+      "id": "pharmacy",
+      "label": "Hiệu thuốc & sức khỏe",
+      "icon": "💊",
+      "desc": "Mua thuốc không cần đơn, mô tả triệu chứng",
+      "items": [
+        {
+          "id": "pharm-01",
+          "jp": "風邪薬はありますか",
+          "kana": "かぜぐすりはありますか",
+          "vi": "Có thuốc cảm không?",
+          "roma": "kazegusuri wa arimasu ka",
+          "viPron": "ka-zê-gư-xư-ri oa a-ri-ma-xư-ka"
+        },
+        {
+          "id": "pharm-02",
+          "jp": "頭痛薬をください",
+          "kana": "ずつうやくをください",
+          "vi": "Cho tôi thuốc đau đầu",
+          "note": "頭痛薬 = thuốc đau đầu.",
+          "roma": "zutsuuyakuokudasai",
+          "viPron": "zư-tsư-u-ya-cư-ô-cư-đa-xa-i"
+        },
+        {
+          "id": "pharm-03",
+          "jp": "お腹が痛いです",
+          "kana": "おなかがいたいです",
+          "vi": "Tôi bị đau bụng",
+          "roma": "onakagaitaidesu",
+          "viPron": "ô-na-ka-ga-i-ta-i-đê-xư"
+        },
+        {
+          "id": "pharm-04",
+          "jp": "のどが痛いです",
+          "kana": "のどがいたいです",
+          "vi": "Tôi bị đau họng",
+          "roma": "nodogaitaidesu",
+          "viPron": "nô-đô-ga-i-ta-i-đê-xư"
+        },
+        {
+          "id": "pharm-05",
+          "jp": "熱が下がりません",
+          "kana": "ねつがさがりません",
+          "vi": "Sốt mãi không hạ",
+          "note": "下がる = hạ xuống.",
+          "roma": "netsugasagarimasen",
+          "viPron": "nê-tsư-ga-xa-ga-ri-ma-xên"
+        },
+        {
+          "id": "pharm-06",
+          "jp": "この薬はどうやって飲みますか",
+          "kana": "このくすりはどうやってのみますか",
+          "vi": "Thuốc này uống thế nào?",
+          "roma": "kono kusuri wa douyatte nomimasu ka",
+          "viPron": "cô-nô cư-xư-ri oa đô-u-yat-tê nô-mi-ma-xư-ka"
+        },
+        {
+          "id": "pharm-07",
+          "jp": "一日に何回飲みますか",
+          "kana": "いちにちになんかいのみますか",
+          "vi": "Một ngày uống mấy lần?",
+          "note": "何回 = mấy lần.",
+          "roma": "ichinichininankainomimasuka",
+          "viPron": "i-chi-ni-chi-ni-nang-ka-i-nô-mi-ma-xư-ka"
+        },
+        {
+          "id": "pharm-08",
+          "jp": "痛み止めはありますか",
+          "kana": "いたみどめはありますか",
+          "vi": "Có thuốc giảm đau không?",
+          "roma": "itamidome wa arimasu ka",
+          "viPron": "i-ta-mi-đô-mê oa a-ri-ma-xư-ka"
+        },
+        {
+          "id": "pharm-09",
+          "jp": "絆創膏をください",
+          "kana": "ばんそうこうをください",
+          "vi": "Cho tôi băng cá nhân",
+          "note": "絆創膏 = băng dán vết thương.",
+          "roma": "bansoukouokudasai",
+          "viPron": "ban-xô-u-kô-u-ô-cư-đa-xa-i"
+        },
+        {
+          "id": "pharm-10",
+          "jp": "処方箋なしで買えますか",
+          "kana": "しょほうせんなしでかえますか",
+          "vi": "Mua không cần đơn thuốc được không?",
+          "note": "処方箋 = đơn thuốc; なし = không có.",
+          "roma": "shohousennashidekaemasuka",
+          "viPron": "xô-hô-u-xên-na-xi-đê-ka-ê-ma-xư-ka"
+        },
+        {
+          "id": "pharm-11",
+          "jp": "薬アレルギーがあります",
+          "kana": "くすりアレルギーがあります",
+          "vi": "Tôi bị dị ứng thuốc",
+          "roma": "kusuriarerugiigaarimasu",
+          "viPron": "cư-xư-ri-a-rê-rư-gii-ga-a-ri-ma-xư"
+        },
+        {
+          "id": "pharm-12",
+          "jp": "めまいがします",
+          "kana": "めまいがします",
+          "vi": "Tôi thấy chóng mặt",
+          "note": "めまい = chóng mặt.",
+          "roma": "memaigashimasu",
+          "viPron": "mê-ma-i-ga-xi-ma-xư"
+        }
+      ]
+    },
+    {
+      "id": "insurance",
+      "label": "Sự cố & bảo hiểm",
+      "icon": "🧳",
+      "desc": "Mất đồ, tai nạn, giấy tờ cho bảo hiểm, đại sứ quán",
+      "items": [
+        {
+          "id": "ins-01",
+          "jp": "旅行保険に入っています",
+          "kana": "りょこうほけんにはいっています",
+          "vi": "Tôi có mua bảo hiểm du lịch",
+          "note": "Nói khi cần khai báo sự cố.",
+          "roma": "ryokouhokennihaitteimasu",
+          "viPron": "riô-kô-u-hô-kên-ni-ha-it-tê-i-ma-xư"
+        },
+        {
+          "id": "ins-02",
+          "jp": "保険の書類をください",
+          "kana": "ほけんのしょるいをください",
+          "vi": "Cho tôi giấy tờ bảo hiểm",
+          "note": "書類 = giấy tờ, hồ sơ.",
+          "roma": "hokennoshoruiokudasai",
+          "viPron": "hô-kên-nô-xô-rư-i-ô-cư-đa-xa-i"
+        },
+        {
+          "id": "ins-03",
+          "jp": "事故に遭いました",
+          "kana": "じこにあいました",
+          "vi": "Tôi gặp tai nạn",
+          "note": "事故 = tai nạn.",
+          "roma": "jikoniaimashita",
+          "viPron": "ji-kô-ni-a-i-ma-xi-ta"
+        },
+        {
+          "id": "ins-04",
+          "jp": "財布をなくしました",
+          "kana": "さいふをなくしました",
+          "vi": "Tôi bị mất ví",
+          "note": "Thay 財布 bằng スマホ (điện thoại) / かばん (túi) nếu cần.",
+          "roma": "saifuonakushimashita",
+          "viPron": "xa-i-phư-ô-na-cư-xi-ma-xi-ta"
+        },
+        {
+          "id": "ins-05",
+          "jp": "財布を盗まれました",
+          "kana": "さいふをぬすまれました",
+          "vi": "Ví của tôi bị mất trộm",
+          "note": "盗まれました = bị lấy cắp.",
+          "roma": "saifuonusumaremashita",
+          "viPron": "xa-i-phư-ô-nư-xư-ma-rê-ma-xi-ta"
+        },
+        {
+          "id": "ins-06",
+          "jp": "スマホを落としました",
+          "kana": "スマホをおとしました",
+          "vi": "Tôi đánh rơi điện thoại",
+          "note": "落とす = đánh rơi.",
+          "roma": "sumahoootoshimashita",
+          "viPron": "xư-ma-hô-ô-ô-tô-xi-ma-xi-ta"
+        },
+        {
+          "id": "ins-07",
+          "jp": "警察に届けたいです",
+          "kana": "けいさつにとどけたいです",
+          "vi": "Tôi muốn báo cảnh sát",
+          "note": "届ける = trình báo. Đến 交番 (chốt cảnh sát) gần nhất.",
+          "roma": "keisatsunitodoketaidesu",
+          "viPron": "kê-i-xa-tsư-ni-tô-đô-kê-ta-i-đê-xư"
+        },
+        {
+          "id": "ins-08",
+          "jp": "盗難証明を書いてもらえますか",
+          "kana": "とうなんしょうめいをかいてもらえますか",
+          "vi": "Viết giấy xác nhận mất trộm cho tôi được không?",
+          "note": "Cần cho hồ sơ bảo hiểm.",
+          "roma": "tounanshoumeiokaitemoraemasuka",
+          "viPron": "tô-u-nan-xô-u-mê-i-ô-ka-i-tê-mô-ra-ê-ma-xư-ka"
+        },
+        {
+          "id": "ins-09",
+          "jp": "領収書をもらえますか",
+          "kana": "りょうしゅうしょをもらえますか",
+          "vi": "Cho tôi xin hóa đơn được không?",
+          "note": "Giữ hóa đơn để đòi bảo hiểm.",
+          "roma": "ryoushuushoomoraemasuka",
+          "viPron": "riô-u-xư-u-xô-ô-mô-ra-ê-ma-xư-ka"
+        },
+        {
+          "id": "ins-10",
+          "jp": "ベトナム大使館はどこですか",
+          "kana": "ベトナムたいしかんはどこですか",
+          "vi": "Đại sứ quán Việt Nam ở đâu?",
+          "roma": "betonamu taishikan wa doko desu ka",
+          "viPron": "bê-tô-na-mư ta-i-xi-kan oa đô-cô-đê-xư-ka"
+        },
+        {
+          "id": "ins-11",
+          "jp": "母国に連絡したいです",
+          "kana": "ぼこくにれんらくしたいです",
+          "vi": "Tôi muốn liên lạc về nước",
+          "note": "母国 = quê hương, đất nước mình.",
+          "roma": "bokokunirenrakushitaidesu",
+          "viPron": "bô-kô-cư-ni-rên-ra-cư-xi-ta-i-đê-xư"
+        },
+        {
+          "id": "ins-12",
+          "jp": "クレジットカードを止めたいです",
+          "kana": "クレジットカードをとめたいです",
+          "vi": "Tôi muốn khóa thẻ tín dụng",
+          "note": "Gọi ngân hàng phát hành thẻ càng sớm càng tốt.",
+          "roma": "kurejittokaadootometaidesu",
+          "viPron": "cư-rê-jit-tô-kaa-đô-ô-tô-mê-ta-i-đê-xư"
+        }
+      ]
+    },
+    {
       "id": "emergency",
       "label": "Khẩn cấp",
       "icon": "🚑",

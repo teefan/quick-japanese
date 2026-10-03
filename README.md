@@ -3,12 +3,17 @@
 **Sổ tay tiếng Nhật sinh tồn cho người Việt đi du lịch.** Mở trang là dùng được ngay:
 tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự ghép câu mới từ những mảnh có sẵn.
 
+🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
+
 - 🇻🇳 Giao diện, nghĩa và **phiên âm tiếng Việt** cho mọi câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`).
 - 🧩 **Ghép câu thu hẹp dần**: chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và giải thích ngay trên từng trợ từ.
+- ⭐ **Sổ tay của tôi**: lưu cụm từ và câu tự ghép (localStorage) để mở nhanh khi đi du lịch.
+- 🔍 **Tìm kiếm toàn bộ**: cụm từ, từ vựng, ngữ pháp và mục ghép câu trong một ô tìm kiếm.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên mọi câu và câu tự ghép.
 - 📺 **Chế độ đưa máy**: chữ Nhật cỡ lớn để chỉ cho nhân viên/tài xế xem.
 - 📚 173 từ vựng du lịch, 6 lượng từ đếm số, mệnh giá tiền, 22 điểm ngữ pháp tối giản.
+- 📶 **PWA offline**: service worker cache toàn bộ app — không cần mạng khi đã mở một lần.
 - 📴 Không cần server, không cần build khi dùng, chạy được cả khi mở trực tiếp `index.html`.
 
 ![Giao diện ghép câu](docs/screenshot.png)
@@ -27,9 +32,12 @@ npm run serve              # http://localhost:8080
 
 ```
 index.html                 trang chính (load data + app)
+manifest.webmanifest       khai báo PWA (cài như app)
+sw.js                      service worker — cache offline
 assets/css/style.css       giao diện, mobile-first, có dark mode
-assets/js/app.js           4 tab: Cụm từ, Ghép câu, Từ vựng, Ngữ pháp + TTS + modal
+assets/js/app.js           5 tab: Cụm từ, Ghép câu, Sổ tay, Từ vựng, Ngữ pháp + tìm kiếm + TTS
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
+assets/icons/              icon PWA (SVG gốc + PNG 192/512)
 data/source/*.json         dữ liệu gốc để biên tập (từ vựng, cụm từ, ngữ pháp, cây câu, số đếm)
 data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay)
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ

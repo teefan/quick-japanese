@@ -71,16 +71,19 @@ directions, refuse politely, and ask for help; payload < 300 KB; works offline a
 ## 4. Information architecture
 
 ```
-Cụm từ 📖     9 categories, 131 phrases
-  Chào hỏi · Cảm ơn & lịch sự · Chỉ trỏ · Trả lời & xử lý ·
-  Mua sắm · Gọi món & ăn uống · Đi lại · Khẩn cấp · Người Nhật có thể nói
+Cụm từ 📖     12 categories, 167 phrases
+  Chào hỏi · Cảm ơn & lịch sự · Chỉ trỏ · Trả lời & xử lý · Mua sắm ·
+  Gọi món & ăn uống · Đi lại · Khách sạn · Hiệu thuốc & sức khỏe ·
+  Sự cố & bảo hiểm · Khẩn cấp · Người Nhật có thể nói
 
 Ghép câu 🧩    9 intent trees (see §6)
   Tôi muốn… · Cho tôi… · Tôi thích… · Cái này thì sao? · Đi đến… ·
   Làm ơn giúp tôi… · Không, cảm ơn… · Cái này được không? · …ở đâu?
 
+Sổ tay ⭐      Favorites (localStorage): saved phrases + built sentences
 Từ vựng 📚     173 curated words + 6 counters + money chips, tag filters, search
 Ngữ pháp 📝    22 points, “cơ bản” / “nên biết”, examples with pronunciation
+Tìm kiếm 🔍    Global search across phrases, vocab, grammar and builder intents
 ```
 
 ---
@@ -200,8 +203,11 @@ Full spec: [`docs/PRONUNCIATION.md`](PRONUNCIATION.md). Highlights:
 
 ```
 index.html                 static entry; loads data + app scripts
+manifest.webmanifest       PWA manifest (installable app)
+sw.js                      service worker: app-shell cache-first + fonts SWR
+assets/icons/              PWA icons (source SVG + 192/512 PNG)
 assets/css/style.css       design system, light/dark, mobile-first
-assets/js/app.js           tabs, phrasebook, vocab, grammar, TTS, modal, show-mode
+assets/js/app.js           tabs, phrasebook, vocab, grammar, notebook, search, TTS, modal
 assets/js/builder.js       narrowing builder engine (intent trees)
 data/source/*.json         authoring data (vocab, phrases, grammar, intents, numbers)
 tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugation
@@ -214,12 +220,14 @@ docs/                      this plan + pronunciation spec
 - **Data as JS globals** instead of `fetch(json)` so the app works from `file://` and needs
   no server or CORS handling.
 - **TTS** = Web Speech API (`ja-JP`), progressive enhancement only.
-- **Performance budget**: data ≈ 210 KB + app ≈ 30 KB; fonts optional via Google Fonts with
-  system fallbacks; renders 131 cards instantly.
-- **GitHub Pages deploy**: push to `main`, Settings → Pages → Deploy from branch `/root`.
-  (Optional `.nojekyll` is unnecessary since there are no underscore folders.)
-- **Phase 2 offline**: add `manifest.webmanifest` + service worker (cache-first), which turns
-  the page into an installable PWA — genuinely useful in Japan with spotty data.
+- **Offline (Phase 1, done)**: `sw.js` caches the whole app shell (cache-first with background
+  refresh) and Google Fonts (stale-while-revalidate). Installable via `manifest.webmanifest`.
+- **Favorites (Phase 1, done)**: `localStorage` (`qj.favs.v1`) stores saved phrases by id and
+  built sentences as full payloads, so the notebook survives data updates gracefully.
+- **Performance budget**: data ≈ 240 KB + app ≈ 40 KB; fonts optional via Google Fonts with
+  system fallbacks; renders 167 cards instantly.
+- **GitHub Pages deploy**: push to `main`, Settings → Pages → Deploy from branch `/root`
+  (already live at <https://teefan.github.io/quick-japanese/>).
 
 ---
 
@@ -239,10 +247,10 @@ docs/                      this plan + pronunciation spec
 
 | Phase | Scope |
 |---|---|
-| **0 — now (this repo)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, working prototype (4 tabs, TTS, show-mode, narrowing builder) |
-| **1 — MVP polish** | Favorites + “sổ tay của tôi” (localStorage); PWA offline; full-text search across tabs; hotel/pharmacy/insurance phrase sets; `noindex`/SEO meta; native-speaker review pass |
-| **2 — Scale content** | Expand to full N5 from OpenJLPT (+ Vietnamese meanings, reviewed); example sentences from Tatoeba; “Nghe & chọn” audio quiz; counters 1–10; pitch-accent display (Kanjium/OJAD) |
-| **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); saveas-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
+| **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
+| **1 — MVP polish (v0.2, now)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline (manifest + service worker) · ✅ Global search across tabs · ✅ Hotel / pharmacy / insurance & lost-property phrase sets (12 categories, 167 phrases) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (checklist in `docs/REVIEW-CHECKLIST.md`) |
+| **2 — Scale content** | Expand to full N5 from OpenJLPT (+ Vietnamese meanings, reviewed); example sentences from Tatoeba; “Nghe & chọn” audio quiz; counters 1–10; pitch-accent display (Kanjium/OJAD); notebook export/import JSON |
+| **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
 
 ---
 

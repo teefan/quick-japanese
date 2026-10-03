@@ -13,6 +13,8 @@
   --indigo-soft: #edeff9;
   --ok: #2e7d4f;
   --ok-soft: #e9f5ee;
+  --gold: #c9930a;
+  --gold-soft: #fdf5dd;
   --shadow: 0 1px 2px rgba(35, 38, 47, .05), 0 6px 20px -8px rgba(35, 38, 47, .12);
   --radius: 16px;
   --jp-font: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
@@ -32,6 +34,8 @@
     --indigo-soft: #242a45;
     --ok: #7fd0a2;
     --ok-soft: #1e3327;
+    --gold: #e8c15a;
+    --gold-soft: #332c17;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
   }
 }
@@ -86,6 +90,7 @@ button { font-family: inherit; color: inherit; }
 
 .brand h1 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
 .brand p { margin: 0; font-size: 12px; color: var(--muted); }
+.brand .icon-btn { margin-left: auto; }
 
 /* ---------- Layout ---------- */
 
@@ -185,6 +190,11 @@ main {
   transition: transform .08s ease;
 }
 .icon-btn:active { transform: scale(.92); }
+.icon-btn.fav-on {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
 
 .kana-line { font-family: var(--jp-font); font-size: 13px; color: var(--muted); margin-top: 2px; }
 .pron { color: var(--accent); font-weight: 600; font-size: 15px; margin-top: 6px; }
@@ -220,17 +230,17 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 1px;
   border: 0;
   background: none;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
-  padding: 6px 2px;
+  padding: 5px 1px;
   border-radius: 12px;
   cursor: pointer;
 }
-.tabs button .ico { font-size: 20px; line-height: 1; }
+.tabs button .ico { font-size: 18px; line-height: 1.2; }
 .tabs button.active { color: var(--accent); background: var(--accent-soft); }
 
 /* ---------- Builder ---------- */
