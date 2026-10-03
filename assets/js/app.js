@@ -60,6 +60,9 @@ const U = {
     u.rate = 0.92;
     speechSynthesis.speak(u);
   },
+  stopSpeak() {
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+  },
 
   async copy(text, label) {
     try {
@@ -335,6 +338,13 @@ function renderVocab() {
     </div>
 
     ${vocabState.tag === "all" && !q ? `
+      <div class="card quiz-banner">
+        <div class="qb-text">
+          <b>🎧 Nghe & chọn</b>
+          <span>Nghe câu tiếng Nhật, chọn nghĩa đúng — ${QUIZ_ROUND} câu một lượt.</span>
+        </div>
+        <button class="chip" data-act="open-quiz">Luyện ngay</button>
+      </div>
       <div class="section-title"><h2>🔢 Số đếm & lượng từ</h2><span class="desc">Kèm phiên âm từng cách đếm</span></div>
       ${counters}
       <div class="section-title"><h2>💴 Mệnh giá thường gặp</h2></div>
@@ -461,6 +471,231 @@ function renderGrammar() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+/* ------------------------------ Nghe & chọn (luyện tai) ------------------------------ */
+
+const QUIZ_KEY = "qj.quiz.v1";
+const QUIZ_ROUND = 10;   // số câu mỗi lượt
+const QUIZ_OPTS = 4;     // số lựa chọn mỗi câu
+const HAS_TTS = "speechSynthesis" in window;
+
+const quizState = {
+  pool: "phrases",   // phrases | vocab
+  view: "home",      // home | play | done
+  questions: [],
+  idx: 0,
+  picked: null,      // chỉ số lựa chọn đã bấm của câu hiện tại; null = chưa trả lời
+  score: 0,
+  wrong: [],
+};
+
+const Quiz = {
+  store() {
+    try { return JSON.parse(localStorage.getItem(QUIZ_KEY)) || {}; } catch { return {}; }
+  },
+  save(patch) {
+    try { localStorage.setItem(QUIZ_KEY, JSON.stringify({ ...Quiz.store(), ...patch })); } catch { /* riêng tư / hết chỗ */ }
+  },
+  best(pool) { return Number((Quiz.store().best || {})[pool] || 0); },
+};
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const quizPool = () => (quizState.pool === "vocab" ? QJ.vocab : PHRASE_ALL);
+
+/* Mỗi câu: 1 đáp án + 3 phương án nhiễu cùng nguồn, khác nghĩa */
+function makeQuestions() {
+  const pool = quizPool().filter(x => x.vi);
+  const answers = shuffle(pool).slice(0, Math.min(QUIZ_ROUND, pool.length));
+  return answers.map(answer => {
+    const opts = [answer];
+    const seen = new Set([answer.vi]);
+    for (const d of shuffle(pool)) {
+      if (opts.length >= QUIZ_OPTS) break;
+      if (seen.has(d.vi)) continue;
+      seen.add(d.vi);
+      opts.push(d);
+    }
+    return { answer, opts: shuffle(opts) };
+  });
+}
+
+function startQuiz() {
+  quizState.questions = makeQuestions();
+  quizState.idx = 0;
+  quizState.picked = null;
+  quizState.score = 0;
+  quizState.wrong = [];
+  quizState.view = "play";
+  renderQuiz();
+  speakCurrent();
+}
+
+function speakCurrent() {
+  const q = quizState.questions[quizState.idx];
+  if (q) U.speak(q.answer.jp);
+}
+
+function answerQuestion(i) {
+  if (quizState.picked !== null) return;
+  const q = quizState.questions[quizState.idx];
+  if (!q || i < 0 || i >= q.opts.length) return;
+  quizState.picked = i;
+  if (q.opts[i] === q.answer) quizState.score += 1;
+  else quizState.wrong.push(q.answer);
+  renderQuiz();
+  document.querySelector(".q-result")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function nextQuestion() {
+  if (quizState.picked === null) return;
+  if (quizState.idx + 1 >= quizState.questions.length) { finishQuiz(); return; }
+  quizState.idx += 1;
+  quizState.picked = null;
+  renderQuiz();
+  speakCurrent();
+}
+
+function finishQuiz() {
+  const st = Quiz.store();
+  const best = { ...(st.best || {}) };
+  const total = quizState.questions.length;
+  if (quizState.score > (best[quizState.pool] || 0)) best[quizState.pool] = quizState.score;
+  Quiz.save({
+    best,
+    rounds: (st.rounds || 0) + 1,
+    answered: (st.answered || 0) + total,
+    correct: (st.correct || 0) + quizState.score,
+  });
+  quizState.view = "done";
+  renderQuiz();
+}
+
+function quizItemCard(item) {
+  const key = U.register(item);
+  return `
+    <div class="card">
+      <div class="phrase-head">
+        <div class="phrase-jp">${U.esc(item.jp)}</div>
+        <button class="icon-btn" title="Nghe" data-act="speak" data-key="${key}">🔊</button>
+      </div>
+      ${item.kana && item.kana !== item.jp ? `<div class="kana-line">${U.esc(item.kana)}</div>` : ""}
+      <div class="pron">${U.esc(item.viPron || "")}${item.roma ? `<span class="roma"> · ${U.esc(item.roma)}</span>` : ""}</div>
+      <div class="meaning">${U.esc(item.vi)}</div>
+    </div>`;
+}
+
+function quizHomeHtml() {
+  const st = Quiz.store();
+  const best = Quiz.best(quizState.pool);
+  const maxScore = Math.min(QUIZ_ROUND, quizPool().length);
+  return `
+    <div class="b-top">
+      <button class="back" data-act="close-quiz">← Quay lại</button>
+      <div class="b-title">🎧 Nghe & chọn</div>
+    </div>
+    <div class="card quiz-hero">
+      <p>Nghe câu tiếng Nhật rồi chọn nghĩa đúng. Mỗi lượt ${QUIZ_ROUND} câu, biết đáp án ngay sau khi chọn.</p>
+      <div class="chip-row">
+        <button class="chip ${quizState.pool === "phrases" ? "active" : ""}" data-quiz="pool" data-pool="phrases">📖 Cụm từ (${PHRASE_ALL.length})</button>
+        <button class="chip ${quizState.pool === "vocab" ? "active" : ""}" data-quiz="pool" data-pool="vocab">📚 Từ vựng (${QJ.vocab.length})</button>
+      </div>
+      <div class="quiz-meta">
+        ${best ? `🏆 Điểm cao nhất: <b>${best}/${maxScore}</b>` : "Chưa có điểm — thử một lượt xem sao!"}${st.rounds ? ` · Đã chơi ${st.rounds} lượt` : ""}
+      </div>
+      ${HAS_TTS ? "" : `<div class="note">Thiết bị này không hỗ trợ đọc tiếng Nhật — app chuyển sang chế độ <b>Đọc & chọn</b>: chữ Nhật hiện thay cho âm thanh.</div>`}
+      <button class="q-start" data-quiz="start">▶ Bắt đầu ${QUIZ_ROUND} câu</button>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-top:14px">
+      Mẹo: bấm 🔊 nghe lại bao nhiêu lần cũng được. Trên máy tính, bấm phím 1–4 để chọn nhanh.
+    </p>`;
+}
+
+function quizResultHtml(q) {
+  const ok = q.opts[quizState.picked] === q.answer;
+  return `
+    <div class="card q-result ${ok ? "" : "no"}">
+      <div class="q-result-head">${ok ? "✓ Chính xác!" : "✗ Chưa đúng"}</div>
+      <div class="q-jp">${U.esc(q.answer.jp)}</div>
+      ${q.answer.kana && q.answer.kana !== q.answer.jp ? `<div class="kana-line">${U.esc(q.answer.kana)}</div>` : ""}
+      <div class="pron">${U.esc(q.answer.viPron || "")}${q.answer.roma ? `<span class="roma"> · ${U.esc(q.answer.roma)}</span>` : ""}</div>
+      <div class="meaning">${U.esc(q.answer.vi)}</div>
+      ${q.answer.note ? `<div class="note">${U.esc(q.answer.note)}</div>` : ""}
+      <div class="b-actions">
+        <button data-quiz="replay">🔊 Nghe lại</button>
+        <button class="primary" data-quiz="next">${quizState.idx + 1 >= quizState.questions.length ? "Xem kết quả →" : "Câu tiếp →"}</button>
+      </div>
+    </div>`;
+}
+
+function quizQuestionHtml() {
+  const q = quizState.questions[quizState.idx];
+  const answered = quizState.picked !== null;
+  const opts = q.opts.map((o, i) => {
+    let cls = "";
+    if (answered) cls = o === q.answer ? "correct" : i === quizState.picked ? "wrong" : "dim";
+    return `<button class="q-opt ${cls}" data-quiz="answer" data-idx="${i}" ${answered ? "disabled" : ""}>
+      <b>${U.esc(o.vi)}</b></button>`;
+  }).join("");
+  return `
+    <div class="b-top">
+      <button class="back" data-act="close-quiz">← Thoát</button>
+      <div class="b-title">🎧 Câu ${quizState.idx + 1}/${quizState.questions.length}</div>
+      <div class="b-tools"><span class="q-live-score">✓ ${quizState.score}</span></div>
+    </div>
+    <div class="q-progress"><i style="width:${Math.round((quizState.idx / quizState.questions.length) * 100)}%"></i></div>
+    <div class="card q-card">
+      ${HAS_TTS
+        ? `<button class="q-audio" data-quiz="replay">🔊 Nghe</button>
+           <div class="q-hint">Nghe kỹ rồi chọn nghĩa đúng</div>`
+        : `<div class="q-jp-fallback">${U.esc(q.answer.jp)}</div>
+           <div class="q-hint">Chọn nghĩa đúng của câu trên</div>`}
+      <div class="q-opts">${opts}</div>
+    </div>
+    ${answered ? quizResultHtml(q) : ""}`;
+}
+
+function quizDoneHtml() {
+  const total = quizState.questions.length;
+  const score = quizState.score;
+  const pct = total ? Math.round((score / total) * 100) : 0;
+  const msg = score === total ? "Tuyệt vời! Tai bạn rất nhạy 🎉"
+    : pct >= 80 ? "Giỏi lắm! Gần như hoàn hảo."
+    : pct >= 60 ? "Khá tốt — ôn lại vài câu bên dưới nhé."
+    : "Đừng lo, nghe lại vài lần là quen tai ngay.";
+  return `
+    <div class="b-top">
+      <button class="back" data-act="close-quiz">← Quay lại</button>
+      <div class="b-title">🎧 Kết quả</div>
+    </div>
+    <div class="card q-score">
+      <div class="q-score-num">${score}/${total}</div>
+      <div class="q-score-msg">${msg}</div>
+      <div class="q-score-sub">🏆 Điểm cao nhất: ${Quiz.best(quizState.pool)}/${Math.min(QUIZ_ROUND, quizPool().length)}</div>
+      <div class="b-actions" style="justify-content:center">
+        <button class="primary" data-quiz="again">🔁 Làm lại</button>
+        <button data-quiz="home">🎯 Đổi nội dung</button>
+      </div>
+    </div>
+    ${quizState.wrong.length ? `
+      <div class="section-title"><h2>📌 Nên ôn lại (${quizState.wrong.length})</h2></div>
+      ${quizState.wrong.map(quizItemCard).join("")}` : ""}`;
+}
+
+function renderQuiz() {
+  U.resetReg();
+  if (quizState.view === "play") view.innerHTML = quizQuestionHtml();
+  else if (quizState.view === "done") view.innerHTML = quizDoneHtml();
+  else view.innerHTML = quizHomeHtml();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 /* ------------------------------ Tìm kiếm toàn cục ------------------------------ */
 
 const searchState = { q: "" };
@@ -558,6 +793,27 @@ document.getElementById("tabs").addEventListener("click", e => {
 document.addEventListener("click", e => {
   if (e.target.closest("#gs-open")) { renderSearch(); return; }
 
+  if (e.target.closest("#quiz-open") || e.target.closest('[data-act="open-quiz"]')) { renderQuiz(); return; }
+
+  const closeQuiz = e.target.closest('[data-act="close-quiz"]');
+  if (closeQuiz) { U.stopSpeak(); switchTab(currentTab); return; }
+
+  const quizEl = e.target.closest("[data-quiz]");
+  if (quizEl) {
+    const action = quizEl.dataset.quiz;
+    if (action === "pool" && quizEl.dataset.pool !== quizState.pool) {
+      quizState.pool = quizEl.dataset.pool;
+      quizState.view = "home";
+      renderQuiz();
+    }
+    else if (action === "start" || action === "again") startQuiz();
+    else if (action === "answer") answerQuestion(Number(quizEl.dataset.idx));
+    else if (action === "replay") speakCurrent();
+    else if (action === "next") nextQuestion();
+    else if (action === "home") { quizState.view = "home"; renderQuiz(); }
+    return;
+  }
+
   const close = e.target.closest("[data-close-modal]");
   if (close) { U.closeModal(); return; }
 
@@ -654,7 +910,14 @@ document.addEventListener("click", e => {
 document.getElementById("modal").addEventListener("click", e => {
   if (e.target.id === "modal") U.closeModal();
 });
-document.addEventListener("keydown", e => { if (e.key === "Escape") U.closeModal(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") U.closeModal();
+  // Trong lúc luyện nghe, phím 1–4 chọn đáp án nhanh (chỉ khi màn hình quiz đang hiện)
+  if (quizState.view === "play" && quizState.picked === null && view.querySelector(".q-opts")) {
+    const n = Number(e.key);
+    if (n >= 1 && n <= QUIZ_OPTS) answerQuestion(n - 1);
+  }
+});
 
 if ("speechSynthesis" in window) {
   speechSynthesis.onvoiceschanged = () => U.pickVoice();
