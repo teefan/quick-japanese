@@ -397,7 +397,9 @@
             { "ref": "n-tamago", "next": "s-quantity" },
             { "ref": "n-toufu", "next": "s-quantity" },
             { "ref": "n-ebi", "next": "s-quantity" },
-            { "ref": "n-dezaato", "next": "s-quantity" }
+            { "ref": "n-dezaato", "next": "s-quantity" },
+            { "ref": "n5-669019c625", "next": "s-quantity" },
+            { "ref": "n5-5d72771a3c", "next": "s-quantity" }
           ]
         },
         "s-quantity": {
@@ -477,6 +479,8 @@
             { "ref": "n-toufu", "next": null },
             { "ref": "n-ebi", "next": null },
             { "ref": "n-dezaato", "next": null },
+            { "ref": "n5-669019c625", "next": null },
+            { "ref": "n5-5d72771a3c", "next": null },
             { "ref": "d-kore", "next": null },
             { "ref": "d-sore", "next": null }
           ]
@@ -496,6 +500,7 @@
             { "ref": "n-gyuunyuu", "next": null },
             { "ref": "n-nihonshu", "next": null },
             { "ref": "n-wain", "next": null },
+            { "ref": "n5-f843b00173", "next": null },
             { "ref": "d-kore", "next": null }
           ]
         },
@@ -510,6 +515,7 @@
             { "ref": "n-bentou", "next": null },
             { "ref": "n-pan", "next": null },
             { "ref": "n-kudamono", "next": null },
+            { "ref": "n5-669019c625", "next": null },
             { "ref": "d-kore", "next": null },
             { "ref": "d-sore", "next": null }
           ]
@@ -522,6 +528,8 @@
             { "ref": "n-menu", "next": null },
             { "ref": "n-chizu", "next": null },
             { "ref": "n-shashin", "next": null },
+            { "ref": "n5-92b1621231", "next": null },
+            { "ref": "n5-6485c3c2a7", "next": null },
             { "ref": "d-kore", "next": null }
           ]
         },
@@ -541,7 +549,13 @@
             { "ref": "n-cafe", "particle": "に", "vi": "đến quán cà phê", "next": null },
             { "ref": "n-super", "particle": "に", "vi": "đến siêu thị", "next": null },
             { "ref": "n-depat", "particle": "に", "vi": "đến trung tâm thương mại", "next": null },
-            { "ref": "n-mise", "particle": "に", "vi": "đến cửa hàng", "next": null }
+            { "ref": "n-mise", "particle": "に", "vi": "đến cửa hàng", "next": null },
+            { "ref": "n5-de5a452667", "particle": "に", "vi": "đến thư viện", "next": null },
+            { "ref": "n5-05cf590971", "particle": "に", "vi": "đến công viên", "next": null },
+            { "ref": "n5-8a88cfbcb8", "particle": "に", "vi": "đến rạp phim", "next": null },
+            { "ref": "n5-dd8ac16bd2", "particle": "に", "vi": "đến trường học", "next": null },
+            { "ref": "n5-06ac21dc7d", "particle": "に", "vi": "đến biển", "next": null },
+            { "ref": "n5-e8a5cbdf0a", "particle": "に", "vi": "đến núi", "next": null }
           ]
         }
       },
@@ -614,7 +628,12 @@
             { "ref": "n-cafe", "next": null },
             { "ref": "n-super", "next": null },
             { "ref": "n-depat", "next": null },
-            { "ref": "n-mise", "next": null }
+            { "ref": "n-mise", "next": null },
+            { "ref": "n5-92b1621231", "next": null },
+            { "ref": "n5-cdea017272", "next": null },
+            { "ref": "n5-6485c3c2a7", "next": null },
+            { "ref": "n5-669019c625", "next": null },
+            { "ref": "n5-f843b00173", "next": null }
           ]
         }
       },
@@ -652,7 +671,15 @@
             { "ref": "n-cafe", "next": null },
             { "ref": "n-super", "next": null },
             { "ref": "n-depat", "next": null },
-            { "ref": "n-mise", "next": null }
+            { "ref": "n-mise", "next": null },
+            { "ref": "n5-8b86921749", "next": null },
+            { "ref": "n5-de5a452667", "next": null },
+            { "ref": "n5-05cf590971", "next": null },
+            { "ref": "n5-8a88cfbcb8", "next": null },
+            { "ref": "n5-dd8ac16bd2", "next": null },
+            { "ref": "n5-992fc07339", "next": null },
+            { "ref": "n5-dcc87a37fb", "next": null },
+            { "ref": "n5-5620a00afc", "next": null }
           ]
         }
       },
@@ -721,7 +748,16 @@
             { "ref": "n-cafe", "next": null },
             { "ref": "n-super", "next": null },
             { "ref": "n-depat", "next": null },
-            { "ref": "n-mise", "next": null }
+            { "ref": "n-mise", "next": null },
+            { "ref": "n5-de5a452667", "next": null },
+            { "ref": "n5-05cf590971", "next": null },
+            { "ref": "n5-8a88cfbcb8", "next": null },
+            { "ref": "n5-dd8ac16bd2", "next": null },
+            { "ref": "n5-8b86921749", "next": null },
+            { "ref": "n5-dcc87a37fb", "next": null },
+            { "ref": "n5-5620a00afc", "next": null },
+            { "ref": "n5-06ac21dc7d", "next": null },
+            { "ref": "n5-e8a5cbdf0a", "next": null }
           ]
         },
         "s-place-taxi": {
@@ -740,7 +776,14 @@
             { "ref": "n-cafe", "next": null },
             { "ref": "n-super", "next": null },
             { "ref": "n-depat", "next": null },
-            { "ref": "n-mise", "next": null }
+            { "ref": "n-mise", "next": null },
+            { "ref": "n5-de5a452667", "next": null },
+            { "ref": "n5-05cf590971", "next": null },
+            { "ref": "n5-8a88cfbcb8", "next": null },
+            { "ref": "n5-dd8ac16bd2", "next": null },
+            { "ref": "n5-8b86921749", "next": null },
+            { "ref": "n5-dcc87a37fb", "next": null },
+            { "ref": "n5-5620a00afc", "next": null }
           ]
         },
         "s-place-train": {
@@ -912,7 +955,9 @@
             { "ref": "n-sumaho", "next": null },
             { "ref": "n-pasupooto", "next": null },
             { "ref": "n-kaban", "next": null },
-            { "ref": "n-kippu", "next": null }
+            { "ref": "n-kippu", "next": null },
+            { "ref": "n5-72eb77e07a", "next": null },
+            { "ref": "n5-9d648d38ad", "next": null }
           ]
         },
         "s-call-what": {

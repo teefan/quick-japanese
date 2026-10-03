@@ -208,15 +208,30 @@ function buildNumbers() {
 
 /* ------------------------------ Cây ghép câu ------------------------------ */
 
-function buildIntents(vocabById, numbers) {
-  const lex = buildLexicon(Object.values(vocabById), numbers);
+/* Builder dùng từ biên tập + **chỉ những từ N5 được ref trong intents.json**.
+   Nhờ vậy N5 vẫn không ảnh hưởng cách tách câu của nội dung cũ; build audit lại giúp. */
+function buildIntents(vocabById, vocabN5, numbers) {
+  const n5ById = new Map(vocabN5.map((v) => [v.id, v]));
   const src = read("intents.json");
+  const n5Refs = new Set();
+  for (const intent of src.intents) {
+    for (const step of Object.values(intent.steps)) {
+      for (const opt of step.options) {
+        if (opt.ref && n5ById.has(opt.ref)) n5Refs.add(opt.ref);
+      }
+    }
+  }
+  const allById = { ...vocabById };
+  for (const id of n5Refs) allById[id] = n5ById.get(id);
+  const lex = buildLexicon(Object.values(vocabById).concat([...n5Refs].map((id) => n5ById.get(id))), numbers);
+  auditN5Lexicon(src.intents, vocabById, n5ById, n5Refs, numbers);
+
   const intents = src.intents.map((intent) => {
     const steps = {};
     for (const [sid, step] of Object.entries(intent.steps)) {
       steps[sid] = {
         ...step,
-        options: step.options.map((opt) => enrichOption(opt, vocabById, lex)),
+        options: step.options.map((opt) => enrichOption(opt, allById, lex)),
       };
     }
     const template = (intent.template || null)?.map(enrichTemplateSeg);
@@ -229,6 +244,31 @@ function buildIntents(vocabById, numbers) {
     return { ...intent, template, steps };
   });
   return { intents };
+}
+
+/* Báo cáo (note) nếu từ N5 thêm vào lexicon làm đổi cách tách câu cố định nào */
+function auditN5Lexicon(intents, vocabById, n5ById, n5Refs, numbers) {
+  if (!n5Refs.size) return;
+  const before = buildLexicon(Object.values(vocabById), numbers);
+  const after = buildLexicon(Object.values(vocabById).concat([...n5Refs].map((id) => n5ById.get(id))), numbers);
+  const changed = [];
+  for (const intent of intents) {
+    for (const step of Object.values(intent.steps)) {
+      for (const opt of step.options) {
+        if (opt.ref || opt.silent || !opt.kana) continue;
+        const a = tokenize(opt.kana, before);
+        const b = tokenize(opt.kana, after);
+        const sa = a.parts.map((p) => p.kana).join("|");
+        const sb = b.parts.map((p) => p.kana).join("|");
+        if (sa !== sb || a.unknowns.length !== b.unknowns.length) changed.push(opt.jp || opt.kana);
+      }
+    }
+  }
+  if (changed.length) {
+    note(`N5 refs (${n5Refs.size} từ) đổi cách tách ${changed.length} câu cố định: ${changed.slice(0, 6).join(", ")}${changed.length > 6 ? "…" : ""}`);
+  } else {
+    note(`N5 refs: ${n5Refs.size} từ N5 được dùng trong builder, không đổi cách tách câu cố định nào`);
+  }
 }
 
 function enrichOption(opt, vocabById, lex) {
@@ -329,7 +369,7 @@ function main() {
   const vocab = buildVocab();
   const numbers = buildNumbers();
   const vocabN5 = buildVocabN5(vocab.items, numbers);
-  const intents = buildIntents(vocab.byId, numbers);
+  const intents = buildIntents(vocab.byId, vocabN5, numbers);
 
   /* Trọng âm (pitch accent) Kanjium — gắn theo id vào cả từ biên tập lẫn N5 */
   const accentMap = read("accents.json").items;

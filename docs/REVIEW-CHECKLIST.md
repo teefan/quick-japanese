@@ -20,6 +20,8 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
     4 dịch vụ × `〜を呼んでください` (nhánh tàu đã lọc điểm đến riêng).
 - [ ] Lựa chọn “Không cần chủ ngữ” ở mục “Tôi muốn…” có ổn khi đứng một mình không.
 - [ ] Câu cố định hiện bảng bóc tách: các mảnh tách đúng và dễ hiểu chưa.
+- [ ] Từ v2.1.0 option có thể là từ N5 (`n5-…`) — kiểm nghĩa tiếng Việt của chúng khi hiện trên chip
+      (nghĩa N5 đang chờ duyệt ở mục 4).
 
 ## 2. Số đếm & tiền
 

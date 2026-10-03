@@ -16,8 +16,8 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
   (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
   Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục.
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
-  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **~652 câu có thể
-  ghép** từ 13 cây; **104/183 từ biên tập** được dùng làm option.
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **~739 câu có thể
+  ghép** từ 13 cây; **104 từ biên tập + 18 từ N5** được dùng làm option.
 - **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
   460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
@@ -68,8 +68,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - 561 từ nhập một lần từ OpenJLPT v0.3.0 (CC BY-SA 4.0); `id` giữ mã gốc dạng `n5-<10 hex>`,
   `tags: ["n5"]`, động từ dùng `dict`/`kana`/`group`. Từ kana-only bỏ `jp` (build tự lấy `kana`).
 - Nghĩa tiếng Việt do dự án biên tập; khi sửa phải giữ đúng `kana` gốc.
-- File này **không** đi vào `buildLexicon`/builder — chỉ sinh `data/vocab-n5.js` cho tab Từ vựng.
-  Muốn một từ N5 xuất hiện trong builder thì thêm bản biên tập vào `vocab.json` (và `ref` như bình thường).
+- File này **không** đi vào `buildLexicon` chung — chỉ sinh `data/vocab-n5.js` cho tab Từ vựng.
+  **Từ v2.1.0 builder có thể tham chiếu thẳng id N5** (`"ref": "n5-…"`): build chỉ đưa **đúng
+  những từ N5 được ref** vào lexicon của builder và tự audit — nếu cách tách câu cố định nào đổi,
+  build in ghi chú để rà lại (hiện 18 từ, 0 câu đổi). Từ N5 dùng được cả `form` (chia sẵn như từ biên tập).
 
 ### Câu ví dụ N5 — `data/source/vocab-n5-examples.json`
 ```jsonc
@@ -124,9 +126,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - **Thứ tự nhóm builder**: `GROUP_ORDER` trong `builder.js` (cố định, cơ bản nhất trước).
 - **Lịch sự**: chỉ です/ます trong câu chuẩn; thể thân mật chỉ để trong `note`.
 - **Dữ liệu sinh ra**: compact JSON + bỏ field rỗng (prune). Đừng sửa `data/*.js`.
-- **N5 tách rời**: `vocab-n5` không được đưa vào segmenter/builder — tránh đổi cách tách câu của
-  nội dung hiện có. Riêng câu ví dụ dùng **lexicon cục bộ** (curated + N5 + `EXAMPLE_EXTRA_KANA`)
-  chỉ để sinh phiên âm, không ảnh hưởng kết quả tách câu của cây ghép.
+- **N5 tách rời**: `vocab-n5` không đi vào lexicon chung; builder chỉ nhận **các từ N5 được ref
+  trong intents.json** (kèm audit tự động), nhờ vậy không đổi cách tách câu của nội dung cũ.
+  Riêng câu ví dụ dùng **lexicon cục bộ** (curated + N5 + `EXAMPLE_EXTRA_KANA`) chỉ để sinh
+  phiên âm, không ảnh hưởng kết quả tách câu của cây ghép.
 - **Furigana câu ví dụ**: build đọc `{漢|かん}` để lấy kana; chỉ ghi đè は/へ khi ký tự đó là kana
   viết thẳng và token đúng là trợ từ.
 - **Trọng âm**: chỉ hiển thị khi `accent` tồn tại; mora cao = `i ≥ 2` và (`accent = 0` hoặc `i ≤ accent`),
@@ -135,7 +138,8 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 
 ## 5. Kiểm thử & deploy
 
-1. `npm run build` — phải **0 cảnh báo** (chỉ còn ghi chú thống kê ví dụ + trọng âm).
+1. `npm run build` — phải **0 cảnh báo** (còn vài ghi chú thống kê: ví dụ N5, N5 refs trong
+   builder, trọng âm).
 2. `node --check` các file JS đã sửa.
 3. Mở app (nhớ xoá SW khi test): kiểm 2 tab, **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
    hiện bảng cấu trúc), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ + 🔊, trọng âm
@@ -177,3 +181,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - **v2.0.0 thu hẹp sản phẩm** theo yêu cầu: bỏ cụm từ, sổ tay, ngữ pháp, quiz, tìm kiếm toàn cục;
   xoá luôn dữ liệu/grammar refs để không còn code chết (grammar metadata trong `segment.js`,
   `grammar` array trong intents, CSS/JS của các tính năng cũ).
+- **N5 vào builder (v2.1.0)**: cho phép `ref` trỏ thẳng id N5 thay vì phải chép sang `vocab.json`;
+  builder chỉ nạp **các từ N5 được tham chiếu** và build audit lại — thử nghiệm 100 từ cho
+  0/98 câu cố định đổi cách tách, thực tế 18 từ cũng 0 câu đổi. Tránh nhân bản dữ liệu và giữ
+  nguyên nguyên tắc "N5 không đụng nội dung đã kiểm duyệt".

@@ -4,10 +4,10 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v2.0.1)** — live at <https://teefan.github.io/quick-japanese/>:
-> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 13 intent trees (4 groups) · ~652 combinable sentences
-> · 744 words (183 curated + 561 N5, lazy-loaded) · 460 N5 example sentences (Tatoeba)
-> · 726 pitch accents (Kanjium) · 6 counters (1–10).
+> **Current status (v2.1.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 13 intent trees (4 groups) · ~739 combinable sentences
+> (104 curated + 18 N5 words as options) · 744 words (183 curated + 561 N5, lazy-loaded)
+> · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium) · 6 counters (1–10).
 > PWA cache `qj-v2.0.0`. Regression: 13 intents × 3 random paths = 39/39, no JS errors.
 > **v2.0.0 narrowed the product**: phrases/cụm từ, notebook/sổ tay, grammar/ngữ pháp, quiz
 > “Nghe & chọn” and global search were removed — all still available in git history (v1.6.1).
@@ -125,9 +125,11 @@ Supported groups: `godan`, `ichidan`, `suru` (incl. compounds like 試着する)
 
 `vocab-n5.json` holds 561 additional JLPT N5 words imported once from
 [OpenJLPT](https://github.com/evanclan/OpenJLPT) v0.3.0 (CC BY-SA 4.0) with Vietnamese glosses
-authored by the project. They are enriched like curated words but **not** fed into the sentence
-segmenter or the builder; the build emits them to `data/vocab-n5.js`, which the app lazy-loads
-on idle and paginates in the Từ vựng tab, keeping the initial payload flat.
+authored by the project. They are enriched like curated words but are **not** fed into the shared
+sentence segmenter; the build emits them to `data/vocab-n5.js`, which the app lazy-loads on idle
+and paginates in the Từ vựng tab, keeping the initial payload flat. Since v2.1.0 the builder may
+reference N5 ids directly (`"ref": "n5-…"`): only the referenced N5 words join the builder lexicon,
+and the build audits that no existing fixed sentence changes segmentation.
 
 `vocab-n5-examples.json` adds one example sentence for 460 of those words: Japanese text from
 Tatoeba (CC BY 2.0 FR) via OpenJLPT, original furigana markup (`furi`) for exact readings,
@@ -152,9 +154,9 @@ on every vocab card.
 ### 5.3 Intents / builder trees (`data/source/intents.json`)
 
 See §6. Intents carry a `group` (one of the four builder groups); steps hold `options` where an
-option can be a vocabulary `ref` (+ `form`), a `silent` branch choice, or a fixed sentence
-(with optional `roma`/`viPron` overrides and automatic `parts` segmentation).
-Validation at build time: unique IDs, all `ref` exist, all `next` steps exist.
+option can be a vocabulary `ref` (+ `form`) from `vocab.json` or `vocab-n5.json`, a `silent`
+branch choice, or a fixed sentence (with optional `roma`/`viPron` overrides and automatic `parts`
+segmentation). Validation at build time: unique IDs, all `ref` exist, all `next` steps exist.
 
 ---
 
@@ -215,7 +217,7 @@ management (agree/decline/don’t-understand), transactions (order, buy, ask pri
 travel (train/taxi, hotel), and emergencies/health. Combinatorial branches multiply coverage
 from a small data set: e.g. 6 verbs × `〜てくれてありがとう` for thanks, 5 body parts × `〜が痛いです`,
 4 items × `〜をなくしました / 〜を盗まれました`, 4 services × `〜を呼んでください`.
-The current 13 trees yield **~652 distinct sentences** and reference **104/183 curated words**
+The current 13 trees yield **~739 distinct sentences** and reference **104 curated + 18 N5 words**
 as options. Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)
