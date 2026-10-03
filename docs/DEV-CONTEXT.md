@@ -146,7 +146,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 
 ## 5. Kiểm thử & deploy
 
-1. `npm run build` — phải **0 cảnh báo** (1 ghi chú fallback `ご迷惑をおかけしました` là bình thường).
+1. `npm run build` — phải **0 cảnh báo** (chỉ còn ghi chú thống kê câu ví dụ N5).
 2. `node --check` các file JS đã sửa.
 3. Mở app (nhớ xoá SW khi test): kiểm 5 tab, tìm kiếm, builder chạy ngẫu nhiên vài cây, lưu Sổ tay,
    **Nghe & chọn** (chạy hết 1 lượt ở cả 2 nguồn, thử 🔊 nghe lại + phím 1–4), **N5** (chip 🌱,
@@ -168,8 +168,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   ✅ **câu ví dụ Tatoeba (v1.5.0)** — 460/561 từ N5, furigana gốc → kana + phiên âm, nghĩa Việt
   biên tập, hiện trên thẻ từ vựng + kết quả quiz. Còn lại: **pitch accent** (Kanjium/OJAD —
   cần xử lý trùng âm + thiết kế hiển thị).
-- **Tồn đã biết**: `ご迷惑をおかけしました` chưa tách mảnh (fallback 1 dòng); nhánh taxi vẫn cho chọn
-  `トイレ` (chấp nhận được); nghĩa 561 từ N5 + **460 câu ví dụ** chờ kiểm duyệt; 101 từ N5 chưa có
+- **Tồn đã biết**: nghĩa 561 từ N5 + **460 câu ví dụ** chờ kiểm duyệt; 101 từ N5 chưa có
   câu ví dụ phù hợp; file N5 tải nền giờ ≈ 259 KB (vẫn lazy, không vào payload đầu).
 
 ## 7. Lịch sử quyết định ngắn

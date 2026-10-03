@@ -690,7 +690,16 @@ function renderGrammar() {
               <div class="ex-vi">${U.esc(e.vi)}</div>
             </div>`).join("")}
         </div>
-      </details>`).join("")}`;
+      </details>`).join("")}
+    <div class="card src-note">
+      <b>📜 Nguồn dữ liệu</b>
+      <p>
+        Từ vựng JLPT N5: <a href="https://github.com/evanclan/OpenJLPT" target="_blank" rel="noopener">OpenJLPT</a> (CC BY-SA 4.0).
+        Câu ví dụ: <a href="https://tatoeba.org" target="_blank" rel="noopener">Tatoeba</a> (CC BY 2.0 FR) qua OpenJLPT.
+        Nghĩa tiếng Việt, phiên âm và nội dung còn lại do dự án biên tập.
+      </p>
+      <p>Mã nguồn <a href="https://github.com/teefan/quick-japanese" target="_blank" rel="noopener">teefan/quick-japanese</a> (MIT).</p>
+    </div>`;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 

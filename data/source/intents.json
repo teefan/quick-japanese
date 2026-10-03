@@ -596,7 +596,7 @@
                 { "text": "お願いします", "kana": "おねがいします", "vi": "xin nhờ / làm ơn" }
               ],
               "viTemplateOverride": "Làm ơn đưa tôi đến {place}",
-              "next": "s-place"
+              "next": "s-place-taxi"
             },
             {
               "silent": true, "label": "Tàu này có đi… không?", "vi": "(tàu này có đi)",
@@ -618,6 +618,20 @@
             { "ref": "n-kukou", "next": null },
             { "ref": "n-hoteru", "next": null },
             { "ref": "n-toire", "next": null },
+            { "ref": "n-onsen", "next": null },
+            { "ref": "n-ichiba", "next": null },
+            { "ref": "n-ginkou", "next": null },
+            { "ref": "n-byouin", "next": null },
+            { "ref": "n-basutei", "next": null }
+          ]
+        },
+        "s-place-taxi": {
+          "prompt": "Điểm đến là đâu?",
+          "slot": "place",
+          "options": [
+            { "ref": "n-eki", "next": null },
+            { "ref": "n-kukou", "next": null },
+            { "ref": "n-hoteru", "next": null },
             { "ref": "n-onsen", "next": null },
             { "ref": "n-ichiba", "next": null },
             { "ref": "n-ginkou", "next": null },

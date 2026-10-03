@@ -271,8 +271,8 @@ A full audit of the builder produced these fixes:
 - **Relevance** — grammar chips are derived from the grammar actually present in the current
   sentence (particles/forms the learner picked), falling back to the intent’s list only before
   the first pick — no more “です” chip on こんにちは.
-- **Validation** — build warns on unknown chunks and grammar refs; only one fixed option
-  (`ご迷惑をおかけしました`) intentionally falls back to a single-row breakdown.
+- **Validation** — build warns on unknown chunks and grammar refs; every fixed option now
+  segments into pieces (`ご迷惑をおかけしました` → ご迷惑 + を + お掛け + しました).
 - **Payload** — generated data switched to compact JSON with empty fields pruned:
   611 KB → 349 KB, everything else unchanged.
 

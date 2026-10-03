@@ -179,6 +179,8 @@ const EXPRESSIONS = [
   { kana: "いらっしゃいませ", jp: "いらっしゃいませ", vi: "chào mừng quý khách", note: "câu cửa miệng của nhân viên" },
   { kana: "かしこまりました", jp: "かしこまりました", vi: "vâng, tôi đã hiểu ạ", note: "nhân viên xác nhận yêu cầu" },
   { kana: "もうしわけございません", jp: "申し訳ございません", vi: "thành thật xin lỗi ạ", note: "xin lỗi trang trọng nhất" },
+  { kana: "ごめいわく", jp: "ご迷惑", vi: "sự phiền phức / làm phiền", note: "trong ご迷惑をおかけしました = đã làm phiền quý vị", role: "noun" },
+  { kana: "おかけ", jp: "お掛け", vi: "gây ra (kính ngữ)", note: "từ かける — 迷惑をかける = gây phiền", role: "verb" },
   { kana: "しょうしょう", jp: "少々", vi: "một chút (lịch sự)" },
   { kana: "おまち", jp: "お待ち", vi: "chờ đợi", note: "trong お待ちください = xin chờ" },
   { kana: "また", jp: "また", vi: "lại, lần nữa" },
