@@ -101,8 +101,10 @@ const VOWEL_OF = { a: "a", i: "i", u: "ư", e: "ê", o: "ô" };
  * Chuyển một chuỗi kana thành { roma, viPron }.
  * @param {string} input  chuỗi hiragana/katakana (cho phép lẫn kanji — kanji bị bỏ qua)
  * @param {{roma?:string, vi?:string}} [override]
+ * @param {Object<number,{roma:string,vi:string}>} [posOverride] ghi đè theo vị trí ký tự
+ *        (dùng để đọc trợ từ は/へ/を đúng trong câu ví dụ)
  */
-function translit(input, override) {
+function translit(input, override, posOverride) {
   const kana = kataToHira(input || "");
   const groups = []; // { roma, vi }
   let pending = null; // âm gấp của っ
@@ -140,6 +142,7 @@ function translit(input, override) {
       pending = null;
     }
 
+    const pos = posOverride && posOverride[i];
     if (m.isN) {
       const nxt = peek(kana, i + 1);
       let vi = "n";
@@ -147,17 +150,18 @@ function translit(input, override) {
         if (/^[pbm]/.test(nxt.roma)) vi = "m";
         else if (/^[kg]/.test(nxt.roma)) vi = "ng";
       }
+      if (pos) { vi = pos.vi; }
       if (groups.length) {
-        groups[groups.length - 1].roma += "n";
+        groups[groups.length - 1].roma += pos ? pos.roma : "n";
         groups[groups.length - 1].vi += vi;
       } else {
-        groups.push({ roma: "n", vi });
+        groups.push({ roma: pos ? pos.roma : "n", vi });
       }
     } else {
-      let vi = m.vi;
+      let vi = pos ? pos.vi : m.vi;
       // う sau một nguyên âm: viết "u" cho dễ đọc và nhất quán (とう -> "tô-u", アウト -> "a-u-tô")
-      if (m.roma === "u" && groups.length) vi = "u";
-      groups.push({ roma: m.roma, vi });
+      if (!pos && m.roma === "u" && groups.length) vi = "u";
+      groups.push({ roma: pos ? pos.roma : m.roma, vi });
     }
     i += m.len;
   }

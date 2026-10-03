@@ -590,6 +590,22 @@ main {
   letter-spacing: .02em;
 }
 
+/* Câu ví dụ trong thẻ từ vựng (Tatoeba, nghĩa Việt do dự án biên tập) */
+.w-ex {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+.w-ex-audio { width: 26px; height: 26px; font-size: 12px; flex: none; }
+.w-ex-body { min-width: 0; }
+.w-ex-jp { font-family: var(--jp-font); font-size: 13.5px; line-height: 1.5; }
+.w-ex-pron { color: var(--accent); font-weight: 600; font-size: 12px; margin-top: 1px; }
+.w-ex-pron .roma { font-size: 11.5px; }
+.w-ex-vi { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
+
 .counter-card .combo-row {
   display: flex;
   flex-wrap: wrap;
@@ -681,6 +697,7 @@ main {
 
 .q-result { border-left: 4px solid var(--ok); }
 .q-result.no { border-left-color: var(--accent); }
+.q-result .w-ex { text-align: left; margin-top: 12px; }
 .q-result-head { font-weight: 700; font-size: 14px; color: var(--ok); }
 .q-result.no .q-result-head { color: var(--accent); }
 .q-result .q-jp { font-family: var(--jp-font); font-size: 21px; font-weight: 700; margin-top: 6px; line-height: 1.45; }

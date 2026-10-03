@@ -4,12 +4,12 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v1.4.0, commit `46bef46`)** — live at <https://teefan.github.io/quick-japanese/>:
-> 744 words (183 curated + 561 N5, N5 lazy-loaded) · 167 phrases (12 categories) · 22 grammar points
-> · 13 intent trees (4 groups) · 6 counters (1–10) · 🎧 Nghe & chọn quiz
-> · ⭐ notebook export/import JSON.
-> PWA cache `qj-v1.4.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn,
-> N5 561 từ tải nền + phân trang, no JS errors.
+> **Current status (v1.5.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> 744 words (183 curated + 561 N5, N5 lazy-loaded) · **460 N5 example sentences (Tatoeba)** · 167 phrases
+> (12 categories) · 22 grammar points · 13 intent trees (4 groups) · 6 counters (1–10)
+> · 🎧 Nghe & chọn quiz · ⭐ notebook export/import JSON.
+> PWA cache `qj-v1.5.0`. Regression: 13 intents × 3 random paths = 39/39, quiz chạy hết lượt cả 2 nguồn,
+> N5 561 từ tải nền + phân trang + ví dụ, no JS errors.
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
 
 ---
@@ -46,7 +46,7 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
 | [OpenJLPT](https://github.com/evanclan/OpenJLPT) (CC BY-SA 4.0) | N5 vocabulary scope (662 words) and example sentence schema for Phase 2 expansion |
 | [hingston/japanese](https://github.com/hingston/japanese) (Leeds corpus frequency list) | Frequency ranking to keep “popular vocabulary” actually popular |
 | [JMdict-simplified](https://github.com/scriptin/jmdict-simplified) (EDRDG, CC BY-SA 4.0) | Future: kanji/kana/readings validation, parts of speech |
-| [Tatoeba](https://tatoeba.org) (CC BY 2.0 FR) | Future: Japanese example sentences with translations |
+| [Tatoeba](https://tatoeba.org) (CC BY 2.0 FR) | Japanese example sentences (460 selected for N5 words, via OpenJLPT) |
 | [rspeer/wordfreq](https://github.com/rspeer/wordfreq) | Future: frequency filtering across corpora |
 
 **Key content decisions**
@@ -133,6 +133,13 @@ Supported groups: `godan`, `ichidan`, `suru` (incl. compounds like 試着する)
 authored by the project. They are enriched like curated words but **not** fed into the sentence
 segmenter or the builder; the build emits them to `data/vocab-n5.js`, which the app lazy-loads
 on idle and paginates in the Từ vựng tab, keeping the initial payload flat.
+
+`vocab-n5-examples.json` adds one example sentence for 460 of those words: Japanese text from
+Tatoeba (CC BY 2.0 FR) via OpenJLPT, original furigana markup (`furi`) for exact readings,
+and project-authored Vietnamese translations. The build derives kana + `viPron`/`roma` from
+the furigana and an N5-extended lexicon (so particles は/へ read `oa`/`ê` correctly, and kanji
+readings are never mistaken for particles); examples are attached to `vocab-n5.js` and shown
+on vocab cards + quiz results. Words without a suitable polite/natural example are omitted.
 
 ### 5.2 Phrases (`data/source/phrases.json`)
 
@@ -316,8 +323,8 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 - **Favorites (Phase 1, done)**: `localStorage` (`qj.favs.v1`) stores saved phrases by id and
   built sentences as full payloads; exported/imported as versioned JSON (`qj-notebook` format).
 - **Performance budget**: initial payload ≈ 435 KB (compact JSON, empty fields pruned) + lazy N5
-  list 133 KB; fonts optional via Google Fonts with system fallbacks; vocab list paginates at 60
-  cards and renders 167 phrase cards instantly.
+  list ≈ 259 KB with 460 example sentences; fonts optional via Google Fonts with system fallbacks;
+  vocab list paginates at 60 cards and renders 167 phrase cards instantly.
 - **GitHub Pages deploy**: push to `main`, Settings → Pages → Deploy from branch `/root`
   (already live at <https://teefan.github.io/quick-japanese/>).
 
@@ -331,7 +338,8 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 4. No copied phrase lists: content is hand-authored and cross-checked against the sources in §2;
    third-party datasets keep their licenses and attribution (see §11).
 5. Vocabulary scope: JLPT N5 + travel essentials; ✅ N5 imported from OpenJLPT (561 từ mới, nghĩa
-   Việt biên tập tay, chờ kiểm duyệt cùng `REVIEW-CHECKLIST.md`).
+   Việt biên tập tay, chờ kiểm duyệt cùng `REVIEW-CHECKLIST.md`); ✅ 460 từ N5 có câu ví dụ
+   Tatoeba (lọc câu lịch sự/tự nhiên, nghĩa Việt biên tập, cũng chờ kiểm duyệt).
 6. Vietnamese wording: natural, traveler-oriented, avoiding machine-translation tone.
 
 ---
@@ -342,7 +350,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 |---|---|
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
 | **1 — MVP polish (v0.2 → v1.2.5)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta · ⏳ Native-speaker review pass (`docs/REVIEW-CHECKLIST.md`) |
-| **2 — Scale content (v1.3.0 → now)** | ✅ “Nghe & chọn” audio quiz (10 câu/lượt, 2 nguồn, TTS + fallback Đọc & chọn, lưu điểm cao) · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang; nghĩa Việt chờ kiểm duyệt) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON (versioned format, merge/replace) · ⏳ Example sentences from Tatoeba · ⏳ Pitch-accent display (Kanjium/OJAD) |
+| **2 — Scale content (v1.3.0 → now)** | ✅ “Nghe & chọn” audio quiz (10 câu/lượt, 2 nguồn, TTS + fallback Đọc & chọn, lưu điểm cao) · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang; nghĩa Việt chờ kiểm duyệt) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON (versioned format, merge/replace) · ✅ Example sentences from Tatoeba (460/561 từ N5, furigana gốc → kana + phiên âm, nghĩa Việt biên tập, hiện trên thẻ từ vựng + kết quả quiz) · ⏳ Pitch-accent display (Kanjium/OJAD) |
 | **3 — Delight** | Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card for offline sharing; menu-photo OCR via platform APIs (optional); English UI toggle |
 
 ---
@@ -356,6 +364,10 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
   **CC BY-SA 4.0** — 561 entries in `data/source/vocab-n5.json`, Vietnamese glosses authored by
   this project (not from OpenJLPT). Attribution lives in the file header (`note`/`source`),
   README §Giấy phép and this section.
+- **Example sentences**: [Tatoeba](https://tatoeba.org) — **CC BY 2.0 FR** — 460 sentences in
+  `data/source/vocab-n5-examples.json`, taken from OpenJLPT's example lists (which carry the
+  Tatoeba sentence id and furigana). Vietnamese translations authored by this project.
+  Attribution in the file header, README §Giấy phép and this section.
 - Planned/optional imports: JMdict/JMdict-simplified **EDRDG license (CC BY-SA 4.0)**,
   Tatoeba **CC BY 2.0 FR**, Kanjium **CC BY-SA 4.0**, frequency lists per their repos.
 - Wikivoyage used as *reference only*; no verbatim copying (CC BY-SA requires attribution if

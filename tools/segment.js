@@ -466,12 +466,12 @@ function tokenize(kana, lex) {
         j += 1;
       }
       unknowns.push(chunk);
-      parts.push({ kana: chunk, jp: chunk, vi: "", note: "chưa tách được nghĩa", unknown: true });
+      parts.push({ kana: chunk, jp: chunk, vi: "", note: "chưa tách được nghĩa", unknown: true, start: node.start });
       i = j;
       continue;
     }
     const e = node.entry;
-    parts.push({ ...e, kana: e.kana, jp: e.jp });
+    parts.push({ ...e, kana: e.kana, jp: e.jp, start: node.start });
     i += 1;
   }
   return { parts, unknowns };

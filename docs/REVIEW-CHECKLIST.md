@@ -1,8 +1,8 @@
 # Checklist kiểm duyệt bởi người bản ngữ
 
 Mục tiêu: rà soát độ **tự nhiên – lịch sự – chính xác** của toàn bộ nội dung (Phase 1 + 561 từ
-N5 của Phase 2) trước khi coi nội dung hoàn tất. Ưu tiên người Nhật bản ngữ hoặc giáo viên tiếng
-Nhật; có thể chia nhỏ theo nhóm.
+N5 + 460 câu ví dụ của Phase 2) trước khi coi nội dung hoàn tất. Ưu tiên người Nhật bản ngữ hoặc
+giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 
 ## 1. Cụm từ (167 câu, 12 nhóm)
 
@@ -54,7 +54,20 @@ Nhật; có thể chia nhỏ theo nhóm.
 - [ ] Từ kana-only hiển thị không bị lặp chữ; từ katakana đúng chính tả.
 - [ ] Ghi chú dữ liệu: `せっけん` gốc OpenJLPT ghi “economy” — dự án đã sửa nghĩa Việt thành “xà phòng”.
 
-## 6. Cách ghi nhận kết quả
+## 6. Câu ví dụ N5 (460 câu, `data/source/vocab-n5-examples.json`)
+
+- [ ] Câu tiếng Nhật tự nhiên, đúng ngữ cảnh của từ; không phải câu quá văn vẻ, tục, hoặc nghĩa
+      lệch với từ đang minh hoạ.
+- [ ] Độ lịch sự: ưu tiên です/ます/ください; câu thể thân mật (nếu còn) phải chấp nhận được và
+      không dạy thói quen phản cảm.
+- [ ] `kana` khớp furigana gốc; cách đọc tên riêng/katakana đúng (đặc biệt trường âm ー).
+- [ ] Phiên âm Việt đọc đúng trợ từ `は`→oa, `へ`→ê, `を`→ô; không đọc nhầm は trong 母 (はは),
+      流行る (はやる), はっきり, はかり…
+- [ ] Nghĩa tiếng Việt tự nhiên, đúng thì/thể của câu Nhật; xưng hô nhất quán (tôi/bạn/anh ấy…).
+- [ ] Nếu câu không đạt: sửa `jp`/`furi`/`kana`/`vi` trong file, hoặc xoá mục đó (app chỉ hiện
+      ví dụ khi có), rồi `npm run build`.
+
+## 7. Cách ghi nhận kết quả
 
 - Sửa trực tiếp `data/source/*.json` (kèm ghi chú nếu là ngoại lệ), chạy `npm run build`, mở PR.
 - Hoặc mở issue theo mẫu: `review: <nhóm> — <câu/nhánh> — đề xuất`.

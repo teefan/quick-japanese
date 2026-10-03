@@ -345,8 +345,23 @@ function vocabFilter(v) {
   return (v.tags || []).includes(t);
 }
 
+function exampleHtml(ex) {
+  if (!ex) return "";
+  const key = U.register({ jp: ex.jp, kana: ex.kana, viPron: ex.viPron, vi: ex.vi });
+  return `
+    <div class="w-ex">
+      <button class="icon-btn w-ex-audio" title="Nghe câu ví dụ" data-act="speak" data-key="${key}">🔊</button>
+      <div class="w-ex-body">
+        <div class="w-ex-jp">${U.esc(ex.jp)}</div>
+        <div class="w-ex-pron">${U.esc(ex.viPron || "")}${ex.roma ? `<span class="roma"> · ${U.esc(ex.roma)}</span>` : ""}</div>
+        <div class="w-ex-vi">${U.esc(ex.vi)}</div>
+      </div>
+    </div>`;
+}
+
 function vocabCard(v) {
   const key = U.register({ jp: v.jp, kana: v.kana, viPron: v.viPron, vi: v.vi });
+  const ex = Array.isArray(v.examples) ? v.examples[0] : null;
   let extra = "";
   if (v.pos === "verb" && v.forms) {
     extra = `ます: ${U.esc(v.forms.masu.jp)} (${U.esc(v.forms.masu.kana)}) · て: ${U.esc(v.forms.te.jp)}`;
@@ -364,6 +379,7 @@ function vocabCard(v) {
       <div class="pron" style="font-size:13.5px">${U.esc(v.viPron)}<span class="roma"> · ${U.esc(v.roma || "")}</span></div>
       <div class="w-meaning">${U.esc(v.vi)}</div>
       ${extra ? `<div class="w-extra">${extra}</div>` : ""}
+      ${exampleHtml(ex)}
     </div>`;
 }
 
@@ -832,6 +848,7 @@ function quizResultHtml(q) {
       <div class="pron">${U.esc(q.answer.viPron || "")}${q.answer.roma ? `<span class="roma"> · ${U.esc(q.answer.roma)}</span>` : ""}</div>
       <div class="meaning">${U.esc(q.answer.vi)}</div>
       ${q.answer.note ? `<div class="note">${U.esc(q.answer.note)}</div>` : ""}
+      ${exampleHtml(Array.isArray(q.answer.examples) ? q.answer.examples[0] : null)}
       <div class="b-actions">
         <button data-quiz="replay">🔊 Nghe lại</button>
         <button class="primary" data-quiz="next">${quizState.idx + 1 >= quizState.questions.length ? "Xem kết quả →" : "Câu tiếp →"}</button>

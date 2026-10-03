@@ -49,6 +49,8 @@ const warnings = [];
 const warn = (msg) => warnings.push(msg);
 const debugs = [];
 const debug = (msg) => debugs.push(msg);
+const notes = [];
+const note = (msg) => notes.push(msg);
 
 /* ------------------------------ Từ vựng ------------------------------ */
 
@@ -104,9 +106,64 @@ function buildVocab() {
   return { items, byId: Object.fromEntries(items.map((i) => [i.id, i])) };
 }
 
-/* Từ vựng N5 bổ sung: chỉ dùng cho tab Từ vựng / tìm kiếm / quiz, không vào bộ ghép câu */
-function buildVocabN5() {
-  return buildVocabItems(read("vocab-n5.json").items);
+/* Từ vựng N5 bổ sung: chỉ dùng cho tab Từ vựng / tìm kiếm / quiz, không vào bộ ghép câu.
+   Kèm câu ví dụ (data/source/vocab-n5-examples.json) — không đưa N5 vào lexicon chung,
+   chỉ mở rộng lexicon cục bộ để đọc đúng trợ từ は/へ trong câu ví dụ. */
+const EXAMPLE_EXTRA_KANA = ["はっきり", "はかり"]; // từ kana dễ bị tách nhầm thành trợ từ は
+function buildVocabN5(vocabItems, numbers) {
+  const items = buildVocabItems(read("vocab-n5.json").items);
+  const src = read("vocab-n5-examples.json");
+  const extra = EXAMPLE_EXTRA_KANA.map((k) => ({ pos: "expression", kana: k, jp: k, vi: "" }));
+  const lex = buildLexicon(vocabItems.concat(items).concat(extra), numbers);
+  const byId = new Map(items.map((i) => [i.id, i]));
+  let count = 0;
+  for (const [id, ex] of Object.entries(src.items || {})) {
+    const item = byId.get(id);
+    if (!item) { warn(`[ví dụ] id không tồn tại trong vocab-n5: ${id}`); continue; }
+    if (!ex.jp || !ex.kana || !ex.vi || !ex.furi) { warn(`[ví dụ] thiếu jp/furi/kana/vi: ${id}`); continue; }
+    const furi = parseFuri(ex.furi);
+    if (furi.kana !== ex.kana) { warn(`[ví dụ] furi không khớp kana: ${id} "${furi.kana}" ≠ "${ex.kana}"`); continue; }
+    const pron = examplePron(furi.kana, furi.literal, lex);
+    item.examples = [{ jp: ex.jp, kana: ex.kana, roma: pron.roma, viPron: pron.viPron, vi: ex.vi }];
+    count += 1;
+  }
+  note(`Ví dụ N5: ${count}/${items.length} từ có câu ví dụ (Tatoeba, nghĩa Việt biên tập)`);
+  return items;
+}
+
+/* Đọc furigana Tatoeba: {漢|かん} → cách đọc kanji; ký tự ngoài {} là kana viết thẳng.
+   Trả về chuỗi kana và tập vị trí ký tự viết thẳng (chỉ chỗ đó mới có thể là trợ từ). */
+function parseFuri(furi) {
+  const literal = new Set();
+  let kana = "";
+  let i = 0;
+  while (i < furi.length) {
+    if (furi[i] === "{") {
+      const j = furi.indexOf("}", i);
+      kana += furi.slice(i + 1, j).split("|").slice(1).join("");
+      i = j + 1;
+    } else {
+      literal.add(kana.length);
+      kana += furi[i];
+      i += 1;
+    }
+  }
+  return { kana, literal };
+}
+
+/* Phiên âm câu ví dụ: chỉ đọc は→oa / へ→ê khi đó là kana viết thẳng (không phải cách đọc
+   kanji) và token đúng là trợ từ, có mảnh phía trước (tránh はるばる, はじめまして…). */
+function examplePron(kana, literal, lex) {
+  const t = tokenize(kana, lex);
+  const posOverride = {};
+  t.parts.forEach((p, i) => {
+    const over = p.isParticle ? PARTICLE_PRON[p.kana] : null;
+    if (over && i > 0 && literal.has(p.start)) {
+      posOverride[p.start] = { roma: over.roma, vi: over.viPron };
+    }
+  });
+  const { roma, vi } = K.translit(kana, undefined, posOverride);
+  return { roma, viPron: vi };
 }
 
 const mapObj = (obj, fn) =>
@@ -336,10 +393,10 @@ function writeData(name, value, fileBase = name) {
 function main() {
   console.log("Building quick-japanese data...");
   const vocab = buildVocab();
-  const vocabN5 = buildVocabN5();
   const grammar = buildGrammar();
   const grammarIds = new Set(grammar.points.map((g) => g.id));
   const numbers = buildNumbers();
+  const vocabN5 = buildVocabN5(vocab.items, numbers);
   const phrases = buildPhrases(vocab.items, numbers, grammarIds);
   const intents = buildIntents(vocab.byId, numbers, grammarIds);
 
@@ -355,6 +412,7 @@ function main() {
     counts: {
       vocab: vocab.items.length,
       vocabN5: vocabN5.length,
+      vocabN5Examples: vocabN5.reduce((n, v) => n + (v.examples ? v.examples.length : 0), 0),
       phrases: phrases.categories.reduce((n, c) => n + c.items.length, 0),
       phraseCategories: phrases.categories.length,
       grammar: grammar.points.length,
@@ -373,6 +431,10 @@ function main() {
     console.log(`\nOption cố định chưa tách được thành mảnh (giữ nguyên 1 dòng): ${debugs.length}`);
     for (const d of debugs.slice(0, 12)) console.log("  · " + d);
     if (debugs.length > 12) console.log(`  … và ${debugs.length - 12} mục khác`);
+  }
+  if (notes.length) {
+    console.log("\nGhi chú:");
+    for (const n of notes) console.log("  · " + n);
   }
   console.log("Done.", meta.counts);
 }

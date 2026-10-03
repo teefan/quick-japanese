@@ -25,7 +25,8 @@ tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự
 - 🔍 **Tìm kiếm toàn bộ**: cụm từ, từ vựng, ngữ pháp và mục ghép câu trong một ô tìm kiếm.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên mọi câu và câu tự ghép.
 - 📺 **Chế độ đưa máy**: chữ Nhật cỡ lớn để chỉ cho nhân viên/tài xế xem.
-- 📚 **744 từ vựng** (183 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu),
+- 📚 **744 từ vựng** (183 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu) —
+  **460 từ N5 kèm câu ví dụ** lấy từ Tatoeba, có phiên âm Việt + romaji + nghĩa tiếng Việt;
   lượng từ đếm 1–10, mệnh giá tiền, 22 điểm ngữ pháp tối giản.
 - 📶 **PWA offline**: service worker cache toàn bộ app — không cần mạng khi đã mở một lần.
 - 📴 Không cần server, không cần build khi dùng, chạy được cả khi mở trực tiếp `index.html`.
@@ -52,9 +53,10 @@ assets/css/style.css       giao diện, mobile-first, có dark mode
 assets/js/app.js           5 tab: Cụm từ, Ghép câu, Sổ tay, Từ vựng, Ngữ pháp + tìm kiếm + Nghe & chọn + TTS
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
-data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, cụm từ, ngữ pháp, cây câu, số đếm)
+data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, cụm từ, ngữ pháp, cây câu, số đếm)
 data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay); vocab-n5.js tải theo nhu cầu
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
+tools/segment.js           bóc tách câu: từ điển + tokenizer DP
 tools/build.js             kiểm tra + làm giàu dữ liệu, xuất data/*.js
 docs/PLAN.md               kế hoạch tổng thể, thiết kế dữ liệu, lộ trình
 docs/DEV-CONTEXT.md        bối cảnh & hướng dẫn cho phiên phát triển mới (đọc trước khi code)
@@ -84,5 +86,6 @@ Gợi ý giai đoạn sau: thêm service worker để dùng offline hoàn toàn 
 
 Mã nguồn: MIT. Nội dung (cụm từ, từ vựng, ngữ pháp) được biên soạn thủ công cho dự án này;
 561 từ vựng JLPT N5 lấy từ [OpenJLPT](https://github.com/evanclan/OpenJLPT) (CC BY-SA 4.0),
-nghĩa tiếng Việt do dự án biên tập — xem chi tiết giấy phép và ghi công trong
-[`docs/PLAN.md`](docs/PLAN.md) mục 11.
+nghĩa tiếng Việt do dự án biên tập. **Câu ví dụ** lấy từ [Tatoeba](https://tatoeba.org)
+(CC BY 2.0 FR) qua OpenJLPT; bản dịch tiếng Việt do dự án biên tập — xem chi tiết giấy phép
+và ghi công trong [`docs/PLAN.md`](docs/PLAN.md) mục 11.
