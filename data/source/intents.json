@@ -148,7 +148,7 @@
             { "ref": "v-yomu", "form": "te", "vi": "đọc cho tôi", "next": null },
             { "ref": "v-akeru", "form": "te", "vi": "mở giúp tôi", "next": null },
             { "ref": "v-motsu", "form": "te", "vi": "cầm giúp tôi", "next": null },
-            { "ref": "v-kuru", "form": "te", "vi": "đến với tôi", "next": null },
+            { "ref": "v-kuru", "form": "te", "vi": "đến", "next": null },
             { "ref": "v-wakaru", "form": "te", "vi": "hiểu cho tôi", "next": null }
           ]
         },
@@ -309,7 +309,7 @@
       },
       "template": null,
       "viTemplate": null,
-      "tip": "Khi bí, chỉ cần すみません、わかりません — hoặc bấm 📺 đưa máy cho người đối diện."
+      "tip": "Khi bí, chỉ cần すみません、わかりません. Nếu người đối diện nói nhanh, mở mục “Không hiểu / nhờ giúp”."
     },
     {
       "id": "i-do-please",
@@ -425,7 +425,6 @@
         "s-object": {
           "prompt": "Cho bạn cái gì?",
           "slot": "object",
-          "particle": "を",
           "options": [
             { "ref": "d-kore", "next": "s-quantity" },
             { "ref": "d-sore", "next": "s-quantity" },
@@ -519,7 +518,6 @@
         "s-obj-food": {
           "prompt": "Muốn ăn gì?",
           "slot": "object",
-          "particle": "が",
           "options": [
             { "ref": "n-sushi", "next": null },
             { "ref": "n-raamen", "next": null },
@@ -554,7 +552,6 @@
         "s-obj-drink": {
           "prompt": "Muốn uống gì?",
           "slot": "object",
-          "particle": "が",
           "options": [
             { "ref": "n-mizu", "next": null },
             { "ref": "n-ocha", "next": null },
@@ -573,7 +570,6 @@
         "s-obj-buy": {
           "prompt": "Muốn mua gì?",
           "slot": "object",
-          "particle": "が",
           "options": [
             { "ref": "n-omiyage", "next": null },
             { "ref": "n-kasa", "next": null },
@@ -589,7 +585,6 @@
         "s-obj-see": {
           "prompt": "Muốn xem gì?",
           "slot": "object",
-          "particle": "が",
           "options": [
             { "ref": "n-menu", "next": null },
             { "ref": "n-chizu", "next": null },
@@ -602,7 +597,6 @@
         "s-obj-place": {
           "prompt": "Muốn đi đâu?",
           "slot": "object",
-          "particle": "が",
           "options": [
             { "ref": "n-eki", "particle": "に", "vi": "đến ga", "next": null },
             { "ref": "n-kukou", "particle": "に", "vi": "đến sân bay", "next": null },
@@ -654,7 +648,6 @@
         "s-object": {
           "prompt": "Thích gì?",
           "slot": "object",
-          "particle": "が",
           "options": [
             { "ref": "n-sushi", "next": null },
             { "ref": "n-raamen", "next": null },
@@ -821,7 +814,7 @@
             { "ref": "a-chiisai", "next": null },
             { "ref": "n5-8ae27e3b51", "next": null },
             { "ref": "n5-aa60dd4a11", "next": null },
-            { "ref": "a-takai", "next": null },
+            { "ref": "a-takai", "vi": "đắt", "next": null },
             { "ref": "a-yasui", "next": null },
             { "ref": "na-kirei", "next": null },
             { "ref": "n5-cdfb776826", "next": null },
@@ -866,7 +859,7 @@
                 { "text": "のは", "kana": "のは", "vi": "cái … thì" },
                 { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
               ],
-              "viTemplateOverride": "Có cái {size} hơn không?",
+              "viTemplateOverride": "Có cái {size} không?",
               "next": "s-size"
             },
             {
@@ -877,7 +870,7 @@
                 { "text": "のは", "kana": "のは", "vi": "cái … thì" },
                 { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
               ],
-              "viTemplateOverride": "Có cái {price} hơn không?",
+              "viTemplateOverride": "Có cái {price} không?",
               "next": "s-price"
             }
           ]
@@ -887,10 +880,10 @@
           "slot": "color",
           "options": [
             { "ref": "n5-44ba38cf8b", "next": null },
-            { "ref": "n5-51a671ec17", "next": null },
+            { "ref": "n5-51a671ec17", "vi": "xanh dương", "next": null },
             { "ref": "n5-8997f64f52", "next": null },
             { "ref": "n5-5e5300cf62", "next": null },
-            { "ref": "n5-0b36c8d6c6", "next": null }
+            { "ref": "n5-0b36c8d6c6", "vi": "vàng", "next": null }
           ]
         },
         "s-size": {
@@ -949,7 +942,7 @@
             { "ref": "n5-dd8ac16bd2", "next": null },
             { "ref": "n5-992fc07339", "next": null },
             { "ref": "n5-dcc87a37fb", "next": null },
-            { "ref": "n5-5620a00afc", "next": null }
+            { "ref": "n5-5620a00afc", "vi": "quán cà phê", "viLabel": "quán cà phê (truyền thống)", "next": null }
           ]
         }
       },
@@ -1025,7 +1018,7 @@
             { "ref": "n5-dd8ac16bd2", "next": null },
             { "ref": "n5-8b86921749", "next": null },
             { "ref": "n5-dcc87a37fb", "next": null },
-            { "ref": "n5-5620a00afc", "next": null },
+            { "ref": "n5-5620a00afc", "vi": "quán cà phê", "viLabel": "quán cà phê (truyền thống)", "next": null },
             { "ref": "n5-06ac21dc7d", "next": null },
             { "ref": "n5-e8a5cbdf0a", "next": null }
           ]
@@ -1053,7 +1046,7 @@
             { "ref": "n5-dd8ac16bd2", "next": null },
             { "ref": "n5-8b86921749", "next": null },
             { "ref": "n5-dcc87a37fb", "next": null },
-            { "ref": "n5-5620a00afc", "next": null }
+            { "ref": "n5-5620a00afc", "vi": "quán cà phê", "viLabel": "quán cà phê (truyền thống)", "next": null }
           ]
         },
         "s-place-train": {

@@ -23,7 +23,8 @@ Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc t
 - 🔗 **Hai tab liên kết với nhau**: mỗi thẻ từ vựng có chip “🧩 Ghép câu” mở thẳng mục ghép câu
   dùng từ đó (bưu điện → …ở đâu?, 水 → Cho tôi… / Tôi muốn…).
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên từ, câu ví dụ và câu ghép.
-- 📺 **Chế độ đưa máy**: chữ Nhật cỡ lớn để chỉ cho nhân viên/tài xế xem.
+- 🌗 **Nền sáng mặc định** (giấy washi + sakura, không theo hệ điều hành); bấm 🌙 trên header
+  để đổi nền tối — lựa chọn được ghi nhớ.
 - 📶 **PWA offline**: service worker cache toàn bộ app — không cần mạng khi đã mở một lần.
 - 📴 Không cần server, không cần build khi dùng, chạy được cả khi mở trực tiếp `index.html`.
 
@@ -46,7 +47,8 @@ index.html                 trang chính (load data + app)
 manifest.webmanifest       khai báo PWA (cài như app)
 sw.js                      service worker — cache offline
 assets/css/style.css       giao diện, mobile-first, có dark mode
-assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + chế độ đưa máy + PWA
+assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + PWA
+assets/js/assemble.js      logic ráp câu thuần (builder + audit dùng chung)
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
 data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, số đếm)
@@ -55,6 +57,7 @@ data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa 
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           bóc tách câu: từ điển + tokenizer DP
 tools/build.js             kiểm tra + làm giàu dữ liệu, xuất data/*.js
+tools/audit.js             soát toàn bộ đường ghép câu + nhất quán cây (chạy trong npm run build)
 docs/PLAN.md               kế hoạch tổng thể, thiết kế dữ liệu, lộ trình
 docs/DEV-CONTEXT.md        bối cảnh & hướng dẫn cho phiên phát triển mới (đọc trước khi code)
 docs/PRONUNCIATION.md      quy ước phiên âm tiếng Việt

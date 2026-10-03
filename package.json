@@ -4,7 +4,8 @@
   "private": true,
   "description": "Ghép câu tiếng Nhật + từ vựng cho người Việt — static SPA",
   "scripts": {
-    "build": "node tools/build.js",
+    "build": "node tools/build.js && node tools/audit.js",
+    "audit": "node tools/audit.js",
     "serve": "python3 -m http.server 8080"
   }
 }

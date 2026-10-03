@@ -1,60 +1,68 @@
 :root {
-  --bg: #f7f5f2;
+  /* Bảng màu washi – sakura – indigo. Mặc định LUÔN là nền sáng;
+     nền tối chỉ bật khi người dùng bấm nút 🌙 (xem [data-theme="dark"]). */
+  --bg: #fdf6f3;           /* giấy washi hồng nhạt */
   --card: #ffffff;
-  --text: #23262f;
-  --muted: #6f7480;
-  --line: #e8e5e0;
-  --accent: #d94f5c;      /* đỏ sakura / vermilion */
-  --accent-soft: #fdeef0;
-  --indigo: #3d4d9e;      /* xanh indigo Nhật */
-  --indigo-soft: #edeff9;
-  --ok: #2e7d4f;
+  --text: #332a30;         /* mực sumi ấm */
+  --muted: #6b5e65;
+  --line: #f0e3e0;
+  --accent: #b7374a;       /* đỏ hoa anh đào — AA trên mọi nền sáng */
+  --accent-ink: #ffffff;   /* chữ trên nền accent */
+  --accent-soft: #fce4ea;  /* cánh hoa */
+  --indigo: #3f4d9e;       /* xanh aizome */
+  --indigo-soft: #eef0fb;
+  --ok: #2c754b;           /* xanh matcha */
   --ok-soft: #e9f5ee;
-  --gold: #c9930a;
-  --gold-soft: #fdf5dd;
-  --rl-pron: #7b5cc4;       --rl-pron-bg: #f2eefb;
+  --gold: #8a6d00;
+  --gold-soft: #fdf6dd;
+  --rl-pron: #6a4bb4;       --rl-pron-bg: #f2eefb;
   --rl-noun: #2f6fb3;       --rl-noun-bg: #eaf2fb;
-  --rl-verb: #2e7d4f;       --rl-verb-bg: #e9f5ee;
-  --rl-adj: #b46a1f;        --rl-adj-bg: #fdf3e7;
-  --rl-adverb: #5a7d9a;     --rl-adverb-bg: #eaf1f6;
-  --rl-particle: #d94f5c;   --rl-particle-bg: #fdeef0;
-  --rl-copula: #6f7480;     --rl-copula-bg: #f1f2f4;
+  --rl-verb: #2c754b;       --rl-verb-bg: #e9f5ee;
+  --rl-adj: #9c5a12;        --rl-adj-bg: #fdf3e7;
+  --rl-adverb: #4a6b88;     --rl-adverb-bg: #eaf1f6;
+  --rl-particle: #b7374a;   --rl-particle-bg: #fce4ea;
+  --rl-copula: #5f6570;     --rl-copula-bg: #f1f2f4;
   --rl-number: #0f7b7b;     --rl-number-bg: #e7f5f5;
-  --rl-expression: #a8850a; --rl-expression-bg: #fdf6dd;
+  --rl-expression: #8a6d00; --rl-expression-bg: #fdf6dd;
   --rl-unknown: #9aa0ad;    --rl-unknown-bg: #f1f2f4;
-  --shadow: 0 1px 2px rgba(35, 38, 47, .05), 0 6px 20px -8px rgba(35, 38, 47, .12);
-  --radius: 16px;
+  --shadow: 0 1px 2px rgba(51, 42, 48, .04), 0 8px 22px -10px rgba(183, 55, 74, .16);
+  --radius: 18px;
+  --accent-grad: linear-gradient(135deg, #c04459, #aa3145);
+  /* Họa tiết sóng seigaiha rất nhạt, chỉ dùng ở header */
+  --waves: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28' viewBox='0 0 56 28'%3E%3Cg fill='none' stroke='%23b7374a' stroke-opacity='.055' stroke-width='1'%3E%3Ccircle cx='14' cy='0' r='13'/%3E%3Ccircle cx='42' cy='0' r='13'/%3E%3Ccircle cx='0' cy='14' r='13'/%3E%3Ccircle cx='28' cy='14' r='13'/%3E%3Ccircle cx='56' cy='14' r='13'/%3E%3Ccircle cx='14' cy='28' r='13'/%3E%3Ccircle cx='42' cy='28' r='13'/%3E%3C/g%3E%3C/svg%3E");
   --jp-font: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
   --vi-font: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14161d;
-    --card: #1d202a;
-    --text: #edf0f7;
-    --muted: #9aa0ad;
-    --line: #2b2f3b;
-    --accent: #f27481;
-    --accent-soft: #3a262c;
-    --indigo: #8ea0ff;
-    --indigo-soft: #242a45;
-    --ok: #7fd0a2;
-    --ok-soft: #1e3327;
-    --gold: #e8c15a;
-    --gold-soft: #332c17;
-    --rl-pron: #b9a1f0;       --rl-pron-bg: #2a2440;
-    --rl-noun: #8fb8e8;       --rl-noun-bg: #1d2a3d;
-    --rl-verb: #7fd0a2;       --rl-verb-bg: #1e3327;
-    --rl-adj: #e8b06a;        --rl-adj-bg: #38291a;
-    --rl-adverb: #9dbcd6;     --rl-adverb-bg: #1f2b36;
-    --rl-particle: #f27481;   --rl-particle-bg: #3a262c;
-    --rl-copula: #a8adba;     --rl-copula-bg: #262a33;
-    --rl-number: #6cc7c7;     --rl-number-bg: #17302f;
-    --rl-expression: #e8c15a; --rl-expression-bg: #332c17;
-    --rl-unknown: #9aa0ad;    --rl-unknown-bg: #262a33;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -12px rgba(0, 0, 0, .5);
-  }
+/* Nền tối: mực sumi ban đêm + sakura. Bật thủ công, không theo hệ điều hành. */
+:root[data-theme="dark"] {
+  --bg: #17151d;
+  --card: #211e28;
+  --text: #f2edf3;
+  --muted: #a89fab;
+  --line: #322c38;
+  --accent: #ff8fa3;
+  --accent-ink: #17151d;
+  --accent-soft: #3a2630;
+  --indigo: #9aa7ff;
+  --indigo-soft: #262a45;
+  --ok: #7fd0a2;
+  --ok-soft: #1e3327;
+  --gold: #e8c15a;
+  --gold-soft: #332c17;
+  --rl-pron: #b9a1f0;       --rl-pron-bg: #2a2440;
+  --rl-noun: #8fb8e8;       --rl-noun-bg: #1d2a3d;
+  --rl-verb: #7fd0a2;       --rl-verb-bg: #1e3327;
+  --rl-adj: #e8b06a;        --rl-adj-bg: #38291a;
+  --rl-adverb: #9dbcd6;     --rl-adverb-bg: #1f2b36;
+  --rl-particle: #ff8fa3;   --rl-particle-bg: #3a2630;
+  --rl-copula: #a8adba;     --rl-copula-bg: #262a33;
+  --rl-number: #6cc7c7;     --rl-number-bg: #17302f;
+  --rl-expression: #e8c15a; --rl-expression-bg: #332c17;
+  --rl-unknown: #9aa0ad;    --rl-unknown-bg: #262a33;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 26px -14px rgba(0, 0, 0, .6);
+  --accent-grad: linear-gradient(135deg, #ff9db0, #f57f95);
+  --waves: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28' viewBox='0 0 56 28'%3E%3Cg fill='none' stroke='%23ff8fa3' stroke-opacity='.06' stroke-width='1'%3E%3Ccircle cx='14' cy='0' r='13'/%3E%3Ccircle cx='42' cy='0' r='13'/%3E%3Ccircle cx='0' cy='14' r='13'/%3E%3Ccircle cx='28' cy='14' r='13'/%3E%3Ccircle cx='56' cy='14' r='13'/%3E%3Ccircle cx='14' cy='28' r='13'/%3E%3Ccircle cx='42' cy='28' r='13'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 * { box-sizing: border-box; }
@@ -62,7 +70,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--text);
   font-family: var(--vi-font);
   font-size: 16px;
@@ -70,17 +78,38 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
-body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+body {
+  /* Vệt sakura rất nhạt phía trên, giữ nền sạch ở phần nội dung */
+  background-image: radial-gradient(900px 320px at 50% -80px, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
+  background-repeat: no-repeat;
+  padding-bottom: calc(76px + env(safe-area-inset-bottom));
+}
 
 button { font-family: inherit; color: inherit; }
+
+button:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 .top {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  background:
+    var(--waves) left top / 56px 28px repeat,
+    color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
 }
 
 .brand {
@@ -93,19 +122,52 @@ button { font-family: inherit; color: inherit; }
 }
 
 .brand .logo {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--accent), #f0a05a);
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f9a8c0, var(--accent));
+  border: 2px solid #fff;
   font-size: 22px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 3px 12px -4px color-mix(in srgb, var(--accent) 55%, transparent);
 }
+
+/* Nụ hoa nhỏ ở góc logo */
+.brand .logo::after {
+  content: "🌸";
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  font-size: 15px;
+  filter: drop-shadow(0 1px 1px rgba(51, 42, 48, .18));
+}
+
+:root[data-theme="dark"] .brand .logo { border-color: rgba(255, 255, 255, .16); }
 
 .brand h1 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
 
 .brand p { margin: 0; font-size: 12px; color: var(--muted); }
+
+.theme-toggle {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .1s ease, border-color .15s ease;
+}
+
+.theme-toggle:hover { border-color: var(--accent); }
+
+.theme-toggle:active { transform: scale(.92); }
 
 main {
   max-width: 680px;
@@ -120,7 +182,25 @@ main {
   margin: 20px 0 10px;
 }
 
-.section-title h2 { margin: 0; font-size: 17px; }
+.section-title h2 {
+  position: relative;
+  margin: 0;
+  padding-bottom: 4px;
+  font-size: 17px;
+}
+
+/* Gạch chân sakura nhỏ dưới tiêu đề mục */
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  bottom: 0;
+  width: 60%;
+  max-width: 46px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #f9c2cf);
+}
 
 .section-title .desc { font-size: 12.5px; color: var(--muted); }
 
@@ -164,9 +244,14 @@ main {
 .chip:active { transform: scale(.96); }
 
 .chip.active {
-  background: var(--indigo);
-  border-color: var(--indigo);
+  background: linear-gradient(135deg, var(--indigo), #5f6fca);
+  border-color: transparent;
   color: #fff;
+}
+
+:root[data-theme="dark"] .chip.active {
+  background: linear-gradient(135deg, #8f9dfb, var(--indigo));
+  color: #17151d;
 }
 
 .card {
@@ -364,7 +449,11 @@ main {
 
 .tabs button .ico { font-size: 18px; line-height: 1.2; }
 
-.tabs button.active { color: var(--accent); background: var(--accent-soft); }
+.tabs button.active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
+}
 
 .intent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
@@ -378,12 +467,18 @@ main {
   padding: 14px;
   cursor: pointer;
   box-shadow: var(--shadow);
-  transition: transform .08s ease, border-color .15s ease;
+  transition: transform .12s ease, border-color .15s ease, box-shadow .15s ease;
 }
 
 .intent-card:active { transform: scale(.97); }
 
-.intent-card:hover { border-color: var(--indigo); }
+.intent-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.intent-card:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
 
 .intent-card .emoji { font-size: 24px; }
 
@@ -398,6 +493,7 @@ main {
   background: var(--card);
   border-radius: 10px;
   padding: 7px 12px;
+  min-height: 44px;
   font-size: 13px;
   cursor: pointer;
 }
@@ -411,6 +507,8 @@ main {
   background: var(--card);
   border-radius: 10px;
   padding: 7px 10px;
+  min-width: 44px;
+  min-height: 44px;
   font-size: 14px;
   cursor: pointer;
 }
@@ -428,12 +526,21 @@ main {
 
 .b-prompt { font-size: 14px; color: var(--muted); margin: 10px 0 8px; }
 
+.b-prompt:focus { outline: none; }
+
+.opt-filter { margin: 4px 0 6px; }
+
+.opt-empty { padding: 18px 10px; }
+
+.opt[hidden] { display: none; }
+
 .b-sentence {
-  border: 1.5px solid var(--indigo);
-  background: linear-gradient(180deg, var(--indigo-soft), transparent 70%);
+  border: 1.5px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  background: linear-gradient(180deg, var(--accent-soft), var(--card) 85%);
   border-radius: var(--radius);
   padding: 14px 16px;
   margin: 10px 0;
+  box-shadow: var(--shadow);
 }
 
 .b-jp {
@@ -454,6 +561,14 @@ main {
   padding: 0 6px;
 }
 
+.b-empty {
+  display: block;
+  font-family: var(--vi-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
 .b-pron { color: var(--accent); font-weight: 600; font-size: 14.5px; margin-top: 8px; min-height: 22px; }
 
 .b-vi { font-size: 14.5px; margin-top: 4px; min-height: 22px; }
@@ -465,12 +580,18 @@ main {
   background: var(--card);
   border-radius: 11px;
   padding: 9px 14px;
+  min-height: 44px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.b-actions button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.b-actions button.primary {
+  background: var(--accent-grad, var(--accent));
+  border-color: transparent;
+  color: var(--accent-ink);
+  box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+}
 
 .b-notes { margin-top: 10px; display: grid; gap: 6px; }
 
@@ -493,7 +614,10 @@ main {
 
 .opt:active { transform: scale(.96); }
 
-.opt:hover { border-color: var(--accent); }
+.opt:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, var(--card));
+}
 
 .opt b { display: block; font-size: 14.5px; }
 
@@ -523,6 +647,7 @@ main {
   border-radius: 999px;
   padding: 4px 11px;
   margin-bottom: 6px;
+  animation: pop .25s ease both;
 }
 
 .word-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
@@ -624,70 +749,6 @@ main {
 .combo span { color: var(--muted); display: block; }
 
 .combo .pron { display: block; color: var(--accent); }
-
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  background: rgba(15, 17, 22, .55);
-  backdrop-filter: blur(4px);
-}
-
-.modal.hidden { display: none; }
-
-.modal-card {
-  background: var(--card);
-  border-radius: 20px;
-  max-width: 560px;
-  width: 100%;
-  max-height: 82vh;
-  overflow: auto;
-  padding: 22px;
-  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, .5);
-}
-
-.modal-card h3 { margin: 0 0 8px; font-size: 17px; }
-
-.modal-card p { font-size: 14px; }
-
-.modal-close {
-  display: block;
-  width: 100%;
-  margin-top: 14px;
-  padding: 12px;
-  border: 0;
-  border-radius: 13px;
-  background: var(--indigo);
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.showmode .modal-card {
-  max-width: 100%;
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.showmode .sm-jp {
-  font-family: var(--jp-font);
-  font-size: clamp(32px, 9vw, 56px);
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-.showmode .sm-kana { font-family: var(--jp-font); font-size: 17px; color: var(--muted); margin-top: 10px; }
-
-.showmode .sm-pron { color: var(--accent); font-size: 15px; margin-top: 6px; }
-
-.showmode .sm-vi { font-size: 15px; margin-top: 14px; color: var(--muted); }
 
 .empty { text-align: center; color: var(--muted); padding: 40px 10px; font-size: 14px; }
 

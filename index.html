@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Quick Japanese — Tiếng Nhật du lịch cho người Việt</title>
   <meta name="description" content="Ghép câu tiếng Nhật cho du khách Việt: chọn nghĩa, app ráp câu đúng trợ từ kèm phiên âm tiếng Việt và trọng âm; kèm 744 từ vựng (561 từ JLPT N5, câu ví dụ, pitch accent). Dùng offline như một ứng dụng.">
-  <meta name="theme-color" content="#d94f5c">
-  <meta name="theme-color" content="#14161d" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fdf6f3">
+  <script>try { if (localStorage.getItem("qj-theme") === "dark") document.documentElement.dataset.theme = "dark"; } catch (e) { /* chế độ riêng tư */ }</script>
   <link rel="canonical" href="https://teefan.github.io/quick-japanese/">
 
   <meta property="og:type" content="website">
@@ -35,19 +35,17 @@
         <h1>Quick Japanese</h1>
         <p>Ghép câu &amp; từ vựng cho người Việt</p>
       </div>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Chuyển sang nền tối" title="Chuyển sang nền tối">🌙</button>
     </div>
   </header>
 
-  <main id="view" aria-live="polite"></main>
+  <main id="view"></main>
+  <div id="status" class="sr-only" role="status" aria-live="polite"></div>
 
   <nav class="tabs" id="tabs">
     <button data-tab="builder" class="active"><span class="ico">🧩</span>Ghép câu</button>
     <button data-tab="vocab"><span class="ico">📚</span>Từ vựng</button>
   </nav>
-
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-card" id="modal-card"></div>
-  </div>
 
   <div id="toast" class="toast"></div>
 
@@ -57,6 +55,7 @@
   <script src="data/intents.js"></script>
   <script src="data/builder-index.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/assemble.js"></script>
   <script src="assets/js/builder.js"></script>
 </body>
 </html>

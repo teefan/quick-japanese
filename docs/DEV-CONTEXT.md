@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `01ffd8b` · SW cache `qj-v2.3.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `01ffd8b` · SW cache `qj-v2.5.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -29,9 +29,10 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 ## 1. Lệnh thường dùng
 
 ```bash
-npm run build      # node tools/build.js — bắt buộc chạy sau mọi thay đổi data/source
+npm run build      # node tools/build.js + node tools/audit.js — bắt buộc sau mọi thay đổi data/source
+npm run audit      # soát toàn bộ đường ghép câu + slot/template (không cần build lại)
 npm run serve      # python3 -m http.server 8080
-node --check assets/js/app.js assets/js/builder.js tools/*.js   # kiểm tra cú pháp
+node --check assets/js/assemble.js assets/js/builder.js assets/js/app.js tools/*.js   # kiểm tra cú pháp
 ```
 
 Khi test trong trình duyệt với service worker cũ: mở DevTools →
@@ -45,7 +46,8 @@ index.html                 entry; load data/*.js rồi assets/js/app.js, builder
 manifest.webmanifest       PWA manifest
 sw.js                      service worker (đổi VERSION mỗi lần release app/data)
 assets/css/style.css       design system + màu vai trò (--rl-*)
-assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + modal + PWA register
+assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + chủ đề sáng/tối + PWA register
+assets/js/assemble.js      logic ráp câu thuần (không DOM) — builder + audit dùng chung
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
 data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, numbers
 data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html;
@@ -53,6 +55,7 @@ data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js t
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           từ điển + tokenizer DP bóc tách câu
 tools/build.js             validate + enrich + xuất data/*.js
+tools/audit.js             soát mọi đường ghép câu + slot/template (build gọi tự động)
 docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-CHECKLIST, screenshot
 ```
 
@@ -143,14 +146,15 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 
 ## 5. Kiểm thử & deploy
 
-1. `npm run build` — phải **0 cảnh báo** (còn vài ghi chú thống kê: ví dụ N5, N5 refs trong
-   builder, trọng âm).
+1. `npm run build` — build phải **0 cảnh báo** (còn vài ghi chú thống kê: ví dụ N5, N5 refs trong
+   builder, trọng âm); `tools/audit.js` phải **0 lỗi** (soát toàn bộ đường ghép câu) và nên 0 cảnh báo.
 2. `node --check` các file JS đã sửa.
 3. Mở app (nhớ xoá SW khi test): kiểm 2 tab, **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
    hiện bảng cấu trúc), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ + 🔊, trọng âm
-   `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊 / 📺 / 📋, không lỗi JS.
-4. Release regression (khuyến nghị): vòng lặp tất cả cây × 3 đường 🎲, kiểm tra `.b-jp`, `.b-brk`,
-   `.done-badge`, không lỗi JS (`window.__errs`).
+   `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊, nút 🌙 đổi nền tối (nhớ lựa chọn, mặc định sáng),
+   không lỗi JS.
+4. Release regression: `npm run audit` đã phủ **toàn bộ 1.120 đường** (thay 15 × 3 đường 🎲);
+   vẫn nên 🎲 vài cây để kiểm UI, TTS và bảng cấu trúc.
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
    `gh api repos/teefan/quick-japanese/pages/builds/latest --jq '.status + " " + .commit'`
    và curl `https://teefan.github.io/quick-japanese/sw.js` để xác nhận VERSION mới.
@@ -162,6 +166,14 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - **v2.1.0 → v2.3.0** mở rộng builder theo nghiên cứu: N5 refs (37 từ, audit 0 đổi cách tách),
   Tier 1 (đầy option), Tier 2 (i-feel 365 câu, i-shop, nhánh thời tiết), nhánh ngôn ngữ trong
   i-respond, và liên kết hai tab (builder-index).
+- **v2.4.0** sửa theo audit builder: tách logic ráp câu sang `assets/js/assemble.js` (builder +
+  `tools/audit.js` dùng chung), chèn `。` giữa hai mảnh cố định (hết dính `お元気ですかはい…`),
+  sửa `hơn hơn` ở i-shop và rò nghĩa phân biệt trong câu, thêm audit toàn bộ đường câu vào
+  `npm run build`, gọn focus/aria-live, gợi ý khi chưa chọn + lọc danh sách dài; bỏ chế độ
+  đưa máy/Copy và dòng nhắc thừa ở câu đã xong (chỉ còn nút 🔊 Nghe).
+- **v2.5.0** giao diện washi–sakura–indigo: nền sáng mặc định (không theo hệ điều hành),
+  nút 🌙/☀️ đổi nền tối có nhớ lựa chọn; họa tiết sóng seigaiha ở header, logo có nụ hoa,
+  gạch chân tiêu đề, nút hành động gradient; màu vai trò và accent chỉnh để đạt AA.
 - Việc còn lại:
   1. **Kiểm duyệt bởi người bản ngữ** — dùng `docs/REVIEW-CHECKLIST.md` (cây ghép câu, lượng từ,
      phiên âm, nghĩa N5, câu ví dụ, trọng âm, các cặp tính từ × danh từ mới), sửa
@@ -194,3 +206,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   builder chỉ nạp **các từ N5 được tham chiếu** và build audit lại — thử nghiệm 100 từ cho
   0/98 câu cố định đổi cách tách, thực tế 18 từ cũng 0 câu đổi. Tránh nhân bản dữ liệu và giữ
   nguyên nguyên tắc "N5 không đụng nội dung đã kiểm duyệt".
+- **Audit tự động thay regression tay (v2.4.0)**: logic ráp câu nằm ở module dùng chung
+  (`assets/js/assemble.js`) để `tools/audit.js` kiểm đúng thứ app chạy; **toàn bộ 1.120 đường
+  câu** được soát trong `npm run build`, lỗi ⇒ exit 1 (slot trống, vi lặp từ, slot/template lệch,
+  field chết, nhãn trùng).

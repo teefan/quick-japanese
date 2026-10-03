@@ -6,6 +6,7 @@
 (function () {
   const QJ = window.QJ;
   const U = window.U;
+  const A = window.QJAssemble;   // logic ráp câu thuần — assets/js/assemble.js
   const view = document.getElementById("view");
 
   const state = {
@@ -25,7 +26,7 @@
   // Thứ tự nhóm cố định: cơ bản nhất trước
   const GROUP_ORDER = ["Giao tiếp", "Ăn uống & mua sắm", "Đi lại & khách sạn", "Sức khỏe & sự cố"];
 
-  function renderHome() {
+  function renderHome(focusFirst = false) {
     state.intent = null;
     state.picks = [];
     state.stepId = null;
@@ -68,6 +69,9 @@
         startIntent(QJ.intents.intents.find(i => i.id === btn.dataset.intent))
       )
     );
+    const status = document.getElementById("status");
+    if (status) status.textContent = "";
+    if (focusFirst) view.querySelector(".intent-card")?.focus({ preventScroll: true });
     window.scrollTo({ top: 0 });
   }
 
@@ -76,14 +80,25 @@
     state.picks = [];
     state.stepId = intent.start;
     renderBuilder();
+    focusPrompt();
   }
 
   const currentStep = () => state.intent.steps[state.stepId];
+
+  /* Sau mỗi lần vẽ lại, đưa focus về câu hỏi kế tiếp để người dùng bàn phím
+     không phải tab lại từ đầu; câu đã xong thì focus vào nút nghe.
+     Nội dung câu được đọc qua vùng #status. */
+  function focusPrompt() {
+    const prompt = view.querySelector(".b-prompt");
+    if (prompt && prompt.textContent.trim()) prompt.focus({ preventScroll: true });
+    else view.querySelector(".b-actions .primary")?.focus({ preventScroll: true });
+  }
 
   function pick(option) {
     state.picks.push({ stepId: state.stepId, option });
     state.stepId = option.next;   // null = hoàn thành
     renderBuilder();
+    focusPrompt();
     document.querySelector(".b-sentence")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
@@ -91,12 +106,14 @@
     const last = state.picks.pop();
     state.stepId = last ? last.stepId : state.intent.start;
     renderBuilder();
+    focusPrompt();
   }
 
   function reset() {
     state.picks = [];
     state.stepId = state.intent.start;
     renderBuilder();
+    focusPrompt();
   }
 
   function randomPath() {
@@ -112,69 +129,14 @@
       state.stepId = opt.next;
     }
     renderBuilder();
+    focusPrompt();
   }
 
   /* ------------------------------ Dựng câu ------------------------------ */
 
-  function lastOverride(field) {
-    for (let i = state.picks.length - 1; i >= 0; i--) {
-      const o = state.picks[i].option;
-      if (o[field]) return o[field];
-    }
-    return null;
-  }
-
-  function assemble() {
-    const intent = state.intent;
-    const template = lastOverride("templateOverride") || intent.template;
-    const viTemplate = lastOverride("viTemplateOverride") || intent.viTemplate;
-
-    const slotPick = {};
-    for (const p of state.picks) {
-      const slot = intent.steps[p.stepId].slot;
-      if (slot) slotPick[slot] = p.option;
-    }
-
-    const parts = [];
-    if (template) {
-      for (const seg of template) {
-        if (seg.slot !== undefined) {
-          const opt = slotPick[seg.slot];
-          if (!opt) { parts.push({ kind: "blank" }); continue; }
-          if (opt.silent || !opt.jp) continue;
-          parts.push({ kind: "word", opt, particle: opt.particleObj || seg.particle });
-        } else {
-          parts.push({ kind: "text", text: seg });
-        }
-      }
-    } else {
-      for (const p of state.picks) {
-        const o = p.option;
-        if (o.silent || !o.jp) continue;
-        parts.push({ kind: "word", opt: o, particle: o.particleObj });
-      }
-    }
-
-    let vi = "";
-    if (viTemplate) {
-      vi = viTemplate.replace(/\{(\w+)\}/g, (m, slot) => {
-        const opt = slotPick[slot];
-        return opt ? (opt.vi || "") : "…";
-      });
-      vi = vi.replace(/\s*\(\s*\)/g, "").replace(/,\s*$/g, "").replace(/\s+/g, " ").trim();
-    } else {
-      vi = state.picks
-        .filter(p => !p.option.silent)
-        .map(p => p.option.viLabel || p.option.vi || "")
-        .filter(Boolean)
-        .join(" · ");
-    }
-    return { parts, vi: U.capitalize(vi) };
-  }
-
   function sentenceHtml(parts) {
     return parts.map(part => {
-      if (part.kind === "blank") return `<span class="blank">?</span>`;
+      if (part.kind === "blank") return `<span class="blank" title="Chưa chọn">…</span>`;
       if (part.kind === "text") {
         const t = part.text;
         if (t.text && t.kana && t.text !== t.kana) {
@@ -191,48 +153,6 @@
         html += `<span class="particle" title="${U.esc(part.particle.vi)}">${U.esc(part.particle.jp)}</span>`;
       }
       return html;
-    }).join("");
-  }
-
-  function pronLine(parts) {
-    return parts
-      .filter(p => p.kind !== "blank")
-      .map(p => {
-        if (p.kind === "text") return p.text.viPron || "";
-        const bits = [p.opt.viPron];
-        if (p.particle) bits.push(p.particle.viPron);
-        return bits.filter(Boolean).join(" ");
-      })
-      .filter(Boolean)
-      .join(" ");
-  }
-
-  function romaLine(parts) {
-    return parts
-      .filter(p => p.kind !== "blank")
-      .map(p => {
-        if (p.kind === "text") return p.text.roma || "";
-        const bits = [p.opt.roma];
-        if (p.particle) bits.push(p.particle.roma);
-        return bits.filter(Boolean).join(" ");
-      })
-      .filter(Boolean)
-      .join(" ");
-  }
-
-  function jpText(parts) {
-    return parts.map(p => {
-      if (p.kind === "blank") return "＿";
-      if (p.kind === "text") return p.text.text || "";
-      return p.opt.jp + (p.particle ? p.particle.jp : "");
-    }).join("");
-  }
-
-  function kanaText(parts) {
-    return parts.map(p => {
-      if (p.kind === "blank") return "＿";
-      if (p.kind === "text") return p.text.kana || "";
-      return (p.opt.kana || p.opt.jp || "") + (p.particle ? p.particle.kana : "");
     }).join("");
   }
 
@@ -279,9 +199,11 @@
   function structureHtml(parts) {
     const rows = parts.map(part => {
       if (part.kind === "blank") {
-        return `<div class="brk-row"><div class="brk-jp">?</div>
+        return `<div class="brk-row"><div class="brk-jp">…</div>
           <div class="brk-body"><span class="brk-vi" style="color:var(--muted)">Chưa chọn</span></div></div>`;
       }
+      // Dấu ngăn "。" do engine chèn giữa hai mảnh cố định: không cần thành dòng riêng
+      if (part.kind === "text" && !part.text.vi) return "";
       if (part.kind === "text") return textRowHtml(part.text);
       const o = part.opt;
       // Option cố định đã được tách mảnh ở build: hiện từng mảnh (như thẻ cụm từ)
@@ -301,8 +223,10 @@
   function renderBuilder() {
     const intent = state.intent;
     const step = state.stepId ? currentStep() : null;
-    const { parts, vi } = assemble();
+    const { parts, vi: rawVi } = A.assemble(intent, state.picks);
+    const vi = U.capitalize(rawVi);
     const done = !state.stepId;
+    const started = state.picks.length > 0;
 
     const crumbs = state.picks.map(p =>
       `<span class="crumb">${U.esc(p.option.label || p.option.viLabel || "…")}</span>`
@@ -322,16 +246,25 @@
         }).join("")
       : "";
 
+    // Bước có nhiều lựa chọn (món ăn, địa điểm…): thêm ô lọc nhanh
+    const filterable = !!step && step.options.length > 12;
+    const filterHtml = filterable
+      ? `<input id="opt-filter" class="search opt-filter" type="search" aria-label="Lọc lựa chọn"
+           placeholder="Lọc nhanh trong ${step.options.length} lựa chọn…">`
+      : "";
+
     const notes = [...new Set(state.picks.map(p => p.option.note).filter(Boolean))];
 
     const actions = done
       ? `<div class="b-actions">
           <button class="primary" data-b="speak">🔊 Nghe</button>
-          <button data-b="show">📺 Đưa máy</button>
-          <button data-b="copy">📋 Copy</button>
-          <button data-b="random">🎲 Câu khác</button>
         </div>`
       : "";
+
+    // Chưa chọn gì: gợi ý thay vì khung câu rỗng hoặc toàn dấu "…"
+    const jpHtml = !started && !done
+      ? `<span class="b-empty">👇 Chọn bên dưới để ghép câu</span>`
+      : sentenceHtml(parts);
 
     view.innerHTML = `
       <div class="b-top">
@@ -348,17 +281,19 @@
 
       <div class="b-sentence">
         ${done ? `<span class="done-badge">✓ Câu đã sẵn sàng</span>` : ""}
-        <div class="b-jp">${sentenceHtml(parts)}</div>
-        <div class="b-pron">${U.esc(pronLine(parts))}</div>
-        <div class="b-roma">${U.esc(romaLine(parts))}</div>
+        <div class="b-jp">${jpHtml}</div>
+        <div class="b-pron">${started || done ? U.esc(A.pronLine(parts)) : ""}</div>
+        <div class="b-roma">${started || done ? U.esc(A.romaLine(parts)) : ""}</div>
         <div class="b-vi">${U.esc(vi)}</div>
         ${actions}
         ${done && intent.tip ? `<div class="note" style="margin-top:10px">${U.esc(intent.tip)}</div>` : ""}
         ${structureHtml(parts)}
       </div>
 
-      <div class="b-prompt">${step ? U.esc(step.prompt) : "Nói câu này hoặc đưa máy cho người đối diện nhé."}</div>
+      <div class="b-prompt" tabindex="-1">${step ? U.esc(step.prompt) : ""}</div>
+      ${filterHtml}
       <div class="opt-grid">${chips}</div>
+      ${filterable ? `<div class="empty opt-empty" hidden>Không có lựa chọn khớp.</div>` : ""}
       ${notes.length ? `<div class="b-notes">${notes.map(n => `<div class="b-note">ℹ️ ${U.esc(n)}</div>`).join("")}</div>` : ""}
     `;
 
@@ -366,20 +301,43 @@
       btn.addEventListener("click", () => pick(currentStep().options[Number(btn.dataset.opt)]))
     );
 
+    const filter = view.querySelector("#opt-filter");
+    if (filter) {
+      const opts = [...view.querySelectorAll(".opt")];
+      const empty = view.querySelector(".opt-empty");
+      filter.addEventListener("input", () => {
+        const q = filter.value.trim().toLowerCase();
+        let shown = 0;
+        for (const o of opts) {
+          const hit = !q || o.textContent.toLowerCase().includes(q);
+          o.hidden = !hit;
+          if (hit) shown += 1;
+        }
+        if (empty) empty.hidden = shown > 0;
+      });
+    }
+
     view.querySelectorAll("[data-b]").forEach(btn =>
       btn.addEventListener("click", () => {
         const b = btn.dataset.b;
-        if (b === "home") renderHome();
+        if (b === "home") renderHome(true);
         else if (b === "back") back();
         else if (b === "reset") reset();
         else if (b === "random") randomPath();
-        else if (b === "speak") U.speak(jpText(parts));
-        else if (b === "copy") U.copy(`${jpText(parts)}\n${pronLine(parts)}\n${vi}`, jpText(parts));
-        else if (b === "show") {
-          U.showToLocal({ jp: jpText(parts), kana: kanaText(parts), viPron: pronLine(parts), vi }, intent.label);
-        }
+        else if (b === "speak") U.speak(A.jpText(parts));
       })
     );
+
+    // Thông báo ngắn cho trình đọc màn hình (thay aria-live toàn trang)
+    const status = document.getElementById("status");
+    if (status) {
+      const stop = /[.!?…]$/.test(vi) ? "" : ".";
+      status.textContent = done
+        ? `Câu đã sẵn sàng: ${vi}`
+        : started
+          ? `Câu hiện tại: ${vi}${stop} ${step ? step.prompt : ""}`
+          : (step ? step.prompt : "");
+    }
   }
 
   window.Builder = {

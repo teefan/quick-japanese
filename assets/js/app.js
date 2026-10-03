@@ -1,6 +1,6 @@
 "use strict";
 /* app.js — khung ứng dụng hai tab: Ghép câu (builder) và Từ vựng.
-   Gồm: từ vựng (curated + N5 tải nền, câu ví dụ, trọng âm), TTS, chế độ đưa máy, PWA. */
+   Gồm: từ vựng (curated + N5 tải nền, câu ví dụ, trọng âm), TTS, PWA. */
 
 const QJ = window.QJ || {};
 const view = document.getElementById("view");
@@ -57,48 +57,34 @@ const U = {
     u.rate = 0.92;
     speechSynthesis.speak(u);
   },
-
-  async copy(text, label) {
-    try {
-      await navigator.clipboard.writeText(text);
-      U.toast("Đã copy: " + (label || ""));
-    } catch {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-      U.toast("Đã copy");
-    }
-  },
-
-  /* ----- Modal / chế độ đưa máy ----- */
-  openModal(html, opts = {}) {
-    const modal = document.getElementById("modal");
-    const card = document.getElementById("modal-card");
-    modal.classList.toggle("showmode", !!opts.showmode);
-    card.innerHTML = html;
-    modal.classList.remove("hidden");
-  },
-  closeModal() {
-    document.getElementById("modal").classList.add("hidden");
-    document.getElementById("modal-card").innerHTML = "";
-  },
-
-  /* Đưa máy cho người Nhật xem: chữ Nhật to, thông tin phụ nhỏ */
-  showToLocal(p, title) {
-    U.openModal(`
-      ${title ? `<p style="margin:0 0 6px;color:var(--muted);font-size:13px">${U.esc(title)}</p>` : ""}
-      <div class="sm-jp">${U.esc(p.jp)}</div>
-      ${p.kana && p.kana !== p.jp ? `<div class="sm-kana">${U.esc(p.kana)}</div>` : ""}
-      ${p.viPron ? `<div class="sm-pron">${U.esc(p.viPron)}</div>` : ""}
-      ${p.vi ? `<div class="sm-vi">${U.esc(p.vi)}</div>` : ""}
-      <button class="modal-close" data-close-modal>Đóng</button>
-    `, { showmode: true });
-  },
 };
 window.U = U;
+
+/* ------------------------------ Sáng / tối ------------------------------ */
+/* Mặc định LUÔN là nền sáng (không theo cài đặt hệ điều hành). Người dùng đổi
+   bằng nút 🌙/☀️ ở header; lựa chọn được nhớ trong localStorage. */
+
+function applyTheme(theme) {
+  const dark = theme === "dark";
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  const btn = document.getElementById("theme-toggle");
+  if (btn) {
+    const label = dark ? "Chuyển sang nền sáng" : "Chuyển sang nền tối";
+    btn.textContent = dark ? "☀️" : "🌙";
+    btn.setAttribute("aria-label", label);
+    btn.setAttribute("title", label);
+  }
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", dark ? "#17151d" : "#fdf6f3");
+}
+
+document.getElementById("theme-toggle")?.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  try { localStorage.setItem("qj-theme", next); } catch { /* chế độ riêng tư */ }
+  applyTheme(next);
+});
+
+applyTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
 
 /* Ô tìm kiếm "gõ tới đâu vẽ tới đó": gọi apply(value) rồi giữ nguyên vị trí con trỏ */
 function bindLiveSearch(inputId, apply) {
@@ -376,9 +362,6 @@ document.getElementById("tabs").addEventListener("click", e => {
 /* ------------------------------ Sự kiện toàn cục ------------------------------ */
 
 document.addEventListener("click", e => {
-  const close = e.target.closest("[data-close-modal]");
-  if (close) { U.closeModal(); return; }
-
   const vtag = e.target.closest("[data-vtag]");
   if (vtag) {
     vocabState.tag = vtag.dataset.vtag;
@@ -409,16 +392,7 @@ document.addEventListener("click", e => {
     const p = U.get(act.dataset.key);
     if (!p) return;
     if (act.dataset.act === "speak") U.speak(p.jp);
-    if (act.dataset.act === "copy") U.copy(`${p.jp}\n${p.viPron || ""}\n${p.vi}`, p.jp);
-    if (act.dataset.act === "show") U.showToLocal(p);
   }
-});
-
-document.getElementById("modal").addEventListener("click", e => {
-  if (e.target.id === "modal") U.closeModal();
-});
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") U.closeModal();
 });
 
 if ("speechSynthesis" in window) {

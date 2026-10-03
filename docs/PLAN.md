@@ -69,17 +69,18 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
 1. **Vietnamese-first UI.** Vietnamese labels, meanings, pronunciation; Japanese is the output.
 2. **Pronunciation on every card.** Always show `viPron` (red) — never require romaji literacy.
 3. **One-tap speaking.** TTS 🔊 on every phrase and built sentence (Web Speech API, ja-JP).
-4. **Show-to-local mode 📺.** Full-screen, huge Japanese for pointing at staff. No Vietnamese
-   in the big card (Vietnamese stays small below as a memory aid).
-5. **Guided building, not a test.** The builder is a *narrowing assistant*: pick a meaning →
+4. **Guided building, not a test.** The builder is a *narrowing assistant*: pick a meaning →
    only valid continuations appear → sentence assembles with correct particles and furigana.
-6. **Progressive disclosure.** Grammar is one tap away (particle chips, grammar list), never
+5. **Progressive disclosure.** Grammar is one tap away (particle chips, grammar list), never
    blocking the main flow.
-7. **Mobile-first, offline-friendly.** Bottom tab bar, big tap targets, system-font fallback,
+6. **Mobile-first, offline-friendly.** Bottom tab bar, big tap targets, system-font fallback,
    data as plain JS so the site even works from `file://`.
-8. **Every sentence is dissected.** Phrase cards and built sentences show their grammatical
+7. **Every sentence is dissected.** Phrase cards and built sentences show their grammatical
    composition (word + particle segmentation with type/form notes) and explain each piece;
    the same breakdown is saved with notebook sentences. See §6.4.
+8. **Light by default, gentle Japanese look.** Nền sáng kiểu giấy washi + sakura là mặc định
+   (không theo hệ điều hành); nền tối là lựa chọn thủ công 🌙 có ghi nhớ. Ưu tiên tương phản AA.
+   <!-- (show-to-local mode and copy/share were removed in v2.4.0 — see DEV-CONTEXT) -->
 
 ---
 
@@ -206,7 +207,8 @@ set, mirroring how a phrasebook conversation actually branches.
 - **`viTemplate`** gives a live Vietnamese preview with slot placeholders.
 - **`silent` options** model branch choices (e.g. “Nhờ đưa tôi đến…”) and subject omission
   (teaches that Japanese often drops the subject).
-- Colors/UX: filled segments appear immediately, unfilled slots show `?`; furigana via
+- Colors/UX: filled segments appear immediately, unfilled slots show `…`; trước lựa chọn đầu
+  tiên khung câu hiện gợi ý "👇 Chọn bên dưới để ghép câu"; furigana via
   `<ruby>`; after completion: TTS, copy, show-to-local, random sentence, tip and the
   structure breakdown.
 
@@ -280,12 +282,14 @@ manifest.webmanifest       PWA manifest (installable app)
 sw.js                      service worker: network-first HTML, cache-first assets, fonts SWR
 assets/icons/              PWA icons (source SVG + 192/512 PNG)
 assets/css/style.css       design system, light/dark, mobile-first
-assets/js/app.js           tabs, phrasebook, vocab, grammar, notebook, search, Nghe & chọn quiz, TTS, modal
+assets/js/app.js           2 tabs (Ghép câu, Từ vựng), TTS, PWA register
+assets/js/assemble.js      pure sentence assembly (shared by builder + tools/audit.js)
 assets/js/builder.js       narrowing builder engine (intent trees)
-data/source/*.json         authoring data (vocab, vocab-n5, phrases, grammar, intents, numbers)
+data/source/*.json         authoring data (vocab, vocab-n5, vocab-n5-examples, accents, intents, numbers)
 tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugation
 tools/segment.js           sentence dissection: lexicon + weighted DP tokenizer
 tools/build.js             validates + enriches sources → data/*.js
+tools/audit.js             walks every buildable sentence path; run by npm run build
 data/*.js                  generated, loaded as window.QJ.* (works over file:// too);
                            vocab-n5.js is injected on idle by app.js (561 từ, lazy);
                            builder-index.js maps vocabulary ids → builder intents
@@ -364,7 +368,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 | Risk | Mitigation |
 |---|---|
 | Vietnamese pronunciation inconsistency | Single generator (`tools/kana.js`) + documented spec + overrides list |
-| TTS voice missing on some devices | TTS is enhancement; show-mode and copy always work; Phase 3 offline audio |
+| TTS voice missing on some devices | TTS is enhancement; the sentence, pronunciation and structure panel always work; Phase 3 offline audio |
 | Unnatural buildable sentences | Curated per-branch option lists; native review in Phase 1 |
 | Copyright issues when scaling | Only import datasets with clear licenses; keep `NOTICE`/attribution |
 | Data drift between sources and generated files | One-command rebuild + build-time validation (IDs, refs, steps) |
