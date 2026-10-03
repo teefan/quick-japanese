@@ -246,6 +246,21 @@ function buildIntents(vocabById, vocabN5, numbers) {
   return { intents };
 }
 
+/* Chỉ mục ngược: từ vựng → các mục ghép câu dùng từ đó (chip ở tab Từ vựng) */
+function buildBuilderIndex(intents) {
+  const index = {};
+  for (const intent of intents) {
+    for (const step of Object.values(intent.steps)) {
+      for (const opt of step.options) {
+        if (!opt.ref) continue;
+        if (!index[opt.ref]) index[opt.ref] = [];
+        if (!index[opt.ref].includes(intent.id)) index[opt.ref].push(intent.id);
+      }
+    }
+  }
+  return index;
+}
+
 /* Báo cáo (note) nếu từ N5 thêm vào lexicon làm đổi cách tách câu cố định nào */
 function auditN5Lexicon(intents, vocabById, n5ById, n5Refs, numbers) {
   if (!n5Refs.size) return;
@@ -389,6 +404,8 @@ function main() {
   writeData("vocabN5", vocabN5, "vocab-n5");
   writeData("numbers", numbers);
   writeData("intents", intents);
+  const builderIndex = buildBuilderIndex(intents.intents);
+  writeData("builderIndex", builderIndex, "builder-index");
 
   const meta = {
     builtAt: new Date().toISOString(),
@@ -398,6 +415,7 @@ function main() {
       vocabN5Examples: vocabN5.reduce((n, v) => n + (v.examples ? v.examples.length : 0), 0),
       vocabAccents: accents,
       intents: intents.intents.length,
+      builderWords: Object.keys(builderIndex).length,
       counters: numbers.counters.length,
     },
     generator: "tools/build.js",

@@ -233,6 +233,19 @@ function exampleHtml(ex) {
     </div>`;
 }
 
+/* Chip liên kết sang builder: từ này được dùng trong mục ghép câu nào */
+function builderChips(v) {
+  const ids = (QJ.builderIndex || {})[v.id];
+  if (!ids || !ids.length) return "";
+  const intents = (QJ.intents && QJ.intents.intents) || [];
+  const chips = ids.map(id => {
+    const it = intents.find(x => x.id === id);
+    if (!it) return "";
+    return `<button class="chip w-build-chip" data-act="build-with" data-intent="${U.esc(id)}" title="Mở mục ghép câu này">${U.esc(it.emoji || "🧩")} ${U.esc(it.label)}</button>`;
+  }).join("");
+  return `<div class="w-build"><span class="w-build-label">🧩 Ghép câu:</span>${chips}</div>`;
+}
+
 function vocabCard(v) {
   const key = U.register({ jp: v.jp, kana: v.kana, viPron: v.viPron, vi: v.vi });
   let extra = "";
@@ -254,6 +267,7 @@ function vocabCard(v) {
       <div class="w-meaning">${U.esc(v.vi)}</div>
       ${extra ? `<div class="w-extra">${extra}</div>` : ""}
       ${exampleHtml(firstExample(v))}
+      ${builderChips(v)}
     </div>`;
 }
 
@@ -382,6 +396,13 @@ document.addEventListener("click", e => {
 
   const retryN5 = e.target.closest('[data-act="retry-n5"]');
   if (retryN5) { loadN5(); return; }
+
+  const buildWith = e.target.closest('[data-act="build-with"]');
+  if (buildWith) {
+    switchTab("builder");
+    window.Builder.startWith(buildWith.dataset.intent);
+    return;
+  }
 
   const act = e.target.closest("[data-act]");
   if (act) {

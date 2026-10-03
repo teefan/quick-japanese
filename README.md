@@ -20,6 +20,8 @@ Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc t
   **460 từ N5 kèm câu ví dụ** lấy từ Tatoeba (phiên âm Việt + romaji + nghĩa tiếng Việt);
   **trọng âm (pitch accent) cho 726 từ** — kana với mora cao có gạch trên, dấu ↓ xuống giọng
   và số `[n]`; kèm lượng từ đếm 1–10 và mệnh giá tiền.
+- 🔗 **Hai tab liên kết với nhau**: mỗi thẻ từ vựng có chip “🧩 Ghép câu” mở thẳng mục ghép câu
+  dùng từ đó (bưu điện → …ở đâu?, 水 → Cho tôi… / Tôi muốn…).
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên từ, câu ví dụ và câu ghép.
 - 📺 **Chế độ đưa máy**: chữ Nhật cỡ lớn để chỉ cho nhân viên/tài xế xem.
 - 📶 **PWA offline**: service worker cache toàn bộ app — không cần mạng khi đã mở một lần.
@@ -48,7 +50,8 @@ assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + chế độ đ
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
 data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, số đếm)
-data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay); vocab-n5.js tải theo nhu cầu
+data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay); vocab-n5.js tải theo nhu cầu,
+                           builder-index.js nối từ vựng với mục ghép câu
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           bóc tách câu: từ điển + tokenizer DP
 tools/build.js             kiểm tra + làm giàu dữ liệu, xuất data/*.js

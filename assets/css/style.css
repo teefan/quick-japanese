@@ -579,6 +579,11 @@ main {
 
 .w-ex-vi { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
 
+/* Chip liên kết từ vựng -> mục ghép câu */
+.w-build { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 8px; }
+.w-build-label { font-size: 11.5px; color: var(--muted); }
+.w-build-chip { font-size: 11.5px; padding: 3px 8px; }
+
 .pm { display: inline-block; }
 
 .pm.hi { border-top: 2px solid var(--accent); }

@@ -21,6 +21,8 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
   - `i-feel` (mới): tính từ × món ăn/nơi chốn — kiểm các cặp có tự nhiên không (vd すしは熱いです,
     海は狭いです có chấp nhận được không); `i-shop`: `赤いのはありますか` / `もっと大きいのはありますか`;
     nhánh thời tiết `i-greet`: `暑いですね` / `雨ですね`.
+  - nhánh ngôn ngữ `i-respond`: `日本語が話せます` / `英語が少しわかります` — mức lịch sự và cách
+    dùng が có ổn không.
 - [ ] Lựa chọn “Không cần chủ ngữ” ở mục “Tôi muốn…” có ổn khi đứng một mình không.
 - [ ] Câu cố định hiện bảng bóc tách: các mảnh tách đúng và dễ hiểu chưa.
 - [ ] Từ v2.1.0 option có thể là từ N5 (`n5-…`) — kiểm nghĩa tiếng Việt của chúng khi hiện trên chip

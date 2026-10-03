@@ -4,11 +4,12 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v2.2.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 15 intent trees (4 groups) · ~1,078 combinable sentences
-> (104 curated + 37 N5 words as options) · 744 words (183 curated + 561 N5, lazy-loaded)
-> · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium) · 6 counters (1–10).
-> PWA cache `qj-v2.2.0`. Regression: 15 intents × 3 random paths = 45/45, no JS errors.
+> **Current status (v2.3.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 15 intent trees (4 groups) · ~1,120 combinable sentences
+> (128 curated + 37 N5 words as options) · 744 words (183 curated + 561 N5, lazy-loaded)
+> · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium) · 6 counters (1–10)
+> · vocabulary cards link back into the builder (`data/builder-index.js`).
+> PWA cache `qj-v2.3.0`. Regression: 15 intents × 3 random paths = 45/45, no JS errors.
 > **v2.0.0 narrowed the product**: phrases/cụm từ, notebook/sổ tay, grammar/ngữ pháp, quiz
 > “Nghe & chọn” and global search were removed — all still available in git history (v1.6.1).
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
@@ -93,7 +94,8 @@ Ghép câu 🧩    15 intent trees in 4 groups, ordered basic → advanced (see 
   Sức khỏe & sự cố:   Sức khỏe & sự cố
 
 Từ vựng 📚     744 words (183 curated + 561 N5 lazy) + counters 1–10 + money chips,
-               tag filters, paginated list, search, example sentences, pitch accents
+               tag filters, paginated list, search, example sentences, pitch accents;
+               cards link to the builder intents that use the word
 ```
 
 Removed in v2.0.0 (recoverable from git history): Cụm từ 📖 (phrases), Sổ tay ⭐ (favorites +
@@ -217,7 +219,7 @@ management (agree/decline/don’t-understand), transactions (order, buy, ask pri
 travel (train/taxi, hotel), and emergencies/health. Combinatorial branches multiply coverage
 from a small data set: e.g. 6 verbs × `〜てくれてありがとう` for thanks, 5 body parts × `〜が痛いです`,
 4 items × `〜をなくしました / 〜を盗まれました`, 4 services × `〜を呼んでください`.
-The current 15 trees yield **~1,078 distinct sentences** and reference **104 curated + 37 N5 words**
+The current 15 trees yield **~1,120 distinct sentences** and reference **128 curated + 37 N5 words**
 as options. Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)
@@ -285,7 +287,8 @@ tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugat
 tools/segment.js           sentence dissection: lexicon + weighted DP tokenizer
 tools/build.js             validates + enriches sources → data/*.js
 data/*.js                  generated, loaded as window.QJ.* (works over file:// too);
-                           vocab-n5.js is injected on idle by app.js (561 từ, lazy)
+                           vocab-n5.js is injected on idle by app.js (561 từ, lazy);
+                           builder-index.js maps vocabulary ids → builder intents
 docs/                      this plan + DEV-CONTEXT + pronunciation spec + review checklist
 ```
 

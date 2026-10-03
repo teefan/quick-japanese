@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `87a6ef3` · SW cache `qj-v2.2.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · SW cache `qj-v2.3.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -16,8 +16,10 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
   (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
   Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục.
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
-  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **~739 câu có thể
-  ghép** từ 15 cây; **104 từ biên tập + 37 từ N5** được dùng làm option.
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **~1.120 câu có thể
+  ghép** từ 15 cây; **128 từ biên tập + 37 từ N5** được dùng làm option.
+- **Liên kết hai tab**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
+  (`data/builder-index.js`, sinh tự động).
 - **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
   460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
@@ -46,7 +48,8 @@ assets/css/style.css       design system + màu vai trò (--rl-*)
 assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + modal + PWA register
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
 data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, numbers
-data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html
+data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html;
+                           builder-index.js: từ vựng → mục ghép câu dùng từ đó (chip ở tab Từ vựng)
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           từ điển + tokenizer DP bóc tách câu
 tools/build.js             validate + enrich + xuất data/*.js
@@ -134,6 +137,8 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   viết thẳng và token đúng là trợ từ.
 - **Trọng âm**: chỉ hiển thị khi `accent` tồn tại; mora cao = `i ≥ 2` và (`accent = 0` hoặc `i ≤ accent`),
   riêng `accent = 1` thì mora 1 cao; ↓ sau mora `min(accent, số mora)`.
+- **Chỉ mục builder**: `data/builder-index.js` sinh từ intents (ref → mục dùng từ); thẻ từ vựng đọc
+  `QJ.builderIndex` để hiện chip “🧩 Ghép câu” — không sửa tay, build lại là tự cập nhật.
 - **Mỗi lần release**: bump `VERSION` trong `sw.js` (`qj-vX.Y.Z`), chạy build, commit, push main.
 
 ## 5. Kiểm thử & deploy
@@ -154,9 +159,13 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 
 - **v2.0.0** đã thu hẹp sản phẩm còn **Ghép câu + Từ vựng**; code/dữ liệu của các tính năng cũ
   nằm trong git history (commit `10532f5` trở về trước).
+- **v2.1.0 → v2.3.0** mở rộng builder theo nghiên cứu: N5 refs (37 từ, audit 0 đổi cách tách),
+  Tier 1 (đầy option), Tier 2 (i-feel 365 câu, i-shop, nhánh thời tiết), nhánh ngôn ngữ trong
+  i-respond, và liên kết hai tab (builder-index).
 - Việc còn lại:
   1. **Kiểm duyệt bởi người bản ngữ** — dùng `docs/REVIEW-CHECKLIST.md` (cây ghép câu, lượng từ,
-     phiên âm, nghĩa N5, câu ví dụ, trọng âm), sửa `data/source/*.json` + build.
+     phiên âm, nghĩa N5, câu ví dụ, trọng âm, các cặp tính từ × danh từ mới), sửa
+     `data/source/*.json` + build.
   2. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
 - **Tồn đã biết**: nghĩa 561 từ N5 + 460 câu ví dụ + 726 trọng âm chờ kiểm duyệt; 101 từ N5 chưa
