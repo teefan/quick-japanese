@@ -70,7 +70,8 @@ docs/REVIEW-CHECKLIST.md   checklist kiểm duyệt bởi người bản ngữ
 2. Chạy `npm run build` — script sẽ:
    - sinh phiên âm Việt + romaji cho mọi mục mới,
    - chia động từ mới thành ます / て / たい / khả năng…,
-   - kiểm tra lỗi: trùng id, thiếu kana, cây câu trỏ sai bước, tham chiếu từ vựng không tồn tại.
+   - kiểm tra lỗi: trùng id, thiếu kana, cây câu trỏ sai bước, tham chiếu từ vựng không tồn tại,
+   - soát **toàn bộ câu có thể ghép** (1.120 đường) + cấu trúc cây bằng `tools/audit.js` và báo lỗi.
 
 ## Triển khai GitHub Pages
 

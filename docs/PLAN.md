@@ -1,17 +1,19 @@
 # Quick Japanese — Master Plan
 
 A survival-Japanese tool for Vietnamese travelers: open the page, find or build a Japanese
-sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
-a local. Static site, no server, deployable on GitHub Pages.
+sentence, read the Vietnamese-approximated pronunciation, and say it to a local. Static site,
+no server, deployable on GitHub Pages.
 
-> **Current status (v2.3.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 15 intent trees (4 groups) · ~1,120 combinable sentences
+> **Current status (v2.5.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 15 intent trees (4 groups) · **1,120 combinable sentences**
 > (128 curated + 37 N5 words as options) · 744 words (183 curated + 561 N5, lazy-loaded)
 > · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium) · 6 counters (1–10)
 > · vocabulary cards link back into the builder (`data/builder-index.js`).
-> PWA cache `qj-v2.3.0`. Regression: 15 intents × 3 random paths = 45/45, no JS errors.
-> **v2.0.0 narrowed the product**: phrases/cụm từ, notebook/sổ tay, grammar/ngữ pháp, quiz
-> “Nghe & chọn” and global search were removed — all still available in git history (v1.6.1).
+> PWA cache `qj-v2.5.0`. Regression: `npm run audit` walks all **1,120 paths** (0 errors), no JS errors.
+> **Light theme by default** (washi–sakura–indigo); a 🌙/☀️ toggle remembers dark mode.
+> **v2.0.0 narrowed the product**: phrases, notebook, grammar, quiz and global search were removed;
+> **v2.4.0** also removed show-to-local and copy (finished sentences keep only 🔊 Nghe) — all
+> recoverable from git history (v1.6.1).
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
 
 ---
@@ -75,9 +77,8 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
    blocking the main flow.
 6. **Mobile-first, offline-friendly.** Bottom tab bar, big tap targets, system-font fallback,
    data as plain JS so the site even works from `file://`.
-7. **Every sentence is dissected.** Phrase cards and built sentences show their grammatical
-   composition (word + particle segmentation with type/form notes) and explain each piece;
-   the same breakdown is saved with notebook sentences. See §6.4.
+7. **Every sentence is dissected.** Vocabulary cards and built sentences show their grammatical
+   composition (word + particle segmentation with type/form notes) and explain each piece. See §6.4.
 8. **Light by default, gentle Japanese look.** Nền sáng kiểu giấy washi + sakura là mặc định
    (không theo hệ điều hành); nền tối là lựa chọn thủ công 🌙 có ghi nhớ. Ưu tiên tương phản AA.
    <!-- (show-to-local mode and copy/share were removed in v2.4.0 — see DEV-CONTEXT) -->
@@ -260,6 +261,14 @@ A full audit of the builder produced these fixes:
 Regression check: 13 intents × 3 random paths = 39/39 complete sentences with breakdown, no JS
 errors.
 
+### 6.6 Automated audit (v2.4.0)
+
+`tools/audit.js` walks **every complete path of all 15 intent trees** (1,120 sentences) using the
+same assembly module as the app (`assets/js/assemble.js`) and fails the build on: empty/blank
+slots, unresolved `vi` placeholders, repeated Vietnamese words (e.g. “hơn hơn”), missing `。`
+between two fixed phrases, unknown slot references, duplicate chip labels, unreachable steps,
+dead fields and incomplete token coverage. Run via `npm run build` (or `npm run audit`).
+
 ---
 
 ## 7. Vietnamese pronunciation convention
@@ -369,7 +378,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 |---|---|
 | Vietnamese pronunciation inconsistency | Single generator (`tools/kana.js`) + documented spec + overrides list |
 | TTS voice missing on some devices | TTS is enhancement; the sentence, pronunciation and structure panel always work; Phase 3 offline audio |
-| Unnatural buildable sentences | Curated per-branch option lists; native review in Phase 1 |
+| Unnatural buildable sentences | Curated per-branch option lists; automated audit + native review (`REVIEW-CHECKLIST.md`) |
 | Copyright issues when scaling | Only import datasets with clear licenses; keep `NOTICE`/attribution |
 | Data drift between sources and generated files | One-command rebuild + build-time validation (IDs, refs, steps) |
-| Over-engineering the builder | Deterministic tree, JSON-only extension, 13 intents cover MVP needs |
+| Over-engineering the builder | Deterministic tree, JSON-only extension, 15 intents cover MVP needs; automated audit guards regressions |

@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `01ffd8b` · SW cache `qj-v2.5.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `da1b445` · SW cache `qj-v2.5.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -14,17 +14,20 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
 - **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (15 cây / 4 nhóm) và **Từ vựng 📚**
   (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
-  Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục.
+  Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục;
+  **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy” (câu xong chỉ còn 🔊 Nghe).
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
-  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **~1.120 câu có thể
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.120 câu có thể
   ghép** từ 15 cây; **128 từ biên tập + 37 từ N5** được dùng làm option.
 - **Liên kết hai tab**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
   (`data/builder-index.js`, sinh tự động).
 - **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
   460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
-- Kiểm thử chuẩn: 15 cây × 3 đường ngẫu nhiên = **45/45**, thẻ N5 hiện ví dụ + trọng âm,
-  không lỗi JS.
+- **Giao diện**: nền sáng là mặc định (không theo `prefers-color-scheme`), có nút 🌙/☀️ ở header
+  nhớ lựa chọn trong `localStorage` (`qj-theme`); màu accent/vai trò đạt tương phản AA.
+- Kiểm thử chuẩn: `npm run build` chạy `tools/audit.js` soát **toàn bộ 1.120 đường ghép câu**;
+  vẫn 🎲 vài cây để kiểm UI/TTS, thẻ N5 hiện ví dụ + trọng âm, không lỗi JS.
 
 ## 1. Lệnh thường dùng
 
@@ -115,8 +118,14 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - Nâng cao: `particle` (override trợ từ), `templateOverride`, `viTemplateOverride`, `note`, `hint`.
 - Câu cố định được **tách mảnh tự động** khi build nếu từ điển đủ; nếu không, build ghi chú ở mục
   “Option cố định chưa tách được” (không phải lỗi — câu đó hiện 1 dòng).
+- **Không đặt `particle` ở cấp step** — engine không đọc field này (đã xoá khỏi dữ liệu; audit báo
+  lỗi nếu thêm lại). Trợ từ đặt ở `template`/`templateOverride` (mặc định) hoặc `particle` của option.
+- Cây **không có `template`** (nối nhiều câu cố định): engine tự chèn `。` giữa hai mảnh nếu mảnh
+  trước chưa kết câu (`assets/js/assemble.js`); audit kiểm lại từng đường.
 - **Thứ tự cây trong nhóm = thứ tự mảng** trong file.
 - Không còn trường `grammar` (đã bỏ cùng tab Ngữ pháp v2.0.0).
+- Sau khi sửa luôn chạy `npm run build`: audit sẽ báo slot không tồn tại, nhãn trùng, vi lặp từ,
+  field chết, mảnh tách thiếu ký tự… (xem §5).
 
 ### Thêm từ cho bộ tách câu — `tools/segment.js`
 - Thêm vào `EXPRESSIONS` (kana/jp/vi/note/role) và `EXPR_ROLE` nếu là danh từ/động từ/tính từ/trạng từ.
@@ -142,6 +151,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   riêng `accent = 1` thì mora 1 cao; ↓ sau mora `min(accent, số mora)`.
 - **Chỉ mục builder**: `data/builder-index.js` sinh từ intents (ref → mục dùng từ); thẻ từ vựng đọc
   `QJ.builderIndex` để hiện chip “🧩 Ghép câu” — không sửa tay, build lại là tự cập nhật.
+- **Chủ đề**: nền sáng là mặc định — không thêm `prefers-color-scheme`; nền tối chỉ qua
+  `:root[data-theme="dark"]` + nút `#theme-toggle` (nhớ trong `localStorage.qj-theme`).
+- **Hành động ở câu đã xong**: chỉ giữ 🔊 Nghe (Đưa máy/Copy đã bỏ ở v2.4.0 — đừng thêm lại
+  nếu chưa bàn; “lưu thành ảnh” là hướng thay thế trong Phase 3).
 - **Mỗi lần release**: bump `VERSION` trong `sw.js` (`qj-vX.Y.Z`), chạy build, commit, push main.
 
 ## 5. Kiểm thử & deploy
@@ -210,3 +223,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   (`assets/js/assemble.js`) để `tools/audit.js` kiểm đúng thứ app chạy; **toàn bộ 1.120 đường
   câu** được soát trong `npm run build`, lỗi ⇒ exit 1 (slot trống, vi lặp từ, slot/template lệch,
   field chết, nhãn trùng).
+- **Nền sáng mặc định (v2.5.0)**: app học ngôn ngữ cần nền sáng; nền tối là lựa chọn thủ công có
+  nhớ, không theo hệ điều hành. Bảng màu washi–sakura–indigo; accent + màu vai trò chỉnh để đạt AA.
+- **Giữ UI tối giản (v2.4.0)**: bỏ chế độ “Đưa máy”, “Copy”, dòng nhắc thừa và nút 🎲 trùng — câu đã
+  xong chỉ còn 🔊 Nghe; mọi thêm mới phải thật cần thiết.
