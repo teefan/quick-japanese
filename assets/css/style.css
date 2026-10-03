@@ -335,11 +335,10 @@ main {
 
 .brk-row.hl {
   animation: hlflash 1.4s ease;
-  border-radius: 8px;
 }
 @keyframes hlflash {
-  0% { background: color-mix(in srgb, var(--indigo) 18%, transparent); }
-  100% { background: transparent; }
+  0% { background: color-mix(in srgb, var(--indigo) 18%, transparent); border-radius: 8px; }
+  100% { background: transparent; border-radius: 8px; }
 }
 
 .brk-jp {
