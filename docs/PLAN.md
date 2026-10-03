@@ -4,11 +4,11 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and speak (or show the screen to)
 a local. Static site, no server, deployable on GitHub Pages.
 
-> **Current status (v2.1.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 13 intent trees (4 groups) · ~739 combinable sentences
-> (104 curated + 18 N5 words as options) · 744 words (183 curated + 561 N5, lazy-loaded)
+> **Current status (v2.2.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng.** 15 intent trees (4 groups) · ~1,078 combinable sentences
+> (104 curated + 37 N5 words as options) · 744 words (183 curated + 561 N5, lazy-loaded)
 > · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium) · 6 counters (1–10).
-> PWA cache `qj-v2.0.0`. Regression: 13 intents × 3 random paths = 39/39, no JS errors.
+> PWA cache `qj-v2.2.0`. Regression: 15 intents × 3 random paths = 45/45, no JS errors.
 > **v2.0.0 narrowed the product**: phrases/cụm từ, notebook/sổ tay, grammar/ngữ pháp, quiz
 > “Nghe & chọn” and global search were removed — all still available in git history (v1.6.1).
 > **Starting a new session? Read [`DEV-CONTEXT.md`](DEV-CONTEXT.md) first.**
@@ -85,7 +85,7 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
 ## 4. Information architecture
 
 ```
-Ghép câu 🧩    13 intent trees in 4 groups, ordered basic → advanced (see §6)
+Ghép câu 🧩    15 intent trees in 4 groups, ordered basic → advanced (see §6)
   Giao tiếp:          Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
                       Làm ơn giúp tôi… · Cái này được không?
   Ăn uống & mua sắm:  Cái này thì sao? · Cho tôi… · Tôi muốn… · Tôi thích…
@@ -212,12 +212,12 @@ set, mirroring how a phrasebook conversation actually branches.
 
 Curated patterns guarantee correctness (no hallucinated particles), work offline, are fast,
 reviewable as JSON diffs, and can *explain* every particle. Scope is intentionally bounded but
-broad: **13 intent trees** cover set phrases (greetings, thanks, apologies), conversation
+broad: **15 intent trees** cover set phrases (greetings, thanks, apologies), conversation
 management (agree/decline/don’t-understand), transactions (order, buy, ask price/place),
 travel (train/taxi, hotel), and emergencies/health. Combinatorial branches multiply coverage
 from a small data set: e.g. 6 verbs × `〜てくれてありがとう` for thanks, 5 body parts × `〜が痛いです`,
 4 items × `〜をなくしました / 〜を盗まれました`, 4 services × `〜を呼んでください`.
-The current 13 trees yield **~739 distinct sentences** and reference **104 curated + 18 N5 words**
+The current 15 trees yield **~1,078 distinct sentences** and reference **104 curated + 37 N5 words**
 as options. Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)

@@ -6,7 +6,7 @@ Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc t
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
-- 🧩 **Ghép câu thu hẹp dần** (13 mục, gom theo nhóm: Giao tiếp · Ăn uống & mua sắm · Đi lại & khách sạn ·
+- 🧩 **Ghép câu thu hẹp dần** (15 mục, gom theo nhóm: Giao tiếp · Ăn uống & mua sắm · Đi lại & khách sạn ·
   Sức khỏe & sự cố): chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và phiên âm ngay trên từng trợ từ.
   Bao gồm chào hỏi, **cảm ơn (kể cả mẫu 〜てくれてありがとう “cảm ơn vì đã…”)**, xin lỗi,

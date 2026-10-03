@@ -255,7 +255,7 @@ function auditN5Lexicon(intents, vocabById, n5ById, n5Refs, numbers) {
   for (const intent of intents) {
     for (const step of Object.values(intent.steps)) {
       for (const opt of step.options) {
-        if (opt.ref || opt.silent || !opt.kana) continue;
+        if (opt.ref || opt.silent || opt.templateOverride || !opt.kana) continue;
         const a = tokenize(opt.kana, before);
         const b = tokenize(opt.kana, after);
         const sa = a.parts.map((p) => p.kana).join("|");
@@ -301,10 +301,11 @@ function enrichOption(opt, vocabById, lex) {
     base.roma = opt.roma !== undefined ? opt.roma : opt.pron && opt.pron.roma !== undefined ? opt.pron.roma : K.romanize(opt.kana);
     base.viPron = opt.viPron !== undefined ? opt.viPron : opt.pron && opt.pron.vi !== undefined ? opt.pron.vi : K.viet(opt.kana);
     if (base.viLabel === undefined) base.viLabel = base.vi;
-    // Tách câu cố định thành các mảnh để bảng cấu trúc chi tiết hơn
+    // Tách câu cố định thành các mảnh để bảng cấu trúc chi tiết hơn.
+    // Option có templateOverride tự dựng câu từ các mảnh override nên không cần parts.
     if (opt.parts) {
       base.parts = enrichParts(opt.parts);
-    } else {
+    } else if (!opt.templateOverride) {
       const t = tokenize(opt.kana, lex);
       if (t.parts.length && !t.unknowns.length) {
         base.parts = enrichParts(t.parts);

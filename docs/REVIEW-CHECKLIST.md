@@ -4,7 +4,7 @@ Mục tiêu: rà soát độ **tự nhiên – lịch sự – chính xác** c�
 561 từ N5, 460 câu ví dụ và 726 trọng âm) trước khi coi nội dung hoàn tất. Ưu tiên người Nhật
 bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 
-## 1. Cây ghép câu (13 mục / 4 nhóm)
+## 1. Cây ghép câu (15 mục / 4 nhóm)
 
 - [ ] Thứ tự & phân nhóm: Giao tiếp → Ăn uống & mua sắm → Đi lại & khách sạn → Sức khỏe & sự cố;
       trong mỗi nhóm xếp cơ bản trước (Chào hỏi & xã giao → Cảm ơn & xin lỗi → …).
@@ -18,6 +18,9 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
   - nhánh sự cố khách sạn: `電気がつきません` / `お湯が出ません` / `Wi-Fiがつながりません`.
   - 5 bộ phận × `〜が痛いです`; 4 món đồ × `〜をなくしました / 〜を盗まれました`;
     4 dịch vụ × `〜を呼んでください` (nhánh tàu đã lọc điểm đến riêng).
+  - `i-feel` (mới): tính từ × món ăn/nơi chốn — kiểm các cặp có tự nhiên không (vd すしは熱いです,
+    海は狭いです có chấp nhận được không); `i-shop`: `赤いのはありますか` / `もっと大きいのはありますか`;
+    nhánh thời tiết `i-greet`: `暑いですね` / `雨ですね`.
 - [ ] Lựa chọn “Không cần chủ ngữ” ở mục “Tôi muốn…” có ổn khi đứng một mình không.
 - [ ] Câu cố định hiện bảng bóc tách: các mảnh tách đúng và dễ hiểu chưa.
 - [ ] Từ v2.1.0 option có thể là từ N5 (`n5-…`) — kiểm nghĩa tiếng Việt của chúng khi hiện trên chip

@@ -16,6 +16,7 @@
             { "silent": true, "label": "Chia tay", "vi": "(tạm biệt)", "next": "s-bye" },
             { "silent": true, "label": "Gặp lần đầu", "vi": "(giới thiệu)", "next": "s-intro" },
             { "silent": true, "label": "Khi rời nhà / trở về", "vi": "(đi và về)", "next": "s-depart" },
+            { "silent": true, "label": "Nói về thời tiết", "vi": "(thời tiết)", "next": "s-weather" },
             { "jp": "お元気ですか", "kana": "おげんきですか", "vi": "Bạn khỏe không?", "next": "s-genki" },
             { "jp": "お久しぶりです", "kana": "おひさしぶりです", "vi": "Lâu rồi không gặp", "next": null }
           ]
@@ -62,6 +63,31 @@
           "options": [
             { "jp": "いってきます", "kana": "いってきます", "vi": "Tôi đi nhé", "note": "Nói khi rời nhà/khách sạn", "next": null },
             { "jp": "ただいま", "kana": "ただいま", "vi": "Tôi về rồi đây", "note": "Nói khi trở về", "next": null }
+          ]
+        },
+        "s-weather": {
+          "prompt": "Thời tiết thế nào?",
+          "slot": "weather",
+          "options": [
+            { "ref": "n5-7b4aecdf7b", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Nóng nhỉ.", "next": null },
+            { "ref": "n5-688bc67044", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Lạnh nhỉ.", "next": null },
+            { "ref": "n5-67f5908e10", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Mát mẻ nhỉ.", "next": null },
+            { "ref": "a-atatakai", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Ấm áp nhỉ.", "next": null },
+            {
+              "jp": "いい天気ですね", "kana": "いいてんきですね", "vi": "Trời đẹp nhỉ.",
+              "templateOverride": [{ "text": "いい天気", "kana": "いいてんき", "vi": "trời đẹp" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }],
+              "next": null
+            },
+            {
+              "jp": "雨ですね", "kana": "あめですね", "vi": "Trời mưa nhỉ.",
+              "templateOverride": [{ "text": "雨", "kana": "あめ", "vi": "mưa" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }],
+              "next": null
+            },
+            {
+              "jp": "雪ですね", "kana": "ゆきですね", "vi": "Trời tuyết nhỉ.",
+              "templateOverride": [{ "text": "雪", "kana": "ゆき", "vi": "tuyết" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }],
+              "next": null
+            }
           ]
         }
       },
@@ -398,8 +424,7 @@
             { "ref": "n-toufu", "next": "s-quantity" },
             { "ref": "n-ebi", "next": "s-quantity" },
             { "ref": "n-dezaato", "next": "s-quantity" },
-            { "ref": "n5-669019c625", "next": "s-quantity" },
-            { "ref": "n5-5d72771a3c", "next": "s-quantity" }
+            { "ref": "n5-669019c625", "next": "s-quantity" }
           ]
         },
         "s-quantity": {
@@ -480,7 +505,6 @@
             { "ref": "n-ebi", "next": null },
             { "ref": "n-dezaato", "next": null },
             { "ref": "n5-669019c625", "next": null },
-            { "ref": "n5-5d72771a3c", "next": null },
             { "ref": "d-kore", "next": null },
             { "ref": "d-sore", "next": null }
           ]
@@ -644,6 +668,207 @@
       ],
       "viTemplate": "{subject} thích {object}",
       "tip": "好き là tính từ đuôi な, thứ được thích đánh dấu bằng が (không phải を)."
+    },
+    {
+      "id": "i-feel",
+      "emoji": "😋",
+      "label": "Nhận xét thế nào?",
+      "desc": "Khen/chê món ăn, nơi chốn, đồ vật",
+      "group": "Ăn uống & mua sắm",
+      "start": "s-kind",
+      "steps": {
+        "s-kind": {
+          "prompt": "Nhận xét về gì?",
+          "options": [
+            { "silent": true, "label": "Món ăn / đồ uống", "vi": "(món ăn)", "next": "s-taste-food" },
+            { "silent": true, "label": "Nơi chốn", "vi": "(nơi chốn)", "next": "s-place" },
+            { "silent": true, "label": "Đồ vật (chỉ tay)", "vi": "(đồ vật)", "next": "s-thing" }
+          ]
+        },
+        "s-taste-food": {
+          "prompt": "Món gì?",
+          "slot": "subject",
+          "options": [
+            { "ref": "n-sushi", "next": "s-taste-adj" },
+            { "ref": "n-raamen", "next": "s-taste-adj" },
+            { "ref": "n-tempura", "next": "s-taste-adj" },
+            { "ref": "n-karee", "next": "s-taste-adj" },
+            { "ref": "n-gyuudon", "next": "s-taste-adj" },
+            { "ref": "n-udon", "next": "s-taste-adj" },
+            { "ref": "n-soba", "next": "s-taste-adj" },
+            { "ref": "n-sashimi", "next": "s-taste-adj" },
+            { "ref": "n-yakitori", "next": "s-taste-adj" },
+            { "ref": "n-yakiniku", "next": "s-taste-adj" },
+            { "ref": "n-teishoku", "next": "s-taste-adj" },
+            { "ref": "n-bentou", "next": "s-taste-adj" },
+            { "ref": "n-onigiri", "next": "s-taste-adj" },
+            { "ref": "n-misoshiru", "next": "s-taste-adj" },
+            { "ref": "n-dezaato", "next": "s-taste-adj" },
+            { "ref": "d-kore", "next": "s-taste-adj" },
+            { "ref": "d-sore", "next": "s-taste-adj" }
+          ]
+        },
+        "s-taste-adj": {
+          "prompt": "Vị thế nào?",
+          "slot": "adj",
+          "options": [
+            { "ref": "a-oishii", "next": null },
+            { "ref": "a-mazui", "next": null },
+            { "ref": "a-amai", "next": null },
+            { "ref": "a-karai", "next": null },
+            { "ref": "a-shoppai", "next": null },
+            { "ref": "a-suppai", "next": null },
+            { "ref": "a-nigai", "next": null },
+            { "ref": "a-atsui", "next": null },
+            { "ref": "a-tsumetai", "next": null },
+            { "ref": "a-atatakai", "next": null }
+          ]
+        },
+        "s-place": {
+          "prompt": "Nơi nào?",
+          "slot": "subject",
+          "options": [
+            { "ref": "d-koko", "next": "s-place-adj" },
+            { "ref": "d-soko", "next": "s-place-adj" },
+            { "ref": "n-hoteru", "next": "s-place-adj" },
+            { "ref": "n-onsen", "next": "s-place-adj" },
+            { "ref": "n-resutoran", "next": "s-place-adj" },
+            { "ref": "n-cafe", "next": "s-place-adj" },
+            { "ref": "n-mise", "next": "s-place-adj" },
+            { "ref": "n-eki", "next": "s-place-adj" },
+            { "ref": "n-ichiba", "next": "s-place-adj" },
+            { "ref": "n5-05cf590971", "next": "s-place-adj" },
+            { "ref": "n5-de5a452667", "next": "s-place-adj" },
+            { "ref": "n5-4d76d06d84", "next": "s-place-adj" }
+          ]
+        },
+        "s-place-adj": {
+          "prompt": "Thế nào?",
+          "slot": "adj",
+          "options": [
+            { "ref": "n5-178469ba7a", "next": null },
+            { "ref": "n5-c17f97fafc", "next": null },
+            { "ref": "na-kirei", "next": null },
+            { "ref": "na-benri", "next": null },
+            { "ref": "n5-230d5c7343", "next": null },
+            { "ref": "n5-d12ee2e932", "next": null },
+            { "ref": "n5-91987ae840", "next": null },
+            { "ref": "n5-8ae27e3b51", "next": null },
+            { "ref": "n5-aa60dd4a11", "next": null },
+            { "ref": "a-ookii", "next": null },
+            { "ref": "a-chiisai", "next": null }
+          ]
+        },
+        "s-thing": {
+          "prompt": "Đồ gì?",
+          "slot": "subject",
+          "options": [
+            { "ref": "d-kore", "next": "s-thing-adj" },
+            { "ref": "d-sore", "next": "s-thing-adj" },
+            { "ref": "d-are", "next": "s-thing-adj" }
+          ]
+        },
+        "s-thing-adj": {
+          "prompt": "Thế nào?",
+          "slot": "adj",
+          "options": [
+            { "ref": "a-ookii", "next": null },
+            { "ref": "a-chiisai", "next": null },
+            { "ref": "n5-8ae27e3b51", "next": null },
+            { "ref": "n5-aa60dd4a11", "next": null },
+            { "ref": "a-takai", "next": null },
+            { "ref": "a-yasui", "next": null },
+            { "ref": "na-kirei", "next": null },
+            { "ref": "n5-cdfb776826", "next": null },
+            { "ref": "n5-a8b9eb425d", "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "subject", "particle": "は" },
+        { "slot": "adj" },
+        { "text": "です", "kana": "です", "vi": "là" }
+      ],
+      "viTemplate": "{subject} thì {adj}",
+      "tip": "Tính từ đuôi い giữ nguyên trước です (美味しいです); 静か/きれい là đuôi な nhưng cuối câu vẫn + です."
+    },
+    {
+      "id": "i-shop",
+      "emoji": "🎨",
+      "label": "Màu & cỡ",
+      "desc": "Hỏi màu, cỡ hoặc giá rẻ hơn khi mua đồ",
+      "group": "Ăn uống & mua sắm",
+      "start": "s-kind",
+      "steps": {
+        "s-kind": {
+          "prompt": "Bạn muốn hỏi gì?",
+          "options": [
+            {
+              "silent": true, "label": "Màu khác", "vi": "(màu khác)",
+              "templateOverride": [
+                { "slot": "color" },
+                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
+                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
+              ],
+              "viTemplateOverride": "Có cái màu {color} không?",
+              "next": "s-color"
+            },
+            {
+              "silent": true, "label": "Cỡ khác", "vi": "(cỡ khác)",
+              "templateOverride": [
+                { "text": "もっと", "kana": "もっと", "vi": "hơn nữa" },
+                { "slot": "size" },
+                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
+                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
+              ],
+              "viTemplateOverride": "Có cái {size} hơn không?",
+              "next": "s-size"
+            },
+            {
+              "silent": true, "label": "Rẻ hơn", "vi": "(rẻ hơn)",
+              "templateOverride": [
+                { "text": "もっと", "kana": "もっと", "vi": "hơn nữa" },
+                { "slot": "price" },
+                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
+                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
+              ],
+              "viTemplateOverride": "Có cái {price} hơn không?",
+              "next": "s-price"
+            }
+          ]
+        },
+        "s-color": {
+          "prompt": "Màu gì?",
+          "slot": "color",
+          "options": [
+            { "ref": "n5-44ba38cf8b", "next": null },
+            { "ref": "n5-51a671ec17", "next": null },
+            { "ref": "n5-8997f64f52", "next": null },
+            { "ref": "n5-5e5300cf62", "next": null },
+            { "ref": "n5-0b36c8d6c6", "next": null }
+          ]
+        },
+        "s-size": {
+          "prompt": "Cỡ thế nào?",
+          "slot": "size",
+          "options": [
+            { "ref": "a-ookii", "vi": "lớn hơn", "next": null },
+            { "ref": "a-chiisai", "vi": "nhỏ hơn", "next": null },
+            { "ref": "n5-fcea29f192", "vi": "dài hơn", "next": null },
+            { "ref": "n5-8568eded6e", "vi": "ngắn hơn", "next": null }
+          ]
+        },
+        "s-price": {
+          "prompt": "Giá thế nào?",
+          "slot": "price",
+          "options": [
+            { "ref": "a-yasui", "vi": "rẻ hơn", "next": null }
+          ]
+        }
+      },
+      "template": null,
+      "viTemplate": null,
+      "tip": "〜のはありますか = có cái … không? Thêm もっと trước tính từ để hỏi loại hơn."
     },
     {
       "id": "i-where",

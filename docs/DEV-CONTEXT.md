@@ -12,16 +12,16 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (13 cây / 4 nhóm) và **Từ vựng 📚**
+- **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (15 cây / 4 nhóm) và **Từ vựng 📚**
   (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
   Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục.
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
   thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **~739 câu có thể
-  ghép** từ 13 cây; **104 từ biên tập + 18 từ N5** được dùng làm option.
+  ghép** từ 15 cây; **104 từ biên tập + 37 từ N5** được dùng làm option.
 - **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
   460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
-- Kiểm thử chuẩn: 13 cây × 3 đường ngẫu nhiên = **39/39**, thẻ N5 hiện ví dụ + trọng âm,
+- Kiểm thử chuẩn: 15 cây × 3 đường ngẫu nhiên = **45/45**, thẻ N5 hiện ví dụ + trọng âm,
   không lỗi JS.
 
 ## 1. Lệnh thường dùng
