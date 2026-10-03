@@ -197,6 +197,78 @@
     }).join("");
   }
 
+  /* Bảng bóc tách câu: từng mảnh + loại từ/thể + trợ từ kèm giải thích */
+  function optionNote(part) {
+    const o = part.opt;
+    if (o.posVi && o.formNote) return `${o.posVi}, ${o.formNote}`;
+    return o.posVi || o.formNote || o.note || "";
+  }
+
+  /* Dữ liệu bóc tách để lưu kèm câu vào sổ tay */
+  function structureData(parts) {
+    const rows = [];
+    for (const part of parts) {
+      if (part.kind === "blank") continue;
+      if (part.kind === "text") {
+        rows.push({ jp: part.text.text, kana: part.text.kana, viPron: part.text.viPron, vi: part.text.vi, note: "", grammar: null });
+        continue;
+      }
+      const o = part.opt;
+      rows.push({
+        jp: o.jp, kana: o.kana, viPron: o.viPron,
+        vi: o.viLabel || o.vi, note: optionNote(part),
+        grammar: o.grammarHint || null,
+      });
+      if (part.particle) {
+        rows.push({
+          jp: part.particle.jp, kana: part.particle.kana, viPron: part.particle.viPron,
+          vi: part.particle.vi, note: part.particle.note || "",
+          grammar: part.particle.grammar || null, isParticle: true,
+        });
+      }
+    }
+    return rows;
+  }
+
+  function structureHtml(parts) {
+    const rows = parts.map(part => {
+      if (part.kind === "blank") {
+        return `<div class="brk-row"><div class="brk-jp">?</div>
+          <div class="brk-body"><span class="brk-vi" style="color:var(--muted)">Chưa chọn</span></div></div>`;
+      }
+      if (part.kind === "text") {
+        const t = part.text;
+        return `<div class="brk-row">
+          <div class="brk-jp">${U.esc(t.text)}${t.kana && t.kana !== t.text ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
+          <div class="brk-body">
+            <span class="brk-pron">${U.esc(t.viPron || "")}</span>
+            <span class="brk-vi">${U.esc(t.vi || "—")}</span>
+          </div></div>`;
+      }
+      const o = part.opt;
+      const note = optionNote(part);
+      let html = `<div class="brk-row">
+        <div class="brk-jp">${U.esc(o.jp)}${o.kana && o.kana !== o.jp ? `<small>${U.esc(o.kana)}</small>` : ""}</div>
+        <div class="brk-body">
+          <span class="brk-pron">${U.esc(o.viPron || "")}</span>
+          <span class="brk-vi">${U.esc(o.viLabel || o.vi || "")}${note ? ` · <em>${U.esc(note)}</em>` : ""}</span>
+        </div>
+        ${o.grammarHint ? `<button class="brk-g" data-grammar="${o.grammarHint}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+      </div>`;
+      if (part.particle) {
+        html += `<div class="brk-row particle-row">
+          <div class="brk-jp">${U.esc(part.particle.jp)}</div>
+          <div class="brk-body"><span class="brk-vi">${U.esc(part.particle.vi)}${part.particle.note ? ` · <em>${U.esc(part.particle.note)}</em>` : ""}</span></div>
+          ${part.particle.grammar ? `<button class="brk-g" data-grammar="${part.particle.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+        </div>`;
+      }
+      return html;
+    }).join("");
+    const hasContent = parts.some(p => p.kind !== "blank");
+    if (!hasContent) return "";
+    return `<div class="brk b-brk"><div class="brk-title">🧩 Cấu trúc câu</div>${rows}</div>`;
+  }
+
   /* ------------------------------ Giao diện ------------------------------ */
 
   function renderBuilder() {
@@ -265,6 +337,7 @@
         <div class="b-vi">${U.esc(vi)}</div>
         ${actions}
         ${done && intent.tip ? `<div class="note" style="margin-top:10px">${U.esc(intent.tip)}</div>` : ""}
+        ${structureHtml(parts)}
         <div class="b-grammar">${grammarBtns}</div>
       </div>
 
@@ -297,7 +370,7 @@
             Fav.toggle({
               type: "sentence",
               id: "s" + Date.now(),
-              payload: { jp, kana: kanaText(parts), viPron: pronLine(parts), vi },
+              payload: { jp, kana: kanaText(parts), viPron: pronLine(parts), vi, structure: structureData(parts) },
               savedAt: Date.now(),
             });
             btn.textContent = "★ Đã lưu";
@@ -310,12 +383,7 @@
       })
     );
 
-    view.querySelectorAll(".b-jp [data-grammar]").forEach(el =>
-      el.addEventListener("click", () => U.openGrammar(el.dataset.grammar))
-    );
-    view.querySelectorAll(".b-grammar [data-grammar]").forEach(el =>
-      el.addEventListener("click", () => U.openGrammar(el.dataset.grammar))
-    );
+    // Ghi chú: bấm trợ từ / nút ngữ pháp được xử lý ở app.js qua [data-grammar]
   }
 
   window.Builder = {

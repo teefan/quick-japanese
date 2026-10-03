@@ -65,6 +65,9 @@ directions, refuse politely, and ask for help; payload < 300 KB; works offline a
    blocking the main flow.
 7. **Mobile-first, offline-friendly.** Bottom tab bar, big tap targets, system-font fallback,
    data as plain JS so the site even works from `file://`.
+8. **Every sentence is dissected.** Phrase cards and built sentences show their grammatical
+   composition (word + particle segmentation with type/form notes) and explain each piece;
+   the same breakdown is saved with notebook sentences. See §6.4.
 
 ---
 
@@ -185,6 +188,26 @@ Curated patterns guarantee correctness (no hallucinated particles), work offline
 reviewable as JSON diffs, and can *explain* every particle. Scope is intentionally small:
 9 intents cover the vast majority of traveler needs. Extension = add one JSON object.
 
+### 6.4 Sentence dissection (grammar composition)
+
+Every phrase and every built sentence is also shown **broken into its grammatical pieces**:
+
+- **Phrases** (`tools/segment.js` + build step): a weighted dynamic-programming tokenizer
+  segments the kana string against a lexicon of particles, vocabulary (all conjugated forms,
+  counters, money) and fixed expressions. Weights: word = 1, particle = 2, unknown = 100/char,
+  which prevents greedy mistakes (`はいくら` → `は + いくら`, not `はい + くら`).
+  Each token carries `jp`, `kana`, `viPron`, Vietnamese meaning, a short note
+  (part of speech, verb form, particle role) and an optional grammar id. The build **fails
+  loudly with warnings** when a chunk cannot be segmented; tricky phrases can override with a
+  hand-written `parts` array in `phrases.json` (e.g. `袋はいりません` → 袋 + は + いりません).
+- **Built sentences**: the builder already assembles from typed parts, so the structure panel
+  is derived directly from picks: word row (meaning + part of speech + verb form, e.g.
+  “động từ, mong muốn たい”) and particle row (role + reading), each linking to a grammar card.
+  Saved notebook sentences keep their structure in the payload, so the breakdown survives.
+- **UI**: a compact composition strip (segments separated by `·`, particles in accent colour)
+  plus an expandable “🧩 Giải thích ngữ pháp” table; tapping a particle or 📝 opens the
+  matching grammar point.
+
 ---
 
 ## 7. Vietnamese pronunciation convention
@@ -211,6 +234,7 @@ assets/js/app.js           tabs, phrasebook, vocab, grammar, notebook, search, T
 assets/js/builder.js       narrowing builder engine (intent trees)
 data/source/*.json         authoring data (vocab, phrases, grammar, intents, numbers)
 tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugation
+tools/segment.js           sentence dissection: lexicon + weighted DP tokenizer
 tools/build.js             validates + enriches sources → data/*.js
 data/*.js                  generated, loaded as window.QJ.* (works over file:// too)
 docs/                      this plan + pronunciation spec

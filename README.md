@@ -8,6 +8,9 @@ tìm câu, nghe đọc, đưa màn hình cho người Nhật xem — hoặc tự
 - 🇻🇳 Giao diện, nghĩa và **phiên âm tiếng Việt** cho mọi câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`).
 - 🧩 **Ghép câu thu hẹp dần**: chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và giải thích ngay trên từng trợ từ.
+- 🔬 **Bóc tách ngữ pháp từng câu**: mọi cụm từ và câu ghép đều được chia thành các mảnh
+  (từ + trợ từ) với phiên âm, nghĩa, loại từ/thể và giải thích ngữ pháp — bấm 📝 để mở chi tiết.
+  Bộ tách từ + chú giải nằm ở `tools/segment.js`.
 - ⭐ **Sổ tay của tôi**: lưu cụm từ và câu tự ghép (localStorage) để mở nhanh khi đi du lịch.
 - 🔍 **Tìm kiếm toàn bộ**: cụm từ, từ vựng, ngữ pháp và mục ghép câu trong một ô tìm kiếm.
 - 🔊 Đọc tiếng Nhật bằng giọng máy (Web Speech API) trên mọi câu và câu tự ghép.

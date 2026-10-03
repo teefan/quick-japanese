@@ -9,28 +9,14 @@
 const fs = require("fs");
 const path = require("path");
 const K = require("./kana.js");
+const { PARTICLES, POS_VI, POS_GRAMMAR, FORM_VI, FORM_GRAMMAR, buildLexicon, tokenize } = require("./segment.js");
 
 const SRC = path.join(__dirname, "..", "data", "source");
 const OUT = path.join(__dirname, "..", "data");
 
 const read = (f) => JSON.parse(fs.readFileSync(path.join(SRC, f), "utf8"));
-const has = (f) => fs.existsSync(path.join(SRC, f));
 
 /* ------------------------------ Trợ từ ------------------------------ */
-
-const PARTICLES = {
-  "は": { vi: "～ thì / còn ～", grammar: "particle-wa" },
-  "が": { vi: "～ (chủ ngữ / thứ được thích, muốn)", grammar: "particle-ga" },
-  "を": { vi: "～ (đối tượng của hành động)", grammar: "particle-wo" },
-  "に": { vi: "～ (hướng đến / thời điểm)", grammar: "particle-ni" },
-  "で": { vi: "～ (nơi xảy ra / phương tiện)", grammar: "particle-de" },
-  "へ": { vi: "～ hướng về", grammar: "particle-he" },
-  "の": { vi: "～ của", grammar: "particle-no" },
-  "も": { vi: "～ cũng", grammar: "particle-mo-to" },
-  "と": { vi: "～ và / cùng với", grammar: "particle-mo-to" },
-  "まで": { vi: "～ cho đến (điểm đến)", grammar: "particle-ni" },
-  "か": { vi: "～? (nghi vấn)", grammar: "question-ka" },
-};
 
 function enrichParticle(p) {
   if (!PARTICLES[p]) throw new Error(`Chưa khai báo trợ từ: ${p}`);
@@ -40,6 +26,7 @@ function enrichParticle(p) {
     roma: p === "は" ? "wa" : p === "へ" ? "e" : K.romanize(p),
     viPron: p === "は" ? "oa" : p === "へ" ? "ê" : K.viet(p),
     vi: PARTICLES[p].vi,
+    note: PARTICLES[p].note,
     grammar: PARTICLES[p].grammar,
     isParticle: true,
   };
@@ -114,14 +101,53 @@ const mapObj = (obj, fn) =>
 
 /* ------------------------------ Cụm từ ------------------------------ */
 
-function buildPhrases() {
+function buildPhrases(vocab, numbers, grammarIds) {
+  const lex = buildLexicon(vocab, numbers);
   const src = read("phrases.json");
   const categories = src.categories.map((cat) => ({
     id: cat.id,
     label: cat.label,
     icon: cat.icon,
     desc: cat.desc,
-    items: cat.items.map((p) => enrichText(p)),
+    items: cat.items.map((p) => {
+      const out = enrichText(p);
+      let rawParts;
+      let unknowns = [];
+      if (p.parts) {
+        rawParts = p.parts; // viết tay trong source khi tách tự động chưa đạt
+      } else {
+        const t = tokenize(p.kana, lex);
+        rawParts = t.parts;
+        unknowns = t.unknowns;
+      }
+      for (const u of unknowns) warn(`Chưa tách được [${p.id}]: "${u}"`);
+      const PARTICLE_PRON = { "は": { roma: "wa", viPron: "oa" }, "へ": { roma: "e", viPron: "ê" }, "を": { roma: "o", viPron: "ô" } };
+      out.parts = rawParts.map((part) => {
+        const pp = part.isParticle ? PARTICLE_PRON[part.kana] : null;
+        const e = {
+          jp: part.jp,
+          kana: part.kana,
+          roma: pp ? pp.roma : part.roma !== undefined ? part.roma : K.romanize(part.kana),
+          viPron: pp ? pp.viPron : part.viPron !== undefined ? part.viPron : K.viet(part.kana),
+          vi: part.vi || "",
+          note: part.note || "",
+          grammar: part.grammar || null,
+          isParticle: !!part.isParticle,
+          unknown: !!part.unknown,
+        };
+        if (e.grammar && !grammarIds.has(e.grammar)) {
+          warn(`[${p.id}] "${e.jp}": grammar "${e.grammar}" không tồn tại`);
+          e.grammar = null;
+        }
+        return e;
+      });
+      // Câu chỉ có một mảnh (vd: こんにちは): dùng phiên âm ghi đè của cả câu
+      if (out.parts.length === 1 && p.viPron) {
+        out.parts[0].viPron = p.viPron;
+        if (p.roma) out.parts[0].roma = p.roma;
+      }
+      return out;
+    }),
   }));
   return { categories };
 }
@@ -200,6 +226,9 @@ function enrichOption(opt, vocabById) {
     base.viPron = opt.pron && opt.pron.vi !== undefined ? opt.pron.vi : K.viet(src.kana);
     if (base.vi === undefined) base.vi = v.vi;
     if (base.viLabel === undefined) base.viLabel = base.vi;
+    base.posVi = POS_VI[v.pos] || "";
+    if (opt.form) base.formNote = FORM_VI[opt.form] || "";
+    base.grammarHint = (opt.form && FORM_GRAMMAR[opt.form]) || POS_GRAMMAR[v.pos] || null;
   } else {
     if (!opt.kana) throw new Error(`Option thiếu kana: ${JSON.stringify(opt)}`);
     base.jp = opt.jp !== undefined ? opt.jp : opt.kana;
@@ -239,10 +268,10 @@ function writeData(name, value) {
 function main() {
   console.log("Building quick-japanese data...");
   const vocab = buildVocab();
-  const phrases = buildPhrases();
   const grammar = buildGrammar();
   const grammarIds = new Set(grammar.points.map((g) => g.id));
   const numbers = buildNumbers();
+  const phrases = buildPhrases(vocab.items, numbers, grammarIds);
   const intents = buildIntents(vocab.byId, grammarIds);
 
   writeData("vocab", vocab.items);

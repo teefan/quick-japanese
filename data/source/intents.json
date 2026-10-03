@@ -97,7 +97,7 @@
         { "slot": "subject", "particle": "は" },
         { "slot": "object", "particle": "が" },
         { "slot": "verb" },
-        { "text": "です", "kana": "です", "vi": "" }
+        { "text": "です", "kana": "です", "vi": "là (lịch sự)" }
       ],
       "viTemplate": "{subject} muốn {verb} {object}",
       "grammar": ["tai", "particle-ga", "sov"],
@@ -141,7 +141,7 @@
       "template": [
         { "slot": "object", "particle": "を" },
         { "slot": "quantity" },
-        { "text": "ください", "kana": "ください", "vi": "" }
+        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
       ],
       "viTemplate": "Cho tôi {object}, {quantity}",
       "grammar": ["kudasai-onegai", "particle-wo", "counters"],
@@ -182,7 +182,7 @@
       "template": [
         { "slot": "subject", "particle": "は" },
         { "slot": "object", "particle": "が" },
-        { "text": "好きです", "kana": "すきです", "vi": "" }
+        { "text": "好きです", "kana": "すきです", "vi": "thích" }
       ],
       "viTemplate": "{subject} thích {object}",
       "grammar": ["suki", "particle-ga", "particle-wa"],
@@ -210,25 +210,25 @@
           "options": [
             {
               "jp": "何ですか", "kana": "なんですか", "vi": "là gì?",
-              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "何ですか", "kana": "なんですか", "vi": "" }],
+              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }],
               "viTemplateOverride": "{demo} là gì?",
               "next": null
             },
             {
               "jp": "いくらですか", "kana": "いくらですか", "vi": "bao nhiêu tiền?",
-              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "いくらですか", "kana": "いくらですか", "vi": "" }],
+              "templateOverride": [{ "slot": "demo", "particle": "は" }, { "text": "いくらですか", "kana": "いくらですか", "vi": "bao nhiêu tiền?" }],
               "viTemplateOverride": "{demo} bao nhiêu tiền?",
               "next": null
             },
             {
               "jp": "いいですか", "kana": "いいですか", "vi": "có được không?",
-              "templateOverride": [{ "slot": "demo", "particle": "で" }, { "text": "いいですか", "kana": "いいですか", "vi": "" }],
+              "templateOverride": [{ "slot": "demo", "particle": "で" }, { "text": "いいですか", "kana": "いいですか", "vi": "được không?" }],
               "viTemplateOverride": "{demo} có được không ạ?",
               "next": null
             },
             {
               "jp": "ください", "kana": "ください", "vi": "cho tôi",
-              "templateOverride": [{ "slot": "demo", "particle": "を" }, { "text": "ください", "kana": "ください", "vi": "" }],
+              "templateOverride": [{ "slot": "demo", "particle": "を" }, { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }],
               "viTemplateOverride": "Cho tôi {demo}",
               "next": null
             }
@@ -237,7 +237,7 @@
       },
       "template": [
         { "slot": "demo", "particle": "は" },
-        { "text": "何ですか", "kana": "なんですか", "vi": "" }
+        { "text": "何ですか", "kana": "なんですか", "vi": "là gì?" }
       ],
       "viTemplate": "{demo} là gì?",
       "grammar": ["kosoado", "question-ka", "particle-wa"],
@@ -257,7 +257,7 @@
               "silent": true, "label": "Tôi muốn đi đến…", "vi": "(tôi muốn đi đến)",
               "templateOverride": [
                 { "slot": "place", "particle": "に" },
-                { "text": "行きたいです", "kana": "いきたいです", "vi": "" }
+                { "text": "行きたいです", "kana": "いきたいです", "vi": "muốn đi" }
               ],
               "viTemplateOverride": "Tôi muốn đi đến {place}",
               "next": "s-place"
@@ -266,7 +266,7 @@
               "silent": true, "label": "Nhờ đưa tôi đến… (taxi)", "vi": "(làm ơn đưa tôi đến)",
               "templateOverride": [
                 { "slot": "place", "particle": "まで" },
-                { "text": "お願いします", "kana": "おねがいします", "vi": "" }
+                { "text": "お願いします", "kana": "おねがいします", "vi": "xin nhờ / làm ơn" }
               ],
               "viTemplateOverride": "Làm ơn đưa tôi đến {place}",
               "next": "s-place"
@@ -291,7 +291,7 @@
       },
       "template": [
         { "slot": "place", "particle": "に" },
-        { "text": "行きたいです", "kana": "いきたいです", "vi": "" }
+        { "text": "行きたいです", "kana": "いきたいです", "vi": "muốn đi" }
       ],
       "viTemplate": "Tôi muốn đi đến {place}",
       "grammar": ["particle-ni", "tai"],
@@ -320,7 +320,7 @@
       },
       "template": [
         { "slot": "action" },
-        { "text": "ください", "kana": "ください", "vi": "" }
+        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
       ],
       "viTemplate": "Làm ơn {action}",
       "grammar": ["te-kudasai", "kudasai-onegai"],
@@ -348,7 +348,7 @@
               "silent": true, "label": "Tôi không ăn được…", "vi": "(tôi không ăn được)",
               "templateOverride": [
                 { "slot": "food", "particle": "は" },
-                { "text": "食べられません", "kana": "たべられません", "vi": "" }
+                { "text": "食べられません", "kana": "たべられません", "vi": "không ăn được" }
               ],
               "viTemplateOverride": "Tôi không ăn được {food}",
               "next": "s-food"
@@ -423,7 +423,7 @@
       },
       "template": [
         { "slot": "place", "particle": "は" },
-        { "text": "どこですか", "kana": "どこですか", "vi": "" }
+        { "text": "どこですか", "kana": "どこですか", "vi": "ở đâu?" }
       ],
       "viTemplate": "{place} ở đâu?",
       "grammar": ["question-ka", "particle-wa", "kosoado"],

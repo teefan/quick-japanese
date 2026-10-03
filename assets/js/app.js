@@ -164,6 +164,26 @@ function phraseMatches(p, q) {
   return hay.includes(q.toLowerCase());
 }
 
+function compositionHtml(p) {
+  const chips = p.parts.map(part => `
+    <span class="c ${part.isParticle ? "p" : ""} ${part.unknown ? "u" : ""}"
+      ${part.grammar ? `data-grammar="${part.grammar}" title="${U.esc(part.vi || part.note || "")}"` : ""}>
+      ${U.esc(part.jp)}</span>`).join('<i class="sep">·</i>');
+  const rows = p.parts.map(part => `
+    <div class="brk-row">
+      <div class="brk-jp">${U.esc(part.jp)}${part.kana && part.kana !== part.jp ? `<small>${U.esc(part.kana)}</small>` : ""}</div>
+      <div class="brk-body">
+        <span class="brk-pron">${U.esc(part.viPron)}</span>
+        <span class="brk-vi">${U.esc(part.vi || "—")}${part.note ? ` · <em>${U.esc(part.note)}</em>` : ""}</span>
+      </div>
+      ${part.grammar ? `<button class="brk-g" data-grammar="${part.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+    </div>`).join("");
+  return `
+    <div class="compose">${chips}</div>
+    <button class="brk-toggle" data-brk="${U.esc(p.id)}">🧩 Giải thích ngữ pháp</button>
+    <div class="brk" id="brk-${U.esc(p.id)}" hidden>${rows}</div>`;
+}
+
 function phraseCard(p) {
   const key = U.register(p);
   const on = Fav.has("phrase", p.id);
@@ -179,6 +199,7 @@ function phraseCard(p) {
       ${p.kana && p.kana !== p.jp ? `<div class="kana-line">${U.esc(p.kana)}${p.roma ? " · " + U.esc(p.roma) : ""}</div>` : ""}
       <div class="pron">${U.esc(p.viPron || "")}</div>
       <div class="meaning">${U.esc(p.vi)}</div>
+      ${p.parts && p.parts.length ? compositionHtml(p) : ""}
       ${p.note ? `<div class="note">${U.esc(p.note)}</div>` : ""}
     </div>`;
 }
@@ -332,9 +353,27 @@ function renderVocab() {
 
 /* ------------------------------ Sổ tay của tôi ------------------------------ */
 
+function structureRowsHtml(rows) {
+  return rows.map(part => `
+    <div class="brk-row${part.isParticle ? " particle-row" : ""}">
+      <div class="brk-jp">${U.esc(part.jp)}${part.kana && part.kana !== part.jp ? `<small>${U.esc(part.kana)}</small>` : ""}</div>
+      <div class="brk-body">
+        <span class="brk-pron">${U.esc(part.viPron || "")}</span>
+        <span class="brk-vi">${U.esc(part.vi || "—")}${part.note ? ` · <em>${U.esc(part.note)}</em>` : ""}</span>
+      </div>
+      ${part.grammar ? `<button class="brk-g" data-grammar="${part.grammar}" title="Mở giải thích ngữ pháp">📝</button>` : ""}
+    </div>`).join("");
+}
+
 function sentenceCard(f) {
   const p = f.payload;
   const key = U.register(p);
+  const brkId = "sent-" + f.id;
+  const structure = Array.isArray(p.structure) && p.structure.length
+    ? `
+      <button class="brk-toggle" data-brk="${U.esc(brkId)}">🧩 Giải thích ngữ pháp</button>
+      <div class="brk" id="brk-${U.esc(brkId)}" hidden>${structureRowsHtml(p.structure)}</div>`
+    : "";
   return `
     <div class="card">
       <div class="phrase-head">
@@ -347,6 +386,7 @@ function sentenceCard(f) {
       ${p.kana && p.kana !== p.jp ? `<div class="kana-line">${U.esc(p.kana)}</div>` : ""}
       <div class="pron">${U.esc(p.viPron || "")}</div>
       <div class="meaning">${U.esc(p.vi)}</div>
+      ${structure}
     </div>`;
 }
 
@@ -505,6 +545,20 @@ document.addEventListener("click", e => {
 
   const closeSearch = e.target.closest('[data-act="close-search"]');
   if (closeSearch) { switchTab(currentTab); return; }
+
+  const brk = e.target.closest("[data-brk]");
+  if (brk) {
+    const panel = document.getElementById("brk-" + brk.dataset.brk);
+    if (panel) {
+      panel.hidden = !panel.hidden;
+      brk.classList.toggle("open", !panel.hidden);
+      brk.textContent = panel.hidden ? "🧩 Giải thích ngữ pháp" : "🧩 Thu gọn giải thích";
+    }
+    return;
+  }
+
+  const grammarEl = e.target.closest("[data-grammar]");
+  if (grammarEl) { U.openGrammar(grammarEl.dataset.grammar); return; }
 
   const cat = e.target.closest("[data-cat]");
   if (cat) { phraseState.cat = cat.dataset.cat; renderPhrases(); return; }

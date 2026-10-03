@@ -209,6 +209,95 @@ main {
 }
 .note::before { content: "💡 "; }
 
+/* ---------- Bóc tách câu (composition + giải thích) ---------- */
+
+.compose {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+}
+.compose .c {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 3px 9px;
+  font-family: var(--jp-font);
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.compose .c.p {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  background: var(--accent-soft);
+}
+.compose .c.u { color: var(--muted); font-style: italic; }
+.compose .sep { color: var(--line); font-style: normal; }
+
+.brk-toggle {
+  margin-top: 9px;
+  border: 1px dashed var(--line);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 10px;
+  padding: 5px 11px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.brk-toggle.open { color: var(--indigo); border-color: var(--indigo); }
+
+.brk { margin-top: 8px; border-top: 1px dashed var(--line); }
+.brk-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  padding: 9px 2px 3px;
+}
+.brk-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 2px;
+  border-bottom: 1px dashed var(--line);
+}
+.brk-row:last-child { border-bottom: 0; }
+.brk-jp {
+  font-family: var(--jp-font);
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 78px;
+  line-height: 1.35;
+}
+.brk-jp small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.brk-body { flex: 1; }
+.brk-pron {
+  display: block;
+  color: var(--accent);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.brk-vi { font-size: 13px; }
+.brk-vi em { color: var(--muted); font-style: normal; }
+.brk-g {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 3px 7px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.brk .particle-row .brk-jp { color: var(--accent); }
+.b-brk { margin-top: 12px; }
+
 /* ---------- Tabs ---------- */
 
 .tabs {

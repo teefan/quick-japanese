@@ -107,7 +107,12 @@
         { "id": "shop-10", "jp": "カードは使えますか", "kana": "カードはつかえますか", "vi": "Dùng thẻ được không?", "roma": "kaado wa tsukaemasu ka", "viPron": "ka-a-đô oa tsư-ka-ê-ma-xư-ka", "note": "クレジットカード = thẻ tín dụng." },
         { "id": "shop-11", "jp": "現金でもいいですか", "kana": "げんきんでもいいですか", "vi": "Trả tiền mặt được không?", "note": "でもいいですか = …cũng được chứ?" },
         { "id": "shop-12", "jp": "免税できますか", "kana": "めんぜいできますか", "vi": "Được miễn thuế không?", "note": "Thường áp dụng từ 5.000 yên, nhớ mang hộ chiếu." },
-        { "id": "shop-13", "jp": "袋はいりません", "kana": "ふくろはいりません", "vi": "Tôi không cần túi", "note": "Ngược lại: 袋をお願いします = cho tôi xin cái túi." },
+        { "id": "shop-13", "jp": "袋はいりません", "kana": "ふくろはいりません", "vi": "Tôi không cần túi", "note": "Ngược lại: 袋をお願いします = cho tôi xin cái túi.",
+          "parts": [
+            { "jp": "袋", "kana": "ふくろ", "vi": "túi đựng", "note": "danh từ" },
+            { "jp": "は", "kana": "は", "vi": "～ thì / còn ～", "note": "trợ từ chủ đề, đọc là 'oa'", "grammar": "particle-wa", "isParticle": true },
+            { "jp": "いりません", "kana": "いりません", "vi": "không cần", "note": "từ 要る (cần)" }
+          ] },
         { "id": "shop-14", "jp": "レシートをください", "kana": "レシートをください", "vi": "Cho tôi hóa đơn", "note": "Cần khi hoàn thuế." },
         { "id": "shop-15", "jp": "これでお願いします", "kana": "これでおねがいします", "vi": "Làm ơn tính cái này ạ", "note": "Nói khi đưa đồ ra quầy." },
         { "id": "shop-16", "jp": "他にありますか", "kana": "ほかにもありますか", "vi": "Còn loại khác không?", "note": "他に = ngoài ra." },
