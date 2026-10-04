@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Quick Japanese — Tiếng Nhật du lịch cho người Việt</title>
-  <meta name="description" content="Ghép câu tiếng Nhật cho du khách Việt: chọn nghĩa, app ráp câu đúng trợ từ kèm phiên âm tiếng Việt và trọng âm; ngữ pháp tối giản; nghe & đáp câu nhân viên nói trước; kèm 747 từ vựng (561 từ JLPT N5, câu ví dụ, pitch accent). Dùng offline như một ứng dụng.">
+  <meta name="description" content="Cẩm nang du lịch Nhật cho người Việt: phong tục, phép lịch sự, mẹo thực dụng; ghép câu tiếng Nhật đúng trợ từ kèm phiên âm và trọng âm; ngữ pháp tối giản; nghe & đáp; 747 từ vựng JLPT N5. Dùng offline như một ứng dụng.">
   <meta name="theme-color" content="#fdf6f3">
   <script>try { if (localStorage.getItem("qj-theme") === "dark") document.documentElement.dataset.theme = "dark"; } catch (e) { /* chế độ riêng tư */ }</script>
   <link rel="canonical" href="https://teefan.github.io/quick-japanese/">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Quick Japanese — Ghép câu tiếng Nhật cho người Việt">
-  <meta property="og:description" content="Ghép câu tiếng Nhật theo từng bước, ngữ pháp tối giản, nghe & đáp câu nhân viên nói trước, phiên âm tiếng Việt + trọng âm, và 747 từ vựng gồm 561 từ JLPT N5 (câu ví dụ, pitch accent). Dùng offline trên điện thoại.">
+  <meta property="og:description" content="Cẩm nang phong tục & mẹo du lịch Nhật, ghép câu tiếng Nhật theo từng bước, ngữ pháp tối giản, nghe & đáp câu nhân viên, phiên âm tiếng Việt + trọng âm, 747 từ vựng JLPT N5. Dùng offline trên điện thoại.">
   <meta property="og:url" content="https://teefan.github.io/quick-japanese/">
   <meta property="og:image" content="assets/icons/icon-512.png">
   <meta property="og:locale" content="vi_VN">
@@ -33,7 +33,7 @@
       <span class="logo">🗾</span>
       <div>
         <h1>Quick Japanese</h1>
-        <p>Ghép câu, từ vựng &amp; ngữ pháp cho người Việt</p>
+        <p>Cẩm nang, ghép câu &amp; từ vựng cho người Việt</p>
       </div>
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Chuyển sang nền tối" title="Chuyển sang nền tối">🌙</button>
     </div>
@@ -43,7 +43,8 @@
   <div id="status" class="sr-only" role="status" aria-live="polite"></div>
 
   <nav class="tabs" id="tabs">
-    <button data-tab="builder" class="active"><span class="ico">🧩</span>Ghép câu</button>
+    <button data-tab="guide" class="active"><span class="ico">🧭</span>Cẩm nang</button>
+    <button data-tab="builder"><span class="ico">🧩</span>Ghép câu</button>
     <button data-tab="vocab"><span class="ico">📚</span>Từ vựng</button>
     <button data-tab="grammar"><span class="ico">📝</span>Ngữ pháp</button>
   </nav>
@@ -56,6 +57,7 @@
   <script src="data/intents.js"></script>
   <script src="data/exchanges.js"></script>
   <script src="data/grammar.js"></script>
+  <script src="data/cheatsheet.js"></script>
   <script src="data/builder-index.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="assets/js/assemble.js"></script>

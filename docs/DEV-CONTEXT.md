@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-04 · commit `dbf453b` · SW cache `qj-v2.9.2` · Pages built xanh
+> Cập nhật: 2026-10-04 · commit `3e66b69` · SW cache `qj-v2.10.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -11,11 +11,12 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md).
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **3 tab (v2.9.x)**: **Ghép câu 🧩** (16 cây / 4 nhóm) · **Từ vựng 📚** (747 từ: 186 biên tập +
-  561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá) · **Ngữ pháp 📝** (23 điểm tối giản; mẫu câu
-  kèm phiên âm Việt + romaji, ví dụ lấy từ câu ghép được). Lịch sử: v2.0.0 từng thu hẹp còn 2 tab,
-  bỏ cụm từ, sổ tay, quiz “Nghe & chọn”, tìm kiếm toàn cục; **v2.4.0 bỏ thêm** chế độ “Đưa máy” và
-  “Copy” (câu xong chỉ còn 🔊 Nghe).
+- **4 tab (v2.10.x)**: **Cẩm nang 🧭** (8 nhóm · 33 mẹo phong tục/lịch sự/an toàn, mở mặc định) ·
+  **Ghép câu 🧩** (16 cây / 4 nhóm) · **Từ vựng 📚** (747 từ: 186 biên tập + 561 N5; câu ví dụ +
+  trọng âm + số đếm & mệnh giá) · **Ngữ pháp 📝** (23 điểm tối giản; mẫu câu kèm phiên âm Việt +
+  romaji, ví dụ lấy từ câu ghép được). Lịch sử: v2.0.0 từng thu hẹp còn 2 tab, bỏ cụm từ, sổ tay,
+  quiz “Nghe & chọn”, tìm kiếm toàn cục; **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy”
+  (câu xong chỉ còn 🔊 Nghe).
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
   thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.266 câu có thể
   ghép** từ 16 cây; **130 từ biên tập + 39 từ N5** được dùng làm option. Trang chủ Ghép câu có
@@ -54,14 +55,15 @@ index.html                 entry; load data/*.js rồi assets/js/app.js, builder
 manifest.webmanifest       PWA manifest
 sw.js                      service worker (đổi VERSION mỗi lần release app/data)
 assets/css/style.css       design system + màu vai trò (--rl-*)
-assets/js/app.js           3 tab: Ghép câu, Từ vựng, Ngữ pháp + TTS + chủ đề sáng/tối + PWA register
+assets/js/app.js           4 tab: Cẩm nang, Ghép câu, Từ vựng, Ngữ pháp + TTS + chủ đề sáng/tối + PWA register
 assets/js/assemble.js      logic ráp câu thuần (không DOM) — builder + audit dùng chung
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
-data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, exchanges, grammar, numbers
+data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, exchanges, grammar, cheatsheet, numbers
 data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html;
                            builder-index.js: từ vựng → mục ghép câu dùng từ đó (chip ở tab Từ vựng);
                            exchanges.js: tình huống “nhân viên nói trước” (module Nghe & đáp);
-                           grammar.js: điểm ngữ pháp + ví dụ cho tab Ngữ pháp
+                           grammar.js: điểm ngữ pháp + ví dụ cho tab Ngữ pháp;
+                           cheatsheet.js: mẹo phong tục + câu mẫu cho tab Cẩm nang
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           từ điển + tokenizer DP bóc tách câu
 tools/build.js             validate + enrich + xuất data/*.js
@@ -178,6 +180,24 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   `GRAMMAR_EXTRA` trong `tools/build.js`; ghi đè tay chỉ khi thật cần.
 - Audit kiểm id duy nhất, level hợp lệ, đủ title/summary/detail, pattern (nếu có) và ví dụ đã enrich.
 
+### Cẩm nang du lịch — `data/source/cheatsheet.json`
+```jsonc
+{
+  "id": "onsen", "emoji": "♨️", "title": "Onsen / sento",
+  "text": "đoạn giải thích ngắn",
+  "do": "một dòng nên làm (tuỳ chọn)", "dont": "một dòng nên tránh (tuỳ chọn)",
+  "phrases": [ { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không cần đâu" } ],
+  "intents": ["i-hotel"]        // chip 🧩 Ghép câu mở thẳng cây liên quan
+}
+```
+- Tab 🧭 Cẩm nang là **tab đầu và mở mặc định**; dữ liệu ở `cheatsheet.sections[]`, mỗi mục lớn có
+  `emoji/title/desc/items[]`. Câu mẫu (`phrases`) được build sinh roma + viPron bằng lexicon tham
+  khảo chung (curated + toàn bộ N5 + `SPOKEN_EXTRA` + `GRAMMAR_EXTRA` + `CHEATSHEET_EXTRA`).
+- `sources[]` liệt kê nguồn tham khảo (JNTO, Cục Du lịch Nhật Bản, JR, Kyoto Travel…) và hiện ở cuối
+  tab; nội dung do dự án biên tập từ các nguồn đó — không phải phrasebook, không có bước kiểm duyệt.
+- Audit kiểm id duy nhất (cả mục lớn lẫn mục nhỏ), đủ title/text, câu mẫu đã enrich, `intents` tồn
+  tại trong builder, nguồn có label + URL http(s). Thêm mẹo mới: sửa JSON → `npm run build`.
+
 ### Thêm từ cho bộ tách câu — `tools/segment.js`
 - Thêm vào `EXPRESSIONS` (kana/jp/vi/note/role) và `EXPR_ROLE` nếu là danh từ/động từ/tính từ/trạng từ.
   Sau đó build lại để câu cố định được tách mảnh.
@@ -214,10 +234,11 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
 ## 5. Kiểm thử & deploy
 
 1. `npm run build` — build phải **0 cảnh báo** (còn vài ghi chú thống kê: ví dụ N5, N5 refs trong
-   builder, ngữ pháp, trọng âm); `tools/audit.js` phải **0 lỗi** (soát toàn bộ đường ghép câu + dữ
-   liệu ngữ pháp) và nên 0 cảnh báo.
+   builder, ngữ pháp, cẩm nang, trọng âm); `tools/audit.js` phải **0 lỗi** (soát toàn bộ đường ghép
+   câu + dữ liệu ngữ pháp/cẩm nang) và nên 0 cảnh báo.
 2. `node --check` các file JS đã sửa.
-3. Mở app (nhớ xoá SW khi test): kiểm 3 tab, **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
+3. Mở app (nhớ xoá SW khi test): kiểm 4 tab, **Cẩm nang** (mở vài thẻ, kiểm nên/tránh, câu mẫu +
+   🔊, chip 🧩 mở đúng cây, nguồn cuối tab), **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
    hiện bảng cấu trúc, câu xong hiện **replies** nếu có), **Nghe & đáp** ở trang chủ (mở 1 tình
    huống, kiểm furigana/phiên âm/nút 🔊), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ +
    🔊, trọng âm `[n]` + gạch trên + ↓, thẻ N5 tải nền), **Ngữ pháp** (mở vài điểm, kiểm ví dụ +
@@ -264,6 +285,11 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   tắt nên không lặp lại); ví dụ lấy từ đúng câu builder ráp được; `data/source/grammar.json` →
   `data/grammar.js`; build sinh roma/phiên âm bằng lexicon riêng (`GRAMMAR_EXTRA`), audit kiểm luôn.
   Tab thứ 3 trong thanh dưới; SW cache `qj-v2.9.2`.
+- **v2.10.0** thêm **🧭 Cẩm nang du lịch** (tab đầu, mở mặc định): 8 nhóm · 33 mẹo phong tục, lịch
+  sự và an toàn, biên tập từ nguồn công khai (JNTO, Cục Du lịch Nhật Bản, JR, Kyoto Travel, Đại sứ
+  quán Hoa Kỳ…) và ghi nguồn ở cuối tab. Mỗi mẹo có dòng nên/tránh, câu tiếng Nhật kèm phiên âm +
+  🔊, và **chip 🧩 mở thẳng cây ghép câu** (`intents`); nút “Ghép câu ngay” ở đầu tab. Dữ liệu mới
+  `data/source/cheatsheet.json` → `data/cheatsheet.js`; audit kiểm luôn. SW cache `qj-v2.10.0`.
 - Việc còn lại:
   1. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
@@ -326,3 +352,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
 - **Trả lại ngữ pháp ở dạng tối giản (v2.9.0)**: tab Ngữ pháp đầy đủ đã bỏ từ v2.0.0, nay chỉ dựng
   lại 23 điểm cần nhất (trợ từ + mẫu câu hay gặp trong builder) với ví dụ lấy từ chính câu ghép
   được; dữ liệu đi qua build + audit như mọi nguồn khác, không thêm tính năng quiz/tìm kiếm.
+- **Cẩm nang là tab đầu (v2.10.0)**: đặt phong tục/lịch sự lên trước builder để người dùng được
+  tôn trọng ngay từ lần mở đầu; app mở mặc định ở Cẩm nang, có nút “Ghép câu ngay” và mỗi mẹo gắn
+  chip mở thẳng cây liên quan — vẫn giữ nguyên tắc không phrasebook, không tìm kiếm toàn cục.
+  Nội dung có nguồn tham khảo công khai (không kiểm duyệt bản ngữ), sửa bằng `cheatsheet.json`.

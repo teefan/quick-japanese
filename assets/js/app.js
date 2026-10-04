@@ -1,6 +1,6 @@
 "use strict";
-/* app.js — khung ứng dụng ba tab: Ghép câu (builder), Từ vựng và Ngữ pháp.
-   Gồm: từ vựng (curated + N5 tải nền, câu ví dụ, trọng âm), ngữ pháp tối giản, TTS, PWA. */
+/* app.js — khung ứng dụng bốn tab: Cẩm nang (guide), Ghép câu (builder), Từ vựng, Ngữ pháp.
+   Gồm: cẩm nang phong tục, builder, từ vựng (curated + N5 tải nền), ngữ pháp tối giản, TTS, PWA. */
 
 const QJ = window.QJ || {};
 const view = document.getElementById("view");
@@ -405,11 +405,93 @@ function renderGrammar() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+/* ------------------------------ Cẩm nang du lịch ------------------------------ */
+
+function guidePhraseHtml(p) {
+  const key = U.register({ jp: p.jp, kana: p.kana, viPron: p.viPron, vi: p.vi });
+  return `
+    <div class="g-ex">
+      <button class="icon-btn g-ex-audio" title="Nghe câu mẫu" data-act="speak" data-key="${key}">🔊</button>
+      <div class="g-ex-body">
+        <div class="g-ex-jp">${U.esc(p.jp)}</div>
+        <div class="g-ex-pron">${U.esc(p.viPron || "")}${p.roma ? `<span class="roma"> · ${U.esc(p.roma)}</span>` : ""}</div>
+        <div class="g-ex-vi">${U.esc(p.vi)}</div>
+      </div>
+    </div>`;
+}
+
+/* Chip "🧩 Ghép câu" của cẩm nang — mở thẳng cây ý định liên quan */
+function guideChips(item) {
+  const ids = item.intents || [];
+  if (!ids.length) return "";
+  const all = (QJ.intents && QJ.intents.intents) || [];
+  const chips = ids.map(id => {
+    const it = all.find(x => x.id === id);
+    if (!it) return "";
+    return `<button class="chip w-build-chip" data-act="build-with" data-intent="${U.esc(id)}" title="Mở mục ghép câu này">${U.esc(it.emoji || "🧩")} ${U.esc(it.label)}</button>`;
+  }).join("");
+  return `<div class="w-build"><span class="w-build-label">🧩 Ghép câu:</span>${chips}</div>`;
+}
+
+function guideItemHtml(it) {
+  return `
+    <details class="g cs-item">
+      <summary>
+        <div class="g-head"><h3>${U.esc(it.emoji || "•")} ${U.esc(it.title)}</h3></div>
+      </summary>
+      <div class="g-body">
+        <p>${U.esc(it.text)}</p>
+        ${it.do ? `<div class="cs-rule do">${U.esc(it.do)}</div>` : ""}
+        ${it.dont ? `<div class="cs-rule dont">${U.esc(it.dont)}</div>` : ""}
+        ${(it.phrases || []).map(guidePhraseHtml).join("")}
+        ${guideChips(it)}
+      </div>
+    </details>`;
+}
+
+/* Tab Cẩm nang: phong tục, lịch sự & mẹo thực dụng, có câu mẫu + chip sang builder */
+function renderGuide() {
+  U.resetReg();
+  const cs = QJ.cheatsheet || { sections: [], sources: [] };
+  const items = cs.sections.reduce((n, s) => n + (s.items || []).length, 0);
+  const sections = cs.sections.map(s => `
+    <div class="section-title">
+      <h2>${U.esc(s.emoji || "•")} ${U.esc(s.title)}</h2>
+      <span class="desc">${U.esc(s.desc || "")}</span>
+    </div>
+    ${(s.items || []).map(guideItemHtml).join("")}`).join("");
+
+  view.innerHTML = `
+    <div class="section-title">
+      <h2>🧭 Cẩm nang du lịch</h2>
+      <span class="desc">${cs.sections.length} nhóm · ${items} mẹo — phong tục, lịch sự &amp; an toàn</span>
+    </div>
+    <div class="card">
+      <b style="font-size:14px">Được tôn trọng từ cái gật đầu</b>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:4px">
+        Mở từng thẻ để xem mẹo; câu tiếng Nhật kèm phiên âm Việt + romaji, bấm 🔊 để nghe.
+        Thẻ nào có chip 🧩 là mở thẳng câu ghép tương ứng.
+      </div>
+      <div class="cs-actions">
+        <button class="quick-chip" data-goto="builder"><span>🧩</span> Ghép câu ngay</button>
+        <button class="quick-chip" data-goto="grammar"><span>📝</span> Ngữ pháp tối giản</button>
+      </div>
+    </div>
+    ${sections}
+    <div class="card src-note">
+      <b>📜 Nguồn tham khảo</b>
+      ${cs.sources.map(s => `<p><a href="${U.esc(s.url)}" target="_blank" rel="noopener">${U.esc(s.label)}</a></p>`).join("")}
+      <p>Nội dung do dự án biên tập lại cho người Việt; quy định có thể thay đổi theo thời gian — kiểm tra lại trước khi đi.</p>
+    </div>`;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 /* ------------------------------ Điều hướng tab ------------------------------ */
 
-let currentTab = "builder";
+let currentTab = "guide";
 
 const TABS = {
+  guide: renderGuide,
   builder: () => window.Builder.open(),
   vocab: renderVocab,
   grammar: renderGrammar,
@@ -424,7 +506,7 @@ function setActiveTab(tab) {
 function switchTab(tab) {
   currentTab = tab;
   setActiveTab(tab);
-  (TABS[tab] || TABS.builder)();
+  (TABS[tab] || TABS.guide)();
 }
 
 document.getElementById("tabs").addEventListener("click", e => {
@@ -435,6 +517,12 @@ document.getElementById("tabs").addEventListener("click", e => {
 /* ------------------------------ Sự kiện toàn cục ------------------------------ */
 
 document.addEventListener("click", e => {
+  const goto = e.target.closest("[data-goto]");
+  if (goto && TABS[goto.dataset.goto]) {
+    switchTab(goto.dataset.goto);
+    return;
+  }
+
   const vtag = e.target.closest("[data-vtag]");
   if (vtag) {
     vocabState.tag = vtag.dataset.vtag;
@@ -488,5 +576,5 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
 if ("requestIdleCallback" in window) requestIdleCallback(() => loadN5());
 else setTimeout(() => loadN5(), 1500);
 
-/* Khởi động — mặc định mở Ghép câu; chờ DOM xong để builder.js kịp định nghĩa window.Builder */
-document.addEventListener("DOMContentLoaded", () => switchTab("builder"), { once: true });
+/* Khởi động — mặc định mở Cẩm nang; chờ DOM xong để builder.js kịp định nghĩa window.Builder */
+document.addEventListener("DOMContentLoaded", () => switchTab("guide"), { once: true });

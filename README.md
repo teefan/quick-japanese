@@ -1,12 +1,16 @@
 # Quick Japanese 🗾
 
-**Ghép câu tiếng Nhật cho người Việt đi du lịch.** Chọn nghĩa theo từng bước, app ráp câu tiếng
-Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm, bóc tách câu và **ngữ pháp tối giản**;
-**nghe & đáp câu nhân viên nói trước**; tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ và
-pitch accent).
+**Cẩm nang + ghép câu tiếng Nhật cho người Việt đi du lịch.** Nắm phong tục & phép lịch sự
+trước khi lên đường, chọn nghĩa theo từng bước để app ráp câu tiếng Nhật đúng trợ từ, kèm phiên âm
+tiếng Việt, trọng âm, bóc tách câu và **ngữ pháp tối giản**; **nghe & đáp câu nhân viên nói trước**;
+tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent).
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
+- 🧭 **Cẩm nang du lịch**: 8 nhóm · 33 mẹo phong tục – lịch sự – an toàn (thuốc & hải quan, tiền mặt,
+  xếp hàng/thang cuốn, đũa & bàn ăn, thẻ IC, shinkansen, onsen & hình xăm, chùa/đền, miễn thuế từ
+  11/2026, động đất & mất đồ…), mỗi mẹo có nên/tránh, câu tiếng Nhật kèm phiên âm + 🔊 và chip
+  **🧩 Ghép câu** mở thẳng câu cần dùng; nguồn tham khảo ghi rõ cuối trang.
 - 🧩 **Ghép câu thu hẹp dần** (16 mục, gom theo nhóm: Giao tiếp cơ bản · Ăn uống, mua sắm & thanh
   toán · Đi lại & khách sạn · Sự cố & sức khỏe): bấm **⚡ Chọn nhanh** hoặc chọn “Không cần chủ
   ngữ” → “muốn” → món…
@@ -55,18 +59,18 @@ index.html                 trang chính (load data + app)
 manifest.webmanifest       khai báo PWA (cài như app)
 sw.js                      service worker — cache offline
 assets/css/style.css       giao diện, mobile-first, có dark mode
-assets/js/app.js           3 tab: Ghép câu, Từ vựng, Ngữ pháp + TTS + PWA
+assets/js/app.js           4 tab: Cẩm nang, Ghép câu, Từ vựng, Ngữ pháp + TTS + PWA
 assets/js/assemble.js      logic ráp câu thuần (builder + audit dùng chung)
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
-data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, nghe–đáp, ngữ pháp, số đếm)
+data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, nghe–đáp, ngữ pháp, cẩm nang, số đếm)
 data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay); vocab-n5.js tải theo nhu cầu,
                            builder-index.js nối từ vựng với mục ghép câu, exchanges.js cho mục Nghe & đáp,
-                           grammar.js cho tab Ngữ pháp
+                           grammar.js cho tab Ngữ pháp, cheatsheet.js cho tab Cẩm nang
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           bóc tách câu: từ điển + tokenizer DP
 tools/build.js             kiểm tra + làm giàu dữ liệu, xuất data/*.js
-tools/audit.js             soát toàn bộ đường ghép câu + nhất quán cây/dữ liệu ngữ pháp (chạy trong npm run build)
+tools/audit.js             soát toàn bộ đường ghép câu + nhất quán ngữ pháp/cẩm nang (chạy trong npm run build)
 docs/PLAN.md               kế hoạch tổng thể, thiết kế dữ liệu, lộ trình
 docs/DEV-CONTEXT.md        bối cảnh & hướng dẫn cho phiên phát triển mới (đọc trước khi code)
 docs/PRONUNCIATION.md      quy ước phiên âm tiếng Việt

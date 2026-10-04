@@ -30,7 +30,7 @@ const warnings = [];
 const err = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
 
-const QJ = loadQJ(["data/intents.js", "data/exchanges.js", "data/grammar.js"]);
+const QJ = loadQJ(["data/intents.js", "data/exchanges.js", "data/grammar.js", "data/cheatsheet.js"]);
 const intents = QJ.intents.intents;
 let paths = 0;
 let scenarioPairs = 0;
@@ -205,7 +205,37 @@ for (const g of grammarPoints) {
   }
 }
 
-console.log(`Audit builder: ${intents.length} cây, ${paths} đường câu, ${replyLines} gợi ý đáp, ${scenarioPairs} cặp nghe–đáp, ${grammarPoints.length} điểm ngữ pháp — ${errors.length} lỗi, ${warnings.length} cảnh báo`);
+/* Cẩm nang du lịch: id duy nhất, đủ dữ liệu, câu mẫu đã enrich, nguồn hợp lệ */
+const cheatsheet = QJ.cheatsheet || { sections: [], sources: [] };
+const guideIds = new Set();
+let guideItems = 0;
+for (const s of cheatsheet.sections) {
+  const at = s.id || "(thiếu id)";
+  if (!s.id || !s.title) err(`[cẩm nang] ${at}: mục lớn thiếu id/title`);
+  if (guideIds.has(s.id)) err(`[cẩm nang] ${at}: trùng id`);
+  guideIds.add(s.id);
+  if (!(s.items || []).length) warn(`[cẩm nang] ${at}: không có mục nhỏ`);
+  for (const it of s.items || []) {
+    guideItems += 1;
+    const iat = `${at}/${it.id || "(thiếu id)"}`;
+    if (!it.id || !it.title || !it.text) err(`[cẩm nang] ${iat}: thiếu id/title/text`);
+    if (guideIds.has(it.id)) err(`[cẩm nang] ${iat}: trùng id`);
+    guideIds.add(it.id);
+    for (const [i, p] of (it.phrases || []).entries()) {
+      if (!p.jp || !p.kana || !p.vi) err(`[cẩm nang] ${iat} phrase#${i}: thiếu jp/kana/vi`);
+      if (!p.roma || !p.viPron) err(`[cẩm nang] ${iat} phrase#${i}: thiếu roma/viPron (enrich lỗi)`);
+    }
+    for (const id of it.intents || []) {
+      if (!intents.some((x) => x.id === id)) err(`[cẩm nang] ${iat}: intent "${id}" không tồn tại`);
+    }
+  }
+}
+if (!cheatsheet.sections.length) err("data/cheatsheet.js: chưa có mục cẩm nang nào");
+for (const [i, s] of (cheatsheet.sources || []).entries()) {
+  if (!s.label || !/^https?:\/\//.test(s.url || "")) err(`[cẩm nang] source#${i}: thiếu label/url hợp lệ`);
+}
+
+console.log(`Audit builder: ${intents.length} cây, ${paths} đường câu, ${replyLines} gợi ý đáp, ${scenarioPairs} cặp nghe–đáp, ${grammarPoints.length} điểm ngữ pháp, ${cheatsheet.sections.length} mục cẩm nang (${guideItems} mục nhỏ) — ${errors.length} lỗi, ${warnings.length} cảnh báo`);
 for (const w of warnings) console.log("  ! " + w);
 for (const e of errors) console.log("  ✗ " + e);
 if (errors.length) {

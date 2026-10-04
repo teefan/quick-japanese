@@ -224,13 +224,19 @@ const SPOKEN_EXTRA = [
   { pos: "expression", kana: "ごいっしょ", jp: "ご一緒", vi: "cùng nhau (lịch sự)" },
 ];
 
-/* Từ/cụm chỉ dùng cho ví dụ/pattern ngữ pháp — không đụng lexicon builder hay câu nói */
+/* Từ/cụm chỉ dùng cho ví dụ/pattern ngữ pháp và cẩm nang du lịch — không đụng
+   lexicon builder hay câu nói */
 const GRAMMAR_EXTRA = [
   { pos: "expression", kana: "くれて", jp: "くれて", vi: "đã… cho tôi (thể て của くれる)" },
   { pos: "expression", kana: "ます", jp: "ます", vi: "đuôi lịch sự (thể ます)" },
   { pos: "expression", kana: "たい", jp: "たい", vi: "muốn (gốc của 〜たい)" },
   { pos: "expression", kana: "えます", jp: "えます", vi: "có thể (dạng 〜えます)" },
   { pos: "expression", kana: "られます", jp: "られます", vi: "có thể (dạng 〜られます)" },
+];
+
+const CHEATSHEET_EXTRA = [
+  { pos: "expression", kana: "かんぱい", jp: "乾杯", vi: "cạn ly" },
+  { pos: "expression", kana: "みている", jp: "見ている", vi: "đang xem" },
 ];
 
 /* Làm giàu một câu nói (replies / nghe–đáp): tách mảnh để đọc đúng は→oa, へ→ê.
@@ -513,6 +519,40 @@ function buildGrammar(lex) {
   return { points };
 }
 
+/* ------------------------------ Cẩm nang du lịch ------------------------------ */
+
+/* Phong tục & mẹo du lịch (tab Cẩm nang). Câu mẫu được sinh roma + phiên âm Việt
+   bằng lexicon tham khảo; mỗi mục có thể trỏ tới cây ghép câu liên quan (intents). */
+function buildCheatsheet(lex) {
+  const src = read("cheatsheet.json");
+  const seen = new Set();
+  let items = 0;
+  const sections = (src.sections || []).map((s) => {
+    if (!s.id || !s.title) throw new Error("Cẩm nang: mục lớn thiếu id/title");
+    if (seen.has(s.id)) throw new Error(`Cẩm nang: trùng id "${s.id}"`);
+    seen.add(s.id);
+    const list = (s.items || []).map((it) => {
+      if (!it.id || !it.title || !it.text) throw new Error(`Cẩm nang/${s.id}: mục nhỏ thiếu id/title/text`);
+      if (seen.has(it.id)) throw new Error(`Cẩm nang: trùng id "${it.id}"`);
+      seen.add(it.id);
+      items += 1;
+      const phrases = (it.phrases || []).map((p) => {
+        if (!p.jp || !p.kana || !p.vi) throw new Error(`Cẩm nang/${s.id}/${it.id}: câu mẫu thiếu jp/kana/vi`);
+        const e = enrichSpoken(p, lex);
+        return { jp: e.jp, kana: e.kana, roma: e.roma, viPron: e.viPron, vi: e.vi };
+      });
+      return { ...it, phrases: phrases.length ? phrases : undefined };
+    });
+    return { ...s, items: list };
+  });
+  const sources = (src.sources || []).map((x) => {
+    if (!x.label || !x.url) throw new Error("Cẩm nang: nguồn thiếu label/url");
+    return { label: x.label, url: x.url };
+  });
+  note(`Cẩm nang: ${sections.length} mục, ${items} mục nhỏ, ${sources.length} nguồn`);
+  return { sections, sources };
+}
+
 /* ------------------------------ Xuất file ------------------------------ */
 
 /* Bỏ field rỗng (app dùng kiểm tra truthy) để giảm dung lượng */
@@ -547,12 +587,13 @@ function main() {
   const built = buildIntents(vocab.byId, vocabN5, numbers, spokenLex);
   const intents = { intents: built.intents };
   const exchanges = buildExchanges(spokenLex);
-  /* Lexicon cho ví dụ ngữ pháp: curated + toàn bộ N5 + cụm nói (chỉ để sinh phiên âm). */
-  const grammarLex = buildLexicon(
-    Object.values(vocab.byId).concat(vocabN5, SPOKEN_EXTRA, GRAMMAR_EXTRA, EXAMPLE_EXTRA_KANA.map((k) => ({ pos: "expression", kana: k, jp: k, vi: "" }))),
+  /* Lexicon tham khảo cho ngữ pháp + cẩm nang: curated + toàn bộ N5 + cụm nói (chỉ để sinh phiên âm). */
+  const refLex = buildLexicon(
+    Object.values(vocab.byId).concat(vocabN5, SPOKEN_EXTRA, GRAMMAR_EXTRA, CHEATSHEET_EXTRA, EXAMPLE_EXTRA_KANA.map((k) => ({ pos: "expression", kana: k, jp: k, vi: "" }))),
     numbers
   );
-  const grammar = buildGrammar(grammarLex);
+  const grammar = buildGrammar(refLex);
+  const cheatsheet = buildCheatsheet(refLex);
 
   /* Trọng âm (pitch accent) Kanjium — gắn theo id vào cả từ biên tập lẫn N5 */
   const accentMap = read("accents.json").items;
@@ -573,6 +614,7 @@ function main() {
   writeData("intents", intents);
   writeData("exchanges", exchanges);
   writeData("grammar", grammar);
+  writeData("cheatsheet", cheatsheet);
   const builderIndex = buildBuilderIndex(intents.intents);
   writeData("builderIndex", builderIndex, "builder-index");
 
@@ -587,6 +629,8 @@ function main() {
       builderWords: Object.keys(builderIndex).length,
       counters: numbers.counters.length,
       grammar: grammar.points.length,
+      cheatsheetSections: cheatsheet.sections.length,
+      cheatsheetItems: cheatsheet.sections.reduce((n, s) => n + s.items.length, 0),
       scenarios: exchanges.scenarios.length,
       exchanges: exchanges.scenarios.reduce((n, s) => n + s.exchanges.length, 0),
     },

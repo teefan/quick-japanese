@@ -1,0 +1,366 @@
+{
+  "note": "Cẩm nang du lịch: phong tục, phép lịch sự và mẹo thực dụng cho khách Việt. Mỗi mục có thể có do/dont (một dòng), phrases (build sinh roma + phiên âm) và intents (chip mở thẳng mục ghép câu tương ứng). Nội dung do dự án biên tập, đối chiếu các nguồn ở trường sources (JNTO, Cục Du lịch Nhật Bản, JR, Kyoto Travel, Đại sứ quán Hoa Kỳ…).",
+  "sources": [
+    { "label": "JNTO — Japanese Manners Do’s and Don’ts", "url": "https://www.japan.travel/en/guide/japanese-manners-dos-and-donts/" },
+    { "label": "Cục Du lịch Nhật Bản — Travel Etiquette for the future", "url": "https://www.mlit.go.jp/kankocho/responsible-traveler/en.html" },
+    { "label": "JNTO — Tipping in Japan", "url": "https://www.japan.travel/en/plan/tipping-in-japan/" },
+    { "label": "Cục Du lịch Nhật Bản — Tax-free refund method (từ 1/11/2026)", "url": "https://www.mlit.go.jp/kankocho/tax-free/page01_000001_00028.html" },
+    { "label": "JR Central — Oversized baggage trên Shinkansen", "url": "https://global.jr-central.co.jp/en/info/oversized-baggage/" },
+    { "label": "Kyoto Travel — Gion manner", "url": "https://kyoto.travel/en/responsible-travel/gion-manner-message-from-southern-gionmachi/" },
+    { "label": "Đại sứ quán Hoa Kỳ tại Nhật — Bringing medication into Japan", "url": "https://jp.usembassy.gov/services/importing-medication/" },
+    { "label": "LIVE JAPAN — Escalator manners 2026", "url": "https://livejapan.com/en/article-a0006054/" },
+    { "label": "JNTO — Two bows and two claps (đền Thần đạo)", "url": "https://www.japan.travel/en/uk/inspiration/two-bows-and-two-claps-the-ins-and-outs-of-shinto-shrines/" }
+  ],
+  "sections": [
+    {
+      "id": "before",
+      "emoji": "🎒",
+      "title": "Trước khi đi",
+      "desc": "Chuẩn bị để không gặp rắc rối ở hải quan và nơi thanh toán",
+      "items": [
+        {
+          "id": "meds",
+          "emoji": "💊",
+          "title": "Thuốc mang theo",
+          "text": "Nhật Bản cấm một số thuốc rất phổ biến ở nước ngoài: chất kích thích (Adderall, Vyvanse…), pseudoephedrine (Sudafed, Actifed, Vicks inhaler) và codeine. Thuốc theo toa nên mang hộp gốc kèm đơn bác sĩ tiếng Anh; không chắc thì khai báo khi nhập cảnh — bị giữ tại hải quan mất rất nhiều thời gian.",
+          "do": "Mang thuốc trong hộp gốc + đơn bác sĩ; khai báo nếu là thuốc đặc biệt.",
+          "dont": "Đừng mang thuốc chứa chất kích thích, pseudoephedrine hoặc codeine.",
+          "intents": ["i-health"]
+        },
+        {
+          "id": "cash",
+          "emoji": "💴",
+          "title": "Tiền mặt vẫn cần",
+          "text": "Thẻ quốc tế và QR dùng được ở hầu hết thành phố, nhưng quán nhỏ, chùa, chợ và taxi vùng quê vẫn thích tiền mặt. ATM ở 7-Eleven và bưu điện nhận thẻ nước ngoài tốt nhất. Không cần boa ở bất cứ đâu — để lại tiền thừa có thể khiến nhân viên bối rối.",
+          "intents": ["i-pay"]
+        },
+        {
+          "id": "smoking",
+          "emoji": "🚭",
+          "title": "Hút thuốc & vaping",
+          "text": "Chỉ hút ở khu vực có biển cho phép; nhiều quận trung tâm Tokyo phạt tiền nếu hút khi đi bộ. Vaping cũng bị hạn chế như thuốc lá và không được dùng trong nhà hàng, tàu điện.",
+          "dont": "Đừng hút khi đi bộ hoặc ngoài khu vực chỉ định — nhiều nơi có phạt.",
+          "intents": []
+        }
+      ]
+    },
+    {
+      "id": "manners",
+      "emoji": "🙇",
+      "title": "Giao tiếp & phép lịch sự",
+      "desc": "Những điều nhỏ giúp bạn được đối xử tử tế ngay từ đầu",
+      "items": [
+        {
+          "id": "greet",
+          "emoji": "🙇",
+          "title": "Cúi chào & giữ khoảng cách",
+          "text": "Người Nhật ít chạm khi chào: một cái cúi nhẹ khoảng 15° là đủ; nếu họ đưa tay thì bắt tay nhẹ. Tránh ôm, vỗ vai hay nói quá to — đặc biệt với người lớn tuổi và nhân viên.",
+          "do": "Cúi nhẹ + こんにちは khi gặp, gật đầu khi được giúp."
+        },
+        {
+          "id": "voice",
+          "emoji": "🤫",
+          "title": "Giọng nói & điện thoại",
+          "text": "Trên tàu, xe buýt, thang máy và nhà hàng nên nói giọng nhỏ; điện thoại để chế độ im lặng. Không nghe điện thoại trong toa — cần nghe thì xuống ga hoặc ra khoang giữa các toa trên tàu dài.",
+          "dont": "Đừng nghe điện thoại trong toa tàu/xe buýt.",
+          "intents": ["i-respond"]
+        },
+        {
+          "id": "queue",
+          "emoji": "🚶",
+          "title": "Xếp hàng & thang cuốn",
+          "text": "Luôn xếp hàng: chờ tàu theo vạch kẻ, đứng lệch sang hai bên để khách xuống trước. Thang cuốn theo thói quen vùng miền — Tokyo đứng bên trái, Osaka đứng bên phải; các chiến dịch an toàn mới khuyên đứng yên, không đi bộ trên thang.",
+          "do": "Đứng gọn một bên, bám tay vịn, nhường người vội nếu có thể."
+        },
+        {
+          "id": "both-hands",
+          "emoji": "🙏",
+          "title": "Hai tay & ba câu nên thuộc",
+          "text": "Đưa và nhận tiền, thẻ, giấy tờ, quà bằng hai tay (hoặc tay phải đỡ tay trái). Không chỉ ngón tay vào người khác — muốn chỉ thì xòe cả bàn tay. Ba câu dùng được gần như mọi tình huống:",
+          "phrases": [
+            { "jp": "すみません", "kana": "すみません", "vi": "Xin lỗi / cho hỏi / gọi nhân viên" },
+            { "jp": "ありがとうございます", "kana": "ありがとうございます", "vi": "Cảm ơn (lịch sự)" },
+            { "jp": "お願いします", "kana": "おねがいします", "vi": "Làm ơn / nhờ anh chị" }
+          ],
+          "intents": ["i-courtesy", "i-respond", "i-do-please"]
+        }
+      ]
+    },
+    {
+      "id": "food",
+      "emoji": "🍜",
+      "title": "Ăn uống",
+      "desc": "Bàn ăn, quán ăn và konbini",
+      "items": [
+        {
+          "id": "chopsticks",
+          "emoji": "🥢",
+          "title": "Đũa & khăn oshibori",
+          "text": "Không cắm đũa đứng vào bát cơm (giống nghi thức tang lễ), không chuyền thức ăn từ đũa sang đũa người khác, không cọ/xỏ đũa. Ăn xong để đũa lên đũa kê hoặc gác ngang bát. Khăn ướt oshibori chỉ để lau tay.",
+          "dont": "Đừng cắm đũa vào cơm hay chuyền món bằng đũa."
+        },
+        {
+          "id": "itadakimasu",
+          "emoji": "🍜",
+          "title": "Itadakimasu & húp mì",
+          "text": "Trước khi ăn nói いただきます, ăn xong nói ごちそうさまでした — dùng với nhân viên hay người mời đều lịch sự. Húp mì thành tiếng là bình thường, thể hiện món ngon; không cần giữ im lặng tuyệt đối khi ăn.",
+          "phrases": [
+            { "jp": "いただきます", "kana": "いただきます", "vi": "Tôi xin phép dùng bữa" },
+            { "jp": "ごちそうさまでした", "kana": "ごちそうさまでした", "vi": "Cảm ơn vì bữa ăn" },
+            { "jp": "美味しいです", "kana": "おいしいです", "vi": "Ngon quá" }
+          ],
+          "intents": ["i-courtesy", "i-feel"]
+        },
+        {
+          "id": "order-pay",
+          "emoji": "🧾",
+          "title": "Gọi món & thanh toán",
+          "text": "Gọi nhân viên bằng すみません (giơ tay nhẹ, đừng gọi to). Nhiều quán ăn xong mang phiếu ra quầy trả tiền, không trả tại bàn; có quán có máy tự động. Đặt tiền/thẻ lên khay ở quầy và nhận lại bằng hai tay; không boa.",
+          "phrases": [
+            { "jp": "すみません", "kana": "すみません", "vi": "Cho tôi gọi… / xin lỗi" },
+            { "jp": "お会計をお願いします", "kana": "おかいけいをおねがいします", "vi": "Cho tôi thanh toán" },
+            { "jp": "別々でお願いします", "kana": "べつべつでおねがいします", "vi": "Cho thanh toán riêng" }
+          ],
+          "intents": ["i-please", "i-pay"]
+        },
+        {
+          "id": "izakaya",
+          "emoji": "🍺",
+          "title": "Izakaya & đồ uống",
+          "text": "Izakaya thường có phí bàn (お通し — món khai vị tự động tính tiền, đừng ngạc nhiên khi thấy trên hoá đơn). Rót bia/sake cho người khác rồi họ rót lại cho mình; tránh tự rót cho mình ngay. Nâng ly 乾杯 khi cả bàn đã có đồ.",
+          "phrases": [
+            { "jp": "乾杯", "kana": "かんぱい", "vi": "Cạn ly!" }
+          ]
+        },
+        {
+          "id": "konbini",
+          "emoji": "🏪",
+          "title": "Konbini (cửa hàng tiện lợi)",
+          "text": "Trả tiền bằng khay; nhân viên hỏi có hâm nóng không (温めますか) — gật đầu hoặc nói 大丈夫です. Túi ni lông tính phí nhỏ (khoảng 3–5 ¥); đũa/khăn giấy lấy theo nhu cầu. Ăn uống ở khu ghế ngồi nếu quán có.",
+          "phrases": [
+            { "jp": "大丈夫です", "kana": "だいじょうぶです", "vi": "Không cần đâu / tôi ổn" },
+            { "jp": "袋は大丈夫です", "kana": "ふくろはだいじょうぶです", "vi": "Không cần túi" }
+          ],
+          "intents": ["i-pay", "i-shop"]
+        }
+      ]
+    },
+    {
+      "id": "transit",
+      "emoji": "🚉",
+      "title": "Đi lại",
+      "desc": "Tàu, shinkansen và taxi",
+      "items": [
+        {
+          "id": "ic-card",
+          "emoji": "💳",
+          "title": "Thẻ IC (Suica / Pasmo)",
+          "text": "Mua Welcome Suica hoặc Tourist Pasmo ở sân bay, hoặc dùng Welcome Suica Mobile trên iPhone (hiệu lực 180 ngày, hỗ trợ cả tài khoản ở Việt Nam). Thẻ IC dùng cho tàu, xe buýt, máy bán hàng và konbini; nạp thêm ở máy tự động trong ga.",
+          "do": "Nạp khoảng 2.000–5.000 ¥ cho vài ngày; giữ thẻ đến hết chuyến."
+        },
+        {
+          "id": "on-train",
+          "emoji": "🚃",
+          "title": "Trên tàu",
+          "text": "Xếp hàng theo vạch, đợi khách xuống rồi mới lên; ba lô/vali nhỏ nên đeo trước ngực lúc đông. Nói khẽ, không nghe điện thoại; nhường ghế ưu tiên cho người già, phụ nữ mang thai. Một số toa chỉ dành cho nữ trong giờ cao điểm.",
+          "dont": "Đừng nghe điện thoại, ăn uống hay để ba lô va vào người khác."
+        },
+        {
+          "id": "shinkansen",
+          "emoji": "🚄",
+          "title": "Shinkansen & hành lý",
+          "text": "Vali có tổng ba chiều 160–250 cm phải đặt chỗ 'ghế có khoang hành lý' (miễn phí) trên tuyến Tokaido/Sanyo/Kyushu; lên tàu không đặt chỗ bị phụ thu 1.000 ¥. Ăn nhẹ trên tàu dài là bình thường, nhưng giữ yên lặng; gọi điện ra khoang giữa các toa.",
+          "do": "Đặt ghế có khoang hành lý ngay khi mua vé nếu vali to.",
+          "intents": ["i-go", "i-where"]
+        },
+        {
+          "id": "taxi",
+          "emoji": "🚕",
+          "title": "Taxi",
+          "text": "Cửa sau bên trái tự mở — đừng tự kéo cửa. Ngồi ghế sau, đưa địa chỉ bằng giấy hoặc điện thoại cho tài xế; trả theo đồng hồ, không boa. Nhiều taxi nhận thẻ và QR.",
+          "phrases": [
+            { "jp": "駅までお願いします", "kana": "えきまでおねがいします", "vi": "Làm ơn đưa tôi đến ga" }
+          ],
+          "intents": ["i-go"]
+        }
+      ]
+    },
+    {
+      "id": "hotel-onsen",
+      "emoji": "🏨",
+      "title": "Khách sạn & onsen",
+      "desc": "Giày dép, suối nước nóng và ryokan",
+      "items": [
+        {
+          "id": "shoes",
+          "emoji": "👟",
+          "title": "Giày & dép",
+          "text": "Cởi giày ở genkan khi vào nhà, phòng kiểu Nhật, đền hoặc nhà hàng có chiếu tatami. Đi dép trong hành lang nhưng dép nhà vệ sinh chỉ dùng trong nhà vệ sinh — nhiều người mới hay quên nhất chỗ này. Mang tất sạch vì có thể phải cởi giày bất ngờ.",
+          "dont": "Đừng đi dép nhà vệ sinh ra hành lang hay đi giày lên tatami."
+        },
+        {
+          "id": "onsen",
+          "emoji": "♨️",
+          "title": "Onsen / sento",
+          "text": "Rửa và xả sạch người ở vòi sen trước khi xuống bể; không mặc đồ bơi, không nhúng khăn vào nước, không bơi. Buộc tóc dài, giữ yên lặng, lau khô ở phòng thay đồ trước khi mặc lại. Ngồi trên ghế nhỏ và xả lại ghế cho người sau.",
+          "do": "Rửa sạch trước, vào bể từ từ, giữ khăn nhỏ bên ngoài bể.",
+          "dont": "Đừng xả xà phòng vào bể, đừng nhúng khăn hay để tóc xuống nước."
+        },
+        {
+          "id": "tattoo",
+          "emoji": "🖼️",
+          "title": "Hình xăm",
+          "text": "Nhiều onsen vẫn hạn chế hình xăm, nhưng từ 2024–2026 đã cởi mở hơn: một số chuỗi (Hoshino KAI), cả thị trấn Kinosaki chấp nhận; nhiều nơi cho dán che (thường với hình nhỏ) hoặc thuê bồn riêng (kashikiri). Hỏi lễ tân trước khi trả tiền.",
+          "do": "Hỏi trước hoặc chọn bồn riêng nếu hình xăm lớn."
+        },
+        {
+          "id": "ryokan",
+          "emoji": "🏯",
+          "title": "Ryokan",
+          "text": "Yukata mặc vạt trái phủ lên vạt phải (ngược lại là cách mặc cho người đã mất); không mang vali lên hốc trang trí tokonoma. Bữa tối và onsen thường theo giờ — hỏi lễ tân khi nhận phòng. Giữ yên tĩnh sau 22 giờ.",
+          "do": "Hỏi giờ tắm và giờ ăn ngay khi nhận phòng."
+        }
+      ]
+    },
+    {
+      "id": "temple",
+      "emoji": "⛩️",
+      "title": "Chùa & đền",
+      "desc": "Torii, temizuya và chuyện chụp ảnh",
+      "items": [
+        {
+          "id": "torii",
+          "emoji": "⛩️",
+          "title": "Cổng torii & temizuya",
+          "text": "Cúi nhẹ trước khi qua cổng torii và đi ở hai bên lối giữa — lối giữa dành cho thần. Rửa tay ở temizuya theo thứ tự: tay trái → tay phải → súc miệng bằng bàn tay (không chạm miệng vào gáo) → nghiêng gáo đổ nước rửa cán.",
+          "dont": "Đừng đi chính giữa lối vào và đừng uống trực tiếp từ gáo."
+        },
+        {
+          "id": "pray",
+          "emoji": "🙏",
+          "title": "Cách cầu nguyện",
+          "text": "Đền Thần đạo (jinja): thả tiền vào hộp (đồng 5 ¥ được cho là may mắn), kéo chuông nếu có, rồi 2 cúi – 2 vỗ tay – 1 cúi, sau đó chắp tay cầu nguyện. Chùa Phật giáo (otera) thì chỉ chắp tay cúi, không vỗ tay. Bỏ mũ khi vào chính điện.",
+          "do": "Nhớ 2 cúi – 2 vỗ – 1 cúi ở đền; chùa chỉ chắp tay."
+        },
+        {
+          "id": "photo",
+          "emoji": "📸",
+          "title": "Chụp ảnh & khu Gion",
+          "text": "Theo biển cấm: nhiều chính điện, cửa hàng và khu riêng tư không cho chụp; đừng chụp người lạ khi chưa xin phép. Ở Gion (Kyoto) du khách bị cấm vào các ngõ riêng và chụp geisha/maiko — có thể bị phạt tới 10.000 ¥; phố Hanamikoji chính vẫn mở.",
+          "dont": "Đừng chặn đường geisha hay xin chụp khi họ đang đi làm.",
+          "intents": ["i-can"]
+        },
+        {
+          "id": "amulets",
+          "emoji": "🎁",
+          "title": "Bùa, ema & omikuji",
+          "text": "Mua bùa omamori mang theo nhưng không mở túi bùa; viết điều ước lên thẻ ema rồi treo lại; omikuji (quẻ) xấu thì gấp treo lên cây trong khuôn viên. Thả tiền công đức nhẹ vào hộp, không ném.",
+          "do": "Thả tiền nhẹ nhàng, giữ bùa trong túi hoặc balo."
+        }
+      ]
+    },
+    {
+      "id": "shopping",
+      "emoji": "🛍️",
+      "title": "Mua sắm & tiền",
+      "desc": "Khay tiền, giá niêm yết, miễn thuế và rác",
+      "items": [
+        {
+          "id": "tray",
+          "emoji": "💴",
+          "title": "Khay tiền & không boa",
+          "text": "Ở quầy luôn có khay nhỏ (oteyoshi): đặt tiền/thẻ lên khay, không đưa thẳng vào tay nhân viên; nhận lại tiền/thẻ bằng hai tay. Không boa ở nhà hàng, taxi, khách sạn — muốn cảm ơn thì nói ありがとうございました.",
+          "phrases": [
+            { "jp": "ありがとうございました", "kana": "ありがとうございました", "vi": "Cảm ơn (đã xong việc)" }
+          ],
+          "intents": ["i-pay"]
+        },
+        {
+          "id": "browse",
+          "emoji": "🏷️",
+          "title": "Xem hàng & mặc cả",
+          "text": "Giá niêm yết cố định; mặc cả hầu như không được ưa ở cửa hàng (chợ đồ cũ có thể linh động nhẹ). Nhân viên chào いらっしゃいませ — chỉ cần gật đầu; muốn xem mà chưa mua thì nói 見ているだけです.",
+          "phrases": [
+            { "jp": "見ているだけです", "kana": "みているだけです", "vi": "Tôi chỉ xem thôi" },
+            { "jp": "これはいくらですか", "kana": "これはいくらですか", "vi": "Cái này bao nhiêu tiền?" }
+          ],
+          "intents": ["i-this"]
+        },
+        {
+          "id": "taxfree",
+          "emoji": "🧾",
+          "title": "Miễn thuế (tax-free) từ 11/2026",
+          "text": "Mang hộ chiếu; hoá đơn từ 5.000 ¥/ngày/cửa hàng. Từ 1/11/2026 bạn trả giá đã gồm thuế và xin hoàn lại ở sân bay trước khi làm thủ tục bay (trong 90 ngày) — dùng kiosk hoàn thuế hoặc Visit Japan Web ở các sân bay lớn; hàng tiêu dùng không còn bắt buộc niêm phong. Trước 1/11/2026 thì vẫn được trừ thuế ngay tại cửa hàng.",
+          "do": "Giữ hoá đơn, để hàng trong hành lý xách tay và đến sân bay sớm hơn.",
+          "intents": ["i-pay"]
+        },
+        {
+          "id": "trash",
+          "emoji": "🗑️",
+          "title": "Rác công cộng",
+          "text": "Rất ít thùng rác ngoài đường — mang túi nhỏ theo và giữ rác đến konbini, khách sạn hoặc máy bán hàng (thường có thùng riêng cho chai/lon). Phân loại cơ bản: chai nhựa, lon, rác đốt được; không vứt rác ở đường và không hút thuốc khi đi bộ.",
+          "do": "Mang theo túi nhỏ cho rác cá nhân."
+        },
+        {
+          "id": "fitting",
+          "emoji": "👘",
+          "title": "Thử đồ",
+          "text": "Phòng thử thường có khăn/mặt nạ che đầu khi mặc áo để không dính mỹ phẩm — hãy dùng. Cởi giày nếu phòng lót chiếu; nhẹ tay với hàng và nhờ nhân viên chọn cỡ. Thử xong không mua cũng hoàn toàn bình thường.",
+          "phrases": [
+            { "jp": "試着してもいいですか", "kana": "しちゃくしてもいいですか", "vi": "Tôi mặc thử được không?" }
+          ],
+          "intents": ["i-can", "i-shop"]
+        }
+      ]
+    },
+    {
+      "id": "emergency",
+      "emoji": "🚑",
+      "title": "Sự cố & an toàn",
+      "desc": "Khẩn cấp, động đất, mất đồ và ốm",
+      "items": [
+        {
+          "id": "numbers",
+          "emoji": "🆘",
+          "title": "Số khẩn cấp",
+          "text": "110 = cảnh sát, 119 = cứu thương/cứu hoả (miễn phí), 118 = cảnh sát biển. Điện thoại công cộng gọi các số này miễn phí; nói địa chỉ hoặc điểm mốc gần nhất và tình trạng. Nếu không nói được tiếng Nhật, nhờ người xung quanh hoặc khách sạn gọi hộ.",
+          "phrases": [
+            { "jp": "助けてください", "kana": "たすけてください", "vi": "Làm ơn giúp tôi" },
+            { "jp": "救急車を呼んでください", "kana": "きゅうきゅうしゃをよんでください", "vi": "Gọi xe cứu thương giúp tôi" },
+            { "jp": "警察を呼んでください", "kana": "けいさつをよんでください", "vi": "Gọi cảnh sát giúp tôi" }
+          ],
+          "intents": ["i-health", "i-do-please"]
+        },
+        {
+          "id": "earthquake",
+          "emoji": "🌏",
+          "title": "Động đất",
+          "text": "Động đất nhẹ xảy ra thường xuyên, người Nhật vẫn bình tĩnh. Dưới bàn/chùm đầu khi rung, tránh cửa kính và không dùng thang máy; xong thì theo chỉ dẫn của ga/khách sạn, không ùa ra đường lớn. Theo dõi app cảnh báo (NHK, NERV) và giữ nước, sạc dự phòng.",
+          "do": "Tải app cảnh báo động đất và lưu ảnh hộ chiếu."
+        },
+        {
+          "id": "lost",
+          "emoji": "🎒",
+          "title": "Mất đồ",
+          "text": "Quay lại nơi có thể đã đánh rơi hoặc quầy lost & found của ga; đồ thất lạc ở Nhật thường được trả lại. Trình báo ở koban (chốt cảnh sát) — mang hộ chiếu và mô tả món đồ; ví/điện thoại có thể đã được người nhặt mang tới đó.",
+          "phrases": [
+            { "jp": "パスポートをなくしました", "kana": "パスポートをなくしました", "vi": "Tôi bị mất hộ chiếu" },
+            { "jp": "財布をなくしました", "kana": "さいふをなくしました", "vi": "Tôi bị mất ví" }
+          ],
+          "intents": ["i-health", "i-where"]
+        },
+        {
+          "id": "sick",
+          "emoji": "🤒",
+          "title": "Ốm & mua thuốc",
+          "text": "Thuốc cảm/đau đầu mua ở drugstore hoặc konbini; nếu khó, nhờ khách sạn giới thiệu phòng khám (nhiều nơi có bác sĩ nói tiếng Anh). Mang bảo hiểm du lịch và bản sao đơn thuốc; 119 gọi cứu thương miễn phí.",
+          "phrases": [
+            { "jp": "頭が痛いです", "kana": "あたまがいたいです", "vi": "Tôi bị đau đầu" },
+            { "jp": "熱があります", "kana": "ねつがあります", "vi": "Tôi bị sốt" }
+          ],
+          "intents": ["i-health"]
+        }
+      ]
+    }
+  ]
+}
