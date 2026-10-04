@@ -295,7 +295,3 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   kê 一つ/二つ/三つ; build nở từ `numbers.json` nên cách đọc biến âm (いっぱい, さんばい, よんはい)
   và phiên âm luôn khớp tab Từ vựng. Thêm lượng từ mới = sửa `numbers.json` rồi `npm run build`;
   chỉ dùng `counter`/`counts`/`next`, không kèm `ref`/`jp`/`kana` (build báo lỗi).
-- **Không có bước kiểm duyệt bởi người bản ngữ (2026-10)**: dự án không có nguồn lực cho việc này;
-  nội dung do dự án biên tập, đối chiếu các nguồn tham khảo ở `PLAN.md` §2 và bảo vệ bằng audit
-  toàn bộ đường câu. **Không thêm lại** checklist/trạng thái “chờ kiểm duyệt” vào dữ liệu hay tài liệu;
-  khi phát hiện câu chưa tự nhiên thì sửa thẳng `data/source/*.json` rồi `npm run build`.
