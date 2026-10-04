@@ -18,8 +18,8 @@ pitch accent).
   ngữ pháp** (đại từ, danh từ, động từ, tính từ, trợ từ, です, số đếm…), kèm phiên âm Việt + romaji,
   nghĩa và loại từ/thể. Bộ tách từ nằm ở `tools/segment.js`.
 - 📝 **Ngữ pháp tối giản**: 23 điểm cần dùng ngay (は, が, を, に, で, です, ください, か,
-  〜てください, 〜たいです, 〜てもいいですか…) — giải thích ngắn, ví dụ lấy từ chính câu app ghép
-  được, kèm phiên âm + 🔊.
+  〜てください, 〜たいです, 〜てもいいですか…) — mỗi mẫu câu đều có **romaji + phiên âm Việt + 🔊**,
+  giải thích ngắn, ví dụ lấy từ chính câu app ghép được.
 - 🇻🇳 **Phiên âm tiếng Việt** trên mọi từ và câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`) — kèm
   **romaji chính thức** (Hepburn) song song: `sumimasen`, `konnichiwa`.
 - 📚 **747 từ vựng** (186 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu) —

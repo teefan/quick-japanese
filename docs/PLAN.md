@@ -4,7 +4,7 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and say it to a local. Static site,
 no server, deployable on GitHub Pages.
 
-> **Current status (v2.9.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **Current status (v2.9.1)** — live at <https://teefan.github.io/quick-japanese/>:
 > **3 tabs: 🧩 Ghép câu + 📚 Từ vựng + 📝 Ngữ pháp, plus 🗣️ Nghe & đáp.** 16 intent trees (4 groups) ·
 > **1,266 combinable sentences** (130 curated + 39 N5 words as options) · 747 words (186 curated
 > + 561 N5, lazy-loaded) · **23 grammar points** · 460 N5 example sentences (Tatoeba) · 726 pitch
@@ -14,10 +14,11 @@ no server, deployable on GitHub Pages.
 > New in v2.9.0: **📝 Ngữ pháp tối giản** — 23 essential points (は, が, を, に, で, です, ください,
 > か, 〜てください, 〜たいです, 〜てもいいですか, 〜てくれてありがとう…) with short explanations and
 > examples taken from the buildable sentences, Vietnamese pronunciation + romaji + 🔊; data in
-> `data/source/grammar.json`, checked by `tools/audit.js`. v2.8.0 brought ⚡ Chọn nhanh chips,
-> scene-first groups and real counters in “Cho tôi…”.
-> PWA cache `qj-v2.9.0`. Regression: `npm run audit` walks all **1,266 paths** + all spoken lines +
-> all grammar examples (0 errors), no JS errors.
+> `data/source/grammar.json`, checked by `tools/audit.js`. v2.9.1 adds the Japanese **pattern line**
+> (romaji + Vietnamese pronunciation + 🔊) to every point that teaches a phrase. v2.8.0 brought
+> ⚡ Chọn nhanh chips, scene-first groups and real counters in “Cho tôi…”.
+> PWA cache `qj-v2.9.1`. Regression: `npm run audit` walks all **1,266 paths** + all spoken lines +
+> all grammar points/patterns/examples (0 errors), no JS errors.
 > **Light theme by default** (washi–sakura–indigo); a 🌙/☀️ toggle remembers dark mode.
 > **v2.0.0 narrowed the product**: phrases, notebook, grammar, quiz and global search were removed;
 > **v2.4.0** also removed show-to-local and copy (finished sentences keep only 🔊 Nghe) — all
@@ -190,10 +191,12 @@ Validation at build time: unique IDs, all `ref`/`counter` exist, all `next` step
 ### 5.4 Grammar (`data/source/grammar.json`)
 
 Minimal reference behind the 📝 Ngữ pháp tab: `points[]` with `id`, `level` (`basic` = cần ngay,
-`plus` = nên biết thêm), `title`, `summary`, `detail` and `examples[]` (`jp`/`kana`/`vi`). The build
-generates `roma` + `viPron` for every example with a dedicated lexicon (curated + all N5 + spoken
-extras) so particles は/へ/を read correctly, and `tools/audit.js` validates ids, levels, required
-fields and enriched examples. Examples are drawn from the sentences the builder can assemble.
+`plus` = nên biết thêm), optional `pattern` (`jp` to display + `kana` for reading), `title`,
+`summary`, `detail` and `examples[]` (`jp`/`kana`/`vi`). The build generates `roma` + `viPron` for
+the pattern and every example with a dedicated lexicon (curated + all N5 + spoken extras) so
+particles は/へ/を read correctly, and `tools/audit.js` validates ids, levels, required fields,
+patterns and enriched examples. Examples and patterns are drawn from the sentences the builder can
+assemble.
 
 ---
 

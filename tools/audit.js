@@ -196,6 +196,8 @@ for (const g of grammarPoints) {
   if (grammarIds.has(g.id)) err(`[ngữ pháp] ${at}: trùng id điểm ngữ pháp`);
   grammarIds.add(g.id);
   if (g.level !== "basic" && g.level !== "plus") err(`[ngữ pháp] ${at}: level "${g.level}" không hợp lệ`);
+  if (g.pattern && !g.pattern.jp) err(`[ngữ pháp] ${at}: pattern thiếu jp`);
+  if (g.pattern && (!g.pattern.roma || !g.pattern.viPron)) err(`[ngữ pháp] ${at}: pattern thiếu roma/viPron (enrich lỗi)`);
   if (!(g.examples || []).length) warn(`[ngữ pháp] ${at}: không có ví dụ`);
   for (const [i, e] of (g.examples || []).entries()) {
     if (!e.jp || !e.kana || !e.vi) err(`[ngữ pháp] ${at} ex#${i}: thiếu jp/kana/vi`);

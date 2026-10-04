@@ -224,9 +224,13 @@ const SPOKEN_EXTRA = [
   { pos: "expression", kana: "ごいっしょ", jp: "ご一緒", vi: "cùng nhau (lịch sự)" },
 ];
 
-/* Từ/cụm chỉ dùng cho ví dụ ngữ pháp — không đụng lexicon builder hay câu nói */
+/* Từ/cụm chỉ dùng cho ví dụ/pattern ngữ pháp — không đụng lexicon builder hay câu nói */
 const GRAMMAR_EXTRA = [
   { pos: "expression", kana: "くれて", jp: "くれて", vi: "đã… cho tôi (thể て của くれる)" },
+  { pos: "expression", kana: "ます", jp: "ます", vi: "đuôi lịch sự (thể ます)" },
+  { pos: "expression", kana: "たい", jp: "たい", vi: "muốn (gốc của 〜たい)" },
+  { pos: "expression", kana: "えます", jp: "えます", vi: "có thể (dạng 〜えます)" },
+  { pos: "expression", kana: "られます", jp: "られます", vi: "có thể (dạng 〜られます)" },
 ];
 
 /* Làm giàu một câu nói (replies / nghe–đáp): tách mảnh để đọc đúng は→oa, へ→ê.
@@ -490,11 +494,19 @@ function buildGrammar(lex) {
     if (g.level !== "basic" && g.level !== "plus") {
       throw new Error(`Ngữ pháp ${g.id}: level phải là "basic" hoặc "plus"`);
     }
+    if (g.pattern && !g.pattern.jp) throw new Error(`Ngữ pháp ${g.id}: pattern thiếu jp`);
+    const pattern = g.pattern
+      ? enrichSpoken({ jp: g.pattern.jp, kana: g.pattern.kana || g.pattern.jp, vi: g.pattern.jp, roma: g.pattern.roma, viPron: g.pattern.viPron }, lex)
+      : null;
     const examples = (g.examples || []).map((e) => {
       if (!e.jp || !e.kana || !e.vi) throw new Error(`Ngữ pháp ${g.id}: ví dụ thiếu jp/kana/vi`);
       return enrichSpoken(e, lex);
     });
-    return { ...g, examples };
+    return {
+      ...g,
+      pattern: pattern ? { jp: pattern.jp, kana: pattern.kana, roma: pattern.roma, viPron: pattern.viPron } : undefined,
+      examples,
+    };
   });
   const basic = points.filter((p) => p.level === "basic").length;
   note(`Ngữ pháp: ${points.length} điểm (${basic} cơ bản, ${points.length - basic} nên biết)`);

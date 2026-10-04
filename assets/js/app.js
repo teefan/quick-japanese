@@ -351,6 +351,8 @@ function grammarExampleHtml(ex) {
 }
 
 function grammarPointHtml(g) {
+  const pat = g.pattern;
+  const patKey = pat ? U.register({ jp: pat.kana || pat.jp, kana: pat.kana, viPron: pat.viPron, vi: g.title }) : "";
   return `
     <details class="g">
       <summary>
@@ -359,6 +361,12 @@ function grammarPointHtml(g) {
           <span class="badge ${g.level === "plus" ? "plus" : ""}">${g.level === "plus" ? "nên biết" : "cơ bản"}</span>
         </div>
         <div class="g-summary">${U.esc(g.summary)}</div>
+        ${pat ? `
+          <div class="g-pat">
+            <b>${U.esc(pat.jp)}</b>
+            <span class="g-pat-pron">${U.esc(pat.viPron || "")}${pat.roma ? `<span class="roma"> · ${U.esc(pat.roma)}</span>` : ""}</span>
+            <button class="icon-btn g-pat-audio" title="Nghe mẫu câu" data-act="speak" data-key="${patKey}">🔊</button>
+          </div>` : ""}
       </summary>
       <div class="g-body">
         <p>${U.esc(g.detail)}</p>
@@ -457,7 +465,11 @@ document.addEventListener("click", e => {
   if (act) {
     const p = U.get(act.dataset.key);
     if (!p) return;
-    if (act.dataset.act === "speak") U.speak(p.jp);
+    if (act.dataset.act === "speak") {
+      // Nút 🔊 nằm trong <summary> của tab Ngữ pháp: chặn mở/đóng thẻ khi bấm nghe
+      e.preventDefault();
+      U.speak(p.jp);
+    }
   }
 });
 

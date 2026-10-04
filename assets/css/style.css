@@ -830,6 +830,14 @@ main {
 
 .g-summary { font-size: 13px; color: var(--muted); margin-top: 4px; }
 
+.g-pat { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-right: 20px; }
+
+.g-pat b { font-family: var(--jp-font); font-size: 15.5px; font-weight: 600; }
+
+.g-pat-pron { color: var(--accent); font-weight: 600; font-size: 12.5px; }
+
+.g-pat-audio { width: 28px; height: 28px; font-size: 12px; margin-left: auto; }
+
 .g-body { padding: 0 16px 6px; }
 
 .g-body > p {

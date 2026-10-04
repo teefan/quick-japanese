@@ -1,6 +1,6 @@
 {
   "name": "quick-japanese",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "private": true,
   "description": "Ghép câu tiếng Nhật + từ vựng cho người Việt — static SPA",
   "scripts": {

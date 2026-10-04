@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-04 · commit `7b70e12` · SW cache `qj-v2.9.0` · Pages built xanh
+> Cập nhật: 2026-10-04 · commit `6e5e152` · SW cache `qj-v2.9.1` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -162,6 +162,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
 ```jsonc
 {
   "id": "particle-wa", "level": "basic",           // basic = cần ngay, plus = nên biết thêm
+  "pattern": { "jp": "は", "kana": "は" },          // mẫu câu hiện ở đầu thẻ (build sinh roma/viPron)
   "title": "は — trợ từ chủ đề (đọc là 'oa')",
   "summary": "câu tóm tắt hiện khi thu gọn",
   "detail": "giải thích ngắn khi mở ra",
@@ -169,10 +170,12 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
 }
 ```
 - Tab 📝 Ngữ pháp đọc `window.QJ.grammar.points`; ví dụ lấy từ chính câu tab Ghép câu ráp được.
+- `pattern` không bắt buộc (điểm thuần khái niệm như SOV có thể bỏ); `jp` để hiện, `kana` để sinh
+  roma/phiên âm. Điểm không có `pattern` vẫn hiện bình thường.
 - `jp/kana/vi` bắt buộc; `roma`/`viPron` do build sinh bằng lexicon riêng (curated + toàn bộ N5 +
   `SPOKEN_EXTRA` + `GRAMMAR_EXTRA`) nên は→oa, へ→ê, を→ô đúng. Thêm từ mới cho ví dụ vào
   `GRAMMAR_EXTRA` trong `tools/build.js`; ghi đè tay chỉ khi thật cần.
-- Audit kiểm id duy nhất, level hợp lệ, đủ title/summary/detail và ví dụ đã enrich.
+- Audit kiểm id duy nhất, level hợp lệ, đủ title/summary/detail, pattern (nếu có) và ví dụ đã enrich.
 
 ### Thêm từ cho bộ tách câu — `tools/segment.js`
 - Thêm vào `EXPRESSIONS` (kana/jp/vi/note/role) và `EXPR_ROLE` nếu là danh từ/động từ/tính từ/trạng từ.
@@ -255,10 +258,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   tàu (Tokyo/Kyoto/Osaka/Shinjuku, bỏ khách sạn/đền/chùa/chợ/onsen), thêm 晴れ/曇り; bỏ câu trùng
   医者を呼んでください (giữ ở i-health); mặc định bước chủ ngữ = “Không cần chủ ngữ”.
   Tổng: **16 cây, 1.266 câu**.
-- **v2.9.0** thêm lại **📝 Ngữ pháp tối giản**: 23 điểm (19 cơ bản + 4 nên biết) từ dữ liệu cũ trong
-  git history, viết lại ví dụ theo đúng câu builder ráp được; `data/source/grammar.json` →
-  `data/grammar.js`; build sinh roma/phiên âm bằng lexicon riêng (`GRAMMAR_EXTRA`), audit kiểm luôn.
-  Tab thứ 3 trong thanh dưới; SW cache `qj-v2.9.0`.
+- **v2.9.0 → v2.9.1** thêm lại **📝 Ngữ pháp tối giản**: 23 điểm (19 cơ bản + 4 nên biết), mỗi điểm
+  có mẫu câu (`pattern`) kèm romaji + phiên âm Việt + 🔊, ví dụ lấy từ đúng câu builder ráp được;
+  `data/source/grammar.json` → `data/grammar.js`; build sinh roma/phiên âm bằng lexicon riêng
+  (`GRAMMAR_EXTRA`), audit kiểm luôn. Tab thứ 3 trong thanh dưới; SW cache `qj-v2.9.1`.
 - Việc còn lại:
   1. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
