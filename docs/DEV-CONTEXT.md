@@ -5,8 +5,7 @@
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
 Đọc file này trước khi bắt đầu code. Chi tiết đầy đủ nằm ở [`PLAN.md`](PLAN.md);
-quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist kiểm duyệt bản ngữ ở
-[`REVIEW-CHECKLIST.md`](REVIEW-CHECKLIST.md).
+quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md).
 
 ## 0. TL;DR
 
@@ -64,7 +63,7 @@ tools/kana.js              kana → romaji / phiên âm Việt / chia động t�
 tools/segment.js           từ điển + tokenizer DP bóc tách câu
 tools/build.js             validate + enrich + xuất data/*.js
 tools/audit.js             soát mọi đường ghép câu + slot/template (build gọi tự động)
-docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-CHECKLIST, screenshot
+docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screenshot
 ```
 
 ## 3. Quy trình thêm nội dung
@@ -238,19 +237,16 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   医者を呼んでください (giữ ở i-health); mặc định bước chủ ngữ = “Không cần chủ ngữ”.
   Tổng: **16 cây, 1.266 câu**.
 - Việc còn lại:
-  1. **Kiểm duyệt bởi người bản ngữ** — dùng `docs/REVIEW-CHECKLIST.md` (cây ghép câu, lượng từ,
-     phiên âm, nghĩa N5, câu ví dụ, trọng âm, các cặp tính từ × danh từ mới, **câu nghe–đáp/replies**),
-     sửa `data/source/*.json` + build.
-  2. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
+  1. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
-  3. **Mở rộng Nghe & đáp** (theo nghiên cứu v2.6.0): tình huống ga/tàu & taxi (IC card, sân ga,
+  2. **Mở rộng Nghe & đáp** (theo nghiên cứu v2.6.0): tình huống ga/tàu & taxi (IC card, sân ga,
      điểm đến), hiệu thuốc/khẩn cấp, quầy miễn thuế (パスポート); thêm câu nhân viên hay nói
      (席へどうぞ, ラストオーダーです, お下げしてもいいですか, 試着室はこちらです, お荷物をお預かりしますか,
      温めますか, お箸お付けしますか); câu mình chủ động còn thiếu: `写真を撮ってもらえますか`,
      `切符はどこで買えますか`, `ICカードは使えますか`, `ここで止めてください`, `乗り換えはどこですか`,
      `英語は話せますか`.
-- **Tồn đã biết**: nghĩa 561 từ N5 + 460 câu ví dụ + 726 trọng âm chờ kiểm duyệt; 101 từ N5 chưa
-  có câu ví dụ; 21 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB (vẫn lazy, không vào payload đầu).
+- **Tồn đã biết**: 101 từ N5 chưa có câu ví dụ; 21 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB
+  (vẫn lazy, không vào payload đầu).
 
 ## 7. Lịch sử quyết định ngắn
 
@@ -258,7 +254,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - Bóc tách câu bằng **quy hoạch động có trọng số** (tránh lỗi tham lam `はいくら` → `はい+くら`) — §6.4.
 - Thứ tự nhóm/cây theo **độ cơ bản** (Giao tiếp lên đầu) — commit `8de933d`.
 - N5 để ở file riêng tải nền (idle) thay vì nhét chung `vocab.js`: giữ payload đầu nhẹ và
-  **không đụng vào kết quả tách câu** đã kiểm duyệt.
+  **không đụng vào kết quả tách câu** đã ổn định.
 - Câu ví dụ N5 giữ **furigana gốc** trong source thay vì chỉ kana: build suy ra kana và chỉ đọc
   は/へ thành trợ từ khi ký tự đó là kana viết thẳng; thà thiếu ví dụ (101 từ) còn hơn nhập câu
   thân mật/phản cảm.
@@ -266,15 +262,15 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   theo mora; từ kana-only ưu tiên ứng viên cùng reading; 21 từ thiếu dữ liệu thì **không hiện**
   trọng âm (không đoán).
 - **`が` với たい**: `i-want` giữ `[object:が] + たい` (chuẩn giáo trình Genki/Minna: 水が飲みたいです).
-  `を` cũng đúng và ngày càng phổ biến; giữ が cho nhất quán, để người bản ngữ xác nhận trong
-  `REVIEW-CHECKLIST.md` (nếu đổi chỉ cần sửa `particle` ở template `i-want`).
+  `を` cũng đúng và ngày càng phổ biến; giữ が cho nhất quán (nếu đổi chỉ cần sửa `particle` ở
+  template `i-want`).
 - **v2.0.0 thu hẹp sản phẩm** theo yêu cầu: bỏ cụm từ, sổ tay, ngữ pháp, quiz, tìm kiếm toàn cục;
   xoá luôn dữ liệu/grammar refs để không còn code chết (grammar metadata trong `segment.js`,
   `grammar` array trong intents, CSS/JS của các tính năng cũ).
 - **N5 vào builder (v2.1.0)**: cho phép `ref` trỏ thẳng id N5 thay vì phải chép sang `vocab.json`;
   builder chỉ nạp **các từ N5 được tham chiếu** và build audit lại — thử nghiệm 100 từ cho
   0/98 câu cố định đổi cách tách, thực tế 18 từ cũng 0 câu đổi. Tránh nhân bản dữ liệu và giữ
-  nguyên nguyên tắc "N5 không đụng nội dung đã kiểm duyệt".
+  nguyên nguyên tắc "N5 không đụng nội dung đã ổn định".
 - **Audit tự động thay regression tay (v2.4.0)**: logic ráp câu nằm ở module dùng chung
   (`assets/js/assemble.js`) để `tools/audit.js` kiểm đúng thứ app chạy; **toàn bộ 1.266 đường
   câu** được soát trong `npm run build`, lỗi ⇒ exit 1 (slot trống, vi lặp từ, slot/template lệch,
@@ -299,3 +295,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   kê 一つ/二つ/三つ; build nở từ `numbers.json` nên cách đọc biến âm (いっぱい, さんばい, よんはい)
   và phiên âm luôn khớp tab Từ vựng. Thêm lượng từ mới = sửa `numbers.json` rồi `npm run build`;
   chỉ dùng `counter`/`counts`/`next`, không kèm `ref`/`jp`/`kana` (build báo lỗi).
+- **Không có bước kiểm duyệt bởi người bản ngữ (2026-10)**: dự án không có nguồn lực cho việc này;
+  nội dung do dự án biên tập, đối chiếu các nguồn tham khảo ở `PLAN.md` §2 và bảo vệ bằng audit
+  toàn bộ đường câu. **Không thêm lại** checklist/trạng thái “chờ kiểm duyệt” vào dữ liệu hay tài liệu;
+  khi phát hiện câu chưa tự nhiên thì sửa thẳng `data/source/*.json` rồi `npm run build`.

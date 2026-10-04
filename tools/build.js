@@ -193,7 +193,7 @@ function enrichParts(rawParts) {
 }
 
 /* Từ/cụm chỉ dùng để tách câu cho mục “Nghe & đáp” và replies — không đụng lexicon
-   của builder (nên không đổi cách tách các option đã kiểm duyệt). */
+   của builder (nên không đổi cách tách các option đã ổn định). */
 const SPOKEN_EXTRA = [
   { pos: "expression", kana: "のみもの", jp: "飲み物", vi: "đồ uống" },
   { pos: "expression", kana: "おしはらい", jp: "お支払い", vi: "thanh toán" },

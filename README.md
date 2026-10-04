@@ -65,7 +65,6 @@ tools/audit.js             soát toàn bộ đường ghép câu + nhất quán 
 docs/PLAN.md               kế hoạch tổng thể, thiết kế dữ liệu, lộ trình
 docs/DEV-CONTEXT.md        bối cảnh & hướng dẫn cho phiên phát triển mới (đọc trước khi code)
 docs/PRONUNCIATION.md      quy ước phiên âm tiếng Việt
-docs/REVIEW-CHECKLIST.md   checklist kiểm duyệt bởi người bản ngữ
 ```
 
 ## Thêm nội dung

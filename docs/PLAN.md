@@ -343,7 +343,7 @@ tools/audit.js             walks every buildable sentence path; run by npm run b
 data/*.js                  generated, loaded as window.QJ.* (works over file:// too);
                            vocab-n5.js is injected on idle by app.js (561 từ, lazy);
                            builder-index.js maps vocabulary ids → builder intents
-docs/                      this plan + DEV-CONTEXT + pronunciation spec + review checklist
+docs/                      this plan + DEV-CONTEXT + pronunciation spec + screenshot
 ```
 
 - **No framework, no bundler, no runtime build.** Vanilla JS + CSS.
@@ -370,8 +370,8 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 3. No copied content: material is hand-authored and cross-checked against the sources in §2;
    third-party datasets keep their licenses and attribution (see §11).
 4. Vocabulary scope: JLPT N5 + travel essentials; ✅ N5 imported from OpenJLPT (561 từ mới, nghĩa
-   Việt biên tập tay, chờ kiểm duyệt cùng `REVIEW-CHECKLIST.md`); ✅ 460 từ N5 có câu ví dụ
-   Tatoeba (lọc câu lịch sự/tự nhiên, nghĩa Việt biên tập, cũng chờ kiểm duyệt).
+   Việt biên tập tay); ✅ 460 từ N5 có câu ví dụ Tatoeba (lọc câu lịch sự/tự nhiên, nghĩa Việt
+   biên tập).
 5. Vietnamese wording: natural, traveler-oriented, avoiding machine-translation tone.
 
 ---
@@ -419,7 +419,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 |---|---|
 | Vietnamese pronunciation inconsistency | Single generator (`tools/kana.js`) + documented spec + overrides list |
 | TTS voice missing on some devices | TTS is enhancement; the sentence, pronunciation and structure panel always work; Phase 3 offline audio |
-| Unnatural buildable sentences | Curated per-branch option lists; automated audit + native review (`REVIEW-CHECKLIST.md`) |
+| Unnatural buildable sentences | Curated per-branch option lists; automated audit walks every buildable path (`tools/audit.js`) |
 | Copyright issues when scaling | Only import datasets with clear licenses; keep `NOTICE`/attribution |
 | Data drift between sources and generated files | One-command rebuild + build-time validation (IDs, refs, steps) |
 | Over-engineering the builder | Deterministic tree, JSON-only extension, 16 intents cover MVP needs; automated audit guards regressions |
