@@ -3,21 +3,24 @@
 **Cẩm nang + ghép câu tiếng Nhật cho người Việt đi du lịch.** Nắm phong tục & phép lịch sự
 trước khi lên đường, chọn nghĩa theo từng bước để app ráp câu tiếng Nhật đúng trợ từ, kèm phiên âm
 tiếng Việt, trọng âm, bóc tách câu và **ngữ pháp tối giản**; **nghe & đáp câu nhân viên nói trước**;
-tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent).
+tra thêm 759 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent).
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
-- 🧭 **Cẩm nang du lịch**: 8 nhóm · 33 mẹo phong tục – lịch sự – an toàn (thuốc & hải quan, tiền mặt,
-  xếp hàng/thang cuốn, đũa & bàn ăn, thẻ IC, shinkansen, onsen & hình xăm, chùa/đền, miễn thuế từ
-  11/2026, động đất & mất đồ…), mỗi mẹo có nên/tránh, câu tiếng Nhật kèm phiên âm + 🔊 và chip
-  **🧩 Ghép câu** mở thẳng câu cần dùng; nguồn tham khảo ghi rõ cuối trang.
-- 🧩 **Ghép câu thu hẹp dần** (16 mục, gom theo nhóm: Giao tiếp cơ bản · Ăn uống, mua sắm & thanh
+- 🧭 **Cẩm nang du lịch**: 8 nhóm · 43 mẹo phong tục – lịch sự – an toàn (nhập cảnh & hải quan,
+  thuốc & hộ chiếu, tiền mặt, eSIM & pin, xếp hàng/thang cuốn, đũa & bàn ăn, uống rượu nơi công
+  cộng, dị ứng & ăn chay, thẻ IC, xe buýt, shinkansen, gửi hành lý, taxi, toilet, onsen & hình xăm,
+  chùa/đền, miễn thuế từ 11/2026, động đất, nắng nóng & bão…), mỗi mẹo có nên/tránh, câu tiếng Nhật
+  kèm phiên âm + 🔊 và chip **🧩 Ghép câu** mở thẳng câu cần dùng; có chip nhảy nhanh giữa 8 nhóm,
+  ghi ngày rà soát và 18 nguồn tham khảo ở cuối trang.
+- 🧩 **Ghép câu thu hẹp dần** (17 mục, gom theo nhóm: Giao tiếp cơ bản · Ăn uống, mua sắm & thanh
   toán · Đi lại & khách sạn · Sự cố & sức khỏe): bấm **⚡ Chọn nhanh** hoặc chọn “Không cần chủ
   ngữ” → “muốn” → món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và phiên âm ngay trên từng trợ từ.
   Bao gồm chào hỏi, **cảm ơn (kể cả mẫu 〜てくれてありがとう “cảm ơn vì đã…”)**, xin lỗi,
-  trả lời/không hiểu, khách sạn, **thanh toán – hoá đơn – miễn thuế**, **bị lạc đường**,
-  đau ốm – mất đồ – gọi giúp khẩn cấp.
+  trả lời/không hiểu, **hỏi người kia nói được tiếng gì**, khách sạn, **thanh toán – hoá đơn – miễn
+  thuế**, **đi tàu & taxi (mua vé, chuyển tuyến, thẻ IC, dừng xe)**, **dị ứng 7 nhóm bắt buộc của
+  Nhật**, **bị lạc đường**, đau ốm – mất đồ – gọi giúp khẩn cấp.
 - 🔬 **Bóc tách câu**: câu ghép được chia thành các mảnh (từ + trợ từ) **tô màu theo vai trò
   ngữ pháp** (đại từ, danh từ, động từ, tính từ, trợ từ, です, số đếm…), kèm phiên âm Việt + romaji,
   nghĩa và loại từ/thể. Bộ tách từ nằm ở `tools/segment.js`.
@@ -26,7 +29,7 @@ tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent)
   giải thích ngắn, ví dụ lấy từ chính câu app ghép được.
 - 🇻🇳 **Phiên âm tiếng Việt** trên mọi từ và câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`) — kèm
   **romaji chính thức** (Hepburn) song song: `sumimasen`, `konnichiwa`.
-- 📚 **747 từ vựng** (186 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu) —
+- 📚 **759 từ vựng** (198 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu) —
   **460 từ N5 kèm câu ví dụ** lấy từ Tatoeba (phiên âm Việt + romaji + nghĩa tiếng Việt);
   **trọng âm (pitch accent) cho 726 từ** — kana với mora cao có gạch trên, dấu ↓ xuống giọng
   và số `[n]`; kèm lượng từ đếm 1–10 và mệnh giá tiền.
@@ -83,7 +86,7 @@ docs/PRONUNCIATION.md      quy ước phiên âm tiếng Việt
    - sinh phiên âm Việt + romaji cho mọi mục mới,
    - chia động từ mới thành ます / て / たい / khả năng…,
    - kiểm tra lỗi: trùng id, thiếu kana, cây câu trỏ sai bước, tham chiếu từ vựng không tồn tại,
-   - soát **toàn bộ câu có thể ghép** (1.266 đường) + cấu trúc cây bằng `tools/audit.js` và báo lỗi.
+   - soát **toàn bộ câu có thể ghép** (1.287 đường) + cấu trúc cây bằng `tools/audit.js` và báo lỗi.
 
 ## Triển khai GitHub Pages
 

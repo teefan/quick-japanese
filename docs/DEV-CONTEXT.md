@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-04 · commit `3e66b69` · SW cache `qj-v2.10.0` · Pages built xanh
+> Cập nhật: 2026-10-04 · SW cache `qj-v2.11.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -11,15 +11,16 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md).
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **4 tab (v2.10.x)**: **Cẩm nang 🧭** (8 nhóm · 33 mẹo phong tục/lịch sự/an toàn, mở mặc định) ·
-  **Ghép câu 🧩** (16 cây / 4 nhóm) · **Từ vựng 📚** (747 từ: 186 biên tập + 561 N5; câu ví dụ +
+- **4 tab (v2.11.x)**: **Cẩm nang 🧭** (8 nhóm · 43 mẹo phong tục/lịch sự/an toàn, mở mặc định, có
+  chip nhảy nhanh giữa nhóm + ngày rà soát) ·
+  **Ghép câu 🧩** (17 cây / 4 nhóm) · **Từ vựng 📚** (759 từ: 198 biên tập + 561 N5; câu ví dụ +
   trọng âm + số đếm & mệnh giá) · **Ngữ pháp 📝** (23 điểm tối giản; mẫu câu kèm phiên âm Việt +
   romaji, ví dụ lấy từ câu ghép được). Lịch sử: v2.0.0 từng thu hẹp còn 2 tab, bỏ cụm từ, sổ tay,
   quiz “Nghe & chọn”, tìm kiếm toàn cục; **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy”
   (câu xong chỉ còn 🔊 Nghe).
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
-  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.266 câu có thể
-  ghép** từ 16 cây; **130 từ biên tập + 39 từ N5** được dùng làm option. Trang chủ Ghép câu có
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.287 câu có thể
+  ghép** từ 17 cây; **134 từ biên tập + 39 từ N5** được dùng làm option. Trang chủ Ghép câu có
   **⚡ Chọn nhanh** (6 việc hay dùng → mở thẳng cây), nhóm đặt tên theo cảnh, cây trong nhóm
   xếp theo tần suất (thứ tự mảng trong `intents.json`).
 - **Liên kết từ vựng ↔ builder**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
@@ -89,7 +90,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
 - File này **không** đi vào `buildLexicon` chung — chỉ sinh `data/vocab-n5.js` cho tab Từ vựng.
   **Từ v2.1.0 builder có thể tham chiếu thẳng id N5** (`"ref": "n5-…"`): build chỉ đưa **đúng
   những từ N5 được ref** vào lexicon của builder và tự audit — nếu cách tách câu cố định nào đổi,
-  build in ghi chú để rà lại (hiện 18 từ, 0 câu đổi). Từ N5 dùng được cả `form` (chia sẵn như từ biên tập).
+  build in ghi chú để rà lại (hiện 39 từ, 0 câu đổi). Từ N5 dùng được cả `form` (chia sẵn như từ biên tập).
 
 ### Câu ví dụ N5 — `data/source/vocab-n5-examples.json`
 ```jsonc
@@ -197,6 +198,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   tab; nội dung do dự án biên tập từ các nguồn đó — không phải phrasebook, không có bước kiểm duyệt.
 - Audit kiểm id duy nhất (cả mục lớn lẫn mục nhỏ), đủ title/text, câu mẫu đã enrich, `intents` tồn
   tại trong builder, nguồn có label + URL http(s). Thêm mẹo mới: sửa JSON → `npm run build`.
+- `updated` (bắt buộc, hiện `10/2026`) là tháng rà soát, app hiện ở khối nguồn cuối tab; build ghi
+  chú số mục chưa có câu mẫu lẫn chip để biết chỗ còn thiếu.
+- Nội dung nhạy thời gian (miễn thuế 1/11/2026, thẻ IC, hình xăm) ghi rõ mốc trong `text` và phải
+  rà lại mỗi lần đổi `updated`.
 
 ### Thêm từ cho bộ tách câu — `tools/segment.js`
 - Thêm vào `EXPRESSIONS` (kana/jp/vi/note/role) và `EXPR_ROLE` nếu là danh từ/động từ/tính từ/trạng từ.
@@ -243,7 +248,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
    huống, kiểm furigana/phiên âm/nút 🔊), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ +
    🔊, trọng âm `[n]` + gạch trên + ↓, thẻ N5 tải nền), **Ngữ pháp** (mở vài điểm, kiểm ví dụ +
    🔊 + phiên âm trợ từ), nút 🔊, nút 🌙 đổi nền tối (nhớ lựa chọn, mặc định sáng), không lỗi JS.
-4. Release regression: `npm run audit` đã phủ **toàn bộ 1.266 đường**; vẫn nên 🎲 vài cây để kiểm
+4. Release regression: `npm run audit` đã phủ **toàn bộ 1.287 đường**; vẫn nên 🎲 vài cây để kiểm
    UI, TTS và bảng cấu trúc.
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
    `gh api repos/teefan/quick-japanese/pages/builds/latest --jq '.status + " " + .commit'`
@@ -290,17 +295,26 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   quán Hoa Kỳ…) và ghi nguồn ở cuối tab. Mỗi mẹo có dòng nên/tránh, câu tiếng Nhật kèm phiên âm +
   🔊, và **chip 🧩 mở thẳng cây ghép câu** (`intents`); nút “Ghép câu ngay” ở đầu tab. Dữ liệu mới
   `data/source/cheatsheet.json` → `data/cheatsheet.js`; audit kiểm luôn. SW cache `qj-v2.10.0`.
+- **v2.11.0** audit lại toàn bộ cẩm nang theo nguồn hiện hành: sửa luồng hoàn thuế 1/11/2026 (hoàn
+  tiền do cửa hàng trả **sau khi hải quan xác nhận**, làm thủ tục trước khi ký gửi hành lý; tối
+  thiểu 5.000 ¥ chưa thuế), hạn mức thuốc + Yunyu Kakunin-sho, kích thước shinkansen, chi tiết thẻ
+  IC/PASMO; thêm 10 mẹo (**nhập cảnh & Visit Japan Web**, luôn mang hộ chiếu, eSIM & Wi-Fi, pin dự
+  phòng, rượu nơi công cộng, nhà vệ sinh, dị ứng & ăn chay, xe buýt, gửi hành lý & coin locker,
+  nắng nóng & bão) và 9 nguồn mới. Builder: cây mới **🚉 Đi tàu & taxi** (切符/乗り換え/ICカード/
+  ここで止めて), nhánh **dị ứng 7 nhóm** trong i-health, câu hỏi **〜を話せますか**, 領収書, 予約を
+  お願いします, 写真を撮ってもらえますか; thêm địa điểm お手洗い/両替/ATM/コインロッカー vào
+  i-where. UI: **chip nhảy nhanh giữa 8 nhóm cẩm nang**, ngày rà soát ở khối nguồn, `lang="ja"`
+  cho mọi chỗ hiện chữ Nhật (a11y). Tổng hiện tại: **17 cây, 1.287 câu, 759 từ**; SW `qj-v2.11.0`.
 - Việc còn lại:
   1. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
   2. **Mở rộng Nghe & đáp** (theo nghiên cứu v2.6.0): tình huống ga/tàu & taxi (IC card, sân ga,
      điểm đến), hiệu thuốc/khẩn cấp, quầy miễn thuế (パスポート); thêm câu nhân viên hay nói
      (席へどうぞ, ラストオーダーです, お下げしてもいいですか, 試着室はこちらです, お荷物をお預かりしますか,
-     温めますか, お箸お付けしますか); câu mình chủ động còn thiếu: `写真を撮ってもらえますか`,
-     `切符はどこで買えますか`, `ICカードは使えますか`, `ここで止めてください`, `乗り換えはどこですか`,
-     `英語は話せますか`.
-- **Tồn đã biết**: 101 từ N5 chưa có câu ví dụ; 21 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB
-  (vẫn lazy, không vào payload đầu).
+     温めますか, お箸お付けしますか). (Các câu mình chủ động từng thiếu — 切符, ICカード, ここで止めて,
+     乗り換え, 英語, 写真, 領収書, 予約 — đã bổ sung ở v2.11.0.)
+- **Tồn đã biết**: 101 từ N5 chưa có câu ví dụ; 726/759 từ có trọng âm (33 từ thiếu, trong đó 12
+  từ biên tập mới thêm ở v2.11.0); file N5 tải nền ≈ 264 KB (vẫn lazy, không vào payload đầu).
 
 ## 7. Lịch sử quyết định ngắn
 
@@ -356,3 +370,8 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   tôn trọng ngay từ lần mở đầu; app mở mặc định ở Cẩm nang, có nút “Ghép câu ngay” và mỗi mẹo gắn
   chip mở thẳng cây liên quan — vẫn giữ nguyên tắc không phrasebook, không tìm kiếm toàn cục.
   Nội dung có nguồn tham khảo công khai (không kiểm duyệt bản ngữ), sửa bằng `cheatsheet.json`.
+- **Audit cẩm nang theo nguồn (v2.11.0)**: mọi số liệu nhạy thời gian (thuế, thẻ IC, thuốc, hình
+  xăm) được đối chiếu lại JR/NTA/MLIT/MHLW/JNTO trước khi sửa; thêm trường `updated` bắt buộc và
+  ghi chú các mục chưa có câu mẫu/chip — nội dung du lịch phải rà theo tháng, không chỉ viết một lần.
+  Câu cố định mới phải qua debug “Option cố định chưa tách được” và kiểm phiên âm trợ từ (đã dính
+  `カードは使えますか` bị tách thành はつか + えます vì `GRAMMAR_EXTRA` có えます ⇒ đặt override roma/viPron).

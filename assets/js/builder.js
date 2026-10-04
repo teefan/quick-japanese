@@ -192,14 +192,14 @@
       if (part.kind === "text") {
         const t = part.text;
         if (t.text && t.kana && t.text !== t.kana) {
-          return `<ruby>${U.esc(t.text)}<rt>${U.esc(t.kana)}</rt></ruby>`;
+          return `<ruby lang="ja">${U.esc(t.text)}<rt>${U.esc(t.kana)}</rt></ruby>`;
         }
         return U.esc(t.text);
       }
       const o = part.opt;
       let html = U.esc(o.jp);
       if (o.jp && o.kana && o.jp !== o.kana) {
-        html = `<ruby>${U.esc(o.jp)}<rt>${U.esc(o.kana)}</rt></ruby>`;
+        html = `<ruby lang="ja">${U.esc(o.jp)}<rt>${U.esc(o.kana)}</rt></ruby>`;
       }
       if (part.particle) {
         html += `<span class="particle" title="${U.esc(part.particle.vi)}">${U.esc(part.particle.jp)}</span>`;
@@ -217,7 +217,7 @@
 
   function tokenRowHtml(t) {
     return `<div class="brk-row role-${U.esc(t.role || "expression")}${t.isParticle ? " particle-row" : ""}">
-      <div class="brk-jp">${U.esc(t.jp)}${t.kana && t.kana !== t.jp ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
+      <div class="brk-jp" lang="ja">${U.esc(t.jp)}${t.kana && t.kana !== t.jp ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
       <div class="brk-body">
         <span class="brk-pron">${U.esc(t.viPron || "")}</span>
         <span class="brk-roma">${U.esc(t.roma || "")}</span>
@@ -229,7 +229,7 @@
   function optionRowHtml(o) {
     const note = o._note || "";
     return `<div class="brk-row role-${U.esc(o.role || "expression")}">
-      <div class="brk-jp">${U.esc(o.jp)}${o.kana && o.kana !== o.jp ? `<small>${U.esc(o.kana)}</small>` : ""}</div>
+      <div class="brk-jp" lang="ja">${U.esc(o.jp)}${o.kana && o.kana !== o.jp ? `<small>${U.esc(o.kana)}</small>` : ""}</div>
       <div class="brk-body">
         <span class="brk-pron">${U.esc(o.viPron || "")}</span>
         <span class="brk-roma">${U.esc(o.roma || "")}</span>
@@ -240,7 +240,7 @@
 
   function textRowHtml(t) {
     return `<div class="brk-row role-${U.esc(t.role || "expression")}">
-      <div class="brk-jp">${U.esc(t.text)}${t.kana && t.kana !== t.text ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
+      <div class="brk-jp" lang="ja">${U.esc(t.text)}${t.kana && t.kana !== t.text ? `<small>${U.esc(t.kana)}</small>` : ""}</div>
       <div class="brk-body">
         <span class="brk-pron">${U.esc(t.viPron || "")}</span>
         <span class="brk-roma">${U.esc(t.roma || "")}</span>
@@ -251,7 +251,7 @@
   function structureHtml(parts) {
     const rows = parts.map(part => {
       if (part.kind === "blank") {
-        return `<div class="brk-row"><div class="brk-jp">…</div>
+        return `<div class="brk-row"><div class="brk-jp" lang="ja">…</div>
           <div class="brk-body"><span class="brk-vi" style="color:var(--muted)">Chưa chọn</span></div></div>`;
       }
       // Dấu ngăn "。" do engine chèn giữa hai mảnh cố định: không cần thành dòng riêng
@@ -273,7 +273,7 @@
   /* ------------------------------ Nghe & đáp ------------------------------ */
 
   function rubyHtml(jp, kana) {
-    if (jp && kana && jp !== kana) return `<ruby>${U.esc(jp)}<rt>${U.esc(kana)}</rt></ruby>`;
+    if (jp && kana && jp !== kana) return `<ruby lang="ja">${U.esc(jp)}<rt>${U.esc(kana)}</rt></ruby>`;
     return U.esc(jp);
   }
 
@@ -284,7 +284,7 @@
   function answerHtml(line) {
     return `<div class="exc-answer">
       <div class="exc-answer-body">
-        <div class="line-jp">${rubyHtml(line.jp, line.kana)}</div>
+        <div class="line-jp" lang="ja">${rubyHtml(line.jp, line.kana)}</div>
         <div class="line-pron">${U.esc(line.viPron || "")}<span class="roma"> · ${U.esc(line.roma || "")}</span></div>
         <div class="line-vi">${U.esc(line.vi)}</div>
       </div>
@@ -305,7 +305,7 @@
           <div class="exc-row">
             <div class="exc-body">
               <div class="exc-who">🗣️ Nhân viên</div>
-              <div class="line-jp big">${rubyHtml(ex.heard.jp, ex.heard.kana)}</div>
+              <div class="line-jp big" lang="ja">${rubyHtml(ex.heard.jp, ex.heard.kana)}</div>
               <div class="line-pron">${U.esc(ex.heard.viPron || "")}<span class="roma"> · ${U.esc(ex.heard.roma || "")}</span></div>
               <div class="line-vi">${U.esc(ex.heard.vi)}</div>
             </div>
@@ -384,7 +384,7 @@
         ${replies.map(r => `
           <div class="reply-row">
             <div class="reply-body">
-              <div class="line-jp">${rubyHtml(r.jp, r.kana)}</div>
+              <div class="line-jp" lang="ja">${rubyHtml(r.jp, r.kana)}</div>
               <div class="line-pron">${U.esc(r.viPron || "")}<span class="roma"> · ${U.esc(r.roma || "")}</span></div>
               <div class="line-vi">${U.esc(r.vi)}</div>
             </div>
@@ -407,7 +407,7 @@
 
       <div class="b-sentence">
         ${done ? `<span class="done-badge">✓ Câu đã sẵn sàng</span>` : ""}
-        <div class="b-jp">${jpHtml}</div>
+        <div class="b-jp" lang="ja">${jpHtml}</div>
         <div class="b-pron">${started || done ? U.esc(A.pronLine(parts)) : ""}</div>
         <div class="b-roma">${started || done ? U.esc(A.romaLine(parts)) : ""}</div>
         <div class="b-vi">${U.esc(vi)}</div>

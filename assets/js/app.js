@@ -212,7 +212,7 @@ function exampleHtml(ex) {
     <div class="w-ex">
       <button class="icon-btn w-ex-audio" title="Nghe câu ví dụ" data-act="speak" data-key="${key}">🔊</button>
       <div class="w-ex-body">
-        <div class="w-ex-jp">${U.esc(ex.jp)}</div>
+        <div class="w-ex-jp" lang="ja">${U.esc(ex.jp)}</div>
         <div class="w-ex-pron">${U.esc(ex.viPron || "")}${ex.roma ? `<span class="roma"> · ${U.esc(ex.roma)}</span>` : ""}</div>
         <div class="w-ex-vi">${U.esc(ex.vi)}</div>
       </div>
@@ -241,7 +241,7 @@ function vocabCard(v) {
   return `
     <div class="word">
       <div class="w-top">
-        <b>${U.esc(v.jp)}</b>
+        <b lang="ja">${U.esc(v.jp)}</b>
         ${v.kana && v.kana !== v.jp ? `<span class="w-kana">${U.esc(v.kana)}</span>` : ""}
         ${(v.tags || []).includes("n5") ? `<span class="w-lv" title="Từ vựng JLPT N5">N5</span>` : ""}
         <span style="margin-left:auto;display:flex;gap:6px">
@@ -343,7 +343,7 @@ function grammarExampleHtml(ex) {
     <div class="g-ex">
       <button class="icon-btn g-ex-audio" title="Nghe ví dụ" data-act="speak" data-key="${key}">🔊</button>
       <div class="g-ex-body">
-        <div class="g-ex-jp">${U.esc(ex.jp)}</div>
+        <div class="g-ex-jp" lang="ja">${U.esc(ex.jp)}</div>
         <div class="g-ex-pron">${U.esc(ex.viPron || "")}${ex.roma ? `<span class="roma"> · ${U.esc(ex.roma)}</span>` : ""}</div>
         <div class="g-ex-vi">${U.esc(ex.vi)}</div>
       </div>
@@ -413,7 +413,7 @@ function guidePhraseHtml(p) {
     <div class="g-ex">
       <button class="icon-btn g-ex-audio" title="Nghe câu mẫu" data-act="speak" data-key="${key}">🔊</button>
       <div class="g-ex-body">
-        <div class="g-ex-jp">${U.esc(p.jp)}</div>
+        <div class="g-ex-jp" lang="ja">${U.esc(p.jp)}</div>
         <div class="g-ex-pron">${U.esc(p.viPron || "")}${p.roma ? `<span class="roma"> · ${U.esc(p.roma)}</span>` : ""}</div>
         <div class="g-ex-vi">${U.esc(p.vi)}</div>
       </div>
@@ -452,10 +452,13 @@ function guideItemHtml(it) {
 /* Tab Cẩm nang: phong tục, lịch sự & mẹo thực dụng, có câu mẫu + chip sang builder */
 function renderGuide() {
   U.resetReg();
-  const cs = QJ.cheatsheet || { sections: [], sources: [] };
+  const cs = QJ.cheatsheet || { sections: [], sources: [], updated: "" };
   const items = cs.sections.reduce((n, s) => n + (s.items || []).length, 0);
+  const jump = cs.sections.map(s =>
+    `<button class="chip cs-jump-chip" data-jump="cs-${U.esc(s.id)}">${U.esc(s.emoji || "•")} ${U.esc(s.title)}</button>`
+  ).join("");
   const sections = cs.sections.map(s => `
-    <div class="section-title">
+    <div class="section-title" id="cs-${U.esc(s.id)}">
       <h2>${U.esc(s.emoji || "•")} ${U.esc(s.title)}</h2>
       <span class="desc">${U.esc(s.desc || "")}</span>
     </div>
@@ -476,10 +479,12 @@ function renderGuide() {
         <button class="quick-chip" data-goto="builder"><span>🧩</span> Ghép câu ngay</button>
         <button class="quick-chip" data-goto="grammar"><span>📝</span> Ngữ pháp tối giản</button>
       </div>
+      <div class="cs-jump" aria-label="Nhảy nhanh tới nhóm">${jump}</div>
     </div>
     ${sections}
     <div class="card src-note">
       <b>📜 Nguồn tham khảo</b>
+      ${cs.updated ? `<p>Cập nhật: ${U.esc(cs.updated)} — các mục nhạy thời gian (miễn thuế, thẻ IC, hình xăm…) được rà lại theo nguồn công khai.</p>` : ""}
       ${cs.sources.map(s => `<p><a href="${U.esc(s.url)}" target="_blank" rel="noopener">${U.esc(s.label)}</a></p>`).join("")}
       <p>Nội dung do dự án biên tập lại cho người Việt; quy định có thể thay đổi theo thời gian — kiểm tra lại trước khi đi.</p>
     </div>`;
@@ -517,6 +522,13 @@ document.getElementById("tabs").addEventListener("click", e => {
 /* ------------------------------ Sự kiện toàn cục ------------------------------ */
 
 document.addEventListener("click", e => {
+  const jump = e.target.closest("[data-jump]");
+  if (jump) {
+    const target = document.getElementById(jump.dataset.jump);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
   const goto = e.target.closest("[data-goto]");
   if (goto && TABS[goto.dataset.goto]) {
     switchTab(goto.dataset.goto);

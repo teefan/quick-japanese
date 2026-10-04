@@ -861,6 +861,10 @@ main {
 /* Cẩm nang du lịch: nút nhanh, dòng nên/tránh và thẻ mẹo */
 .cs-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 
+.cs-jump { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+.cs-jump-chip { padding: 5px 11px; font-size: 12px; }
+
 .cs-item summary { padding: 12px 16px; }
 
 .cs-item .g-head h3 { font-size: 14.5px; }

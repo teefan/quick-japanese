@@ -237,6 +237,9 @@ const GRAMMAR_EXTRA = [
 const CHEATSHEET_EXTRA = [
   { pos: "expression", kana: "かんぱい", jp: "乾杯", vi: "cạn ly" },
   { pos: "expression", kana: "みている", jp: "見ている", vi: "đang xem" },
+  { pos: "expression", kana: "タトゥー", jp: "タトゥー", vi: "hình xăm" },
+  { pos: "expression", kana: "しんこく", jp: "申告", vi: "khai báo" },
+  { pos: "expression", kana: "かじ", jp: "火事", vi: "hỏa hoạn" },
 ];
 
 /* Làm giàu một câu nói (replies / nghe–đáp): tách mảnh để đọc đúng は→oa, へ→ê.
@@ -525,8 +528,10 @@ function buildGrammar(lex) {
    bằng lexicon tham khảo; mỗi mục có thể trỏ tới cây ghép câu liên quan (intents). */
 function buildCheatsheet(lex) {
   const src = read("cheatsheet.json");
+  if (!src.updated) throw new Error("Cẩm nang: thiếu trường updated (tháng biên tập)");
   const seen = new Set();
   let items = 0;
+  let bare = 0;
   const sections = (src.sections || []).map((s) => {
     if (!s.id || !s.title) throw new Error("Cẩm nang: mục lớn thiếu id/title");
     if (seen.has(s.id)) throw new Error(`Cẩm nang: trùng id "${s.id}"`);
@@ -541,6 +546,7 @@ function buildCheatsheet(lex) {
         const e = enrichSpoken(p, lex);
         return { jp: e.jp, kana: e.kana, roma: e.roma, viPron: e.viPron, vi: e.vi };
       });
+      if (!phrases.length && !(it.intents || []).length) bare += 1;
       return { ...it, phrases: phrases.length ? phrases : undefined };
     });
     return { ...s, items: list };
@@ -549,8 +555,9 @@ function buildCheatsheet(lex) {
     if (!x.label || !x.url) throw new Error("Cẩm nang: nguồn thiếu label/url");
     return { label: x.label, url: x.url };
   });
-  note(`Cẩm nang: ${sections.length} mục, ${items} mục nhỏ, ${sources.length} nguồn`);
-  return { sections, sources };
+  note(`Cẩm nang: ${sections.length} mục, ${items} mục nhỏ, ${sources.length} nguồn (cập nhật ${src.updated})`);
+  if (bare) note(`Cẩm nang: ${bare} mục chưa có câu mẫu lẫn chip ghép câu`);
+  return { updated: src.updated, sections, sources };
 }
 
 /* ------------------------------ Xuất file ------------------------------ */

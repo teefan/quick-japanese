@@ -274,6 +274,15 @@
               ],
               "viTemplateOverride": "Tôi hiểu một chút {lang}",
               "next": "s-lang-understand"
+            },
+            {
+              "silent": true, "label": "Hỏi người kia", "vi": "(hỏi ngược lại)",
+              "templateOverride": [
+                { "slot": "lang", "particle": "を" },
+                { "text": "話せますか", "kana": "はなせますか", "vi": "có nói được không?" }
+              ],
+              "viTemplateOverride": "Anh/chị có nói được {lang} không?",
+              "next": "s-lang-ask"
             }
           ]
         },
@@ -288,6 +297,15 @@
         },
         "s-lang-understand": {
           "prompt": "Ngôn ngữ nào?",
+          "slot": "lang",
+          "options": [
+            { "ref": "n-nihongo", "next": null },
+            { "ref": "n-eigo", "next": null },
+            { "ref": "n-betonamugo", "next": null }
+          ]
+        },
+        "s-lang-ask": {
+          "prompt": "Muốn hỏi ngôn ngữ nào?",
           "slot": "lang",
           "options": [
             { "ref": "n-nihongo", "next": null },
@@ -330,6 +348,11 @@
             { "jp": "ここに書いて", "kana": "ここにかいて", "vi": "viết ra đây", "next": null },
             { "jp": "地図で指して", "kana": "ちずでさして", "vi": "chỉ trên bản đồ", "next": null },
             { "jp": "写真を撮って", "kana": "しゃしんをとって", "vi": "chụp ảnh giúp", "next": null },
+            { "jp": "写真を撮ってもらえますか", "kana": "しゃしんをとってもらえますか", "vi": "Chụp ảnh giúp tôi được không?",
+              "templateOverride": [
+                { "text": "写真を撮ってもらえますか", "kana": "しゃしんをとってもらえますか", "vi": "chụp ảnh giúp tôi được không?" }
+              ],
+              "viTemplateOverride": "Chụp ảnh giúp tôi được không?", "next": null },
             { "jp": "助けて", "kana": "たすけて", "vi": "giúp tôi", "next": null }
           ]
         }
@@ -465,6 +488,7 @@
             { "jp": "カードは使えますか", "kana": "カードはつかえますか", "vi": "Dùng thẻ được không?", "roma": "kaado wa tsukaemasu ka", "viPron": "ka-a-đô oa tsư-ka-ê-ma-xư-ka", "next": null },
             { "jp": "現金でお願いします", "kana": "げんきんでおねがいします", "vi": "Trả bằng tiền mặt", "next": null },
             { "jp": "レシートをください", "kana": "レシートをください", "vi": "Cho tôi hoá đơn", "next": null },
+            { "jp": "領収書をください", "kana": "りょうしゅうしょをください", "vi": "Cho tôi hoá đơn thanh toán", "next": null },
             { "jp": "袋は大丈夫です", "kana": "ふくろはだいじょうぶです", "vi": "Không cần túi (ạ)", "next": null },
             { "jp": "袋をお願いします", "kana": "ふくろをおねがいします", "vi": "Cho tôi cái túi", "next": null },
             { "jp": "免税でお願いします", "kana": "めんぜいでおねがいします", "vi": "Cho tôi mua miễn thuế", "next": null },
@@ -1031,12 +1055,16 @@
           "slot": "place",
           "options": [
             { "ref": "n-toire", "next": null },
+            { "ref": "n-otearai", "next": null },
             { "ref": "n-eki", "next": null },
+            { "ref": "n-koinrokkaa", "next": null },
             { "ref": "n-kukou", "next": null },
             { "ref": "n-hoteru", "next": null },
             { "ref": "n-yakkyoku", "next": null },
             { "ref": "n-kouban", "next": null },
             { "ref": "n-ginkou", "next": null },
+            { "ref": "n-ryougae", "next": null },
+            { "ref": "n-atm", "roma": "eetiiemu", "viPron": "ê-ti-i-ê-mư", "next": null },
             { "ref": "n-konbini", "next": null },
             { "ref": "n-basutei", "next": null },
             { "ref": "n-byouin", "next": null },
@@ -1187,6 +1215,40 @@
       "tip": "Đến (điểm đích) dùng に; nhờ taxi đi đến dùng まで + お願いします."
     },
     {
+      "id": "i-transit",
+      "emoji": "🚉",
+      "label": "Đi tàu & taxi",
+      "desc": "Mua vé, chuyển tuyến, thẻ IC, dừng taxi",
+      "group": "Đi lại & khách sạn",
+      "start": "s-need",
+      "steps": {
+        "s-need": {
+          "prompt": "Cần gì?",
+          "options": [
+            { "silent": true, "label": "Hỏi ở ga", "vi": "(ở ga)", "next": "s-station" },
+            { "silent": true, "label": "Trên taxi", "vi": "(taxi)", "next": "s-taxi" }
+          ]
+        },
+        "s-station": {
+          "prompt": "Hỏi gì ở ga?",
+          "options": [
+            { "jp": "切符はどこで買えますか", "kana": "きっぷはどこでかえますか", "vi": "Mua vé ở đâu?", "next": null },
+            { "jp": "乗り換えはどこですか", "kana": "のりかえはどこですか", "vi": "Chuyển tuyến ở đâu?", "next": null },
+            { "jp": "ICカードは使えますか", "kana": "アイシーカードはつかえますか", "vi": "Dùng thẻ IC được không?", "next": null }
+          ]
+        },
+        "s-taxi": {
+          "prompt": "Nói gì với tài xế?",
+          "options": [
+            { "jp": "ここで止めてください", "kana": "ここでとめてください", "vi": "Dừng ở đây giúp tôi", "next": null }
+          ]
+        }
+      },
+      "template": null,
+      "viTemplate": null,
+      "tip": "Ga lớn có máy bán vé tự động (券売機); thẻ IC dùng được cả xe buýt và konbini. Ở taxi, cửa sau tự mở — đừng tự kéo."
+    },
+    {
       "id": "i-hotel",
       "emoji": "🏨",
       "label": "Khách sạn",
@@ -1208,7 +1270,8 @@
           "options": [
             { "jp": "チェックインをお願いします", "kana": "チェックインをおねがいします", "vi": "Tôi muốn làm thủ tục nhận phòng", "next": null },
             { "jp": "チェックアウトをお願いします", "kana": "チェックアウトをおねがいします", "vi": "Cho tôi làm thủ tục trả phòng", "next": null },
-            { "jp": "予約しています", "kana": "よやくしています", "vi": "Tôi có đặt phòng trước", "next": null }
+            { "jp": "予約しています", "kana": "よやくしています", "vi": "Tôi có đặt phòng trước", "next": null },
+            { "jp": "予約をお願いします", "kana": "よやくをおねがいします", "vi": "Cho tôi đặt phòng", "next": null }
           ]
         },
         "s-room": {
@@ -1273,6 +1336,7 @@
             },
             { "silent": true, "label": "Triệu chứng khác", "vi": "(triệu chứng)", "next": "s-symptom" },
             { "silent": true, "label": "Mua thuốc", "vi": "(mua thuốc)", "next": "s-medicine" },
+            { "silent": true, "label": "Dị ứng thức ăn", "vi": "(dị ứng)", "next": "s-allergy" },
             {
               "silent": true, "label": "Tôi bị mất…", "vi": "(mất đồ)",
               "templateOverride": [
@@ -1332,6 +1396,18 @@
             { "jp": "薬アレルギーがあります", "kana": "くすりアレルギーがあります", "vi": "Tôi bị dị ứng thuốc", "next": null },
             { "jp": "この薬はどうやって飲みますか", "kana": "このくすりはどうやってのみますか", "vi": "Thuốc này uống thế nào?", "roma": "kono kusuri wa douyatte nomimasu ka", "viPron": "cô-nô cư-xư-ri oa đô-u-yat-tê nô-mi-ma-xư-ka", "next": null },
             { "jp": "処方箋なしで買えますか", "kana": "しょほうせんなしでかえますか", "vi": "Mua không cần đơn thuốc được không?", "next": null }
+          ]
+        },
+        "s-allergy": {
+          "prompt": "Dị ứng với gì?",
+          "options": [
+            { "jp": "卵アレルギーがあります", "kana": "たまごアレルギーがあります", "vi": "Tôi bị dị ứng trứng", "next": null },
+            { "jp": "乳アレルギーがあります", "kana": "にゅうアレルギーがあります", "vi": "Tôi bị dị ứng sữa", "next": null },
+            { "jp": "小麦アレルギーがあります", "kana": "こむぎアレルギーがあります", "vi": "Tôi bị dị ứng lúa mì", "next": null },
+            { "jp": "そばアレルギーがあります", "kana": "そばアレルギーがあります", "vi": "Tôi bị dị ứng mì soba", "next": null },
+            { "jp": "落花生アレルギーがあります", "kana": "らっかせいアレルギーがあります", "vi": "Tôi bị dị ứng đậu phộng", "next": null },
+            { "jp": "えびアレルギーがあります", "kana": "えびアレルギーがあります", "vi": "Tôi bị dị ứng tôm", "next": null },
+            { "jp": "かにアレルギーがあります", "kana": "かにアレルギーがあります", "vi": "Tôi bị dị ứng cua", "next": null }
           ]
         },
         "s-items": {

@@ -4,22 +4,23 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and say it to a local. Static site,
 no server, deployable on GitHub Pages.
 
-> **Current status (v2.10.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **Current status (v2.11.0)** — live at <https://teefan.github.io/quick-japanese/>:
 > **4 tabs: 🧭 Cẩm nang + 🧩 Ghép câu + 📚 Từ vựng + 📝 Ngữ pháp, plus 🗣️ Nghe & đáp.**
-> 16 intent trees (4 groups) · **1,266 combinable sentences** (130 curated + 39 N5 words as options)
-> · **33 cheatsheet tips** (8 sections, sourced) · 747 words (186 curated + 561 N5, lazy-loaded) ·
+> 17 intent trees (4 groups) · **1,287 combinable sentences** (134 curated + 39 N5 words as options)
+> · **43 cheatsheet tips** (8 sections, 18 sources) · 759 words (198 curated + 561 N5, lazy-loaded) ·
 > **23 grammar points** · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium) ·
 > 6 counters (1–10) wired into the builder · vocabulary cards link back into the builder
 > (`data/builder-index.js`) · 3 staff-first scenarios (20 exchanges) + likely replies on 4 intents.
-> New in v2.10.0: **🧭 Cẩm nang du lịch** — research-backed etiquette/customs/safety cheatsheet
-> (medication rules, cash & tax-free changes from Nov 2026, IC cards, queueing/escalators, chopsticks,
-> onsen & tattoos, shrine/temple etiquette, Gion photo rules, earthquakes, lost items…), each tip
-> with do/don’t, sample phrases with Vietnamese pronunciation + 🔊, and **🧩 Ghép câu chips** that
-> deep-link into the matching builder tree; sources listed in the tab. The app now opens on the
-> cheatsheet with a “Ghép câu ngay” shortcut, and the cheatsheet is the first tab. v2.9.x added the
-> minimal grammar tab; v2.8.0 brought ⚡ Chọn nhanh chips, scene-first groups and real counters.
-> PWA cache `qj-v2.10.0`. Regression: `npm run audit` walks all **1,266 paths** + all spoken lines +
-> grammar points + cheatsheet items (0 errors), no JS errors.
+> New in v2.11.0: full cheatsheet audit — corrected the Nov-2026 tax-free refund flow (refund is
+> issued by the shop after airport customs confirmation, before bag drop), medication limits and
+> Yunyu Kakunin-sho, shinkansen dimensions, IC-card/PASMO details; added items for arrival customs
+> & Visit Japan Web, carrying your passport, eSIM/Wi-Fi, power banks, public-drinking rules,
+> public toilets, allergens & vegetarian food, buses, coin lockers/takkyubin and heat/typhoons.
+> Builder additions: **🚉 Đi tàu & taxi** tree, a food-allergy branch for the 7 mandatory allergens,
+> “Do you speak …?” questions and 領収書; plus cheatsheet group-jump chips, `lang="ja"` markup and a
+> cheatsheet review date. v2.10.0 added the cheatsheet itself; v2.9.x the grammar tab; v2.8.0 quick
+> chips. PWA cache `qj-v2.11.0`. Regression: `npm run audit` walks all **1,287 paths** + all spoken
+> lines + grammar points + cheatsheet items (0 errors), no JS errors.
 > **Light theme by default** (washi–sakura–indigo); a 🌙/☀️ toggle remembers dark mode.
 > **v2.0.0 narrowed the product**: phrases, notebook, grammar, quiz and global search were removed;
 > **v2.4.0** also removed show-to-local and copy (finished sentences keep only 🔊 Nghe) — all
@@ -120,7 +121,7 @@ Nghe & đáp 🗣️  3 scenarios where staff speak first (restaurant, shop, hot
                line has furigana + Vietnamese pronunciation + 🔊 and suggested answers;
                built sentences in i-please / i-where / i-hotel also show likely “replies”
 
-Từ vựng 📚     747 words (186 curated + 561 N5 lazy) + counters 1–10 + money chips,
+Từ vựng 📚     759 words (198 curated + 561 N5 lazy) + counters 1–10 + money chips,
                tag filters, paginated list, search, example sentences, pitch accents;
                cards link to the builder intents that use the word
 
@@ -173,7 +174,7 @@ the furigana and an N5-extended lexicon (so particles は/へ read `oa`/`ê` cor
 readings are never mistaken for particles); examples are attached to `vocab-n5.js` and shown
 on vocab cards. Words without a suitable polite/natural example are omitted.
 
-`accents.json` maps vocabulary id → pitch-accent number for 726 of 747 words (curated + N5),
+`accents.json` maps vocabulary id → pitch-accent number for 726 of 759 words (curated + N5),
 imported once from [Kanjium](https://github.com/mifunetoshiro/kanjium) `accents.txt` (124k words,
 CC BY-SA 4.0). Value `n` = pitch drops after mora *n*; `0` = heiban (no drop). Where Kanjium
 offers several accents, the first is kept; for kana-only homographs the candidate matching the
@@ -280,7 +281,7 @@ pay/invoice), travel (train/taxi, hotel), getting lost, and emergencies/health. 
 branches multiply coverage
 from a small data set: e.g. 6 verbs × `〜てくれてありがとう` for thanks, 5 body parts × `〜が痛いです`,
 4 items × `〜をなくしました / 〜を盗まれました`, 4 services × `〜を呼んでください`.
-The current 16 trees yield **1,266 distinct sentences** and reference **130 curated + 39 N5 words**
+The current 17 trees yield **1,287 distinct sentences** and reference **134 curated + 39 N5 words**
 as options. Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)
@@ -321,7 +322,7 @@ errors.
 
 ### 6.6 Automated audit (v2.4.0)
 
-`tools/audit.js` walks **every complete path of all 16 intent trees** (1,266 sentences) using the
+`tools/audit.js` walks **every complete path of all 17 intent trees** (1,287 sentences) using the
 same assembly module as the app (`assets/js/assemble.js`) and fails the build on: empty/blank
 slots, unresolved `vi` placeholders, repeated Vietnamese words (e.g. “hơn hơn”), missing `。`
 between two fixed phrases, unknown slot references, duplicate chip labels, unreachable steps,
