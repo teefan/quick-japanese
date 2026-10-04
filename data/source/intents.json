@@ -1,12 +1,12 @@
 {
-  "note": "Cây ghép câu: mỗi bước (step) có danh sách lựa chọn; sau mỗi lựa chọn, chỉ những bước hợp lệ tiếp theo (next) mới hiện ra. template quyết định thứ tự tiếng Nhật; viTemplate quyết định câu tiếng Việt xem trước. Lựa chọn có templateOverride sẽ đổi cả khuôn câu (ví dụ hỏi 'bao nhiêu tiền' khác 'là gì').",
+  "note": "Cây ghép câu: mỗi bước (step) có danh sách lựa chọn; sau mỗi lựa chọn, chỉ những bước hợp lệ tiếp theo (next) mới hiện ra. template quyết định thứ tự tiếng Nhật; viTemplate quyết định câu tiếng Việt xem trước. Lựa chọn có templateOverride sẽ đổi cả khuôn câu (ví dụ hỏi 'bao nhiêu tiền' khác 'là gì'). Option có thể là ref từ vựng (kèm form), silent (chọn nhánh), câu cố định, hoặc counter (lượng từ — build nở từ numbers.json).",
   "intents": [
     {
       "id": "i-greet",
       "emoji": "👋",
       "label": "Chào hỏi & xã giao",
       "desc": "Chào theo buổi, chia tay, gặp lần đầu, hỏi thăm",
-      "group": "Giao tiếp",
+      "group": "Giao tiếp cơ bản",
       "start": "s-situation",
       "steps": {
         "s-situation": {
@@ -73,6 +73,8 @@
             { "ref": "n5-688bc67044", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Lạnh nhỉ.", "next": null },
             { "ref": "n5-67f5908e10", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Mát mẻ nhỉ.", "next": null },
             { "ref": "a-atatakai", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Ấm áp nhỉ.", "next": null },
+            { "ref": "n5-9edf8548bb", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Trời nắng nhỉ.", "next": null },
+            { "ref": "n5-eec0f93991", "templateOverride": [{ "slot": "weather" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }], "viTemplateOverride": "Trời âm u nhỉ.", "next": null },
             {
               "jp": "いい天気ですね", "kana": "いいてんきですね", "vi": "Trời đẹp nhỉ.",
               "templateOverride": [{ "text": "いい天気", "kana": "いいてんき", "vi": "trời đẹp" }, { "text": "ですね", "kana": "ですね", "vi": "nhỉ" }],
@@ -100,7 +102,7 @@
       "emoji": "🙏",
       "label": "Cảm ơn & xin lỗi",
       "desc": "Cảm ơn, xin lỗi, phép lịch sự, trước–sau bữa ăn",
-      "group": "Giao tiếp",
+      "group": "Giao tiếp cơ bản",
       "start": "s-kind",
       "steps": {
         "s-kind": {
@@ -174,7 +176,7 @@
         "s-meal": {
           "prompt": "Câu cho bữa ăn?",
           "options": [
-            { "jp": "いただきます", "kana": "いただきます", "vi": "Con xin phép dùng bữa", "note": "Nói trước khi ăn", "next": null },
+            { "jp": "いただきます", "kana": "いただきます", "vi": "Tôi xin phép dùng bữa", "note": "Nói trước khi ăn", "next": null },
             { "jp": "ごちそうさまでした", "kana": "ごちそうさまでした", "vi": "Cảm ơn vì bữa ăn", "note": "Nói sau khi ăn xong", "next": null },
             { "jp": "美味しいです", "kana": "おいしいです", "vi": "Ngon quá!", "next": null }
           ]
@@ -189,7 +191,7 @@
       "emoji": "💬",
       "label": "Trả lời & xử lý",
       "desc": "Đồng ý, từ chối, không hiểu, nói về bạn",
-      "group": "Giao tiếp",
+      "group": "Giao tiếp cơ bản",
       "start": "s-kind",
       "steps": {
         "s-kind": {
@@ -316,7 +318,7 @@
       "emoji": "🆘",
       "label": "Làm ơn giúp tôi…",
       "desc": "Nhờ nói chậm, viết ra, chỉ đường, chụp ảnh…",
-      "group": "Giao tiếp",
+      "group": "Giao tiếp cơ bản",
       "start": "s-action",
       "steps": {
         "s-action": {
@@ -328,7 +330,6 @@
             { "jp": "ここに書いて", "kana": "ここにかいて", "vi": "viết ra đây", "next": null },
             { "jp": "地図で指して", "kana": "ちずでさして", "vi": "chỉ trên bản đồ", "next": null },
             { "jp": "写真を撮って", "kana": "しゃしんをとって", "vi": "chụp ảnh giúp", "next": null },
-            { "jp": "医者を呼んで", "kana": "いしゃをよんで", "vi": "gọi bác sĩ", "next": null },
             { "jp": "助けて", "kana": "たすけて", "vi": "giúp tôi", "next": null }
           ]
         }
@@ -343,19 +344,15 @@
     {
       "id": "i-can",
       "emoji": "👌",
-      "label": "Cái này được không?",
-      "desc": "Xin phép hoặc hỏi dịch vụ có được không",
-      "group": "Giao tiếp",
+      "label": "Xin phép nhé?",
+      "desc": "Xin phép chụp ảnh, vào, ngồi…",
+      "group": "Giao tiếp cơ bản",
       "start": "s-can",
       "steps": {
         "s-can": {
-          "prompt": "Bạn muốn hỏi điều gì?",
+          "prompt": "Xin phép điều gì?",
           "options": [
-            { "jp": "カードは使えますか", "kana": "カードはつかえますか", "vi": "Dùng thẻ được không?", "roma": "kaado wa tsukaemasu ka", "viPron": "ka-a-đô oa tsư-ka-ê-ma-xư-ka", "next": null },
-            { "jp": "免税できますか", "kana": "めんぜいできますか", "vi": "Được miễn thuế không?", "next": null },
-            { "jp": "持ち帰りできますか", "kana": "もちかえりできますか", "vi": "Mang về được không?", "next": null },
             { "jp": "写真を撮ってもいいですか", "kana": "しゃしんをとってもいいですか", "vi": "Tôi chụp ảnh được không?", "next": null },
-            { "jp": "試着してもいいですか", "kana": "しちゃくしてもいいですか", "vi": "Tôi mặc thử được không?", "next": null },
             { "jp": "入ってもいいですか", "kana": "はいってもいいですか", "vi": "Tôi vào được không?", "next": null },
             { "jp": "座ってもいいですか", "kana": "すわってもいいですか", "vi": "Tôi ngồi được không?", "next": null }
           ]
@@ -363,14 +360,135 @@
       },
       "template": null,
       "viTemplate": null,
-      "tip": "〜てもいいですか = xin phép; 〜できますか = có làm được không."
+      "tip": "〜てもいいですか = xin phép làm gì đó (chụp ảnh, vào, ngồi…)."
+    },
+    {
+      "id": "i-please",
+      "emoji": "🙏",
+      "label": "Cho tôi…",
+      "desc": "Câu gọi món / mua hàng lịch sự với ください",
+      "group": "Ăn uống, mua sắm & thanh toán",
+      "start": "s-object",
+      "steps": {
+        "s-object": {
+          "prompt": "Cho bạn cái gì?",
+          "slot": "object",
+          "options": [
+            { "ref": "d-kore", "next": "s-quantity" },
+            { "ref": "d-sore", "next": "s-quantity" },
+            { "ref": "d-are", "next": "s-quantity" },
+            { "ref": "n-mizu", "next": "s-quantity-drink" },
+            { "ref": "n-ocha", "next": "s-quantity-drink" },
+            { "ref": "n-koohii", "next": "s-quantity-drink" },
+            { "ref": "n-biiru", "next": "s-quantity-drink" },
+            { "ref": "n-juusu", "next": "s-quantity-drink" },
+            { "ref": "n-ryokucha", "next": "s-quantity-drink" },
+            { "ref": "n-koucha", "next": "s-quantity-drink" },
+            { "ref": "n-gyuunyuu", "next": "s-quantity-drink" },
+            { "ref": "n-nihonshu", "next": "s-quantity-drink" },
+            { "ref": "n-wain", "next": "s-quantity-drink" },
+            { "ref": "n-menu", "next": "s-quantity" },
+            { "ref": "n-sushi", "next": "s-quantity" },
+            { "ref": "n-raamen", "next": "s-quantity" },
+            { "ref": "n-tempura", "next": "s-quantity" },
+            { "ref": "n-karee", "next": "s-quantity" },
+            { "ref": "n-gyuudon", "next": "s-quantity" },
+            { "ref": "n-udon", "next": "s-quantity" },
+            { "ref": "n-soba", "next": "s-quantity" },
+            { "ref": "n-sashimi", "next": "s-quantity" },
+            { "ref": "n-yakitori", "next": "s-quantity" },
+            { "ref": "n-yakiniku", "next": "s-quantity" },
+            { "ref": "n-okonomiyaki", "next": "s-quantity" },
+            { "ref": "n-teishoku", "next": "s-quantity" },
+            { "ref": "n-bentou", "next": "s-quantity" },
+            { "ref": "n-onigiri", "next": "s-quantity" },
+            { "ref": "n-misoshiru", "next": "s-quantity" },
+            { "ref": "n-gohan", "next": "s-quantity" },
+            { "ref": "n-pan", "next": "s-quantity" },
+            { "ref": "n-niku", "next": "s-quantity" },
+            { "ref": "n-sakana", "next": "s-quantity" },
+            { "ref": "n-yasai", "next": "s-quantity" },
+            { "ref": "n-kudamono", "next": "s-quantity" },
+            { "ref": "n-tamago", "next": "s-quantity" },
+            { "ref": "n-toufu", "next": "s-quantity" },
+            { "ref": "n-ebi", "next": "s-quantity" },
+            { "ref": "n-dezaato", "next": "s-quantity" },
+            { "ref": "n5-669019c625", "next": "s-quantity" }
+          ]
+        },
+        "s-quantity": {
+          "prompt": "Số lượng?",
+          "slot": "quantity",
+          "options": [
+            { "silent": true, "label": "Không cần số lượng", "vi": "", "next": null },
+            { "counter": "c-tsu", "counts": [1, 2, 3, 4, 5], "next": null }
+          ]
+        },
+        "s-quantity-drink": {
+          "prompt": "Số lượng?",
+          "slot": "quantity",
+          "options": [
+            { "silent": true, "label": "Không cần số lượng", "vi": "", "next": null },
+            { "counter": "c-hai", "counts": [1, 2, 3, 4, 5], "next": null }
+          ]
+        }
+      },
+      "template": [
+        { "slot": "object", "particle": "を" },
+        { "slot": "quantity" },
+        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
+      ],
+      "viTemplate": "Cho tôi {object}, {quantity}",
+      "replies": [
+        { "jp": "はい、少々お待ちください", "kana": "はい、しょうしょうおまちください", "vi": "Vâng, xin chờ một lát ạ" },
+        { "jp": "かしこまりました", "kana": "かしこまりました", "vi": "Vâng, tôi đã rõ ạ" },
+        { "jp": "お待たせしました", "kana": "おまたせしました", "vi": "Xin lỗi đã để quý khách chờ" },
+        { "jp": "お会計はご一緒ですか、別々ですか", "kana": "おかいけいはごいっしょですか、べつべつですか", "vi": "Quý khách thanh toán chung hay riêng ạ?" },
+        { "jp": "ありがとうございました", "kana": "ありがとうございました", "vi": "Cảm ơn quý khách" }
+      ],
+      "tip": "ください là cách 'cho tôi' chuẩn mực nhất. Số lượng đứng ngay trước ください."
+    },
+    {
+      "id": "i-pay",
+      "emoji": "🧾",
+      "label": "Thanh toán & hoá đơn",
+      "desc": "Gọi tính tiền, trả thẻ/tiền mặt, hoá đơn, túi, miễn thuế",
+      "group": "Ăn uống, mua sắm & thanh toán",
+      "start": "s-pay",
+      "steps": {
+        "s-pay": {
+          "prompt": "Bạn muốn nói gì?",
+          "options": [
+            { "jp": "お会計をお願いします", "kana": "おかいけいをおねがいします", "vi": "Cho tôi thanh toán", "next": null },
+            { "jp": "別々でお願いします", "kana": "べつべつでおねがいします", "vi": "Cho thanh toán riêng", "next": null },
+            { "jp": "カードでお願いします", "kana": "カードでおねがいします", "vi": "Trả bằng thẻ", "next": null },
+            { "jp": "カードは使えますか", "kana": "カードはつかえますか", "vi": "Dùng thẻ được không?", "roma": "kaado wa tsukaemasu ka", "viPron": "ka-a-đô oa tsư-ka-ê-ma-xư-ka", "next": null },
+            { "jp": "現金でお願いします", "kana": "げんきんでおねがいします", "vi": "Trả bằng tiền mặt", "next": null },
+            { "jp": "レシートをください", "kana": "レシートをください", "vi": "Cho tôi hoá đơn", "next": null },
+            { "jp": "袋は大丈夫です", "kana": "ふくろはだいじょうぶです", "vi": "Không cần túi (ạ)", "next": null },
+            { "jp": "袋をお願いします", "kana": "ふくろをおねがいします", "vi": "Cho tôi cái túi", "next": null },
+            { "jp": "免税でお願いします", "kana": "めんぜいでおねがいします", "vi": "Cho tôi mua miễn thuế", "next": null },
+            { "jp": "免税できますか", "kana": "めんぜいできますか", "vi": "Được miễn thuế không?", "next": null }
+          ]
+        }
+      },
+      "template": null,
+      "viTemplate": null,
+      "replies": [
+        { "jp": "はい、少々お待ちください", "kana": "はい、しょうしょうおまちください", "vi": "Vâng, xin chờ một lát ạ" },
+        { "jp": "お支払いはカードでよろしいですか", "kana": "おしはらいはカードでよろしいですか", "vi": "Quý khách trả bằng thẻ được không ạ?" },
+        { "jp": "レシートはご入用ですか", "kana": "レシートはごにゅうようですか", "vi": "Quý khách có cần hoá đơn không ạ?" },
+        { "jp": "袋はご入用ですか", "kana": "ふくろはごにゅうようですか", "vi": "Quý khách có cần túi không ạ?" },
+        { "jp": "パスポートをお願いします", "kana": "パスポートをおねがいします", "vi": "Cho tôi xem hộ chiếu ạ" }
+      ],
+      "tip": "Gọi tính tiền: お会計をお願いします. Quầy miễn thuế: 免税でお願いします (thường cần hộ chiếu)."
     },
     {
       "id": "i-this",
       "emoji": "👉",
       "label": "Cái này thì sao?",
       "desc": "Chỉ vào đồ vật rồi hỏi / mua",
-      "group": "Ăn uống & mua sắm",
+      "group": "Ăn uống, mua sắm & thanh toán",
       "start": "s-demo",
       "steps": {
         "s-demo": {
@@ -415,100 +533,133 @@
       "tip": "これ/それ/あれ chọn theo khoảng cách: gần mình – gần người nghe – xa cả hai."
     },
     {
-      "id": "i-please",
-      "emoji": "🙏",
-      "label": "Cho tôi…",
-      "desc": "Câu gọi món / mua hàng lịch sự với ください",
-      "group": "Ăn uống & mua sắm",
-      "start": "s-object",
+      "id": "i-shop",
+      "emoji": "🎨",
+      "label": "Hỏi mua & dịch vụ",
+      "desc": "Màu, cỡ, giá rẻ hơn, có món/đồ … không, thử đồ, mang về",
+      "group": "Ăn uống, mua sắm & thanh toán",
+      "start": "s-kind",
       "steps": {
-        "s-object": {
-          "prompt": "Cho bạn cái gì?",
-          "slot": "object",
+        "s-kind": {
+          "prompt": "Bạn muốn hỏi gì?",
           "options": [
-            { "ref": "d-kore", "next": "s-quantity" },
-            { "ref": "d-sore", "next": "s-quantity" },
-            { "ref": "d-are", "next": "s-quantity" },
-            { "ref": "n-mizu", "next": "s-quantity" },
-            { "ref": "n-ocha", "next": "s-quantity" },
-            { "ref": "n-koohii", "next": "s-quantity" },
-            { "ref": "n-biiru", "next": "s-quantity" },
-            { "ref": "n-juusu", "next": "s-quantity" },
-            { "ref": "n-ryokucha", "next": "s-quantity" },
-            { "ref": "n-koucha", "next": "s-quantity" },
-            { "ref": "n-gyuunyuu", "next": "s-quantity" },
-            { "ref": "n-nihonshu", "next": "s-quantity" },
-            { "ref": "n-wain", "next": "s-quantity" },
-            { "ref": "n-menu", "next": "s-quantity" },
-            { "ref": "n-sushi", "next": "s-quantity" },
-            { "ref": "n-raamen", "next": "s-quantity" },
-            { "ref": "n-tempura", "next": "s-quantity" },
-            { "ref": "n-karee", "next": "s-quantity" },
-            { "ref": "n-gyuudon", "next": "s-quantity" },
-            { "ref": "n-udon", "next": "s-quantity" },
-            { "ref": "n-soba", "next": "s-quantity" },
-            { "ref": "n-sashimi", "next": "s-quantity" },
-            { "ref": "n-yakitori", "next": "s-quantity" },
-            { "ref": "n-yakiniku", "next": "s-quantity" },
-            { "ref": "n-okonomiyaki", "next": "s-quantity" },
-            { "ref": "n-teishoku", "next": "s-quantity" },
-            { "ref": "n-bentou", "next": "s-quantity" },
-            { "ref": "n-onigiri", "next": "s-quantity" },
-            { "ref": "n-misoshiru", "next": "s-quantity" },
-            { "ref": "n-gohan", "next": "s-quantity" },
-            { "ref": "n-pan", "next": "s-quantity" },
-            { "ref": "n-niku", "next": "s-quantity" },
-            { "ref": "n-sakana", "next": "s-quantity" },
-            { "ref": "n-yasai", "next": "s-quantity" },
-            { "ref": "n-kudamono", "next": "s-quantity" },
-            { "ref": "n-tamago", "next": "s-quantity" },
-            { "ref": "n-toufu", "next": "s-quantity" },
-            { "ref": "n-ebi", "next": "s-quantity" },
-            { "ref": "n-dezaato", "next": "s-quantity" },
-            { "ref": "n5-669019c625", "next": "s-quantity" }
+            {
+              "silent": true, "label": "Màu khác", "vi": "(màu khác)",
+              "templateOverride": [
+                { "slot": "color" },
+                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
+                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
+              ],
+              "viTemplateOverride": "Có cái màu {color} không?",
+              "next": "s-color"
+            },
+            {
+              "silent": true, "label": "Cỡ khác", "vi": "(cỡ khác)",
+              "templateOverride": [
+                { "text": "もっと", "kana": "もっと", "vi": "hơn nữa" },
+                { "slot": "size" },
+                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
+                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
+              ],
+              "viTemplateOverride": "Có cái {size} không?",
+              "next": "s-size"
+            },
+            {
+              "silent": true, "label": "Rẻ hơn", "vi": "(rẻ hơn)",
+              "templateOverride": [
+                { "text": "もっと", "kana": "もっと", "vi": "hơn nữa" },
+                { "slot": "price" },
+                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
+                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
+              ],
+              "viTemplateOverride": "Có cái {price} không?",
+              "next": "s-price"
+            },
+            {
+              "silent": true, "label": "Có món / đồ … không?", "vi": "(có … không)",
+              "templateOverride": [
+                { "slot": "want", "particle": "は" },
+                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
+              ],
+              "viTemplateOverride": "Có {want} không?",
+              "next": "s-want"
+            },
+            {
+              "silent": true, "label": "Thử & mang về", "vi": "(thử / mang về)",
+              "next": "s-service"
+            }
           ]
         },
-        "s-quantity": {
-          "prompt": "Số lượng?",
-          "slot": "quantity",
+        "s-color": {
+          "prompt": "Màu gì?",
+          "slot": "color",
           "options": [
-            { "silent": true, "label": "Không cần số lượng", "vi": "", "next": null },
-            { "jp": "一つ", "kana": "ひとつ", "vi": "một cái", "next": null },
-            { "jp": "二つ", "kana": "ふたつ", "vi": "hai cái", "next": null },
-            { "jp": "三つ", "kana": "みっつ", "vi": "ba cái", "next": null }
+            { "ref": "n5-44ba38cf8b", "next": null },
+            { "ref": "n5-51a671ec17", "vi": "xanh dương", "next": null },
+            { "ref": "n5-8997f64f52", "next": null },
+            { "ref": "n5-5e5300cf62", "next": null },
+            { "ref": "n5-0b36c8d6c6", "vi": "vàng", "next": null }
+          ]
+        },
+        "s-size": {
+          "prompt": "Cỡ thế nào?",
+          "slot": "size",
+          "options": [
+            { "ref": "a-ookii", "vi": "lớn hơn", "next": null },
+            { "ref": "a-chiisai", "vi": "nhỏ hơn", "next": null },
+            { "ref": "n5-fcea29f192", "vi": "dài hơn", "next": null },
+            { "ref": "n5-8568eded6e", "vi": "ngắn hơn", "next": null }
+          ]
+        },
+        "s-price": {
+          "prompt": "Giá thế nào?",
+          "slot": "price",
+          "options": [
+            { "ref": "a-yasui", "vi": "rẻ hơn", "next": null }
+          ]
+        },
+        "s-want": {
+          "prompt": "Muốn hỏi có gì?",
+          "slot": "want",
+          "options": [
+            { "jp": "英語のメニュー", "kana": "えいごのメニュー", "vi": "thực đơn tiếng Anh", "next": null },
+            { "jp": "おすすめ", "kana": "おすすめ", "vi": "món đáng thử", "next": null },
+            { "ref": "n-dezaato", "next": null },
+            { "ref": "n-biiru", "next": null },
+            { "jp": "ベジタリアン料理", "kana": "ベジタリアンりょうり", "vi": "món chay", "next": null },
+            { "ref": "n-kasa", "vi": "ô", "next": null },
+            { "ref": "n-fukuro", "next": null },
+            { "ref": "n-omiyage", "next": null },
+            { "jp": "タオル", "kana": "タオル", "vi": "khăn", "next": null }
+          ]
+        },
+        "s-service": {
+          "prompt": "Hỏi dịch vụ gì?",
+          "options": [
+            { "jp": "試着してもいいですか", "kana": "しちゃくしてもいいですか", "vi": "Tôi mặc thử được không?", "next": null },
+            { "jp": "持ち帰りできますか", "kana": "もちかえりできますか", "vi": "Mang về được không?", "next": null }
           ]
         }
       },
-      "template": [
-        { "slot": "object", "particle": "を" },
-        { "slot": "quantity" },
-        { "text": "ください", "kana": "ください", "vi": "xin hãy cho" }
-      ],
-      "viTemplate": "Cho tôi {object}, {quantity}",
-      "replies": [
-        { "jp": "はい、少々お待ちください", "kana": "はい、しょうしょうおまちください", "vi": "Vâng, xin chờ một lát ạ" },
-        { "jp": "かしこまりました", "kana": "かしこまりました", "vi": "Vâng, tôi đã rõ ạ" },
-        { "jp": "お待たせしました", "kana": "おまたせしました", "vi": "Xin lỗi đã để quý khách chờ" },
-        { "jp": "お会計はご一緒ですか、別々ですか", "kana": "おかいけいはごいっしょですか、べつべつですか", "vi": "Quý khách thanh toán chung hay riêng ạ?" },
-        { "jp": "ありがとうございました", "kana": "ありがとうございました", "vi": "Cảm ơn quý khách" }
-      ],
-      "tip": "ください là cách 'cho tôi' chuẩn mực nhất. Số lượng đứng ngay trước ください."
+      "template": null,
+      "viTemplate": null,
+      "tip": "〜はありますか = có … không? Dùng cho cả món ăn (おすすめはありますか) lẫn đồ dùng (傘はありますか)."
     },
     {
       "id": "i-want",
       "emoji": "🙋",
       "label": "Tôi muốn…",
       "desc": "Nói điều mình muốn ăn, uống, mua, xem, đi",
-      "group": "Ăn uống & mua sắm",
+      "group": "Ăn uống, mua sắm & thanh toán",
       "start": "s-subject",
       "steps": {
         "s-subject": {
           "prompt": "Ai muốn?",
           "slot": "subject",
           "options": [
+            { "silent": true, "label": "Không cần chủ ngữ", "hint": "Người Nhật thường lược bỏ chủ ngữ khi đã rõ", "vi": "(tôi)", "next": "s-action" },
             { "ref": "p-watashi", "next": "s-action" },
-            { "ref": "p-watashitachi", "next": "s-action" },
-            { "silent": true, "label": "Không cần chủ ngữ", "hint": "Người Nhật thường lược bỏ chủ ngữ khi đã rõ", "vi": "(tôi)", "next": "s-action" }
+            { "ref": "p-watashitachi", "next": "s-action" }
           ]
         },
         "s-action": {
@@ -640,16 +791,16 @@
       "emoji": "❤️",
       "label": "Tôi thích…",
       "desc": "Nói món ăn, đồ uống, địa điểm mình thích",
-      "group": "Ăn uống & mua sắm",
+      "group": "Ăn uống, mua sắm & thanh toán",
       "start": "s-subject",
       "steps": {
         "s-subject": {
           "prompt": "Ai thích?",
           "slot": "subject",
           "options": [
+            { "silent": true, "label": "Không cần chủ ngữ", "vi": "(tôi)", "next": "s-object" },
             { "ref": "p-watashi", "next": "s-object" },
-            { "ref": "p-watashitachi", "next": "s-object" },
-            { "silent": true, "label": "Không cần chủ ngữ", "vi": "(tôi)", "next": "s-object" }
+            { "ref": "p-watashitachi", "next": "s-object" }
           ]
         },
         "s-object": {
@@ -714,15 +865,16 @@
     {
       "id": "i-feel",
       "emoji": "😋",
-      "label": "Nhận xét thế nào?",
-      "desc": "Khen/chê món ăn, nơi chốn, đồ vật",
-      "group": "Ăn uống & mua sắm",
+      "label": "Khen & nhận xét",
+      "desc": "Khen/chê món ăn, đồ uống, nơi chốn, đồ vật",
+      "group": "Ăn uống, mua sắm & thanh toán",
       "start": "s-kind",
       "steps": {
         "s-kind": {
           "prompt": "Nhận xét về gì?",
           "options": [
-            { "silent": true, "label": "Món ăn / đồ uống", "vi": "(món ăn)", "next": "s-taste-food" },
+            { "silent": true, "label": "Món ăn", "vi": "(món ăn)", "next": "s-taste-food" },
+            { "silent": true, "label": "Đồ uống / tráng miệng", "vi": "(đồ uống)", "next": "s-taste-drink" },
             { "silent": true, "label": "Nơi chốn", "vi": "(nơi chốn)", "next": "s-place" },
             { "silent": true, "label": "Đồ vật (chỉ tay)", "vi": "(đồ vật)", "next": "s-thing" }
           ]
@@ -745,7 +897,6 @@
             { "ref": "n-bentou", "next": "s-taste-adj" },
             { "ref": "n-onigiri", "next": "s-taste-adj" },
             { "ref": "n-misoshiru", "next": "s-taste-adj" },
-            { "ref": "n-dezaato", "next": "s-taste-adj" },
             { "ref": "d-kore", "next": "s-taste-adj" },
             { "ref": "d-sore", "next": "s-taste-adj" }
           ]
@@ -756,10 +907,39 @@
           "options": [
             { "ref": "a-oishii", "next": null },
             { "ref": "a-mazui", "next": null },
-            { "ref": "a-amai", "next": null },
             { "ref": "a-karai", "next": null },
             { "ref": "a-shoppai", "next": null },
-            { "ref": "a-suppai", "next": null },
+            { "ref": "a-atsui", "next": null },
+            { "ref": "a-tsumetai", "next": null },
+            { "ref": "a-atatakai", "next": null }
+          ]
+        },
+        "s-taste-drink": {
+          "prompt": "Đồ uống / món gì?",
+          "slot": "subject",
+          "options": [
+            { "ref": "n-mizu", "next": "s-taste-adj-drink" },
+            { "ref": "n-ocha", "next": "s-taste-adj-drink" },
+            { "ref": "n-koohii", "next": "s-taste-adj-drink" },
+            { "ref": "n-biiru", "next": "s-taste-adj-drink" },
+            { "ref": "n-juusu", "next": "s-taste-adj-drink" },
+            { "ref": "n-ryokucha", "next": "s-taste-adj-drink" },
+            { "ref": "n-koucha", "next": "s-taste-adj-drink" },
+            { "ref": "n-gyuunyuu", "next": "s-taste-adj-drink" },
+            { "ref": "n-nihonshu", "next": "s-taste-adj-drink" },
+            { "ref": "n-wain", "next": "s-taste-adj-drink" },
+            { "ref": "n-dezaato", "next": "s-taste-adj-drink" },
+            { "ref": "d-kore", "next": "s-taste-adj-drink" },
+            { "ref": "d-sore", "next": "s-taste-adj-drink" }
+          ]
+        },
+        "s-taste-adj-drink": {
+          "prompt": "Thế nào?",
+          "slot": "adj",
+          "options": [
+            { "ref": "a-oishii", "next": null },
+            { "ref": "a-mazui", "next": null },
+            { "ref": "a-amai", "next": null },
             { "ref": "a-nigai", "next": null },
             { "ref": "a-atsui", "next": null },
             { "ref": "a-tsumetai", "next": null },
@@ -772,6 +952,7 @@
           "options": [
             { "ref": "d-koko", "next": "s-place-adj" },
             { "ref": "d-soko", "next": "s-place-adj" },
+            { "ref": "d-asoko", "next": "s-place-adj" },
             { "ref": "n-hoteru", "next": "s-place-adj" },
             { "ref": "n-onsen", "next": "s-place-adj" },
             { "ref": "n-resutoran", "next": "s-place-adj" },
@@ -836,141 +1017,6 @@
       ],
       "viTemplate": "{subject} thì {adj}",
       "tip": "Tính từ đuôi い giữ nguyên trước です (美味しいです); 静か/きれい là đuôi な nhưng cuối câu vẫn + です."
-    },
-    {
-      "id": "i-shop",
-      "emoji": "🎨",
-      "label": "Hỏi khi mua đồ",
-      "desc": "Màu, cỡ, giá rẻ hơn, hoặc có món/đồ … không",
-      "group": "Ăn uống & mua sắm",
-      "start": "s-kind",
-      "steps": {
-        "s-kind": {
-          "prompt": "Bạn muốn hỏi gì?",
-          "options": [
-            {
-              "silent": true, "label": "Màu khác", "vi": "(màu khác)",
-              "templateOverride": [
-                { "slot": "color" },
-                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
-                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
-              ],
-              "viTemplateOverride": "Có cái màu {color} không?",
-              "next": "s-color"
-            },
-            {
-              "silent": true, "label": "Cỡ khác", "vi": "(cỡ khác)",
-              "templateOverride": [
-                { "text": "もっと", "kana": "もっと", "vi": "hơn nữa" },
-                { "slot": "size" },
-                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
-                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
-              ],
-              "viTemplateOverride": "Có cái {size} không?",
-              "next": "s-size"
-            },
-            {
-              "silent": true, "label": "Rẻ hơn", "vi": "(rẻ hơn)",
-              "templateOverride": [
-                { "text": "もっと", "kana": "もっと", "vi": "hơn nữa" },
-                { "slot": "price" },
-                { "text": "のは", "kana": "のは", "vi": "cái … thì" },
-                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
-              ],
-              "viTemplateOverride": "Có cái {price} không?",
-              "next": "s-price"
-            },
-            {
-              "silent": true, "label": "Có món / đồ … không?", "vi": "(có … không)",
-              "templateOverride": [
-                { "slot": "want", "particle": "は" },
-                { "text": "ありますか", "kana": "ありますか", "vi": "có không?" }
-              ],
-              "viTemplateOverride": "Có {want} không?",
-              "next": "s-want"
-            }
-          ]
-        },
-        "s-color": {
-          "prompt": "Màu gì?",
-          "slot": "color",
-          "options": [
-            { "ref": "n5-44ba38cf8b", "next": null },
-            { "ref": "n5-51a671ec17", "vi": "xanh dương", "next": null },
-            { "ref": "n5-8997f64f52", "next": null },
-            { "ref": "n5-5e5300cf62", "next": null },
-            { "ref": "n5-0b36c8d6c6", "vi": "vàng", "next": null }
-          ]
-        },
-        "s-size": {
-          "prompt": "Cỡ thế nào?",
-          "slot": "size",
-          "options": [
-            { "ref": "a-ookii", "vi": "lớn hơn", "next": null },
-            { "ref": "a-chiisai", "vi": "nhỏ hơn", "next": null },
-            { "ref": "n5-fcea29f192", "vi": "dài hơn", "next": null },
-            { "ref": "n5-8568eded6e", "vi": "ngắn hơn", "next": null }
-          ]
-        },
-        "s-price": {
-          "prompt": "Giá thế nào?",
-          "slot": "price",
-          "options": [
-            { "ref": "a-yasui", "vi": "rẻ hơn", "next": null }
-          ]
-        },
-        "s-want": {
-          "prompt": "Muốn hỏi có gì?",
-          "slot": "want",
-          "options": [
-            { "jp": "英語のメニュー", "kana": "えいごのメニュー", "vi": "thực đơn tiếng Anh", "next": null },
-            { "jp": "おすすめ", "kana": "おすすめ", "vi": "món đáng thử", "next": null },
-            { "ref": "n-dezaato", "next": null },
-            { "ref": "n-biiru", "next": null },
-            { "jp": "ベジタリアン料理", "kana": "ベジタリアンりょうり", "vi": "món chay", "next": null },
-            { "ref": "n-kasa", "vi": "ô", "next": null },
-            { "ref": "n-fukuro", "next": null },
-            { "ref": "n-omiyage", "next": null },
-            { "jp": "タオル", "kana": "タオル", "vi": "khăn", "next": null }
-          ]
-        }
-      },
-      "template": null,
-      "viTemplate": null,
-      "tip": "〜はありますか = có … không? Dùng cho cả món ăn (おすすめはありますか) lẫn đồ dùng (傘はありますか)."
-    },
-    {
-      "id": "i-pay",
-      "emoji": "🧾",
-      "label": "Thanh toán & hoá đơn",
-      "desc": "Gọi tính tiền, trả thẻ/tiền mặt, hoá đơn, túi, miễn thuế",
-      "group": "Ăn uống & mua sắm",
-      "start": "s-pay",
-      "steps": {
-        "s-pay": {
-          "prompt": "Bạn muốn nói gì?",
-          "options": [
-            { "jp": "お会計をお願いします", "kana": "おかいけいをおねがいします", "vi": "Cho tôi thanh toán", "next": null },
-            { "jp": "別々でお願いします", "kana": "べつべつでおねがいします", "vi": "Cho thanh toán riêng", "next": null },
-            { "jp": "カードでお願いします", "kana": "カードでおねがいします", "vi": "Trả bằng thẻ", "next": null },
-            { "jp": "現金でお願いします", "kana": "げんきんでおねがいします", "vi": "Trả bằng tiền mặt", "next": null },
-            { "jp": "レシートをください", "kana": "レシートをください", "vi": "Cho tôi hoá đơn", "next": null },
-            { "jp": "袋は大丈夫です", "kana": "ふくろはだいじょうぶです", "vi": "Không cần túi (ạ)", "next": null },
-            { "jp": "袋をお願いします", "kana": "ふくろをおねがいします", "vi": "Cho tôi cái túi", "next": null },
-            { "jp": "免税でお願いします", "kana": "めんぜいでおねがいします", "vi": "Cho tôi mua miễn thuế", "next": null }
-          ]
-        }
-      },
-      "template": null,
-      "viTemplate": null,
-      "replies": [
-        { "jp": "はい、少々お待ちください", "kana": "はい、しょうしょうおまちください", "vi": "Vâng, xin chờ một lát ạ" },
-        { "jp": "お支払いはカードでよろしいですか", "kana": "おしはらいはカードでよろしいですか", "vi": "Quý khách trả bằng thẻ được không ạ?" },
-        { "jp": "レシートはご入用ですか", "kana": "レシートはごにゅうようですか", "vi": "Quý khách có cần hoá đơn không ạ?" },
-        { "jp": "袋はご入用ですか", "kana": "ふくろはごにゅうようですか", "vi": "Quý khách có cần túi không ạ?" },
-        { "jp": "パスポートをお願いします", "kana": "パスポートをおねがいします", "vi": "Cho tôi xem hộ chiếu ạ" }
-      ],
-      "tip": "Gọi tính tiền: お会計をお願いします. Quầy miễn thuế: 免税でお願いします (thường cần hộ chiếu)."
     },
     {
       "id": "i-where",
@@ -1125,13 +1171,11 @@
           "slot": "place",
           "options": [
             { "ref": "n-toukyou", "next": null },
+            { "ref": "n-kyouto", "next": null },
+            { "ref": "n-oosaka", "next": null },
+            { "ref": "n-shinjuku", "next": null },
             { "ref": "n-eki", "next": null },
-            { "ref": "n-kukou", "next": null },
-            { "ref": "n-hoteru", "next": null },
-            { "ref": "n-onsen", "next": null },
-            { "ref": "n-ichiba", "next": null },
-            { "ref": "n-jinja", "next": null },
-            { "ref": "n-otera", "next": null }
+            { "ref": "n-kukou", "next": null }
           ]
         }
       },
@@ -1212,7 +1256,7 @@
       "emoji": "🚑",
       "label": "Sức khỏe & sự cố",
       "desc": "Đau ốm, mua thuốc, mất đồ, gọi giúp khẩn cấp",
-      "group": "Sức khỏe & sự cố",
+      "group": "Sự cố & sức khỏe",
       "start": "s-kind",
       "steps": {
         "s-kind": {

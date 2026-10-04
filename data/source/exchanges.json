@@ -6,7 +6,7 @@
       "emoji": "🍜",
       "label": "Ở nhà hàng",
       "desc": "Được chào, hỏi số người, gọi món, thanh toán",
-      "group": "Ăn uống & mua sắm",
+      "group": "Ăn uống, mua sắm & thanh toán",
       "exchanges": [
         {
           "heard": { "jp": "いらっしゃいませ", "kana": "いらっしゃいませ", "vi": "Chào mừng quý khách" },
@@ -69,7 +69,7 @@
       "emoji": "🛍️",
       "label": "Ở cửa hàng",
       "desc": "Hỏi cần gì, thanh toán, túi và hoá đơn",
-      "group": "Ăn uống & mua sắm",
+      "group": "Ăn uống, mua sắm & thanh toán",
       "exchanges": [
         {
           "heard": { "jp": "いらっしゃいませ", "kana": "いらっしゃいませ", "vi": "Chào mừng quý khách" },

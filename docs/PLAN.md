@@ -4,15 +4,20 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and say it to a local. Static site,
 no server, deployable on GitHub Pages.
 
-> **Current status (v2.7.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **Current status (v2.8.0)** — live at <https://teefan.github.io/quick-japanese/>:
 > **2 tabs: 🧩 Ghép câu + 📚 Từ vựng, plus 🗣️ Nghe & đáp.** 16 intent trees (4 groups) ·
-> **1,140 combinable sentences** (128 curated + 37 N5 words as options) · 744 words (183 curated
+> **1,266 combinable sentences** (130 curated + 39 N5 words as options) · 747 words (186 curated
 > + 561 N5, lazy-loaded) · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium)
-> · 6 counters (1–10) · vocabulary cards link back into the builder (`data/builder-index.js`)
-> · 3 staff-first scenarios (20 exchanges) + likely replies on 4 intents.
-> New in v2.7.0: traveler-initiated 💴 payment/invoice (お会計, 別々で, レシート, 袋, 免税),
-> 〜はありますか branch in i-shop, and 道に迷いました branch in i-health.
-> PWA cache `qj-v2.7.0`. Regression: `npm run audit` walks all **1,140 paths** + all spoken
+> · 6 counters (1–10) wired into the builder · vocabulary cards link back into the builder
+> (`data/builder-index.js`) · 3 staff-first scenarios (20 exchanges) + likely replies on 4 intents.
+> New in v2.8.0: **⚡ Chọn nhanh** chips on the builder home (6 goals → trees); groups renamed to
+> scene-first labels (Giao tiếp cơ bản · Ăn uống, mua sắm & thanh toán · Đi lại & khách sạn ·
+> Sự cố & sức khỏe); trees ordered by frequency inside groups; i-can narrowed to permission
+> (service questions moved to i-pay/i-shop); i-feel split into “Món ăn” and “Đồ uống / tráng miệng”
+> with curated adjectives; real counters in “Cho tôi…” (つ/杯 1–5 from `numbers.json`); train
+> destinations limited to Tokyo/Kyoto/Osaka/Shinjuku/station/airport; weather small talk adds
+> 晴れ/曇り; duplicate 医者を呼んでください removed.
+> PWA cache `qj-v2.8.0`. Regression: `npm run audit` walks all **1,266 paths** + all spoken
 > lines (0 errors), no JS errors.
 > **Light theme by default** (washi–sakura–indigo); a 🌙/☀️ toggle remembers dark mode.
 > **v2.0.0 narrowed the product**: phrases, notebook, grammar, quiz and global search were removed;
@@ -93,13 +98,14 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
 ## 4. Information architecture
 
 ```
-Ghép câu 🧩    16 intent trees in 4 groups, ordered basic → advanced (see §6)
-  Giao tiếp:          Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
-                      Làm ơn giúp tôi… · Cái này được không?
-  Ăn uống & mua sắm:  Cái này thì sao? · Cho tôi… · Tôi muốn… · Tôi thích…
-                      Nhận xét thế nào? · Hỏi khi mua đồ · Thanh toán & hoá đơn
+Ghép câu 🧩    16 intent trees in 4 groups, ordered basic → advanced (see §6);
+               ⚡ Chọn nhanh chips deep-link to the most common goals
+  Giao tiếp cơ bản:   Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
+                      Làm ơn giúp tôi… · Xin phép nhé?
+  Ăn uống, mua sắm & thanh toán: Cho tôi… · Thanh toán & hoá đơn · Cái này thì sao? ·
+                      Hỏi mua & dịch vụ · Tôi muốn… · Tôi thích… · Khen & nhận xét
   Đi lại & khách sạn: …ở đâu? · Đi đến… · Khách sạn
-  Sức khỏe & sự cố:   Sức khỏe & sự cố (đau ốm, mất đồ, bị lạc, gọi giúp)
+  Sự cố & sức khỏe:   Sức khỏe & sự cố (đau ốm, mất đồ, bị lạc, gọi giúp)
 
 Nghe & đáp 🗣️  3 scenarios where staff speak first (restaurant, shop, hotel): each heard
                line has furigana + Vietnamese pronunciation + 🔊 and suggested answers;
@@ -152,7 +158,7 @@ the furigana and an N5-extended lexicon (so particles は/へ read `oa`/`ê` cor
 readings are never mistaken for particles); examples are attached to `vocab-n5.js` and shown
 on vocab cards. Words without a suitable polite/natural example are omitted.
 
-`accents.json` maps vocabulary id → pitch-accent number for 726 of 744 words (curated + N5),
+`accents.json` maps vocabulary id → pitch-accent number for 726 of 747 words (curated + N5),
 imported once from [Kanjium](https://github.com/mifunetoshiro/kanjium) `accents.txt` (124k words,
 CC BY-SA 4.0). Value `n` = pitch drops after mora *n*; `0` = heiban (no drop). Where Kanjium
 offers several accents, the first is kept; for kana-only homographs the candidate matching the
@@ -170,7 +176,10 @@ on every vocab card.
 See §6. Intents carry a `group` (one of the four builder groups); steps hold `options` where an
 option can be a vocabulary `ref` (+ `form`) from `vocab.json` or `vocab-n5.json`, a `silent`
 branch choice, or a fixed sentence (with optional `roma`/`viPron` overrides and automatic `parts`
-segmentation). Validation at build time: unique IDs, all `ref` exist, all `next` steps exist.
+segmentation). A counter option (`{ "counter": "c-hai", "counts": [1, 2, 3, 4, 5] }`) is expanded
+at build time from `numbers.json` into fixed options with the correct reading and pronunciation
+(いっぱい, さんばい…), so the builder and the Từ vựng tab share one source for counters.
+Validation at build time: unique IDs, all `ref`/`counter` exist, all `next` steps exist.
 
 ---
 
@@ -233,7 +242,7 @@ pay/invoice), travel (train/taxi, hotel), getting lost, and emergencies/health. 
 branches multiply coverage
 from a small data set: e.g. 6 verbs × `〜てくれてありがとう` for thanks, 5 body parts × `〜が痛いです`,
 4 items × `〜をなくしました / 〜を盗まれました`, 4 services × `〜を呼んでください`.
-The current 16 trees yield **1,140 distinct sentences** and reference **128 curated + 37 N5 words**
+The current 16 trees yield **1,266 distinct sentences** and reference **130 curated + 39 N5 words**
 as options. Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)
@@ -274,7 +283,7 @@ errors.
 
 ### 6.6 Automated audit (v2.4.0)
 
-`tools/audit.js` walks **every complete path of all 16 intent trees** (1,140 sentences) using the
+`tools/audit.js` walks **every complete path of all 16 intent trees** (1,266 sentences) using the
 same assembly module as the app (`assets/js/assemble.js`) and fails the build on: empty/blank
 slots, unresolved `vi` placeholders, repeated Vietnamese words (e.g. “hơn hơn”), missing `。`
 between two fixed phrases, unknown slot references, duplicate chip labels, unreachable steps,
@@ -374,7 +383,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
 | **1 — MVP polish (v0.2 → v1.2.5)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta |
 | **2 — Scale content (v1.3.0 → v1.6.1)** | ✅ “Nghe & chọn” audio quiz · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON · ✅ Example sentences from Tatoeba (460/561 từ N5) · ✅ Pitch-accent display (Kanjium, 726/744 từ) |
-| **3 — Delight** | ✅ Scope narrowing (v2.0.0): chỉ còn **Ghép câu + Từ vựng**, bỏ cụm từ/sổ tay/ngữ pháp/quiz/tìm kiếm (v1.6.1 vẫn trong git history) · Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card; menu-photo OCR (optional); English UI toggle |
+| **3 — Delight** | ✅ Scope narrowing (v2.0.0): chỉ còn **Ghép câu + Từ vựng**, bỏ cụm từ/sổ tay/ngữ pháp/quiz/tìm kiếm (v1.6.1 vẫn trong git history) · ✅ Task-first **⚡ Chọn nhanh** chips + scene-aligned groups + frequency-ordered trees (v2.8.0) · Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card; menu-photo OCR (optional); English UI toggle |
 
 ---
 

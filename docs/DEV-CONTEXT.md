@@ -13,12 +13,14 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
 - **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (16 cây / 4 nhóm) và **Từ vựng 📚**
-  (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
+  (747 từ: 186 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
   Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục;
   **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy” (câu xong chỉ còn 🔊 Nghe).
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
-  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.140 câu có thể
-  ghép** từ 16 cây; **128 từ biên tập + 37 từ N5** được dùng làm option.
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.266 câu có thể
+  ghép** từ 16 cây; **130 từ biên tập + 39 từ N5** được dùng làm option. Trang chủ Ghép câu có
+  **⚡ Chọn nhanh** (6 việc hay dùng → mở thẳng cây), nhóm đặt tên theo cảnh, cây trong nhóm
+  xếp theo tần suất (thứ tự mảng trong `intents.json`).
 - **Liên kết hai tab**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
   (`data/builder-index.js`, sinh tự động).
 - **Nghe & đáp 🗣️**: 3 tình huống **nhân viên nói trước** (nhà hàng, cửa hàng, khách sạn) kèm câu
@@ -28,7 +30,7 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
 - **Giao diện**: nền sáng là mặc định (không theo `prefers-color-scheme`), có nút 🌙/☀️ ở header
   nhớ lựa chọn trong `localStorage` (`qj-theme`); màu accent/vai trò đạt tương phản AA.
-- Kiểm thử chuẩn: `npm run build` chạy `tools/audit.js` soát **toàn bộ 1.140 đường ghép câu**;
+- Kiểm thử chuẩn: `npm run build` chạy `tools/audit.js` soát **toàn bộ 1.266 đường ghép câu**;
   vẫn 🎲 vài cây để kiểm UI/TTS, thẻ N5 hiện ví dụ + trọng âm, không lỗi JS.
 
 ## 1. Lệnh thường dùng
@@ -111,13 +113,16 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   ở `/tmp/opencode/import-accents.py` (không commit): khớp chính xác `(jp, kana)` → cùng reading →
   từ katakana; từ kana-only ưu tiên ứng viên cùng reading (これ [0], không phải thán từ [1]);
   21 từ nhập nhằng chọn tay trong chính ứng viên Kanjium; trợ từ より bị loại.
-- 18 từ (スマホ, ごめんなさい…) chưa có dữ liệu → app không hiện trọng âm.
+- 21 từ (Kyoto, Osaka, Shinjuku, スマホ, ごめんなさい…) chưa có dữ liệu → app không hiện trọng âm.
 
 ### Thêm/sửa cây ghép câu — `data/source/intents.json`
 - Mỗi cây: `id`, `emoji`, `label`, `desc`, `group` (1 trong 4 nhóm), `start`, `steps`,
   `template`/`viTemplate` (null nếu chỉ ghép câu cố định), `tip`.
 - Option có thể là: `ref` (+ `form`: `dict|masu|masen|mashita|te|tai|potential`), `silent`
   (chỉ chọn nhánh), hoặc câu cố định (`jp`/`kana`/`vi` + override `roma`/`viPron`).
+- Lượng từ: `{ "counter": "c-hai", "counts": [1, 2, 3, 4, 5], "next": null }` — build nở thành
+  câu cố định từ `data/source/numbers.json` (đúng cách đọc いっぱい/さんばい, kèm roma + phiên âm).
+  Option lượng từ chỉ có `counter`/`counts`/`next`; `counts` bỏ trống = lấy cả 10 mục.
 - Nâng cao: `particle` (override trợ từ), `templateOverride`, `viTemplateOverride`, `note`, `hint`.
 - Câu cố định được **tách mảnh tự động** khi build nếu từ điển đủ; nếu không, build ghi chú ở mục
   “Option cố định chưa tách được” (không phải lỗi — câu đó hiện 1 dòng).
@@ -136,7 +141,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 ```jsonc
 {
   "id": "x-restaurant", "emoji": "🍜", "label": "Ở nhà hàng",
-  "desc": "Được chào, hỏi số người, gọi món, thanh toán", "group": "Ăn uống & mua sắm",
+  "desc": "Được chào, hỏi số người, gọi món, thanh toán", "group": "Ăn uống, mua sắm & thanh toán",
   "exchanges": [
     {
       "heard": { "jp": "何名様ですか", "kana": "なんめいさまですか", "vi": "Quý khách đi mấy người ạ?" },
@@ -195,7 +200,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
    huống, kiểm furigana/phiên âm/nút 🔊), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ +
    🔊, trọng âm `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊, nút 🌙 đổi nền tối
    (nhớ lựa chọn, mặc định sáng), không lỗi JS.
-4. Release regression: `npm run audit` đã phủ **toàn bộ 1.140 đường**; vẫn nên 🎲 vài cây để kiểm
+4. Release regression: `npm run audit` đã phủ **toàn bộ 1.266 đường**; vẫn nên 🎲 vài cây để kiểm
    UI, TTS và bảng cấu trúc.
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
    `gh api repos/teefan/quick-japanese/pages/builds/latest --jq '.status + " " + .commit'`
@@ -223,7 +228,15 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   別々, カード/現金, レシート, 袋は大丈夫です, 免税 + 5 `replies`); nhánh **Có … không?** trong i-shop
   (`〜はありますか`, 9 món/đồ) và nhánh **Tôi bị lạc đường** trong i-health (`道に迷いました`,
   `ここはどこですか`, `駅までどう行きますか`); i-shop đổi tên “Màu & cỡ” → “Hỏi khi mua đồ”.
-  Tổng: **16 cây, 1.140 câu**.
+- **v2.8.0** chỉnh theo review IA/builder: nhóm **đặt tên theo cảnh** (Giao tiếp cơ bản · Ăn uống,
+  mua sắm & thanh toán · Đi lại & khách sạn · Sự cố & sức khỏe) và cây trong nhóm **xếp theo tần
+  suất**; thêm **⚡ Chọn nhanh** ở trang Ghép câu (6 chip mở thẳng cây); i-can thu về **xin phép**
+  (dv: 写真/入る/座る), chuyển カード/免税 về i-pay, 試着/持ち帰り về i-shop (nhánh “Thử & mang về”);
+  i-feel tách “Món ăn” / “Đồ uống / tráng miệng” với bộ tính từ hợp lý (bỏ 酸っぱい/苦い khỏi món
+  mặn, thêm あそこ); **lượng từ thật** trong i-please (つ/杯 1–5 nở từ `numbers.json`); sửa điểm đến
+  tàu (Tokyo/Kyoto/Osaka/Shinjuku, bỏ khách sạn/đền/chùa/chợ/onsen), thêm 晴れ/曇り; bỏ câu trùng
+  医者を呼んでください (giữ ở i-health); mặc định bước chủ ngữ = “Không cần chủ ngữ”.
+  Tổng: **16 cây, 1.266 câu**.
 - Việc còn lại:
   1. **Kiểm duyệt bởi người bản ngữ** — dùng `docs/REVIEW-CHECKLIST.md` (cây ghép câu, lượng từ,
      phiên âm, nghĩa N5, câu ví dụ, trọng âm, các cặp tính từ × danh từ mới, **câu nghe–đáp/replies**),
@@ -233,10 +246,11 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   3. **Mở rộng Nghe & đáp** (theo nghiên cứu v2.6.0): tình huống ga/tàu & taxi (IC card, sân ga,
      điểm đến), hiệu thuốc/khẩn cấp, quầy miễn thuế (パスポート); thêm câu nhân viên hay nói
      (席へどうぞ, ラストオーダーです, お下げしてもいいですか, 試着室はこちらです, お荷物をお預かりしますか,
-     温めますか, お箸お付けしますか); câu mình chủ động còn thiếu: `切符はどこで買えますか`,
-     `ICカードは使えますか`, `英語は話せますか`.
+     温めますか, お箸お付けしますか); câu mình chủ động còn thiếu: `写真を撮ってもらえますか`,
+     `切符はどこで買えますか`, `ICカードは使えますか`, `ここで止めてください`, `乗り換えはどこですか`,
+     `英語は話せますか`.
 - **Tồn đã biết**: nghĩa 561 từ N5 + 460 câu ví dụ + 726 trọng âm chờ kiểm duyệt; 101 từ N5 chưa
-  có câu ví dụ; 18 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB (vẫn lazy, không vào payload đầu).
+  có câu ví dụ; 21 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB (vẫn lazy, không vào payload đầu).
 
 ## 7. Lịch sử quyết định ngắn
 
@@ -249,7 +263,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   は/へ thành trợ từ khi ký tự đó là kana viết thẳng; thà thiếu ví dụ (101 từ) còn hơn nhập câu
   thân mật/phản cảm.
 - Trọng âm dùng **Kanjium accents.txt** (CC BY-SA 4.0, 124k từ): dữ liệu mở, có sẵn số accent
-  theo mora; từ kana-only ưu tiên ứng viên cùng reading; 18 từ thiếu dữ liệu thì **không hiện**
+  theo mora; từ kana-only ưu tiên ứng viên cùng reading; 21 từ thiếu dữ liệu thì **không hiện**
   trọng âm (không đoán).
 - **`が` với たい**: `i-want` giữ `[object:が] + たい` (chuẩn giáo trình Genki/Minna: 水が飲みたいです).
   `を` cũng đúng và ngày càng phổ biến; giữ が cho nhất quán, để người bản ngữ xác nhận trong
@@ -262,7 +276,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   0/98 câu cố định đổi cách tách, thực tế 18 từ cũng 0 câu đổi. Tránh nhân bản dữ liệu và giữ
   nguyên nguyên tắc "N5 không đụng nội dung đã kiểm duyệt".
 - **Audit tự động thay regression tay (v2.4.0)**: logic ráp câu nằm ở module dùng chung
-  (`assets/js/assemble.js`) để `tools/audit.js` kiểm đúng thứ app chạy; **toàn bộ 1.140 đường
+  (`assets/js/assemble.js`) để `tools/audit.js` kiểm đúng thứ app chạy; **toàn bộ 1.266 đường
   câu** được soát trong `npm run build`, lỗi ⇒ exit 1 (slot trống, vi lặp từ, slot/template lệch,
   field chết, nhãn trùng).
 - **Nền sáng mặc định (v2.5.0)**: app học ngôn ngữ cần nền sáng; nền tối là lựa chọn thủ công có
@@ -276,3 +290,12 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   (`はいりません` là thể phủ định của 入る, rẻ điểm hơn は + いりません); chọn `袋は大丈夫です`
   (tự nhiên hơn, không mơ hồ). Khi thêm câu cố định, xem mục “Option cố định chưa tách được” của build
   và kiểm phiên âm trợ từ bằng script nhỏ.
+- **Nhóm theo cảnh + Chọn nhanh (v2.8.0)**: review IA cho thấy nhóm trộn hai trục (cảnh vs chức
+  năng) và cây “khung câu” chiếm ~77% đường nhưng khó tìm; chọn cách **đặt tên nhóm theo cảnh**,
+  giữ cây khung câu nhưng thêm chip việc-cần-ngay mở thẳng cây (`Builder.startWith`); i-can chỉ còn
+  `〜てもいいですか`, câu dịch vụ về đúng cây; i-feel tách nhánh theo đồ ăn/đồ uống để bộ tính từ
+  không sinh câu vô nghĩa (すしは苦いです…).
+- **Lượng từ là dữ liệu, không chép tay (v2.8.0)**: i-please dùng option `counter` mới thay vì liệt
+  kê 一つ/二つ/三つ; build nở từ `numbers.json` nên cách đọc biến âm (いっぱい, さんばい, よんはい)
+  và phiên âm luôn khớp tab Từ vựng. Thêm lượng từ mới = sửa `numbers.json` rồi `npm run build`;
+  chỉ dùng `counter`/`counts`/`next`, không kèm `ref`/`jp`/`kana` (build báo lỗi).

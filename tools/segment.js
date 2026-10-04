@@ -147,7 +147,7 @@ const EXPRESSIONS = [
   { kana: "どうも", jp: "どうも", vi: "cảm ơn / chào (thân mật)" },
   { kana: "どうぞ", jp: "どうぞ", vi: "xin mời" },
   { kana: "どういたしまして", jp: "どういたしまして", vi: "không có gì" },
-  { kana: "いただきます", jp: "いただきます", vi: "con xin phép dùng bữa", note: "nói trước khi ăn" },
+  { kana: "いただきます", jp: "いただきます", vi: "tôi xin phép dùng bữa", note: "nói trước khi ăn" },
   { kana: "ごちそうさま", jp: "ごちそうさま", vi: "cảm ơn vì bữa ăn", note: "nói sau khi ăn xong" },
   { kana: "でした", jp: "でした", vi: "đã là (quá khứ của です)", role: "copula" },
   { kana: "おじゃま", jp: "お邪魔", vi: "làm phiền", note: "trong お邪魔します = xin phép vào nhà" },

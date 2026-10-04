@@ -6,8 +6,9 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 
 ## 1. Cây ghép câu (16 mục / 4 nhóm)
 
-- [ ] Thứ tự & phân nhóm: Giao tiếp → Ăn uống & mua sắm → Đi lại & khách sạn → Sức khỏe & sự cố;
-      trong mỗi nhóm xếp cơ bản trước (Chào hỏi & xã giao → Cảm ơn & xin lỗi → …).
+- [ ] Thứ tự & phân nhóm: Giao tiếp cơ bản → Ăn uống, mua sắm & thanh toán → Đi lại & khách sạn →
+      Sự cố & sức khỏe; trong mỗi nhóm xếp theo tần suất (Cho tôi… → Thanh toán… → …).
+- [ ] **⚡ Chọn nhanh** (6 chip việc-cần-ngay) trỏ đúng cây và đủ đại diện cho nhu cầu thường gặp.
 - [ ] Mỗi mục: chạy 🎲 10 lần, đọc to từng câu — kiểm tra trợ từ và độ tự nhiên.
 - [ ] Các bẫy đã biết cần xác nhận:
   - `水が飲みたいです` (が với たい) — dự án giữ が theo chuẩn giáo trình; xác nhận có nên
@@ -18,17 +19,21 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
   - nhánh sự cố khách sạn: `電気がつきません` / `お湯が出ません` / `Wi-Fiがつながりません`.
   - 5 bộ phận × `〜が痛いです`; 4 món đồ × `〜をなくしました / 〜を盗まれました`;
     4 dịch vụ × `〜を呼んでください` (nhánh tàu đã lọc điểm đến riêng).
-  - `i-feel` (mới): tính từ × món ăn/nơi chốn — kiểm các cặp có tự nhiên không (vd すしは熱いです,
-    海は狭いです có chấp nhận được không); `i-shop`: `赤いのはありますか` / `もっと大きいのはありますか`;
-    nhánh thời tiết `i-greet`: `暑いですね` / `雨ですね`.
+  - `i-feel` (v2.8.0): tách “Món ăn” (美味しい/まずい/辛い/しょっぱい/熱い/冷たい/温かい) và
+    “Đồ uống / tráng miệng” (thêm 甘い/苦い, có コーヒーは苦いです) — kiểm các cặp còn lại
+    (vd すしは熱いです, 海は狭いです) có chấp nhận được không; `i-shop`: `赤いのはありますか` /
+    `もっと大きいのはありますか`; nhánh thời tiết `i-greet`: `暑いですね` / `晴れですね` / `雨ですね`.
   - nhánh ngôn ngữ `i-respond`: `日本語が話せます` / `英語が少しわかります` — mức lịch sự và cách
     dùng が có ổn không.
-  - `i-can`: `免税できますか` — tự nhiên chưa, hay nên đổi thành `免税でお願いします` /
-    `免税になりますか`.
+  - `i-can` (v2.8.0): chỉ còn `〜てもいいですか` (写真/入る/座る); `i-pay`: `カードは使えますか`,
+    `免税できますか` — tự nhiên chưa, hay nên đổi thành `免税でお願いします` / `免税になりますか`.
   - `i-pay` (mới, v2.7.0): `お会計をお願いします`, `別々でお願いします`, `袋は大丈夫です`,
     `免税でお願いします` — mức lịch sự & độ tự nhiên khi nói với nhân viên.
   - `i-shop` nhánh `〜はありますか` (mới): `英語のメニュー`, `ベジタリアン料理`, `おすすめ`, `傘`,
-    `タオル`, `袋`, `お土産` — dùng は có ổn không, có nên thêm món/đồ nào?
+    `タオル`, `袋`, `お土産` — dùng は có ổn không, có nên thêm món/đồ nào? Nhánh “Thử & mang về”
+    (v2.8.0): `試着してもいいですか`, `持ち帰りできますか` — đúng ngữ cảnh cửa hàng/nhà hàng chưa?
+  - lượng từ trong “Cho tôi…” (v2.8.0): 水を`一杯`/`二杯`…, パンを`一つ`/`二つ`… — cách đếm đã
+    tự nhiên với từng món chưa (món nào nên dùng 枚/本/個 thay つ/杯?).
   - `i-health` nhánh lạc đường (mới): `道に迷いました`, `ここはどこですか`, `駅までどう行きますか`.
 - [ ] Lựa chọn “Không cần chủ ngữ” ở mục “Tôi muốn…” có ổn khi đứng một mình không.
 - [ ] Câu cố định hiện bảng bóc tách: các mảnh tách đúng và dễ hiểu chưa.
@@ -63,7 +68,7 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 
 ## 4. Từ vựng JLPT N5 (561 từ mới, `data/source/vocab-n5.json`)
 
-- [ ] Nghĩa tiếng Việt tự nhiên, đúng trọng tâm; không trùng lặp khó hiểu với 183 từ biên tập tay.
+- [ ] Nghĩa tiếng Việt tự nhiên, đúng trọng tâm; không trùng lặp khó hiểu với 186 từ biên tập tay.
 - [ ] Từ đồng âm khác chữ (厚い/暑い, 早い/速い, 取る/撮る, 止まる/泊まる) phân biệt rõ.
 - [ ] Động từ: đúng nhóm chia (`godan`/`ichidan`/`suru`), thể ます/て hiển thị chính xác.
 - [ ] Từ kana-only hiển thị không bị lặp chữ; từ katakana đúng chính tả.
@@ -89,7 +94,7 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 - [ ] Mora cao được gạch trên có hiển thị đúng trên giao diện (không lệch dấu khi kana dài,
       mora ghép きゃ/しゃ, ー, っ, ん).
 - [ ] Các từ nhập nhằng đã chọn tay trong `accents.json` (xem ghi chú “21 ca” trong DEV-CONTEXT)
-      có hợp lý không; từ thiếu dữ liệu (18 từ) chấp nhận không hiện.
+      có hợp lý không; từ thiếu dữ liệu (21 từ) chấp nhận không hiện.
 - [ ] Nếu sửa: chỉnh trực tiếp `data/source/accents.json` (hoặc thêm id vào MANUAL khi nhập lại),
       chạy `npm run build`.
 

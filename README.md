@@ -2,12 +2,13 @@
 
 **Ghép câu tiếng Nhật cho người Việt đi du lịch.** Chọn nghĩa theo từng bước, app ráp câu tiếng
 Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc tách câu; **nghe & đáp câu nhân viên
-nói trước**; tra thêm 744 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent).
+nói trước**; tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent).
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
-- 🧩 **Ghép câu thu hẹp dần** (16 mục, gom theo nhóm: Giao tiếp · Ăn uống & mua sắm · Đi lại & khách sạn ·
-  Sức khỏe & sự cố): chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
+- 🧩 **Ghép câu thu hẹp dần** (16 mục, gom theo nhóm: Giao tiếp cơ bản · Ăn uống, mua sắm & thanh
+  toán · Đi lại & khách sạn · Sự cố & sức khỏe): bấm **⚡ Chọn nhanh** hoặc chọn “Không cần chủ
+  ngữ” → “muốn” → món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và phiên âm ngay trên từng trợ từ.
   Bao gồm chào hỏi, **cảm ơn (kể cả mẫu 〜てくれてありがとう “cảm ơn vì đã…”)**, xin lỗi,
   trả lời/không hiểu, khách sạn, **thanh toán – hoá đơn – miễn thuế**, **bị lạc đường**,
@@ -17,7 +18,7 @@ nói trước**; tra thêm 744 từ vựng (561 từ JLPT N5, có câu ví dụ 
   nghĩa và loại từ/thể. Bộ tách từ nằm ở `tools/segment.js`.
 - 🇻🇳 **Phiên âm tiếng Việt** trên mọi từ và câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`) — kèm
   **romaji chính thức** (Hepburn) song song: `sumimasen`, `konnichiwa`.
-- 📚 **744 từ vựng** (183 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu) —
+- 📚 **747 từ vựng** (186 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu) —
   **460 từ N5 kèm câu ví dụ** lấy từ Tatoeba (phiên âm Việt + romaji + nghĩa tiếng Việt);
   **trọng âm (pitch accent) cho 726 từ** — kana với mora cao có gạch trên, dấu ↓ xuống giọng
   và số `[n]`; kèm lượng từ đếm 1–10 và mệnh giá tiền.
@@ -74,7 +75,7 @@ docs/REVIEW-CHECKLIST.md   checklist kiểm duyệt bởi người bản ngữ
    - sinh phiên âm Việt + romaji cho mọi mục mới,
    - chia động từ mới thành ます / て / たい / khả năng…,
    - kiểm tra lỗi: trùng id, thiếu kana, cây câu trỏ sai bước, tham chiếu từ vựng không tồn tại,
-   - soát **toàn bộ câu có thể ghép** (1.140 đường) + cấu trúc cây bằng `tools/audit.js` và báo lỗi.
+   - soát **toàn bộ câu có thể ghép** (1.266 đường) + cấu trúc cây bằng `tools/audit.js` và báo lỗi.
 
 ## Triển khai GitHub Pages
 

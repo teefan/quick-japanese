@@ -19,13 +19,23 @@
   /* ------------------------------ Điều hướng ------------------------------ */
 
   const GROUP_ICONS = {
-    "Giao tiếp": "💬",
-    "Ăn uống & mua sắm": "🍜",
+    "Giao tiếp cơ bản": "💬",
+    "Ăn uống, mua sắm & thanh toán": "🍜",
     "Đi lại & khách sạn": "🚕",
-    "Sức khỏe & sự cố": "🚑",
+    "Sự cố & sức khỏe": "🚑",
   };
   // Thứ tự nhóm cố định: cơ bản nhất trước
-  const GROUP_ORDER = ["Giao tiếp", "Ăn uống & mua sắm", "Đi lại & khách sạn", "Sức khỏe & sự cố"];
+  const GROUP_ORDER = ["Giao tiếp cơ bản", "Ăn uống, mua sắm & thanh toán", "Đi lại & khách sạn", "Sự cố & sức khỏe"];
+
+  // Việc thường cần ngay — chip đầu trang chủ mở thẳng cây tương ứng
+  const QUICK_GOALS = [
+    { id: "i-please", emoji: "🍜", label: "Gọi món / mua" },
+    { id: "i-pay", emoji: "💴", label: "Thanh toán" },
+    { id: "i-where", emoji: "🗺️", label: "Hỏi đường" },
+    { id: "i-health", emoji: "🚑", label: "Cần giúp gấp" },
+    { id: "i-courtesy", emoji: "🙏", label: "Cảm ơn / xin lỗi" },
+    { id: "i-greet", emoji: "👋", label: "Chào hỏi" },
+  ];
 
   function renderHome(focusFirst = false) {
     state.intent = null;
@@ -76,11 +86,21 @@
         <h2>🧩 Ghép câu</h2>
         <span class="desc">${intents.length} mục — chọn từng bước, app chỉ hiện những gì nối tiếp được</span>
       </div>
+      <div class="section-title">
+        <h2>⚡ Chọn nhanh</h2>
+        <span class="desc">Việc thường cần ngay</span>
+      </div>
+      <div class="quick-grid">
+        ${QUICK_GOALS.map(g => `
+          <button class="quick-chip" data-intent="${g.id}">
+            <span>${g.emoji}</span> ${U.esc(g.label)}
+          </button>`).join("")}
+      </div>
       ${sections}
       ${scenarioSection}
       <p style="font-size:13px;color:var(--muted);margin-top:14px">
-        Mẹo: chọn “Tôi” → “muốn” → món ăn… App sẽ tự đặt trợ từ đúng
-        (は, が, を, に…), hiện phiên âm và bóc tách câu theo vai trò ngữ pháp.
+        Mẹo: bấm ⚡ Chọn nhanh, hoặc chọn “Không cần chủ ngữ” → “muốn” → món ăn… App sẽ tự đặt trợ từ
+        đúng (は, が, を, に…), hiện phiên âm và bóc tách câu theo vai trò ngữ pháp.
       </p>`;
     view.querySelectorAll("[data-intent]").forEach(btn =>
       btn.addEventListener("click", () =>
@@ -92,7 +112,7 @@
     );
     const status = document.getElementById("status");
     if (status) status.textContent = "";
-    if (focusFirst) view.querySelector(".intent-card")?.focus({ preventScroll: true });
+    if (focusFirst) view.querySelector(".quick-chip, .intent-card")?.focus({ preventScroll: true });
     window.scrollTo({ top: 0 });
   }
 

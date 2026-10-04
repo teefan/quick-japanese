@@ -265,6 +265,36 @@ function buildNumbers() {
 
 /* ------------------------------ Cây ghép câu ------------------------------ */
 
+/* Lượng từ trong cây: option dạng { "counter": "c-hai", "counts": [1, 2, 3] }
+   được nở thành option cố định từ data/source/numbers.json — giữ một nguồn dữ liệu
+   cho cách đọc (いっぱい, さんばい…) và phiên âm. */
+function expandCounterOptions(options, numbers) {
+  const counters = new Map((numbers.counters || []).map((c) => [c.id, c]));
+  const out = [];
+  for (const opt of options) {
+    if (!opt.counter) { out.push(opt); continue; }
+    if (opt.ref || opt.jp || opt.kana || opt.silent) {
+      throw new Error(`Option lượng từ chỉ được có counter/counts/next: ${JSON.stringify(opt)}`);
+    }
+    const counter = counters.get(opt.counter);
+    if (!counter) throw new Error(`Không tìm thấy lượng từ: ${opt.counter}`);
+    const counts = opt.counts || counter.combos.map((_, i) => i + 1);
+    for (const n of counts) {
+      const combo = counter.combos[n - 1];
+      if (!combo) throw new Error(`Lượng từ ${opt.counter} không có mục ${n}`);
+      out.push({
+        jp: combo.jp,
+        kana: combo.kana,
+        vi: combo.vi,
+        roma: combo.roma,
+        viPron: combo.viPron,
+        next: opt.next || null,
+      });
+    }
+  }
+  return out;
+}
+
 /* Builder dùng từ biên tập + **chỉ những từ N5 được ref trong intents.json**.
    Nhờ vậy N5 vẫn không ảnh hưởng cách tách câu của nội dung cũ; build audit lại giúp. */
 function buildIntents(vocabById, vocabN5, numbers, spokenLex) {
@@ -288,7 +318,7 @@ function buildIntents(vocabById, vocabN5, numbers, spokenLex) {
     for (const [sid, step] of Object.entries(intent.steps)) {
       steps[sid] = {
         ...step,
-        options: step.options.map((opt) => enrichOption(opt, allById, lex)),
+        options: expandCounterOptions(step.options, numbers).map((opt) => enrichOption(opt, allById, lex)),
       };
     }
     const template = (intent.template || null)?.map(enrichTemplateSeg);
