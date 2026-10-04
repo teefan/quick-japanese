@@ -36,6 +36,7 @@ const PARTICLES = {
 const EXPR_ROLE = {
   // danh từ
   "さとう": "noun", "かぜぐすり": "noun", "ずつう": "noun", "やく": "noun", "くすり": "noun",
+  "りょうり": "noun",
   "いたみどめ": "noun", "ばんそうこう": "noun", "しょほうせん": "noun", "めまい": "noun",
   "サイズ": "noun", "いろ": "noun", "ほか": "noun", "おすすめ": "noun", "おかいけい": "noun",
   "おかわり": "noun", "おみず": "noun", "もちかえり": "noun", "てんない": "noun",
@@ -207,6 +208,7 @@ const EXPRESSIONS = [
   { kana: "しょほうせん", jp: "処方箋", vi: "đơn thuốc" },
   { kana: "めまい", jp: "めまい", vi: "chóng mặt" },
   { kana: "さとう", jp: "砂糖", vi: "đường" },
+  { kana: "りょうり", jp: "料理", vi: "món ăn" },
   { kana: "からく", jp: "辛く", vi: "cay (dạng trạng từ)", note: "từ 辛い"},
   { kana: "めんぜい", jp: "免税", vi: "miễn thuế" },
   { kana: "サイズ", jp: "サイズ", vi: "cỡ / kích thước" },

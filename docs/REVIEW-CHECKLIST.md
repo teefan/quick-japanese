@@ -4,7 +4,7 @@ Mục tiêu: rà soát độ **tự nhiên – lịch sự – chính xác** c�
 561 từ N5, 460 câu ví dụ và 726 trọng âm) trước khi coi nội dung hoàn tất. Ưu tiên người Nhật
 bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
 
-## 1. Cây ghép câu (15 mục / 4 nhóm)
+## 1. Cây ghép câu (16 mục / 4 nhóm)
 
 - [ ] Thứ tự & phân nhóm: Giao tiếp → Ăn uống & mua sắm → Đi lại & khách sạn → Sức khỏe & sự cố;
       trong mỗi nhóm xếp cơ bản trước (Chào hỏi & xã giao → Cảm ơn & xin lỗi → …).
@@ -25,6 +25,11 @@ bản ngữ hoặc giáo viên tiếng Nhật; có thể chia nhỏ theo nhóm.
     dùng が có ổn không.
   - `i-can`: `免税できますか` — tự nhiên chưa, hay nên đổi thành `免税でお願いします` /
     `免税になりますか`.
+  - `i-pay` (mới, v2.7.0): `お会計をお願いします`, `別々でお願いします`, `袋は大丈夫です`,
+    `免税でお願いします` — mức lịch sự & độ tự nhiên khi nói với nhân viên.
+  - `i-shop` nhánh `〜はありますか` (mới): `英語のメニュー`, `ベジタリアン料理`, `おすすめ`, `傘`,
+    `タオル`, `袋`, `お土産` — dùng は có ổn không, có nên thêm món/đồ nào?
+  - `i-health` nhánh lạc đường (mới): `道に迷いました`, `ここはどこですか`, `駅までどう行きますか`.
 - [ ] Lựa chọn “Không cần chủ ngữ” ở mục “Tôi muốn…” có ổn khi đứng một mình không.
 - [ ] Câu cố định hiện bảng bóc tách: các mảnh tách đúng và dễ hiểu chưa.
 - [ ] Từ v2.1.0 option có thể là từ N5 (`n5-…`) — kiểm nghĩa tiếng Việt của chúng khi hiện trên chip

@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `da1b445` · SW cache `qj-v2.6.0` · Pages built xanh
+> Cập nhật: 2026-10-03 · commit `da1b445` · SW cache `qj-v2.7.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -12,23 +12,23 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md); checklist ki�
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (15 cây / 4 nhóm) và **Từ vựng 📚**
+- **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (16 cây / 4 nhóm) và **Từ vựng 📚**
   (744 từ: 183 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
   Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục;
   **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy” (câu xong chỉ còn 🔊 Nghe).
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
-  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.120 câu có thể
-  ghép** từ 15 cây; **128 từ biên tập + 37 từ N5** được dùng làm option.
+  thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.140 câu có thể
+  ghép** từ 16 cây; **128 từ biên tập + 37 từ N5** được dùng làm option.
 - **Liên kết hai tab**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
   (`data/builder-index.js`, sinh tự động).
 - **Nghe & đáp 🗣️**: 3 tình huống **nhân viên nói trước** (nhà hàng, cửa hàng, khách sạn) kèm câu
-  đáp; câu ghép xong có thêm gợi ý “Người Nhật có thể nói” cho i-please / i-where / i-hotel.
+  đáp; câu ghép xong có thêm gợi ý “Người Nhật có thể nói” cho i-please / i-where / i-hotel / i-pay.
 - **Từ vựng N5** nằm ở `data/vocab-n5.js` — tải nền khi trang rảnh, phân trang 60 từ/lần,
   460 từ có câu ví dụ Tatoeba, 726 từ có pitch accent (Kanjium).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
 - **Giao diện**: nền sáng là mặc định (không theo `prefers-color-scheme`), có nút 🌙/☀️ ở header
   nhớ lựa chọn trong `localStorage` (`qj-theme`); màu accent/vai trò đạt tương phản AA.
-- Kiểm thử chuẩn: `npm run build` chạy `tools/audit.js` soát **toàn bộ 1.120 đường ghép câu**;
+- Kiểm thử chuẩn: `npm run build` chạy `tools/audit.js` soát **toàn bộ 1.140 đường ghép câu**;
   vẫn 🎲 vài cây để kiểm UI/TTS, thẻ N5 hiện ví dụ + trọng âm, không lỗi JS.
 
 ## 1. Lệnh thường dùng
@@ -195,8 +195,8 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
    huống, kiểm furigana/phiên âm/nút 🔊), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ +
    🔊, trọng âm `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊, nút 🌙 đổi nền tối
    (nhớ lựa chọn, mặc định sáng), không lỗi JS.
-4. Release regression: `npm run audit` đã phủ **toàn bộ 1.120 đường** (thay 15 × 3 đường 🎲);
-   vẫn nên 🎲 vài cây để kiểm UI, TTS và bảng cấu trúc.
+4. Release regression: `npm run audit` đã phủ **toàn bộ 1.140 đường**; vẫn nên 🎲 vài cây để kiểm
+   UI, TTS và bảng cấu trúc.
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
    `gh api repos/teefan/quick-japanese/pages/builds/latest --jq '.status + " " + .commit'`
    và curl `https://teefan.github.io/quick-japanese/sw.js` để xác nhận VERSION mới.
@@ -219,6 +219,11 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - **v2.6.0** vòng lặp hỏi–đáp: thêm `data/source/exchanges.json` + module **Nghe & đáp** ở trang chủ
   (3 tình huống, 20 cặp), thêm `replies` cho i-please/i-where/i-hotel; build sinh phiên âm đúng trợ
   từ bằng lexicon nói riêng (`SPOKEN_EXTRA`), audit kiểm luôn câu nói.
+- **v2.7.0** bổ sung câu **mình chủ động**: cây mới **Thanh toán & hoá đơn** 🧾 (8 câu: お会計,
+  別々, カード/現金, レシート, 袋は大丈夫です, 免税 + 5 `replies`); nhánh **Có … không?** trong i-shop
+  (`〜はありますか`, 9 món/đồ) và nhánh **Tôi bị lạc đường** trong i-health (`道に迷いました`,
+  `ここはどこですか`, `駅までどう行きますか`); i-shop đổi tên “Màu & cỡ” → “Hỏi khi mua đồ”.
+  Tổng: **16 cây, 1.140 câu**.
 - Việc còn lại:
   1. **Kiểm duyệt bởi người bản ngữ** — dùng `docs/REVIEW-CHECKLIST.md` (cây ghép câu, lượng từ,
      phiên âm, nghĩa N5, câu ví dụ, trọng âm, các cặp tính từ × danh từ mới, **câu nghe–đáp/replies**),
@@ -227,9 +232,9 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
   3. **Mở rộng Nghe & đáp** (theo nghiên cứu v2.6.0): tình huống ga/tàu & taxi (IC card, sân ga,
      điểm đến), hiệu thuốc/khẩn cấp, quầy miễn thuế (パスポート); thêm câu nhân viên hay nói
-     (席へどうぞ, ラストオーダーです, お下げしてもいいですか, 試着室はこちらです, お荷物をお預かりしますか);
-     bổ sung câu **mình chủ động** còn thiếu: `お会計をお願いします`, `別々でお願いします`, `袋いりません`,
-     `道に迷いました`, `〜はありますか` tổng quát.
+     (席へどうぞ, ラストオーダーです, お下げしてもいいですか, 試着室はこちらです, お荷物をお預かりしますか,
+     温めますか, お箸お付けしますか); câu mình chủ động còn thiếu: `切符はどこで買えますか`,
+     `ICカードは使えますか`, `英語は話せますか`.
 - **Tồn đã biết**: nghĩa 561 từ N5 + 460 câu ví dụ + 726 trọng âm chờ kiểm duyệt; 101 từ N5 chưa
   có câu ví dụ; 18 từ chưa có trọng âm; file N5 tải nền ≈ 264 KB (vẫn lazy, không vào payload đầu).
 
@@ -257,7 +262,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
   0/98 câu cố định đổi cách tách, thực tế 18 từ cũng 0 câu đổi. Tránh nhân bản dữ liệu và giữ
   nguyên nguyên tắc "N5 không đụng nội dung đã kiểm duyệt".
 - **Audit tự động thay regression tay (v2.4.0)**: logic ráp câu nằm ở module dùng chung
-  (`assets/js/assemble.js`) để `tools/audit.js` kiểm đúng thứ app chạy; **toàn bộ 1.120 đường
+  (`assets/js/assemble.js`) để `tools/audit.js` kiểm đúng thứ app chạy; **toàn bộ 1.140 đường
   câu** được soát trong `npm run build`, lỗi ⇒ exit 1 (slot trống, vi lặp từ, slot/template lệch,
   field chết, nhãn trùng).
 - **Nền sáng mặc định (v2.5.0)**: app học ngôn ngữ cần nền sáng; nền tối là lựa chọn thủ công có
@@ -267,3 +272,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, REVIEW-
 - **Vòng lặp hỏi–đáp (v2.6.0)**: câu ghép chỉ là một nửa cuộc nói chuyện; thêm lớp nhận biết
   (họ có thể nói gì) + tình huống họ nói trước. Không mở rộng engine — `replies`/`exchanges` là
   dữ liệu + UI, cây ý định giữ nguyên.
+- **Tránh câu mơ hồ khi tách từ (v2.7.0)**: `袋はいりません` bị DP hiểu thành 袋 + 入りません
+  (`はいりません` là thể phủ định của 入る, rẻ điểm hơn は + いりません); chọn `袋は大丈夫です`
+  (tự nhiên hơn, không mơ hồ). Khi thêm câu cố định, xem mục “Option cố định chưa tách được” của build
+  và kiểm phiên âm trợ từ bằng script nhỏ.

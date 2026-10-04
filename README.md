@@ -6,11 +6,12 @@ nói trước**; tra thêm 744 từ vựng (561 từ JLPT N5, có câu ví dụ 
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
-- 🧩 **Ghép câu thu hẹp dần** (15 mục, gom theo nhóm: Giao tiếp · Ăn uống & mua sắm · Đi lại & khách sạn ·
+- 🧩 **Ghép câu thu hẹp dần** (16 mục, gom theo nhóm: Giao tiếp · Ăn uống & mua sắm · Đi lại & khách sạn ·
   Sức khỏe & sự cố): chọn “Tôi” → app chỉ hiện những gì có thể nối tiếp → chọn “muốn” → chọn món…
   Câu tiếng Nhật tự ráp đúng trợ từ (は, が, を, に…), kèm furigana và phiên âm ngay trên từng trợ từ.
   Bao gồm chào hỏi, **cảm ơn (kể cả mẫu 〜てくれてありがとう “cảm ơn vì đã…”)**, xin lỗi,
-  trả lời/không hiểu, khách sạn, đau ốm – mất đồ – gọi giúp khẩn cấp.
+  trả lời/không hiểu, khách sạn, **thanh toán – hoá đơn – miễn thuế**, **bị lạc đường**,
+  đau ốm – mất đồ – gọi giúp khẩn cấp.
 - 🔬 **Bóc tách câu**: câu ghép được chia thành các mảnh (từ + trợ từ) **tô màu theo vai trò
   ngữ pháp** (đại từ, danh từ, động từ, tính từ, trợ từ, です, số đếm…), kèm phiên âm Việt + romaji,
   nghĩa và loại từ/thể. Bộ tách từ nằm ở `tools/segment.js`.
@@ -73,7 +74,7 @@ docs/REVIEW-CHECKLIST.md   checklist kiểm duyệt bởi người bản ngữ
    - sinh phiên âm Việt + romaji cho mọi mục mới,
    - chia động từ mới thành ます / て / たい / khả năng…,
    - kiểm tra lỗi: trùng id, thiếu kana, cây câu trỏ sai bước, tham chiếu từ vựng không tồn tại,
-   - soát **toàn bộ câu có thể ghép** (1.120 đường) + cấu trúc cây bằng `tools/audit.js` và báo lỗi.
+   - soát **toàn bộ câu có thể ghép** (1.140 đường) + cấu trúc cây bằng `tools/audit.js` và báo lỗi.
 
 ## Triển khai GitHub Pages
 

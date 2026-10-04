@@ -4,13 +4,15 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and say it to a local. Static site,
 no server, deployable on GitHub Pages.
 
-> **Current status (v2.6.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng, plus 🗣️ Nghe & đáp.** 15 intent trees (4 groups) ·
-> **1,120 combinable sentences** (128 curated + 37 N5 words as options) · 744 words (183 curated
+> **Current status (v2.7.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng, plus 🗣️ Nghe & đáp.** 16 intent trees (4 groups) ·
+> **1,140 combinable sentences** (128 curated + 37 N5 words as options) · 744 words (183 curated
 > + 561 N5, lazy-loaded) · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium)
 > · 6 counters (1–10) · vocabulary cards link back into the builder (`data/builder-index.js`)
-> · 3 staff-first scenarios (20 exchanges) + likely replies on 3 intents.
-> PWA cache `qj-v2.6.0`. Regression: `npm run audit` walks all **1,120 paths** + all spoken
+> · 3 staff-first scenarios (20 exchanges) + likely replies on 4 intents.
+> New in v2.7.0: traveler-initiated 💴 payment/invoice (お会計, 別々で, レシート, 袋, 免税),
+> 〜はありますか branch in i-shop, and 道に迷いました branch in i-health.
+> PWA cache `qj-v2.7.0`. Regression: `npm run audit` walks all **1,140 paths** + all spoken
 > lines (0 errors), no JS errors.
 > **Light theme by default** (washi–sakura–indigo); a 🌙/☀️ toggle remembers dark mode.
 > **v2.0.0 narrowed the product**: phrases, notebook, grammar, quiz and global search were removed;
@@ -91,12 +93,13 @@ directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435
 ## 4. Information architecture
 
 ```
-Ghép câu 🧩    15 intent trees in 4 groups, ordered basic → advanced (see §6)
+Ghép câu 🧩    16 intent trees in 4 groups, ordered basic → advanced (see §6)
   Giao tiếp:          Chào hỏi & xã giao · Cảm ơn & xin lỗi · Trả lời & xử lý ·
                       Làm ơn giúp tôi… · Cái này được không?
   Ăn uống & mua sắm:  Cái này thì sao? · Cho tôi… · Tôi muốn… · Tôi thích…
+                      Nhận xét thế nào? · Hỏi khi mua đồ · Thanh toán & hoá đơn
   Đi lại & khách sạn: …ở đâu? · Đi đến… · Khách sạn
-  Sức khỏe & sự cố:   Sức khỏe & sự cố
+  Sức khỏe & sự cố:   Sức khỏe & sự cố (đau ốm, mất đồ, bị lạc, gọi giúp)
 
 Nghe & đáp 🗣️  3 scenarios where staff speak first (restaurant, shop, hotel): each heard
                line has furigana + Vietnamese pronunciation + 🔊 and suggested answers;
@@ -217,19 +220,20 @@ set, mirroring how a phrasebook conversation actually branches.
   (teaches that Japanese often drops the subject).
 - Colors/UX: filled segments appear immediately, unfilled slots show `…`; trước lựa chọn đầu
   tiên khung câu hiện gợi ý "👇 Chọn bên dưới để ghép câu"; furigana via
-  `<ruby>`; after completion: TTS, copy, show-to-local, random sentence, tip and the
+  `<ruby>`; after completion: TTS, likely replies, random sentence, tip and the
   structure breakdown.
 
 ### 6.3 Why deterministic, not AI
 
 Curated patterns guarantee correctness (no hallucinated particles), work offline, are fast,
 reviewable as JSON diffs, and can *explain* every particle. Scope is intentionally bounded but
-broad: **15 intent trees** cover set phrases (greetings, thanks, apologies), conversation
-management (agree/decline/don’t-understand), transactions (order, buy, ask price/place),
-travel (train/taxi, hotel), and emergencies/health. Combinatorial branches multiply coverage
+broad: **16 intent trees** cover set phrases (greetings, thanks, apologies), conversation
+management (agree/decline/don’t-understand), transactions (order, buy, ask price/place,
+pay/invoice), travel (train/taxi, hotel), getting lost, and emergencies/health. Combinatorial
+branches multiply coverage
 from a small data set: e.g. 6 verbs × `〜てくれてありがとう` for thanks, 5 body parts × `〜が痛いです`,
 4 items × `〜をなくしました / 〜を盗まれました`, 4 services × `〜を呼んでください`.
-The current 15 trees yield **~1,120 distinct sentences** and reference **128 curated + 37 N5 words**
+The current 16 trees yield **1,140 distinct sentences** and reference **128 curated + 37 N5 words**
 as options. Extension = add one JSON object (plus, if needed, vocabulary for the new slots).
 
 ### 6.4 Sentence dissection (grammar composition)
@@ -270,7 +274,7 @@ errors.
 
 ### 6.6 Automated audit (v2.4.0)
 
-`tools/audit.js` walks **every complete path of all 15 intent trees** (1,120 sentences) using the
+`tools/audit.js` walks **every complete path of all 16 intent trees** (1,140 sentences) using the
 same assembly module as the app (`assets/js/assemble.js`) and fails the build on: empty/blank
 slots, unresolved `vi` placeholders, repeated Vietnamese words (e.g. “hơn hơn”), missing `。`
 between two fixed phrases, unknown slot references, duplicate chip labels, unreachable steps,
@@ -283,14 +287,19 @@ The builder covers the traveler→local direction only. v2.6.0 adds the other ha
 - **Staff-first scenarios** (`data/source/exchanges.json` → `data/exchanges.js`): restaurant,
   shop and hotel. Each exchange is a likely staff line (`heard`) plus suggested answers, shown
   with furigana, Vietnamese approximation, Hepburn romaji and 🔊.
-- **Replies**: `i-please`, `i-where` and `i-hotel` carry a `replies` array rendered after the
-  sentence is complete (“🗣️ Người Nhật có thể nói”).
+- **Replies**: `i-please`, `i-where`, `i-hotel` and `i-pay` carry a `replies` array rendered after
+  the sentence is complete (“🗣️ Người Nhật có thể nói”).
 - Both go through the pronunciation pipeline; staff lines use a dedicated lexicon
   (`SPOKEN_EXTRA` in `tools/build.js`) so は→oa / へ→ê **without touching builder tokenization**.
 - `tools/audit.js` validates every spoken line (jp/kana/vi + enriched roma/viPron).
+- **v2.7.0 added the traveler-initiated side**: new 🧾 “Thanh toán & hoá đơn” tree
+  (お会計をお願いします, 別々でお願いします, カード/現金, レシート, 袋は大丈夫です, 免税でお願いします),
+  a `〜はありますか` branch in i-shop (英語のメニュー, おすすめ, ベジタリアン料理, 傘, タオル…),
+  and a lost-and-directions branch in i-health (道に迷いました, ここはどこですか, 駅までどう行きますか).
 - Content backlog (researched, not yet written): station/IC-card, taxi, pharmacy/emergency,
-  tax-free counter; traveler-initiated `お会計をお願いします`, `別々でお願いします`,
-  `袋いりません`, `道に迷いました`, generic `〜はありますか`.
+  tax-free counter as exchanges; staff lines 席へどうぞ, ラストオーダーです, お下げしてもいいですか,
+  試着室はこちらです, お荷物をお預かりしますか, 温めますか, お箸お付けしますか; traveler lines
+  切符はどこで買えますか, ICカードは使えますか.
 
 ---
 
@@ -404,4 +413,4 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + review
 | Unnatural buildable sentences | Curated per-branch option lists; automated audit + native review (`REVIEW-CHECKLIST.md`) |
 | Copyright issues when scaling | Only import datasets with clear licenses; keep `NOTICE`/attribution |
 | Data drift between sources and generated files | One-command rebuild + build-time validation (IDs, refs, steps) |
-| Over-engineering the builder | Deterministic tree, JSON-only extension, 15 intents cover MVP needs; automated audit guards regressions |
+| Over-engineering the builder | Deterministic tree, JSON-only extension, 16 intents cover MVP needs; automated audit guards regressions |
