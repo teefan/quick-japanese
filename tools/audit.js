@@ -30,7 +30,7 @@ const warnings = [];
 const err = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
 
-const QJ = loadQJ(["data/intents.js", "data/exchanges.js"]);
+const QJ = loadQJ(["data/intents.js", "data/exchanges.js", "data/grammar.js"]);
 const intents = QJ.intents.intents;
 let paths = 0;
 let scenarioPairs = 0;
@@ -186,7 +186,24 @@ for (const s of scenarios) {
   }
 }
 
-console.log(`Audit builder: ${intents.length} cây, ${paths} đường câu, ${replyLines} gợi ý đáp, ${scenarioPairs} cặp nghe–đáp — ${errors.length} lỗi, ${warnings.length} cảnh báo`);
+/* Ngữ pháp tối giản: đủ dữ liệu + đã enrich phiên âm cho từng ví dụ */
+const grammarPoints = (QJ.grammar && QJ.grammar.points) || [];
+if (!grammarPoints.length) err("data/grammar.js: chưa có điểm ngữ pháp nào");
+const grammarIds = new Set();
+for (const g of grammarPoints) {
+  const at = g.id || "(thiếu id)";
+  if (!g.id || !g.title || !g.summary || !g.detail) err(`[ngữ pháp] ${at}: thiếu id/title/summary/detail`);
+  if (grammarIds.has(g.id)) err(`[ngữ pháp] ${at}: trùng id điểm ngữ pháp`);
+  grammarIds.add(g.id);
+  if (g.level !== "basic" && g.level !== "plus") err(`[ngữ pháp] ${at}: level "${g.level}" không hợp lệ`);
+  if (!(g.examples || []).length) warn(`[ngữ pháp] ${at}: không có ví dụ`);
+  for (const [i, e] of (g.examples || []).entries()) {
+    if (!e.jp || !e.kana || !e.vi) err(`[ngữ pháp] ${at} ex#${i}: thiếu jp/kana/vi`);
+    if (!e.roma || !e.viPron) err(`[ngữ pháp] ${at} ex#${i}: thiếu roma/viPron (enrich lỗi)`);
+  }
+}
+
+console.log(`Audit builder: ${intents.length} cây, ${paths} đường câu, ${replyLines} gợi ý đáp, ${scenarioPairs} cặp nghe–đáp, ${grammarPoints.length} điểm ngữ pháp — ${errors.length} lỗi, ${warnings.length} cảnh báo`);
 for (const w of warnings) console.log("  ! " + w);
 for (const e of errors) console.log("  ✗ " + e);
 if (errors.length) {

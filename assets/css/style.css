@@ -787,6 +787,71 @@ main {
 
 .w-ex-vi { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
 
+/* Ngữ pháp: accordion điểm ngữ pháp + ví dụ */
+.g {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 8px 0;
+}
+
+.g summary { list-style: none; cursor: pointer; padding: 13px 16px; position: relative; }
+
+.g summary::-webkit-details-marker { display: none; }
+
+.g summary::after {
+  content: "▾";
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  color: var(--muted);
+  transition: transform .15s ease;
+}
+
+.g[open] summary::after { transform: rotate(180deg); }
+
+.g-head { display: flex; align-items: flex-start; gap: 8px; padding-right: 20px; }
+
+.g-head h3 { margin: 0; font-size: 15px; line-height: 1.45; }
+
+.badge {
+  flex: 0 0 auto;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.badge.plus { background: var(--bg); color: var(--muted); border-color: var(--line); }
+
+.g-summary { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+.g-body { padding: 0 16px 6px; }
+
+.g-body > p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  margin: 10px 0 2px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+
+.g-ex { display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px dashed var(--line); }
+
+.g-ex-audio { width: 30px; height: 30px; font-size: 13px; margin-top: 1px; }
+
+.g-ex-body { flex: 1; min-width: 0; }
+
+.g-ex-jp { font-size: 16px; font-weight: 600; line-height: 1.35; }
+
+.g-ex-pron { color: var(--accent); font-weight: 600; font-size: 13px; margin-top: 2px; }
+
+.g-ex-vi { font-size: 13px; color: var(--muted); margin-top: 1px; }
+
 /* Chip liên kết từ vựng -> mục ghép câu */
 .w-build { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 8px; }
 .w-build-label { font-size: 11.5px; color: var(--muted); }

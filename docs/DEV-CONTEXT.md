@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-03 · commit `da1b445` · SW cache `qj-v2.7.0` · Pages built xanh
+> Cập nhật: 2026-10-04 · commit `7b70e12` · SW cache `qj-v2.9.0` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -11,16 +11,16 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md).
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **v2.0.0 thu hẹp còn 2 tab**: **Ghép câu 🧩** (16 cây / 4 nhóm) và **Từ vựng 📚**
-  (747 từ: 186 biên tập + 561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá).
-  Đã bỏ hẳn: cụm từ, sổ tay, ngữ pháp, quiz “Nghe & chọn”, tìm kiếm toàn cục;
-  **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy” (câu xong chỉ còn 🔊 Nghe).
+- **3 tab (v2.9.0)**: **Ghép câu 🧩** (16 cây / 4 nhóm) · **Từ vựng 📚** (747 từ: 186 biên tập +
+  561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá) · **Ngữ pháp 📝** (23 điểm tối giản, ví dụ lấy
+  từ câu ghép được). Lịch sử: v2.0.0 từng thu hẹp còn 2 tab, bỏ cụm từ, sổ tay, quiz “Nghe & chọn”,
+  tìm kiếm toàn cục; **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy” (câu xong chỉ còn 🔊 Nghe).
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
   thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.266 câu có thể
   ghép** từ 16 cây; **130 từ biên tập + 39 từ N5** được dùng làm option. Trang chủ Ghép câu có
   **⚡ Chọn nhanh** (6 việc hay dùng → mở thẳng cây), nhóm đặt tên theo cảnh, cây trong nhóm
   xếp theo tần suất (thứ tự mảng trong `intents.json`).
-- **Liên kết hai tab**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
+- **Liên kết từ vựng ↔ builder**: thẻ từ vựng có chip “🧩 Ghép câu” trỏ tới các mục dùng từ đó
   (`data/builder-index.js`, sinh tự động).
 - **Nghe & đáp 🗣️**: 3 tình huống **nhân viên nói trước** (nhà hàng, cửa hàng, khách sạn) kèm câu
   đáp; câu ghép xong có thêm gợi ý “Người Nhật có thể nói” cho i-please / i-where / i-hotel / i-pay.
@@ -29,8 +29,9 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md).
 - **PWA offline**: `sw.js` network-first cho HTML, cache-first cho assets, fonts SWR.
 - **Giao diện**: nền sáng là mặc định (không theo `prefers-color-scheme`), có nút 🌙/☀️ ở header
   nhớ lựa chọn trong `localStorage` (`qj-theme`); màu accent/vai trò đạt tương phản AA.
-- Kiểm thử chuẩn: `npm run build` chạy `tools/audit.js` soát **toàn bộ 1.266 đường ghép câu**;
-  vẫn 🎲 vài cây để kiểm UI/TTS, thẻ N5 hiện ví dụ + trọng âm, không lỗi JS.
+- Kiểm thử chuẩn: `npm run build` chạy `tools/audit.js` soát **toàn bộ 1.266 đường ghép câu** +
+  dữ liệu ngữ pháp; vẫn 🎲 vài cây để kiểm UI/TTS, mở tab Ngữ pháp, thẻ N5 hiện ví dụ + trọng âm,
+  không lỗi JS.
 
 ## 1. Lệnh thường dùng
 
@@ -52,13 +53,14 @@ index.html                 entry; load data/*.js rồi assets/js/app.js, builder
 manifest.webmanifest       PWA manifest
 sw.js                      service worker (đổi VERSION mỗi lần release app/data)
 assets/css/style.css       design system + màu vai trò (--rl-*)
-assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + chủ đề sáng/tối + PWA register
+assets/js/app.js           3 tab: Ghép câu, Từ vựng, Ngữ pháp + TTS + chủ đề sáng/tối + PWA register
 assets/js/assemble.js      logic ráp câu thuần (không DOM) — builder + audit dùng chung
 assets/js/builder.js       engine builder (cây ý định, structure panel, GROUP_ORDER)
-data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, exchanges, numbers
+data/source/*.json         dữ liệu gốc: vocab, vocab-n5, vocab-n5-examples, accents, intents, exchanges, grammar, numbers
 data/*.js                  SINH TỰ ĐỘNG — không sửa tay; vocab-n5.js tải nền, không có trong index.html;
                            builder-index.js: từ vựng → mục ghép câu dùng từ đó (chip ở tab Từ vựng);
-                           exchanges.js: tình huống “nhân viên nói trước” (module Nghe & đáp)
+                           exchanges.js: tình huống “nhân viên nói trước” (module Nghe & đáp);
+                           grammar.js: điểm ngữ pháp + ví dụ cho tab Ngữ pháp
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           từ điển + tokenizer DP bóc tách câu
 tools/build.js             validate + enrich + xuất data/*.js
@@ -156,6 +158,22 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   `SPOKEN_EXTRA` trong `tools/build.js` (không đụng lexicon builder) hoặc ghi đè tay khi cần.
 - Audit kiểm mỗi tình huống có id/label, mỗi câu đủ dữ liệu + đã enrich.
 
+### Ngữ pháp tối giản — `data/source/grammar.json`
+```jsonc
+{
+  "id": "particle-wa", "level": "basic",           // basic = cần ngay, plus = nên biết thêm
+  "title": "は — trợ từ chủ đề (đọc là 'oa')",
+  "summary": "câu tóm tắt hiện khi thu gọn",
+  "detail": "giải thích ngắn khi mở ra",
+  "examples": [ { "jp": "これはいくらですか", "kana": "これはいくらですか", "vi": "Cái này bao nhiêu tiền?" } ]
+}
+```
+- Tab 📝 Ngữ pháp đọc `window.QJ.grammar.points`; ví dụ lấy từ chính câu tab Ghép câu ráp được.
+- `jp/kana/vi` bắt buộc; `roma`/`viPron` do build sinh bằng lexicon riêng (curated + toàn bộ N5 +
+  `SPOKEN_EXTRA` + `GRAMMAR_EXTRA`) nên は→oa, へ→ê, を→ô đúng. Thêm từ mới cho ví dụ vào
+  `GRAMMAR_EXTRA` trong `tools/build.js`; ghi đè tay chỉ khi thật cần.
+- Audit kiểm id duy nhất, level hợp lệ, đủ title/summary/detail và ví dụ đã enrich.
+
 ### Thêm từ cho bộ tách câu — `tools/segment.js`
 - Thêm vào `EXPRESSIONS` (kana/jp/vi/note/role) và `EXPR_ROLE` nếu là danh từ/động từ/tính từ/trạng từ.
   Sau đó build lại để câu cố định được tách mảnh.
@@ -192,13 +210,14 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
 ## 5. Kiểm thử & deploy
 
 1. `npm run build` — build phải **0 cảnh báo** (còn vài ghi chú thống kê: ví dụ N5, N5 refs trong
-   builder, trọng âm); `tools/audit.js` phải **0 lỗi** (soát toàn bộ đường ghép câu) và nên 0 cảnh báo.
+   builder, ngữ pháp, trọng âm); `tools/audit.js` phải **0 lỗi** (soát toàn bộ đường ghép câu + dữ
+   liệu ngữ pháp) và nên 0 cảnh báo.
 2. `node --check` các file JS đã sửa.
-3. Mở app (nhớ xoá SW khi test): kiểm 2 tab, **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
+3. Mở app (nhớ xoá SW khi test): kiểm 3 tab, **Ghép câu** (chạy ngẫu nhiên vài cây, câu cố định
    hiện bảng cấu trúc, câu xong hiện **replies** nếu có), **Nghe & đáp** ở trang chủ (mở 1 tình
    huống, kiểm furigana/phiên âm/nút 🔊), **Từ vựng** (chip lọc, phân trang, tìm kiếm, câu ví dụ +
-   🔊, trọng âm `[n]` + gạch trên + ↓, thẻ N5 tải nền), nút 🔊, nút 🌙 đổi nền tối
-   (nhớ lựa chọn, mặc định sáng), không lỗi JS.
+   🔊, trọng âm `[n]` + gạch trên + ↓, thẻ N5 tải nền), **Ngữ pháp** (mở vài điểm, kiểm ví dụ +
+   🔊 + phiên âm trợ từ), nút 🔊, nút 🌙 đổi nền tối (nhớ lựa chọn, mặc định sáng), không lỗi JS.
 4. Release regression: `npm run audit` đã phủ **toàn bộ 1.266 đường**; vẫn nên 🎲 vài cây để kiểm
    UI, TTS và bảng cấu trúc.
 5. `git push origin main` → GitHub Pages tự build. Kiểm tra:
@@ -236,6 +255,10 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   tàu (Tokyo/Kyoto/Osaka/Shinjuku, bỏ khách sạn/đền/chùa/chợ/onsen), thêm 晴れ/曇り; bỏ câu trùng
   医者を呼んでください (giữ ở i-health); mặc định bước chủ ngữ = “Không cần chủ ngữ”.
   Tổng: **16 cây, 1.266 câu**.
+- **v2.9.0** thêm lại **📝 Ngữ pháp tối giản**: 23 điểm (19 cơ bản + 4 nên biết) từ dữ liệu cũ trong
+  git history, viết lại ví dụ theo đúng câu builder ráp được; `data/source/grammar.json` →
+  `data/grammar.js`; build sinh roma/phiên âm bằng lexicon riêng (`GRAMMAR_EXTRA`), audit kiểm luôn.
+  Tab thứ 3 trong thanh dưới; SW cache `qj-v2.9.0`.
 - Việc còn lại:
   1. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
@@ -295,3 +318,6 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   kê 一つ/二つ/三つ; build nở từ `numbers.json` nên cách đọc biến âm (いっぱい, さんばい, よんはい)
   và phiên âm luôn khớp tab Từ vựng. Thêm lượng từ mới = sửa `numbers.json` rồi `npm run build`;
   chỉ dùng `counter`/`counts`/`next`, không kèm `ref`/`jp`/`kana` (build báo lỗi).
+- **Trả lại ngữ pháp ở dạng tối giản (v2.9.0)**: tab Ngữ pháp đầy đủ đã bỏ từ v2.0.0, nay chỉ dựng
+  lại 23 điểm cần nhất (trợ từ + mẫu câu hay gặp trong builder) với ví dụ lấy từ chính câu ghép
+  được; dữ liệu đi qua build + audit như mọi nguồn khác, không thêm tính năng quiz/tìm kiếm.

@@ -1,0 +1,276 @@
+{
+  "note": "Ngữ pháp tối giản: các trợ từ và mẫu câu xuất hiện nhiều nhất trong tab Ghép câu. level: basic = cần ngay, plus = nên biết thêm. Ví dụ lấy từ chính các câu app ghép được (kana dùng để build sinh roma + phiên âm, có xử lý riêng trợ từ は/へ/を).",
+  "points": [
+    {
+      "id": "sov",
+      "level": "basic",
+      "title": "Trật tự câu: động từ nằm cuối (SOV)",
+      "summary": "Tiếng Nhật xếp theo thứ tự Ai – Cái gì – Làm gì. Động từ luôn đứng cuối câu.",
+      "detail": "Tiếng Việt nói 'Tôi ăn cơm' (chủ ngữ – động từ – tân ngữ), tiếng Nhật nói わたしは ごはんを 食べます (chủ ngữ – tân ngữ – động từ). Các trợ từ (は, を, に…) đứng ngay sau từ mà nó đánh dấu, giống như đuôi từ chứ không đứng trước như giới từ tiếng Việt. Chỉ cần nhớ: phần 'làm gì' luôn kết thúc câu.",
+      "examples": [
+        { "jp": "水が飲みたいです", "kana": "みずがのみたいです", "vi": "Tôi muốn uống nước." },
+        { "jp": "駅に行きたいです", "kana": "えきにいきたいです", "vi": "Tôi muốn đi đến ga." }
+      ]
+    },
+    {
+      "id": "desu",
+      "level": "basic",
+      "title": "です — 'là / thì' một cách lịch sự",
+      "summary": "Nối A với B: A は B です. Không chia theo ngôi, chỉ đổi theo thì và phủ định.",
+      "detail": "Phủ định: じゃないです hoặc ではありません. Quá khứ: でした; quá khứ phủ định: じゃなかったです. Trong câu thân mật có thể thay bằng だ, nhưng đi du lịch cứ dùng です cho an toàn.",
+      "examples": [
+        { "jp": "私はベトナム人です", "kana": "わたしはベトナムじんです", "vi": "Tôi là người Việt Nam." },
+        { "jp": "あれは高いです", "kana": "あれはたかいです", "vi": "Cái kia đắt." },
+        { "jp": "これは何ですか", "kana": "これはなんですか", "vi": "Cái này là gì?" }
+      ]
+    },
+    {
+      "id": "masu-form",
+      "level": "basic",
+      "title": "Thể ます của động từ (lịch sự)",
+      "summary": "Dạng động từ an toàn nhất cho du khách: 食べます (ăn), 飲みます (uống), 行きます (đi). Phủ định ません, quá khứ ました.",
+      "detail": "ます dùng cho cả hiện tại và tương lai. 食べません = không ăn; 食べました = đã ăn; 〜ています = đang… / đã… (予約しています = tôi có đặt trước). Thể từ điển (食べる) dùng với bạn bè hoặc trong cấu trúc ngữ pháp; khách du lịch nên dùng ます trong mọi tình huống.",
+      "examples": [
+        { "jp": "この電車は東京に行きますか", "kana": "このでんしゃはとうきょうにいきますか", "vi": "Tàu này có đi Tokyo không?" },
+        { "jp": "エアコンが動きません", "kana": "エアコンがうごきません", "vi": "Điều hòa không chạy." },
+        { "jp": "予約しています", "kana": "よやくしています", "vi": "Tôi có đặt phòng trước." }
+      ]
+    },
+    {
+      "id": "particle-wa",
+      "level": "basic",
+      "title": "は — trợ từ chủ đề (đọc là 'oa')",
+      "summary": "Đặt sau thứ mình đang muốn nói tới, nghĩa như 'Còn về … thì'. Đây là trợ từ bạn dùng nhiều nhất.",
+      "detail": "Viết là は nhưng đọc là 'oa'. Nó đánh dấu 'chủ đề' của câu chuyện chứ không nhất thiết là chủ ngữ ngữ pháp. Khi cả hai đã biết đang nói về ai/cái gì, người Nhật thường lược bỏ luôn chủ ngữ và trợ từ này — vì thế đừng ngạc nhiên khi nghe câu 'thiếu chủ ngữ'.",
+      "examples": [
+        { "jp": "これはいくらですか", "kana": "これはいくらですか", "vi": "Cái này bao nhiêu tiền?" },
+        { "jp": "トイレはどこですか", "kana": "トイレはどこですか", "vi": "Nhà vệ sinh ở đâu?" },
+        { "jp": "この電車は東京に行きますか", "kana": "このでんしゃはとうきょうにいきますか", "vi": "Tàu này có đi Tokyo không?" }
+      ]
+    },
+    {
+      "id": "particle-ga",
+      "level": "basic",
+      "title": "が — trợ từ chủ ngữ / 'thứ được'",
+      "summary": "Đánh dấu người/vật thực hiện hành động hoặc mới xuất hiện; cũng dùng cho thứ mình thích, muốn, hiểu được.",
+      "detail": "Phân biệt nhanh: は = 'còn về…' (thông tin đã biết), が = 'chính là…' (thông tin mới, nhấn mạnh). Với các từ 好き (thích), わかる (hiểu), あります/います (có), và với 〜たい (muốn), đối tượng thường dùng が: 水が飲みたいです = tôi muốn uống nước.",
+      "examples": [
+        { "jp": "お腹が痛いです", "kana": "おなかがいたいです", "vi": "Tôi bị đau bụng." },
+        { "jp": "すしが好きです", "kana": "すしがすきです", "vi": "Tôi thích sushi." },
+        { "jp": "英語が話せます", "kana": "えいごがはなせます", "vi": "Tôi nói được tiếng Anh." }
+      ]
+    },
+    {
+      "id": "particle-wo",
+      "level": "basic",
+      "title": "を — trợ từ tân ngữ (đọc là 'ô')",
+      "summary": "Đặt sau đồ vật/đối tượng mà hành động hướng tới: ăn gì, uống gì, mua gì…",
+      "detail": "Viết là を nhưng đọc là 'ô'. Công thức: [đồ vật] を [động từ]. Ví dụ 水をください = cho tôi nước; これをください = cho tôi cái này.",
+      "examples": [
+        { "jp": "これをください", "kana": "これをください", "vi": "Cho tôi cái này." },
+        { "jp": "お会計をお願いします", "kana": "おかいけいをおねがいします", "vi": "Cho tôi thanh toán." },
+        { "jp": "写真を撮ってください", "kana": "しゃしんをとってください", "vi": "Làm ơn chụp ảnh giúp." }
+      ]
+    },
+    {
+      "id": "particle-ni",
+      "level": "basic",
+      "title": "に — hướng đến / thời điểm / nơi tồn tại",
+      "summary": "Gắn sau đích đến, mốc thời gian, hoặc nơi có một vật gì đó.",
+      "detail": "駅に行きます = đi đến ga; 3時に = lúc 3 giờ; ここに置きます = để ở đây. に rất đa năng — cứ nhớ nghĩa cốt lõi là 'hướng tới một điểm'.",
+      "examples": [
+        { "jp": "駅に行きたいです", "kana": "えきにいきたいです", "vi": "Tôi muốn đi đến ga." },
+        { "jp": "この電車は東京に行きますか", "kana": "このでんしゃはとうきょうにいきますか", "vi": "Tàu này có đi Tokyo không?" },
+        { "jp": "荷物をここに置いてもいいですか", "kana": "にもつをここにおいてもいいですか", "vi": "Tôi để hành lý ở đây được không?" }
+      ]
+    },
+    {
+      "id": "particle-de",
+      "level": "basic",
+      "title": "で — nơi diễn ra hành động / phương tiện",
+      "summary": "Hành động xảy ra ở đâu, hoặc làm bằng gì: 店で買います = mua ở cửa hàng, カードで = bằng thẻ.",
+      "detail": "Phân biệt với に: に là 'đi đến đâu' (đích đến), で là 'làm gì ở đâu' (bối cảnh hành động). Cũng dùng で khi nói phương tiện/ngôn ngữ: 日本語で = bằng tiếng Nhật.",
+      "examples": [
+        { "jp": "カードでお願いします", "kana": "カードでおねがいします", "vi": "Trả bằng thẻ." },
+        { "jp": "日本語でお願いします", "kana": "にほんごでおねがいします", "vi": "Làm ơn nói tiếng Nhật." },
+        { "jp": "地図で指してください", "kana": "ちずでさしてください", "vi": "Làm ơn chỉ trên bản đồ." }
+      ]
+    },
+    {
+      "id": "kudasai-onegai",
+      "level": "basic",
+      "title": "ください và お願いします — hai cách nhờ vả",
+      "summary": "〜をください = cho tôi…; 〜をお願いします = làm ơn… (mềm hơn, dùng rộng rãi).",
+      "detail": "ください xuất phát từ động từ 'cho'; お願いします nghĩa 'xin nhờ' — dùng được ở quầy lễ tân, nhà hàng, taxi. お会計をお願いします = làm ơn cho thanh toán. Cả hai đều đứng cuối câu.",
+      "examples": [
+        { "jp": "これをください", "kana": "これをください", "vi": "Cho tôi cái này." },
+        { "jp": "お会計をお願いします", "kana": "おかいけいをおねがいします", "vi": "Làm ơn cho thanh toán." },
+        { "jp": "駅までお願いします", "kana": "えきまでおねがいします", "vi": "Làm ơn đưa tôi đến ga." }
+      ]
+    },
+    {
+      "id": "question-ka",
+      "level": "basic",
+      "title": "Câu hỏi: か ở cuối câu + từ để hỏi",
+      "summary": "Chỉ cần thêm か vào cuối câu là thành câu hỏi. Từ hỏi (何, どこ, いくら…) đứng ngay trước か.",
+      "detail": "Không đảo trật tự từ như tiếng Việt. これは何ですか = 'cái này là gì?' — 何 đứng ngay trước ですか. Khi nói thân mật có thể chỉ lên giọng thay vì dùng か.",
+      "examples": [
+        { "jp": "これは何ですか", "kana": "これはなんですか", "vi": "Cái này là gì?" },
+        { "jp": "これはいくらですか", "kana": "これはいくらですか", "vi": "Cái này bao nhiêu tiền?" },
+        { "jp": "駅はどこですか", "kana": "えきはどこですか", "vi": "Ga tàu ở đâu?" }
+      ]
+    },
+    {
+      "id": "te-kudasai",
+      "level": "basic",
+      "title": "〜てください — 'làm ơn hãy…'",
+      "summary": "Nhờ ai làm gì một cách lịch sự: 話してください = làm ơn nói; 待ってください = làm ơn đợi.",
+      "detail": "Động từ chuyển sang thể て rồi thêm ください. Nếu muốn nhẹ nhàng hơn, dùng 〜てもらえますか (…giúp tôi được không?) khi nhờ việc hơi lớn.",
+      "examples": [
+        { "jp": "ゆっくり話してください", "kana": "ゆっくりはなしてください", "vi": "Làm ơn nói chậm." },
+        { "jp": "ここに書いてください", "kana": "ここにかいてください", "vi": "Làm ơn viết ra đây." },
+        { "jp": "ちょっと待ってください", "kana": "ちょっとまってください", "vi": "Làm ơn đợi một chút." }
+      ]
+    },
+    {
+      "id": "tai",
+      "level": "basic",
+      "title": "〜たいです — 'muốn làm gì'",
+      "summary": "Gắn たい vào gốc ます của động từ: 食べたい (muốn ăn), 行きたい (muốn đi).",
+      "detail": "たい được chia như tính từ đuôi い. Đối tượng thường đánh dấu bằng が: 水が飲みたいです = tôi muốn uống nước (を vẫn chấp nhận). Phủ định: 〜たくないです. Lưu ý たい chỉ dùng cho mong muốn của chính mình.",
+      "examples": [
+        { "jp": "すしが食べたいです", "kana": "すしがたべたいです", "vi": "Tôi muốn ăn sushi." },
+        { "jp": "お土産が買いたいです", "kana": "おみやげがかいたいです", "vi": "Tôi muốn mua quà lưu niệm." },
+        { "jp": "お酒が飲みたいです", "kana": "おさけがのみたいです", "vi": "Tôi muốn uống rượu." }
+      ]
+    },
+    {
+      "id": "suki",
+      "level": "basic",
+      "title": "好き / 嫌い — thích và ghét",
+      "summary": "Thứ mình thích đánh dấu bằng が: すしが好きです = tôi thích sushi.",
+      "detail": "好き (thích) và 嫌い (ghét) là tính từ đuôi な, không phải động từ. Phủ định: 好きじゃないです. Mạnh hơn: 大好きです = rất thích; 大嫌いです = rất ghét.",
+      "examples": [
+        { "jp": "日本が好きです", "kana": "にほんがすきです", "vi": "Tôi thích Nhật Bản." },
+        { "jp": "コーヒーが好きです", "kana": "コーヒーがすきです", "vi": "Tôi thích cà phê." }
+      ]
+    },
+    {
+      "id": "adj",
+      "level": "basic",
+      "title": "Tính từ đuôi い và đuôi な",
+      "summary": "い-adj (高い, 美味しい…) tự chia được; な-adj (きれい, 好き…) cần な khi bổ nghĩa cho danh từ.",
+      "detail": "Phủ định: 高い → 高くないです; きれい → きれいじゃないです. Khi đứng trước danh từ: 高い店 = cửa hàng đắt, きれいな店 = cửa hàng đẹp. Đây là điểm khác biệt lớn nhất giữa hai loại tính từ.",
+      "examples": [
+        { "jp": "これは高いです", "kana": "これはたかいです", "vi": "Cái này đắt." },
+        { "jp": "カレーは辛いです", "kana": "カレーはからいです", "vi": "Cà ri cay." },
+        { "jp": "ホテルはきれいです", "kana": "ホテルはきれいです", "vi": "Khách sạn đẹp." }
+      ]
+    },
+    {
+      "id": "te-mo-ii",
+      "level": "basic",
+      "title": "〜てもいいですか — '…có được không?'",
+      "summary": "Xin phép làm gì: 試着してもいいですか = tôi mặc thử được không?",
+      "detail": "Cấu trúc: thể て + もいいですか. Đồng ý: はい、いいですよ / どうぞ. Từ chối mềm: すみません、ちょっと…",
+      "examples": [
+        { "jp": "写真を撮ってもいいですか", "kana": "しゃしんをとってもいいですか", "vi": "Tôi chụp ảnh được không?" },
+        { "jp": "試着してもいいですか", "kana": "しちゃくしてもいいですか", "vi": "Tôi mặc thử được không?" },
+        { "jp": "入ってもいいですか", "kana": "はいってもいいですか", "vi": "Tôi vào được không?" }
+      ]
+    },
+    {
+      "id": "arimasu",
+      "level": "basic",
+      "title": "あります / います — 'có'",
+      "summary": "あります cho đồ vật, います cho người và con vật. Câu hỏi quen thuộc: 〜はありますか = có … không?",
+      "detail": "あります/います là động từ nhóm đặc biệt: đối tượng đứng trước được đánh dấu bằng が (hoặc は khi là chủ đề). Trong cửa hàng, nhà hàng, khách sạn, cứ dùng 〜はありますか để hỏi xem có gì đó không: 英語のメニューはありますか.",
+      "examples": [
+        { "jp": "風邪薬はありますか", "kana": "かぜぐすりはありますか", "vi": "Có thuốc cảm không?" },
+        { "jp": "おすすめはありますか", "kana": "おすすめはありますか", "vi": "Có món đáng thử không?" },
+        { "jp": "熱があります", "kana": "ねつがあります", "vi": "Tôi bị sốt." }
+      ]
+    },
+    {
+      "id": "kosoado",
+      "level": "basic",
+      "title": "Bộ こ・そ・あ・ど — chỉ trỏ",
+      "summary": "これ/それ/あれ (cái này/đó/kia), この/その/あの (…này/đó/kia), ここ/そこ/あそこ (chỗ này/đó/kia). ど… là dạng hỏi.",
+      "detail": "こ = gần người nói; そ = gần người nghe; あ = xa cả hai; ど = hỏi. Chỉ vào đồ thì dùng これ; nói kèm danh từ thì dùng この + danh từ: この店 = cửa hàng này (không được nói これ店).",
+      "examples": [
+        { "jp": "これをください", "kana": "これをください", "vi": "Cho tôi cái này." },
+        { "jp": "あれは何ですか", "kana": "あれはなんですか", "vi": "Cái kia là gì?" },
+        { "jp": "ここはどこですか", "kana": "ここはどこですか", "vi": "Đây là đâu?" }
+      ]
+    },
+    {
+      "id": "particle-no",
+      "level": "basic",
+      "title": "の — 'của' / nối hai danh từ",
+      "summary": "Nối danh từ với danh từ: 日本語のメニュー = thực đơn tiếng Nhật.",
+      "detail": "Công thức: A の B = B của A / B thuộc về A. Cũng dùng để bổ nghĩa: 私の友達 = bạn của tôi. Đừng nhầm với の cuối câu trong câu hỏi thân mật.",
+      "examples": [
+        { "jp": "英語のメニューはありますか", "kana": "えいごのメニューはありますか", "vi": "Có thực đơn tiếng Anh không?" },
+        { "jp": "私の友達", "kana": "わたしのともだち", "vi": "Bạn của tôi." }
+      ]
+    },
+    {
+      "id": "particle-mo-to",
+      "level": "basic",
+      "title": "も (cũng) và と (và / cùng)",
+      "summary": "も thay cho は/が khi thêm ý 'cũng'; と nối hai thứ hoặc nghĩa 'cùng với ai'.",
+      "detail": "これもください = cho tôi cái này nữa. 友達と行きます = đi cùng bạn. これとそれ = cái này và cái kia.",
+      "examples": [
+        { "jp": "これもください", "kana": "これもください", "vi": "Cho tôi cái này nữa." },
+        { "jp": "友達と行きます", "kana": "ともだちといきます", "vi": "Tôi đi cùng bạn." }
+      ]
+    },
+    {
+      "id": "particle-he",
+      "level": "plus",
+      "title": "へ (hướng về) và まで (đến tận)",
+      "summary": "へ gần giống に khi nói hướng đi ('về phía'); まで nhấn mạnh điểm đến cuối ('đến tận').",
+      "detail": "東京へ行きます = đi về phía Tokyo. Trong giao tiếp hằng ngày に phổ biến hơn; hiểu へ để không bối rối khi nghe hoặc đọc biển chỉ dẫn. まで hay gặp khi nhờ taxi: 駅までお願いします = làm ơn đưa tôi đến ga.",
+      "examples": [
+        { "jp": "駅までお願いします", "kana": "えきまでおねがいします", "vi": "Làm ơn đưa tôi đến ga." },
+        { "jp": "東京へ行きます", "kana": "とうきょうへいきます", "vi": "Tôi đi về phía Tokyo." }
+      ]
+    },
+    {
+      "id": "counters",
+      "level": "plus",
+      "title": "Đếm đồ vật: số + lượng từ",
+      "summary": "Tiếng Nhật luôn cần 'lượng từ' khi đếm: 一つ (cái chung), 枚 (tờ/miếng), 本 (chai/cây), 杯 (ly), 人 (người).",
+      "detail": "Cách đếm chung dễ nhất: 一つ, 二つ, 三つ (1–9). Mua sắm: これを二つください = cho tôi hai cái này. Nhớ các âm biến đổi thông dụng: 一本 (いっぽん, 1 chai), 一杯 (いっぱい, 1 ly), 一人 (ひとり), 二人 (ふたり), 三人 (さんにん).",
+      "examples": [
+        { "jp": "水を一杯ください", "kana": "みずをいっぱいください", "vi": "Cho tôi một ly nước." },
+        { "jp": "これを二つください", "kana": "これをふたつください", "vi": "Cho tôi hai cái này." },
+        { "jp": "二人です", "kana": "ふたりです", "vi": "Hai người." }
+      ]
+    },
+    {
+      "id": "potential",
+      "level": "plus",
+      "title": "Thể khả năng ngắn — 'có thể…'",
+      "summary": "話せます = nói được; 使えます = dùng được; できます = làm được (dạng 〜えます / 〜られます / できます).",
+      "detail": "Dạng lịch sự của thể khả năng: 使う → 使えます; 話す → 話せます; 食べる → 食べられます; する → できます. Người mới chỉ cần nhớ các cụm thông dụng: カードは使えますか (thẻ dùng được không), 英語が話せます (nói được tiếng Anh).",
+      "examples": [
+        { "jp": "カードは使えますか", "kana": "カードはつかえますか", "vi": "Dùng thẻ được không?" },
+        { "jp": "持ち帰りできますか", "kana": "もちかえりできますか", "vi": "Mang về được không?" },
+        { "jp": "処方箋なしで買えますか", "kana": "しょほうせんなしでかえますか", "vi": "Mua không cần đơn thuốc được không?" }
+      ]
+    },
+    {
+      "id": "te-kurete",
+      "level": "plus",
+      "title": "〜てくれてありがとうございます — cảm ơn vì đã…",
+      "summary": "Cảm ơn ai đó vì đã làm gì cho mình: động từ thể て + くれて + ありがとうございます.",
+      "detail": "Mẫu câu rất tự nhiên khi ai đó giúp mình: 教えてくれてありがとうございます = cảm ơn vì đã chỉ cho tôi. Dùng くれて (không phải て + あげて) vì hành động hướng về phía mình. Thân mật hơn có thể bỏ ございます.",
+      "examples": [
+        { "jp": "教えてくれてありがとうございます", "kana": "おしえてくれてありがとうございます", "vi": "Cảm ơn vì đã chỉ cho tôi." },
+        { "jp": "助けてくれてありがとうございます", "kana": "たすけてくれてありがとうございます", "vi": "Cảm ơn vì đã giúp tôi." },
+        { "jp": "来てくれてありがとうございます", "kana": "きてくれてありがとうございます", "vi": "Cảm ơn vì đã đến." }
+      ]
+    }
+  ]
+}

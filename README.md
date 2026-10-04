@@ -1,8 +1,9 @@
 # Quick Japanese 🗾
 
 **Ghép câu tiếng Nhật cho người Việt đi du lịch.** Chọn nghĩa theo từng bước, app ráp câu tiếng
-Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm và bóc tách câu; **nghe & đáp câu nhân viên
-nói trước**; tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ và pitch accent).
+Nhật đúng trợ từ, kèm phiên âm tiếng Việt, trọng âm, bóc tách câu và **ngữ pháp tối giản**;
+**nghe & đáp câu nhân viên nói trước**; tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ và
+pitch accent).
 
 🌐 **Dùng thử: <https://teefan.github.io/quick-japanese/>** · 📲 Cài như app (PWA) và dùng offline.
 
@@ -16,6 +17,9 @@ nói trước**; tra thêm 747 từ vựng (561 từ JLPT N5, có câu ví dụ 
 - 🔬 **Bóc tách câu**: câu ghép được chia thành các mảnh (từ + trợ từ) **tô màu theo vai trò
   ngữ pháp** (đại từ, danh từ, động từ, tính từ, trợ từ, です, số đếm…), kèm phiên âm Việt + romaji,
   nghĩa và loại từ/thể. Bộ tách từ nằm ở `tools/segment.js`.
+- 📝 **Ngữ pháp tối giản**: 23 điểm cần dùng ngay (は, が, を, に, で, です, ください, か,
+  〜てください, 〜たいです, 〜てもいいですか…) — giải thích ngắn, ví dụ lấy từ chính câu app ghép
+  được, kèm phiên âm + 🔊.
 - 🇻🇳 **Phiên âm tiếng Việt** trên mọi từ và câu (kiểu `xư-mi-ma-xen`, `côn-ni-chi-oa`) — kèm
   **romaji chính thức** (Hepburn) song song: `sumimasen`, `konnichiwa`.
 - 📚 **747 từ vựng** (186 từ du lịch biên tập tay + 561 từ JLPT N5 tải nền theo nhu cầu) —
@@ -51,17 +55,18 @@ index.html                 trang chính (load data + app)
 manifest.webmanifest       khai báo PWA (cài như app)
 sw.js                      service worker — cache offline
 assets/css/style.css       giao diện, mobile-first, có dark mode
-assets/js/app.js           2 tab: Ghép câu, Từ vựng + TTS + PWA
+assets/js/app.js           3 tab: Ghép câu, Từ vựng, Ngữ pháp + TTS + PWA
 assets/js/assemble.js      logic ráp câu thuần (builder + audit dùng chung)
 assets/js/builder.js       engine ghép câu (cây ý định thu hẹp dần)
 assets/icons/              icon PWA (SVG gốc + PNG 192/512)
-data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, nghe–đáp, số đếm)
+data/source/*.json         dữ liệu gốc để biên tập (từ vựng, vocab-n5, câu ví dụ N5, trọng âm, cây câu, nghe–đáp, ngữ pháp, số đếm)
 data/*.js                  dữ liệu đã sinh — window.QJ.* (đừng sửa tay); vocab-n5.js tải theo nhu cầu,
-                           builder-index.js nối từ vựng với mục ghép câu, exchanges.js cho mục Nghe & đáp
+                           builder-index.js nối từ vựng với mục ghép câu, exchanges.js cho mục Nghe & đáp,
+                           grammar.js cho tab Ngữ pháp
 tools/kana.js              kana → romaji / phiên âm Việt / chia động từ
 tools/segment.js           bóc tách câu: từ điển + tokenizer DP
 tools/build.js             kiểm tra + làm giàu dữ liệu, xuất data/*.js
-tools/audit.js             soát toàn bộ đường ghép câu + nhất quán cây (chạy trong npm run build)
+tools/audit.js             soát toàn bộ đường ghép câu + nhất quán cây/dữ liệu ngữ pháp (chạy trong npm run build)
 docs/PLAN.md               kế hoạch tổng thể, thiết kế dữ liệu, lộ trình
 docs/DEV-CONTEXT.md        bối cảnh & hướng dẫn cho phiên phát triển mới (đọc trước khi code)
 docs/PRONUNCIATION.md      quy ước phiên âm tiếng Việt

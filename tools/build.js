@@ -224,6 +224,11 @@ const SPOKEN_EXTRA = [
   { pos: "expression", kana: "ごいっしょ", jp: "ご一緒", vi: "cùng nhau (lịch sự)" },
 ];
 
+/* Từ/cụm chỉ dùng cho ví dụ ngữ pháp — không đụng lexicon builder hay câu nói */
+const GRAMMAR_EXTRA = [
+  { pos: "expression", kana: "くれて", jp: "くれて", vi: "đã… cho tôi (thể て của くれる)" },
+];
+
 /* Làm giàu một câu nói (replies / nghe–đáp): tách mảnh để đọc đúng は→oa, へ→ê.
    Chỉ ghi đè roma/viPron khi tác giả đã đặt tay. */
 function enrichSpoken(line, lex) {
@@ -468,6 +473,34 @@ function buildExchanges(lex) {
   return { scenarios };
 }
 
+/* ------------------------------ Ngữ pháp ------------------------------ */
+
+/* Điểm ngữ pháp tối giản (tab Ngữ pháp). Ví dụ được sinh roma + phiên âm Việt
+   bằng lexicon riêng (curated + N5 + cụm nói) nên đọc đúng trợ từ は/へ/を
+   mà không đụng cách tách câu của builder. */
+function buildGrammar(lex) {
+  const src = read("grammar.json");
+  const seen = new Set();
+  const points = src.points.map((g) => {
+    if (!g.id || !g.title || !g.summary || !g.detail) {
+      throw new Error(`Điểm ngữ pháp thiếu id/title/summary/detail: ${JSON.stringify(g.id || g)}`);
+    }
+    if (seen.has(g.id)) throw new Error(`Trùng id ngữ pháp: ${g.id}`);
+    seen.add(g.id);
+    if (g.level !== "basic" && g.level !== "plus") {
+      throw new Error(`Ngữ pháp ${g.id}: level phải là "basic" hoặc "plus"`);
+    }
+    const examples = (g.examples || []).map((e) => {
+      if (!e.jp || !e.kana || !e.vi) throw new Error(`Ngữ pháp ${g.id}: ví dụ thiếu jp/kana/vi`);
+      return enrichSpoken(e, lex);
+    });
+    return { ...g, examples };
+  });
+  const basic = points.filter((p) => p.level === "basic").length;
+  note(`Ngữ pháp: ${points.length} điểm (${basic} cơ bản, ${points.length - basic} nên biết)`);
+  return { points };
+}
+
 /* ------------------------------ Xuất file ------------------------------ */
 
 /* Bỏ field rỗng (app dùng kiểm tra truthy) để giảm dung lượng */
@@ -502,6 +535,12 @@ function main() {
   const built = buildIntents(vocab.byId, vocabN5, numbers, spokenLex);
   const intents = { intents: built.intents };
   const exchanges = buildExchanges(spokenLex);
+  /* Lexicon cho ví dụ ngữ pháp: curated + toàn bộ N5 + cụm nói (chỉ để sinh phiên âm). */
+  const grammarLex = buildLexicon(
+    Object.values(vocab.byId).concat(vocabN5, SPOKEN_EXTRA, GRAMMAR_EXTRA, EXAMPLE_EXTRA_KANA.map((k) => ({ pos: "expression", kana: k, jp: k, vi: "" }))),
+    numbers
+  );
+  const grammar = buildGrammar(grammarLex);
 
   /* Trọng âm (pitch accent) Kanjium — gắn theo id vào cả từ biên tập lẫn N5 */
   const accentMap = read("accents.json").items;
@@ -521,6 +560,7 @@ function main() {
   writeData("numbers", numbers);
   writeData("intents", intents);
   writeData("exchanges", exchanges);
+  writeData("grammar", grammar);
   const builderIndex = buildBuilderIndex(intents.intents);
   writeData("builderIndex", builderIndex, "builder-index");
 
@@ -534,6 +574,7 @@ function main() {
       intents: intents.intents.length,
       builderWords: Object.keys(builderIndex).length,
       counters: numbers.counters.length,
+      grammar: grammar.points.length,
       scenarios: exchanges.scenarios.length,
       exchanges: exchanges.scenarios.reduce((n, s) => n + s.exchanges.length, 0),
     },

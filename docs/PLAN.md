@@ -4,21 +4,20 @@ A survival-Japanese tool for Vietnamese travelers: open the page, find or build 
 sentence, read the Vietnamese-approximated pronunciation, and say it to a local. Static site,
 no server, deployable on GitHub Pages.
 
-> **Current status (v2.8.0)** — live at <https://teefan.github.io/quick-japanese/>:
-> **2 tabs: 🧩 Ghép câu + 📚 Từ vựng, plus 🗣️ Nghe & đáp.** 16 intent trees (4 groups) ·
+> **Current status (v2.9.0)** — live at <https://teefan.github.io/quick-japanese/>:
+> **3 tabs: 🧩 Ghép câu + 📚 Từ vựng + 📝 Ngữ pháp, plus 🗣️ Nghe & đáp.** 16 intent trees (4 groups) ·
 > **1,266 combinable sentences** (130 curated + 39 N5 words as options) · 747 words (186 curated
-> + 561 N5, lazy-loaded) · 460 N5 example sentences (Tatoeba) · 726 pitch accents (Kanjium)
-> · 6 counters (1–10) wired into the builder · vocabulary cards link back into the builder
-> (`data/builder-index.js`) · 3 staff-first scenarios (20 exchanges) + likely replies on 4 intents.
-> New in v2.8.0: **⚡ Chọn nhanh** chips on the builder home (6 goals → trees); groups renamed to
-> scene-first labels (Giao tiếp cơ bản · Ăn uống, mua sắm & thanh toán · Đi lại & khách sạn ·
-> Sự cố & sức khỏe); trees ordered by frequency inside groups; i-can narrowed to permission
-> (service questions moved to i-pay/i-shop); i-feel split into “Món ăn” and “Đồ uống / tráng miệng”
-> with curated adjectives; real counters in “Cho tôi…” (つ/杯 1–5 from `numbers.json`); train
-> destinations limited to Tokyo/Kyoto/Osaka/Shinjuku/station/airport; weather small talk adds
-> 晴れ/曇り; duplicate 医者を呼んでください removed.
-> PWA cache `qj-v2.8.0`. Regression: `npm run audit` walks all **1,266 paths** + all spoken
-> lines (0 errors), no JS errors.
+> + 561 N5, lazy-loaded) · **23 grammar points** · 460 N5 example sentences (Tatoeba) · 726 pitch
+> accents (Kanjium) · 6 counters (1–10) wired into the builder · vocabulary cards link back into the
+> builder (`data/builder-index.js`) · 3 staff-first scenarios (20 exchanges) + likely replies on
+> 4 intents.
+> New in v2.9.0: **📝 Ngữ pháp tối giản** — 23 essential points (は, が, を, に, で, です, ください,
+> か, 〜てください, 〜たいです, 〜てもいいですか, 〜てくれてありがとう…) with short explanations and
+> examples taken from the buildable sentences, Vietnamese pronunciation + romaji + 🔊; data in
+> `data/source/grammar.json`, checked by `tools/audit.js`. v2.8.0 brought ⚡ Chọn nhanh chips,
+> scene-first groups and real counters in “Cho tôi…”.
+> PWA cache `qj-v2.9.0`. Regression: `npm run audit` walks all **1,266 paths** + all spoken lines +
+> all grammar examples (0 errors), no JS errors.
 > **Light theme by default** (washi–sakura–indigo); a 🌙/☀️ toggle remembers dark mode.
 > **v2.0.0 narrowed the product**: phrases, notebook, grammar, quiz and global search were removed;
 > **v2.4.0** also removed show-to-local and copy (finished sentences keep only 🔊 Nghe) — all
@@ -41,8 +40,9 @@ replies. Communication is mostly one-way: traveler speaks Japanese → local und
 3. “I want to understand why the sentence looks like that.” → the builder shows its grammatical
    composition (particles, roles) right under the sentence.
 
-**Non-goals (v2).** No phrasebook tab, no favorites/notebook, no grammar reference tab,
-no quiz, no global search, no account, no backend, no ads, no tracking.
+**Non-goals (v2).** No phrasebook tab, no favorites/notebook, no **full** grammar reference tab
+(a minimal 23-point grammar tab returned in v2.9.0), no quiz, no global search, no account,
+no backend, no ads, no tracking.
 
 **Success signals.** Time-to-first-sentence < 15s; a traveler can order food, shop, ask
 directions, refuse politely, and ask for help; initial payload < 500 KB (≈ 435 KB; danh sách
@@ -111,13 +111,19 @@ Nghe & đáp 🗣️  3 scenarios where staff speak first (restaurant, shop, hot
                line has furigana + Vietnamese pronunciation + 🔊 and suggested answers;
                built sentences in i-please / i-where / i-hotel also show likely “replies”
 
-Từ vựng 📚     744 words (183 curated + 561 N5 lazy) + counters 1–10 + money chips,
+Từ vựng 📚     747 words (186 curated + 561 N5 lazy) + counters 1–10 + money chips,
                tag filters, paginated list, search, example sentences, pitch accents;
                cards link to the builder intents that use the word
+
+Ngữ pháp 📝     23 essential points in 2 levels (Cần ngay / Nên biết thêm): particles は/が/を/に/で,
+               です・ます, ください・お願いします, question か, 〜てください, 〜たいです,
+               〜てもいいですか, counters, potential, 〜てくれてありがとう…; each point has a short
+               explanation + examples from buildable sentences with Vietnamese pronunciation and 🔊
 ```
 
 Removed in v2.0.0 (recoverable from git history): Cụm từ 📖 (phrases), Sổ tay ⭐ (favorites +
-export/import), Ngữ pháp 📝 (grammar reference), Nghe & chọn 🎧 (quiz), Tìm kiếm 🔍 (global search).
+export/import), Ngữ pháp 📝 (full grammar reference — replaced by the minimal tab in v2.9.0),
+Nghe & chọn 🎧 (quiz), Tìm kiếm 🔍 (global search).
 
 ---
 
@@ -180,6 +186,14 @@ segmentation). A counter option (`{ "counter": "c-hai", "counts": [1, 2, 3, 4, 5
 at build time from `numbers.json` into fixed options with the correct reading and pronunciation
 (いっぱい, さんばい…), so the builder and the Từ vựng tab share one source for counters.
 Validation at build time: unique IDs, all `ref`/`counter` exist, all `next` steps exist.
+
+### 5.4 Grammar (`data/source/grammar.json`)
+
+Minimal reference behind the 📝 Ngữ pháp tab: `points[]` with `id`, `level` (`basic` = cần ngay,
+`plus` = nên biết thêm), `title`, `summary`, `detail` and `examples[]` (`jp`/`kana`/`vi`). The build
+generates `roma` + `viPron` for every example with a dedicated lexicon (curated + all N5 + spoken
+extras) so particles は/へ/を read correctly, and `tools/audit.js` validates ids, levels, required
+fields and enriched examples. Examples are drawn from the sentences the builder can assemble.
 
 ---
 
@@ -332,17 +346,18 @@ manifest.webmanifest       PWA manifest (installable app)
 sw.js                      service worker: network-first HTML, cache-first assets, fonts SWR
 assets/icons/              PWA icons (source SVG + 192/512 PNG)
 assets/css/style.css       design system, light/dark, mobile-first
-assets/js/app.js           2 tabs (Ghép câu, Từ vựng), TTS, PWA register
+assets/js/app.js           3 tabs (Ghép câu, Từ vựng, Ngữ pháp), TTS, PWA register
 assets/js/assemble.js      pure sentence assembly (shared by builder + tools/audit.js)
 assets/js/builder.js       narrowing builder engine (intent trees)
-data/source/*.json         authoring data (vocab, vocab-n5, vocab-n5-examples, accents, intents, numbers)
+data/source/*.json         authoring data (vocab, vocab-n5, vocab-n5-examples, accents, intents, exchanges, grammar, numbers)
 tools/kana.js              kana → romaji / Vietnamese pronunciation / conjugation
 tools/segment.js           sentence dissection: lexicon + weighted DP tokenizer
 tools/build.js             validates + enriches sources → data/*.js
-tools/audit.js             walks every buildable sentence path; run by npm run build
+tools/audit.js             walks every buildable sentence path + grammar data; run by npm run build
 data/*.js                  generated, loaded as window.QJ.* (works over file:// too);
                            vocab-n5.js is injected on idle by app.js (561 từ, lazy);
-                           builder-index.js maps vocabulary ids → builder intents
+                           builder-index.js maps vocabulary ids → builder intents;
+                           grammar.js feeds the Ngữ pháp tab
 docs/                      this plan + DEV-CONTEXT + pronunciation spec + screenshot
 ```
 
@@ -354,9 +369,9 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + screen
 - **Offline (Phase 1, done)**: `sw.js` is network-first for page navigations (new versions show
   up immediately when online) and cache-first with background refresh for assets; Google Fonts
   use stale-while-revalidate. Installable via `manifest.webmanifest`.
-- **Performance budget**: initial payload ≈ 95 KB of data (vocab + numbers + intents, compact JSON)
-  + lazy N5 list ≈ 264 KB with examples and accents; fonts optional via Google Fonts with system
-  fallbacks; vocab list paginates at 60 cards.
+- **Performance budget**: initial payload ≈ 286 KB of data (vocab + numbers + intents + exchanges +
+  grammar + builder-index, compact JSON) + lazy N5 list ≈ 264 KB with examples and accents; fonts
+  optional via Google Fonts with system fallbacks; vocab list paginates at 60 cards.
 - **GitHub Pages deploy**: push to `main`, Settings → Pages → Deploy from branch `/root`
   (already live at <https://teefan.github.io/quick-japanese/>).
 
@@ -383,7 +398,7 @@ docs/                      this plan + DEV-CONTEXT + pronunciation spec + screen
 | **0 — initial (v0.1)** | Data pipeline, 131 phrases / 173 words / 22 grammar points / 9 intent trees, prototype (4 tabs, TTS, show-mode, narrowing builder) |
 | **1 — MVP polish (v0.2 → v1.2.5)** | ✅ Favorites + “Sổ tay của tôi” (localStorage) · ✅ PWA offline · ✅ Global search · ✅ Hotel / pharmacy / insurance phrase sets (12 categories, 167 phrases) · ✅ Builder expanded to 13 intent trees in 4 groups, ordered basic → advanced · ✅ Sentence dissection with role colours + Hepburn romaji · ✅ Builder audit fixes (v1.2.4, §6.5) · ✅ SEO/OG meta |
 | **2 — Scale content (v1.3.0 → v1.6.1)** | ✅ “Nghe & chọn” audio quiz · ✅ Full N5 vocabulary from OpenJLPT (561 từ mới, lazy-loaded, phân trang) · ✅ Counters 1–10 with sound changes · ✅ Notebook export/import JSON · ✅ Example sentences from Tatoeba (460/561 từ N5) · ✅ Pitch-accent display (Kanjium, 726/744 từ) |
-| **3 — Delight** | ✅ Scope narrowing (v2.0.0): chỉ còn **Ghép câu + Từ vựng**, bỏ cụm từ/sổ tay/ngữ pháp/quiz/tìm kiếm (v1.6.1 vẫn trong git history) · ✅ Task-first **⚡ Chọn nhanh** chips + scene-aligned groups + frequency-ordered trees (v2.8.0) · Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card; menu-photo OCR (optional); English UI toggle |
+| **3 — Delight** | ✅ Scope narrowing (v2.0.0): chỉ còn **Ghép câu + Từ vựng**, bỏ cụm từ/sổ tay/ngữ pháp/quiz/tìm kiếm (v1.6.1 vẫn trong git history) · ✅ Task-first **⚡ Chọn nhanh** chips + scene-aligned groups + frequency-ordered trees (v2.8.0) · ✅ Minimal **📝 Ngữ pháp** tab — 23 essential points with builder examples (v2.9.0) · Offline pre-generated audio pack; URL-shareable built sentences (`#s=…`); save-as-image card; menu-photo OCR (optional); English UI toggle |
 
 ---
 

@@ -1,6 +1,6 @@
 "use strict";
-/* app.js — khung ứng dụng hai tab: Ghép câu (builder) và Từ vựng.
-   Gồm: từ vựng (curated + N5 tải nền, câu ví dụ, trọng âm), TTS, PWA. */
+/* app.js — khung ứng dụng ba tab: Ghép câu (builder), Từ vựng và Ngữ pháp.
+   Gồm: từ vựng (curated + N5 tải nền, câu ví dụ, trọng âm), ngữ pháp tối giản, TTS, PWA. */
 
 const QJ = window.QJ || {};
 const view = document.getElementById("view");
@@ -333,6 +333,71 @@ function renderVocab(opts = {}) {
   if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+/* ------------------------------ Ngữ pháp ------------------------------ */
+
+const GRAMMAR_LEVELS = [["basic", "Cần ngay"], ["plus", "Nên biết thêm"]];
+
+function grammarExampleHtml(ex) {
+  const key = U.register({ jp: ex.jp, kana: ex.kana, viPron: ex.viPron, vi: ex.vi });
+  return `
+    <div class="g-ex">
+      <button class="icon-btn g-ex-audio" title="Nghe ví dụ" data-act="speak" data-key="${key}">🔊</button>
+      <div class="g-ex-body">
+        <div class="g-ex-jp">${U.esc(ex.jp)}</div>
+        <div class="g-ex-pron">${U.esc(ex.viPron || "")}${ex.roma ? `<span class="roma"> · ${U.esc(ex.roma)}</span>` : ""}</div>
+        <div class="g-ex-vi">${U.esc(ex.vi)}</div>
+      </div>
+    </div>`;
+}
+
+function grammarPointHtml(g) {
+  return `
+    <details class="g">
+      <summary>
+        <div class="g-head">
+          <h3>${U.esc(g.title)}</h3>
+          <span class="badge ${g.level === "plus" ? "plus" : ""}">${g.level === "plus" ? "nên biết" : "cơ bản"}</span>
+        </div>
+        <div class="g-summary">${U.esc(g.summary)}</div>
+      </summary>
+      <div class="g-body">
+        <p>${U.esc(g.detail)}</p>
+        ${(g.examples || []).map(grammarExampleHtml).join("")}
+      </div>
+    </details>`;
+}
+
+/* Tab Ngữ pháp tối giản: các trợ từ/mẫu câu hay gặp trong tab Ghép câu */
+function renderGrammar() {
+  U.resetReg();
+  const points = (QJ.grammar && QJ.grammar.points) || [];
+  const sections = GRAMMAR_LEVELS.map(([level, label]) => {
+    const list = points.filter(g => g.level === level);
+    if (!list.length) return "";
+    return `
+      <div class="section-title">
+        <h2>${level === "basic" ? "🟢" : "🔵"} ${label}</h2>
+        <span class="desc">${list.length} điểm</span>
+      </div>
+      ${list.map(grammarPointHtml).join("")}`;
+  }).join("");
+
+  view.innerHTML = `
+    <div class="section-title">
+      <h2>📝 Ngữ pháp tối giản</h2>
+      <span class="desc">${points.length} điểm — đủ để hiểu mọi câu trong app</span>
+    </div>
+    <div class="card">
+      <b style="font-size:14px">Cách dùng</b>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:4px">
+        Mở từng điểm để xem giải thích ngắn và ví dụ. Ví dụ lấy từ chính các câu tab 🧩 Ghép câu ráp
+        được, kèm phiên âm Việt + romaji — bấm 🔊 để nghe. Học xong quay lại Ghép câu để dùng thật.
+      </div>
+    </div>
+    ${sections}`;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 /* ------------------------------ Điều hướng tab ------------------------------ */
 
 let currentTab = "builder";
@@ -340,6 +405,7 @@ let currentTab = "builder";
 const TABS = {
   builder: () => window.Builder.open(),
   vocab: renderVocab,
+  grammar: renderGrammar,
 };
 
 function setActiveTab(tab) {
