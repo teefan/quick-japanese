@@ -363,7 +363,6 @@ function grammarPointHtml(g) {
         <div class="g-summary">${U.esc(g.summary)}</div>
         ${pat ? `
           <div class="g-pat">
-            <b>${U.esc(pat.jp)}</b>
             <span class="g-pat-pron">${U.esc(pat.viPron || "")}${pat.roma ? `<span class="roma"> · ${U.esc(pat.roma)}</span>` : ""}</span>
             <button class="icon-btn g-pat-audio" title="Nghe mẫu câu" data-act="speak" data-key="${patKey}">🔊</button>
           </div>` : ""}

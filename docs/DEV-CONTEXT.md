@@ -1,6 +1,6 @@
 # Bối cảnh cho phiên phát triển mới
 
-> Cập nhật: 2026-10-04 · commit `6e5e152` · SW cache `qj-v2.9.1` · Pages built xanh
+> Cập nhật: 2026-10-04 · commit `dbf453b` · SW cache `qj-v2.9.2` · Pages built xanh
 > Live: <https://teefan.github.io/quick-japanese/> · Repo: `teefan/quick-japanese`
 > (bản đầy đủ trước khi thu hẹp nằm ở git history, commit `10532f5` / tag không có — dùng `git log`)
 
@@ -11,10 +11,11 @@ quy ước phiên âm ở [`PRONUNCIATION.md`](PRONUNCIATION.md).
 
 - **SPA tĩnh, vanilla JS**, không framework/bundler. Dữ liệu nguồn là JSON → `npm run build` →
   `data/*.js` (biến toàn cục `window.QJ.*`). Không sửa tay `data/*.js`.
-- **3 tab (v2.9.0)**: **Ghép câu 🧩** (16 cây / 4 nhóm) · **Từ vựng 📚** (747 từ: 186 biên tập +
-  561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá) · **Ngữ pháp 📝** (23 điểm tối giản, ví dụ lấy
-  từ câu ghép được). Lịch sử: v2.0.0 từng thu hẹp còn 2 tab, bỏ cụm từ, sổ tay, quiz “Nghe & chọn”,
-  tìm kiếm toàn cục; **v2.4.0 bỏ thêm** chế độ “Đưa máy” và “Copy” (câu xong chỉ còn 🔊 Nghe).
+- **3 tab (v2.9.x)**: **Ghép câu 🧩** (16 cây / 4 nhóm) · **Từ vựng 📚** (747 từ: 186 biên tập +
+  561 N5; câu ví dụ + trọng âm + số đếm & mệnh giá) · **Ngữ pháp 📝** (23 điểm tối giản; mẫu câu
+  kèm phiên âm Việt + romaji, ví dụ lấy từ câu ghép được). Lịch sử: v2.0.0 từng thu hẹp còn 2 tab,
+  bỏ cụm từ, sổ tay, quiz “Nghe & chọn”, tìm kiếm toàn cục; **v2.4.0 bỏ thêm** chế độ “Đưa máy” và
+  “Copy” (câu xong chỉ còn 🔊 Nghe).
 - **Mọi câu ghép** được ráp từ cây ý định thu hẹp dần; câu cố định trong cây được bóc tách
   thành mảnh, tô màu theo vai trò ngữ pháp, kèm phiên âm Việt + romaji. Hiện có **1.266 câu có thể
   ghép** từ 16 cây; **130 từ biên tập + 39 từ N5** được dùng làm option. Trang chủ Ghép câu có
@@ -162,7 +163,7 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
 ```jsonc
 {
   "id": "particle-wa", "level": "basic",           // basic = cần ngay, plus = nên biết thêm
-  "pattern": { "jp": "は", "kana": "は" },          // mẫu câu hiện ở đầu thẻ (build sinh roma/viPron)
+  "pattern": { "jp": "は", "kana": "は" },          // build sinh roma/viPron; tab chỉ hiện phiên âm (mẫu câu đã có trong tiêu đề)
   "title": "は — trợ từ chủ đề (đọc là 'oa')",
   "summary": "câu tóm tắt hiện khi thu gọn",
   "detail": "giải thích ngắn khi mở ra",
@@ -258,10 +259,11 @@ docs/                      PLAN, DEV-CONTEXT (file này), PRONUNCIATION, screens
   tàu (Tokyo/Kyoto/Osaka/Shinjuku, bỏ khách sạn/đền/chùa/chợ/onsen), thêm 晴れ/曇り; bỏ câu trùng
   医者を呼んでください (giữ ở i-health); mặc định bước chủ ngữ = “Không cần chủ ngữ”.
   Tổng: **16 cây, 1.266 câu**.
-- **v2.9.0 → v2.9.1** thêm lại **📝 Ngữ pháp tối giản**: 23 điểm (19 cơ bản + 4 nên biết), mỗi điểm
-  có mẫu câu (`pattern`) kèm romaji + phiên âm Việt + 🔊, ví dụ lấy từ đúng câu builder ráp được;
-  `data/source/grammar.json` → `data/grammar.js`; build sinh roma/phiên âm bằng lexicon riêng
-  (`GRAMMAR_EXTRA`), audit kiểm luôn. Tab thứ 3 trong thanh dưới; SW cache `qj-v2.9.1`.
+- **v2.9.0 → v2.9.2** thêm lại **📝 Ngữ pháp tối giản**: 23 điểm (19 cơ bản + 4 nên biết), mỗi mẫu
+  câu có **phiên âm Việt + romaji + 🔊** hiện ngay dưới tiêu đề (mẫu câu đã nằm trong tiêu đề/tóm
+  tắt nên không lặp lại); ví dụ lấy từ đúng câu builder ráp được; `data/source/grammar.json` →
+  `data/grammar.js`; build sinh roma/phiên âm bằng lexicon riêng (`GRAMMAR_EXTRA`), audit kiểm luôn.
+  Tab thứ 3 trong thanh dưới; SW cache `qj-v2.9.2`.
 - Việc còn lại:
   1. **Phase 3** (xem `PLAN.md` §10): URL chia sẻ câu ghép (`#s=…`), lưu thẻ thành ảnh,
      gói audio offline, OCR menu (tùy chọn), giao diện tiếng Anh.
